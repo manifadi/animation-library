@@ -1,0 +1,638 @@
+/* ==========================================================================
+   Manzenreiter Sale – Layout Template
+   Free font stack (Helvetica Neue / Arial fallback) – no external font files
+   ========================================================================== */
+
+:root {
+  --green: #c6fa46;
+  --black: #0d0d0d;
+  --white: #ffffff;
+  --img-gray: #d6d6d6;
+  --text-dim: rgba(13, 13, 13, 0.55);
+  --footer-dim: rgba(255, 255, 255, 0.55);
+  --footer-line: rgba(255, 255, 255, 0.12);
+  --container: 1440px;
+  --gutter: clamp(20px, 4vw, 56px);
+  --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--green);
+  color: var(--black);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.wrap {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+/* ---------------------------------- Header ---------------------------------- */
+
+.site-header {
+  padding: 24px 0 12px;
+}
+
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.logo img {
+  height: 48px;
+  width: auto;
+  filter: invert(1); /* source svg is solid white; invert to black */
+}
+
+.main-nav ul {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  font-size: 14px;
+}
+
+.main-nav a {
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+
+.main-nav a:hover {
+  opacity: 0.6;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--black);
+  color: var(--green);
+  border: none;
+  border-radius: 999px;
+  padding: 10px 26px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 6px 2px;
+}
+
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--black);
+}
+
+/* ------------------------------- Hero / Title ------------------------------- */
+
+.hero {
+  padding: 40px 0 32px;
+}
+
+.hero h1 {
+  margin: 0;
+  max-width: 620px;
+  font-size: clamp(2.2rem, 4.4vw, 3.4rem);
+  line-height: 1.08;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.detail-title-row {
+  padding: 40px 0 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.detail-title-row h1 {
+  margin: 0;
+  max-width: 640px;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.price-block {
+  text-align: right;
+  white-space: nowrap;
+  padding-top: 8px;
+}
+
+.price-block .price {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.price-block .price-old {
+  font-size: 14px;
+  color: var(--text-dim);
+  text-decoration: line-through;
+  margin-left: 6px;
+}
+
+/* ----------------------------- Subheader row ----------------------------- */
+
+.subheader-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 10px 0 34px;
+  font-size: 16px;
+  border-bottom: 1px solid rgba(13, 13, 13, 0.12);
+  margin-bottom: 28px;
+}
+
+.subheader-row .accent {
+  font-weight: 600;
+}
+
+/* -------------------------------- Filter row -------------------------------- */
+
+.filter-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 24px;
+  font-size: 13px;
+}
+
+.filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+}
+
+.filter-tabs a {
+  color: var(--text-dim);
+  padding-bottom: 2px;
+}
+
+.filter-tabs a.active {
+  color: var(--black);
+  font-weight: 600;
+  border-bottom: 1px solid var(--black);
+}
+
+.filter-actions {
+  display: flex;
+  gap: 22px;
+  color: var(--text-dim);
+}
+
+/* -------------------------------- Project grid -------------------------------- */
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px 28px;
+  padding-bottom: 20px;
+}
+
+.project-card {
+  display: block;
+}
+
+.project-card .thumb {
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  background: var(--img-gray) url("https://bolduae.com/media/1751900567.webp") center/cover no-repeat;
+  transition: transform 0.35s ease;
+  overflow: hidden;
+}
+
+.project-card:hover .thumb {
+  transform: scale(1.02);
+}
+
+.project-card .title {
+  margin-top: 14px;
+  font-size: 14px;
+}
+
+.price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 15px;
+}
+
+.price-row .arrow {
+  font-size: 14px;
+  margin-right: 2px;
+}
+
+.price-row .price {
+  font-weight: 600;
+}
+
+.price-row .price-old {
+  font-size: 12px;
+  color: var(--text-dim);
+  text-decoration: line-through;
+}
+
+.load-more {
+  text-align: center;
+  padding: 30px 0 60px;
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* -------------------------------- SALE marquee -------------------------------- */
+
+.marquee-section {
+  padding: 2px 0;
+  overflow: hidden;
+}
+
+.marquee-line {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  font-size: clamp(3.5rem, 11vw, 9rem);
+  font-weight: 700;
+  line-height: 0.86;
+  letter-spacing: -0.02em;
+}
+
+.marquee-line span {
+  display: inline-block;
+}
+
+/* Position is driven purely by scroll (see script.js) — no time-based
+   animation. Scrolling down moves the "left" line left and the "right"
+   line right; scrolling up inverts both. */
+.marquee-line {
+  transform: translateX(0);
+  will-change: transform;
+}
+
+/* ---------------------------------- CTA section ---------------------------------- */
+
+.cta-section {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr auto;
+  gap: 40px;
+  padding: 48px 0 40px;
+  align-items: start;
+}
+
+.cta-section h2 {
+  margin: 0;
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.cta-section p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 46ch;
+}
+
+.cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  white-space: nowrap;
+  padding-top: 4px;
+}
+
+.cta-link .arrow-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--black);
+  font-size: 13px;
+}
+
+/* -------------------------------- Feature image -------------------------------- */
+
+.feature-block {
+  padding: 0 0 60px;
+}
+
+.feature-image {
+  margin-left: clamp(0px, 22vw, 320px);
+  aspect-ratio: 16 / 9;
+  background: var(--img-gray) url("https://bolduae.com/media/1751900567.webp") center/cover no-repeat;
+}
+
+.feature-caption {
+  margin-left: clamp(0px, 22vw, 320px);
+  max-width: 46ch;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-dim);
+  padding-top: 16px;
+}
+
+/* -------------------------------- Detail page gallery -------------------------------- */
+
+.detail-hero {
+  aspect-ratio: 16 / 8.5;
+  background: var(--img-gray) url("https://bolduae.com/media/1751900567.webp") center/cover no-repeat;
+  margin-bottom: 32px;
+}
+
+.detail-meta {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr auto;
+  gap: 40px;
+  padding-bottom: 48px;
+  align-items: start;
+}
+
+.detail-meta .title {
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+
+.detail-meta .specs {
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.detail-meta .specs .contact {
+  margin-top: 16px;
+}
+
+.detail-meta .specs a {
+  text-decoration: underline;
+}
+
+.gallery-item {
+  margin-left: clamp(0px, 22vw, 320px);
+  margin-bottom: 40px;
+}
+
+.gallery-item .img {
+  aspect-ratio: 16 / 9;
+  background: var(--img-gray) url("https://bolduae.com/media/1751900567.webp") center/cover no-repeat;
+}
+
+.gallery-item .caption {
+  padding-top: 12px;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px 28px;
+  padding-bottom: 20px;
+}
+
+/* ---------------------------------- Footer ---------------------------------- */
+
+.site-footer {
+  background: var(--black);
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+  padding-top: 70px;
+}
+
+.footer-logo {
+  text-align: center;
+  padding-bottom: 60px;
+}
+
+.footer-logo img {
+  height: 46px;
+  margin: 0 auto;
+  /* source svg is already solid white — no filter needed on the black footer */
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1.4fr;
+  gap: 32px;
+  padding-bottom: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-col h4 {
+  margin: 0 0 18px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--footer-dim);
+}
+
+.footer-col address,
+.footer-col p {
+  font-style: normal;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
+
+.footer-col ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.social-icons a {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--footer-line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+.newsletter-form {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--footer-line);
+  padding-bottom: 10px;
+  margin-top: 4px;
+}
+
+.newsletter-form input {
+  flex: 1;
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 14px;
+  font-family: inherit;
+  padding: 6px 0;
+}
+
+.newsletter-form input::placeholder {
+  color: var(--footer-dim);
+}
+
+.newsletter-form button {
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 16px;
+}
+
+.newsletter-note {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--footer-dim);
+  margin-top: 14px;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--footer-line);
+  padding: 20px 0 26px;
+  font-size: 13px;
+  color: var(--footer-dim);
+  position: relative;
+  z-index: 1;
+}
+
+.back-to-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--white);
+}
+
+.footer-pattern {
+  position: absolute;
+  right: -80px;
+  bottom: -80px;
+  width: 520px;
+  height: 420px;
+  background-image: repeating-linear-gradient(
+      55deg,
+      rgba(255, 255, 255, 0.08) 0px,
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px,
+      transparent 46px
+    ),
+    repeating-linear-gradient(
+      -35deg,
+      rgba(255, 255, 255, 0.06) 0px,
+      rgba(255, 255, 255, 0.06) 1px,
+      transparent 1px,
+      transparent 46px
+    );
+  pointer-events: none;
+}
+
+/* ---------------------------------- Responsive ---------------------------------- */
+
+@media (max-width: 900px) {
+  .main-nav {
+    display: none;
+  }
+
+  .project-grid,
+  .related-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cta-section,
+  .detail-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .feature-image,
+  .feature-caption,
+  .gallery-item {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .project-grid,
+  .related-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-title-row {
+    flex-direction: column;
+  }
+
+  .price-block {
+    text-align: left;
+  }
+}

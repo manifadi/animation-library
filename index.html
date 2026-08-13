@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Animation Tryouts</title>
+<meta name="description" content="Sammlung von Animations- und Website-Experimenten." />
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+<header class="page-header">
+  <div class="wrap">
+    <p class="eyebrow">Animation &amp; Website Tryouts</p>
+    <h1>Eine wachsende Sammlung von Experimenten</h1>
+    <p class="lede">Kleine Animationen, Interaktions- und Website-Versuche — jeder Ordner ein eigenständiges Projekt.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="grid" class="grid" aria-live="polite">
+    <!-- Karten werden per JS eingefügt -->
+  </section>
+
+  <p id="empty-state" class="empty-state" hidden>
+    Noch keine Projekte gefunden. Lege einen Ordner mit einer <code>index.html</code> an und pushe erneut.
+  </p>
+</main>
+
+<footer class="page-footer">
+  <div class="wrap">
+    <p>Automatisch generiert &middot; <span id="project-count"></span></p>
+  </div>
+</footer>
+
+<script src="assets/gallery.js"></script>
+</body>
+</html>
