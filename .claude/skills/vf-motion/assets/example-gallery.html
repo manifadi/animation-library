@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vf-gallery-arrows – Minimalbeispiel</title>
+<link rel="stylesheet" href="vf-gallery-arrows.css">
+<script src="vf-gallery-arrows.js" defer></script>
+<style>
+  body { margin: 0; font-family: system-ui, sans-serif; }
+  .slider { max-width: 1100px; margin: 4rem auto; padding: 0 1.5rem; }
+  .slider-stage { position: relative; aspect-ratio: 2/1; background: #cbbfae; }
+  .slide { position: absolute; inset: 0; display: none; place-items: center; font-size: 2rem; color: #fff; }
+  .slide.active { display: grid; }
+  .arrow { position: absolute; top: 50%; transform: translateY(-50%); background: none; border: 0; color: #fff; font-size: 3rem; cursor: pointer; }
+  .arrow-left { left: 1rem; } .arrow-right { right: 1rem; }
+</style>
+</head>
+<body>
+<div class="slider">
+  <!-- bestehende Galerie: nur data-motion + Selektoren der Original-Pfeile ergänzt -->
+  <div class="slider-stage"
+       data-motion="gallery-arrows"
+       data-gallery-prev=".slider .arrow-left"
+       data-gallery-next=".slider .arrow-right">
+    <div class="slide active" style="background:#b9a993">1</div>
+    <div class="slide" style="background:#8c7a63">2</div>
+    <div class="slide" style="background:#a69a89">3</div>
+    <button class="arrow arrow-left" aria-label="Vorheriges Bild">←</button>
+    <button class="arrow arrow-right" aria-label="Nächstes Bild">→</button>
+  </div>
+</div>
+<script>
+  // steht für die bestehende Slider-Logik der Seite
+  const slides = [...document.querySelectorAll('.slide')]; let i = 0;
+  const show = (n) => { i = (n + slides.length) % slides.length; slides.forEach((s, k) => s.classList.toggle('active', k === i)); };
+  document.querySelector('.arrow-left').addEventListener('click', () => show(i - 1));
+  document.querySelector('.arrow-right').addEventListener('click', () => show(i + 1));
+</script>
+</body>
+</html>

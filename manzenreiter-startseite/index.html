@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<script>
+  // Preloader: sofort aktivieren und Scrollen sperren, solange er sichtbar ist
+  (function (root) {
+    root.classList.add('is-loading');
+    // Nach dem Laden immer oben beim Hero starten (keine wiederhergestellte Scrollposition)
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    var keys = /^(ArrowUp|ArrowDown|PageUp|PageDown|Home|End| |Spacebar)$/;
+    function stop(e) { if (root.classList.contains('is-loading')) e.preventDefault(); }
+    addEventListener('wheel', stop, { passive: false });
+    addEventListener('touchmove', stop, { passive: false });
+    addEventListener('keydown', function (e) { if (keys.test(e.key)) stop(e); });
+  })(document.documentElement);
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Startseite – Manzenreiter</title>
+<script>document.documentElement.classList.add('vfm-js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Inter:wght@400;500&display=swap" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="assets/vf-motion.css" />
+<script src="assets/vf-motion.js" defer></script>
+<link rel="stylesheet" href="assets/vf-gallery-arrows.css" />
+<script src="assets/vf-gallery-arrows.js" defer></script>
+</head>
+<body>
+
+<!-- Preloader -->
+<div class="preloader" aria-hidden="true">
+  <svg class="preloader__m" viewBox="0 0 110 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path class="preloader__fill" fill-rule="evenodd" clip-rule="evenodd" d="M76.0231 64.0176C76.0231 63.6725 76.1134 63.4229 76.174 63.3086C78.7145 57.5382 78.9095 57.179 79.6037 55.5021C80.1589 54.1254 83.006 47.0761 82.9941 47.0761C82.9823 47.0644 76.1586 53.8487 75.8804 54.1254C72.1571 58.0894 65.1028 64.8466 64.2124 65.5555C63.763 65.9218 63.473 66.0973 62.9844 66.0973C62.0714 66.0973 61.3307 65.3636 61.3307 64.4592C61.3307 64.2566 61.3676 64.0635 61.4342 63.8845C62.5623 59.5885 68.9046 48.4257 70.2717 45.5923C73.5979 38.6961 77.2012 30.2572 77.5233 22.1433C77.8086 14.9456 72.1809 8.38739 66.1216 6.25117C54.1801 2.04349 40.4127 3.33535 28.6318 8.2767C21.2624 11.368 17.4606 14.5452 17.4606 14.5452C8.17735 21.5816 10.4563 27.7265 10.4563 27.7265C13.0003 35.288 23.7494 33.1612 23.7494 33.1612C29.9525 32.4794 39.9883 28.7439 45.2202 26.2003C52.3803 22.4907 57.0047 19.4654 58.9056 18.1594C58.971 18.1146 59.0376 18.0817 59.1041 18.0605C59.7508 17.6224 60.5354 17.3668 61.3783 17.3668C62.0999 17.3668 62.7751 17.5517 63.3624 17.8803C65.3691 18.7506 67.3995 20.1366 67.3995 20.1366C67.8905 20.5394 67.9809 21.2542 67.6884 21.7288L67.3924 22.0503C66.8895 22.4248 66.6256 22.7027 66.4592 22.804C60.4534 27.2719 51.6444 31.2923 41.4374 33.8136C33.4737 35.7791 25.7668 36.4892 19.3104 36.4892C8.32476 36.3679 5.23389 34.0869 5.23389 34.0869C1.57121 32.1014 0.58927 29.3457 0.210044 27.8348C-1.96783 19.1863 13.0419 7.55834 33.5522 2.49217C42.5407 0.272331 51.0928 -0.417761 58.1079 0.235824L58.2458 0.335923C69.3325 1.14731 75.5238 5.39621 75.5238 5.39621C81.0326 8.5028 84.0486 15.5863 84.0486 15.5863C87.3297 23.2385 83.8275 35.7909 83.8275 35.7909C82.9941 38.3793 82.2785 40.9112 82.2726 40.9112C82.2785 40.9195 87.5603 36.004 90.8164 33.1188C94.4589 29.5954 98.3118 26.477 98.3118 26.477C98.6922 26.0389 99.2545 25.7634 99.8834 25.7634C101.029 25.7634 101.957 26.6843 101.957 27.8195C101.957 28.0915 101.768 28.7946 101.732 28.9029C100.771 31.7705 99.3817 35.1102 99.3817 35.1102C97.7732 39.0718 96.3895 42.673 96.3336 42.6176C96.3336 42.6176 99.5564 40.3613 102.105 38.6643C103.755 37.4078 105.184 36.6105 106.274 36.209C106.574 36.0983 106.898 36.0394 107.237 36.0394C108.764 36.0394 110 37.2641 110 38.775C110 39.1778 109.913 39.557 109.757 39.9008C109.561 40.4885 109.374 40.8948 109.374 40.8948C107.369 45.4098 105.15 50.7763 105.15 50.7763C99.6979 63.2015 98.244 73.1065 98.244 73.1065C98.0134 74.9837 95.19 76.6347 95.19 76.6347C91.9909 78.9382 88.9619 81.0803 88.0263 81.7421C87.9372 81.808 87.8504 81.8516 87.7862 81.8775C87.6328 81.9552 87.4593 82 87.275 82C86.658 82 86.1563 81.5042 86.1563 80.893C86.1563 80.8565 86.1563 80.8188 86.1611 80.7823C86.4298 74.9071 92.5544 61.1171 92.5544 61.1171C93.7206 58.3084 97.4249 47.9923 97.3786 47.9923C97.4249 47.9476 91.4905 53.4083 90.6012 54.3457C85.0436 59.3553 80.9102 63.7255 80.9102 63.7255C80.1458 64.5758 79.291 65.2023 78.8833 65.4437C78.4969 65.6604 78.1772 65.7605 77.7825 65.7605C76.8112 65.7605 76.0231 64.9797 76.0231 64.0176" />
+    <path class="preloader__stroke" pathLength="1" d="M76.0231 64.0176C76.0231 63.6725 76.1134 63.4229 76.174 63.3086C78.7145 57.5382 78.9095 57.179 79.6037 55.5021C80.1589 54.1254 83.006 47.0761 82.9941 47.0761C82.9823 47.0644 76.1586 53.8487 75.8804 54.1254C72.1571 58.0894 65.1028 64.8466 64.2124 65.5555C63.763 65.9218 63.473 66.0973 62.9844 66.0973C62.0714 66.0973 61.3307 65.3636 61.3307 64.4592C61.3307 64.2566 61.3676 64.0635 61.4342 63.8845C62.5623 59.5885 68.9046 48.4257 70.2717 45.5923C73.5979 38.6961 77.2012 30.2572 77.5233 22.1433C77.8086 14.9456 72.1809 8.38739 66.1216 6.25117C54.1801 2.04349 40.4127 3.33535 28.6318 8.2767C21.2624 11.368 17.4606 14.5452 17.4606 14.5452C8.17735 21.5816 10.4563 27.7265 10.4563 27.7265C13.0003 35.288 23.7494 33.1612 23.7494 33.1612C29.9525 32.4794 39.9883 28.7439 45.2202 26.2003C52.3803 22.4907 57.0047 19.4654 58.9056 18.1594C58.971 18.1146 59.0376 18.0817 59.1041 18.0605C59.7508 17.6224 60.5354 17.3668 61.3783 17.3668C62.0999 17.3668 62.7751 17.5517 63.3624 17.8803C65.3691 18.7506 67.3995 20.1366 67.3995 20.1366C67.8905 20.5394 67.9809 21.2542 67.6884 21.7288L67.3924 22.0503C66.8895 22.4248 66.6256 22.7027 66.4592 22.804C60.4534 27.2719 51.6444 31.2923 41.4374 33.8136C33.4737 35.7791 25.7668 36.4892 19.3104 36.4892C8.32476 36.3679 5.23389 34.0869 5.23389 34.0869C1.57121 32.1014 0.58927 29.3457 0.210044 27.8348C-1.96783 19.1863 13.0419 7.55834 33.5522 2.49217C42.5407 0.272331 51.0928 -0.417761 58.1079 0.235824L58.2458 0.335923C69.3325 1.14731 75.5238 5.39621 75.5238 5.39621C81.0326 8.5028 84.0486 15.5863 84.0486 15.5863C87.3297 23.2385 83.8275 35.7909 83.8275 35.7909C82.9941 38.3793 82.2785 40.9112 82.2726 40.9112C82.2785 40.9195 87.5603 36.004 90.8164 33.1188C94.4589 29.5954 98.3118 26.477 98.3118 26.477C98.6922 26.0389 99.2545 25.7634 99.8834 25.7634C101.029 25.7634 101.957 26.6843 101.957 27.8195C101.957 28.0915 101.768 28.7946 101.732 28.9029C100.771 31.7705 99.3817 35.1102 99.3817 35.1102C97.7732 39.0718 96.3895 42.673 96.3336 42.6176C96.3336 42.6176 99.5564 40.3613 102.105 38.6643C103.755 37.4078 105.184 36.6105 106.274 36.209C106.574 36.0983 106.898 36.0394 107.237 36.0394C108.764 36.0394 110 37.2641 110 38.775C110 39.1778 109.913 39.557 109.757 39.9008C109.561 40.4885 109.374 40.8948 109.374 40.8948C107.369 45.4098 105.15 50.7763 105.15 50.7763C99.6979 63.2015 98.244 73.1065 98.244 73.1065C98.0134 74.9837 95.19 76.6347 95.19 76.6347C91.9909 78.9382 88.9619 81.0803 88.0263 81.7421C87.9372 81.808 87.8504 81.8516 87.7862 81.8775C87.6328 81.9552 87.4593 82 87.275 82C86.658 82 86.1563 81.5042 86.1563 80.893C86.1563 80.8565 86.1563 80.8188 86.1611 80.7823C86.4298 74.9071 92.5544 61.1171 92.5544 61.1171C93.7206 58.3084 97.4249 47.9923 97.3786 47.9923C97.4249 47.9476 91.4905 53.4083 90.6012 54.3457C85.0436 59.3553 80.9102 63.7255 80.9102 63.7255C80.1458 64.5758 79.291 65.2023 78.8833 65.4437C78.4969 65.6604 78.1772 65.7605 77.7825 65.7605C76.8112 65.7605 76.0231 64.9797 76.0231 64.0176" />
+  </svg>
+</div>
+<div class="preloader-curtain" aria-hidden="true"></div>
+
+<!-- Vollbild-Menü (Figma: Website Design (2026) / 11 Navigation 1 + 2) -->
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Animationserklärungen" hidden>
+  <div class="menu__top">
+    <a class="menu__logo" href="index.html">
+      <img src="assets/logo.svg" alt="Manzenreiter" />
+    </a>
+    <button class="menu__close" type="button" aria-label="Menü schließen" data-menu-close>
+      <span></span><span></span>
+    </button>
+  </div>
+
+  <nav class="menu__nav" aria-label="Animationen">
+    <ul>
+      <li><a href="#anim-preloader" data-panel-open="preloader" aria-controls="sidepanel">Preloader</a></li>
+      <li><a href="#anim-lift" data-panel-open="lift" aria-controls="sidepanel">Lift-Text-Reveal</a></li>
+      <li><a href="#anim-curtain" data-panel-open="curtain" aria-controls="sidepanel">Curtain-Image-Reveal</a></li>
+      <li><a href="#anim-wave" data-panel-open="wave" aria-controls="sidepanel">Wave-Button-Hover</a></li>
+      <li><a href="#anim-gallery" data-panel-open="gallery" aria-controls="sidepanel">Gallery-Arrows</a></li>
+      <li><a href="#hinweise" data-panel-open="notes" aria-controls="sidepanel">Hinweise</a></li>
+    </ul>
+  </nav>
+
+  <div class="menu__bar">
+    <p class="hero__claim"><span>Das ist Innenarchitektur</span><span class="accent">Pur</span></p>
+    <p>seit 1947</p>
+  </div>
+</div>
+
+<!-- Sidepanel: Animationserklärungen (Figma: Website Content Aufbereitung / Sidepanel) -->
+<div class="sidepanel" id="sidepanel" hidden>
+  <div class="sidepanel__backdrop" data-panel-close></div>
+  <aside class="sidepanel__panel" role="dialog" aria-modal="true" aria-labelledby="sidepanel-title">
+    <button class="sidepanel__close" type="button" aria-label="Erklärung schließen" data-panel-close>
+      <span></span><span></span>
+    </button>
+    <div class="sidepanel__scroll">
+      <article class="sidepanel__article" data-panel="preloader" hidden>
+        <h2 class="sidepanel__title">Preloader</h2>
+        <div class="sidepanel__text">
+          <p>Beim ersten Laden liegt eine weiße Fläche über der Seite. Darauf wird das Manzenreiter-M in einem Zug gezeichnet. Danach wischt eine schwarze Fläche von oben herein, und die Seite erscheint.</p>
+        </div>
+        <h3 class="sidepanel__sub">So funktioniert es</h3>
+        <div class="sidepanel__text">
+          <p>Das M liegt als Inline-SVG im Layout. Die Kontur wird über <code>stroke-dasharray</code>/<code>stroke-dashoffset</code> gezeichnet. Mit <code>pathLength="1"</code> läuft der Offset einfach von 1 auf 0. Danach blendet die Füllung ein.</p>
+          <p>Der Loader bleibt mindestens 1,7 s stehen und wartet zusätzlich auf das <code>load</code>-Event. Dann läuft der schwarze Curtain. Bei voller Deckung wird der Loader entfernt. Solange er sichtbar ist, lässt sich nicht scrollen. Das sperren <code>overflow: hidden</code> auf <code>html</code>/<code>body</code> und das Inline-Script, das Mausrad, Touch-Wischen und Scroll-Tasten blockiert.</p>
+        </div>
+        <h3 class="sidepanel__sub">Einbau in Pimcore</h3>
+        <div class="sidepanel__text">
+          <p>Der Preloader gehört ins <strong>Haupt-Layout</strong> (z. B. <code>templates/layouts/default.html.twig</code>), nicht in eine Seite oder ein Areabrick. Dann gilt er für alle Dokumente.</p>
+          <p>Im Pimcore-Editmode (Bearbeiten im Backend) nicht ausführen. Sonst liegt der Loader im Backend über der Seite, und Redakteure sehen beim Bearbeiten jedes Mal die Animation. Im Twig-Template steht dafür die Variable <code>editmode</code> bereit.</p>
+          <p>Falls er nur beim ersten Seitenaufruf einer Sitzung erscheinen soll, lässt sich das per <code>sessionStorage</code> im Inline-Script lösen.</p>
+        </div>
+        <figure class="sidepanel__code">
+          <figcaption>Twig · Layout</figcaption>
+          <pre><code>&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  {% if not editmode %}
+    &lt;script&gt;document.documentElement.classList.add('is-loading')&lt;/script&gt;
+  {% endif %}
+  …
+&lt;/head&gt;
+&lt;body&gt;
+  {% if not editmode %}
+    &lt;div class="preloader" aria-hidden="true"&gt;
+      &lt;svg class="preloader__m" viewBox="0 0 110 82"&gt;
+        &lt;path class="preloader__fill" d="…" /&gt;
+        &lt;path class="preloader__stroke" pathLength="1" d="…" /&gt;
+      &lt;/svg&gt;
+    &lt;/div&gt;
+    &lt;div class="preloader-curtain" aria-hidden="true"&gt;&lt;/div&gt;
+  {% endif %}</code></pre>
+        </figure>
+        <figure class="sidepanel__code">
+          <figcaption>CSS</figcaption>
+          <pre><code>.preloader__stroke {
+  fill: none;
+  stroke: currentColor;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 1.15s cubic-bezier(.65, 0, .35, 1) .15s forwards;
+}
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+.is-revealing .preloader-curtain {
+  animation: curtain 1.5s cubic-bezier(.77, 0, .18, 1) both;
+}
+@keyframes curtain {
+  0%   { transform: scaleY(0); transform-origin: center top; }
+  45%  { transform: scaleY(1); transform-origin: center top; }
+  55%  { transform: scaleY(1); transform-origin: center bottom; }
+  100% { transform: scaleY(0); transform-origin: center bottom; }
+}</code></pre>
+        </figure>
+        <figure class="sidepanel__code">
+          <figcaption>JS</figcaption>
+          <pre><code>const minTime = new Promise(r =&gt; setTimeout(r, 1700));
+const loaded  = new Promise(r =&gt; addEventListener('load', r, { once: true }));
+
+Promise.all([minTime, loaded]).then(() =&gt; {
+  setTimeout(() =&gt; {
+    root.classList.add('is-revealing');
+    setTimeout(() =&gt; loader.classList.add('is-hidden'), 750);   // bei voller Deckung
+    curtain.addEventListener('animationend', finish, { once: true });
+  }, 150);
+});</code></pre>
+        </figure>
+      </article>
+      <article class="sidepanel__article" data-panel="lift" hidden>
+        <h2 class="sidepanel__title">Lift-Text-Reveal</h2>
+        <div class="sidepanel__text">
+          <p>Jede Textzeile startet leicht unscharf, mit halber Deckkraft und etwas nach unten versetzt. Sobald sie ins Bild scrollt, wird sie scharf. Verlässt sie den Bildschirm, läuft das Ganze rückwärts, beim Runter- wie beim Hochscrollen.</p>
+        </div>
+        <h3 class="sidepanel__sub">So funktioniert es</h3>
+        <div class="sidepanel__text">
+          <p>Ein Script zerlegt den Text in Wörter (<code>span.vfm-w</code>) und gruppiert sie nach der tatsächlichen Zeile. Ein <code>IntersectionObserver</code> schaltet jede Zeile, sobald sie die Randzone am oberen oder unteren Bildschirmrand kreuzt. Nach einer Größenänderung des Fensters wird neu umbrochen.</p>
+        </div>
+        <h3 class="sidepanel__sub">Einbau in Pimcore</h3>
+        <div class="sidepanel__text">
+          <p>Das Attribut <code>data-motion="lift"</code> kommt in die Twig-Templates der Areabricks, und zwar auf jedes einzelne Textelement, also Überschrift und jeden Absatz.</p>
+          <p><strong>WYSIWYG-Felder:</strong> <code>pimcore_wysiwyg</code> gibt mehrere <code>&lt;p&gt;</code> aus, an die man im Template nicht direkt herankommt. Dafür den Container markieren (z. B. <code>data-lift-children</code>) und die Absätze per Script vor dem Start auszeichnen (siehe JS).</p>
+          <p>Im Pimcore-Editmode (Bearbeiten im Backend) nicht ausführen. Lift zerlegt den Text in einzelne <code>&lt;span&gt;</code>. Das würde das Inline-Editing von <code>pimcore_input</code>/<code>pimcore_wysiwyg</code> zerstören.</p>
+        </div>
+        <figure class="sidepanel__code">
+          <figcaption>Twig · Areabrick view.html.twig</figcaption>
+          <pre><code>&lt;section class="intro"&gt;
+  &lt;h2 class="intro__title" {% if not editmode %}data-motion="lift"{% endif %}&gt;
+    {{ pimcore_input('headline') }}
+  &lt;/h2&gt;
+  &lt;div class="intro__text" {% if not editmode %}data-lift-children{% endif %}&gt;
+    {{ pimcore_wysiwyg('text') }}
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </figure>
+        <figure class="sidepanel__code">
+          <figcaption>JS</figcaption>
+          <pre><code>// Absätze aus WYSIWYG-Feldern auszeichnen – vor vf-motion.js ausführen
+document.querySelectorAll('[data-lift-children]').forEach(box =&gt; {
+  box.querySelectorAll('p, h2, h3, h4, li').forEach(el =&gt; {
+    el.setAttribute('data-motion', 'lift');
+  });
+});</code></pre>
+        </figure>
+        <figure class="sidepanel__code">
+          <figcaption>CSS</figcaption>
+          <pre><code>.vfm-w {
+  display: inline-block;
+  opacity: .5;
+  filter: blur(8px);
+  transform: translateY(.45em);
+  transition:
+    opacity .9s cubic-bezier(.16, 1, .3, 1),
+    filter 1s cubic-bezier(.16, 1, .3, 1),
+    transform 1.1s cubic-bezier(.16, 1, .3, 1);
+}
+.vfm-w.vfm-on { opacity: 1; filter: blur(0); transform: none; }</code></pre>
+        </figure>
+      </article>
+      <article class="sidepanel__article" data-panel="curtain" hidden>
+        <h2 class="sidepanel__title">Curtain-Image-Reveal</h2>
+        <div class="sidepanel__text">
+          <p>Sobald ein Bild oder Video zu etwa einem Drittel sichtbar ist, fällt eine schwarze Fläche von oben darüber, gibt das Medium frei und zieht nach unten ab. Das Medium gleitet dabei aus einem leichten Zoom in Position. Die drei Kacheln starten mit je 150 ms Versatz.</p>
+        </div>
+        <h3 class="sidepanel__sub">So funktioniert es</h3>
+        <div class="sidepanel__text">
+          <p>Die Fläche ist ein <code>::after</code> des Containers. Zwischen 45 % und 55 % der Animation wechselt der <code>transform-origin</code> von oben nach unten. Der Reveal läuft nur einmal pro Seitenaufruf.</p>
+        </div>
+        <h3 class="sidepanel__sub">Einbau in Pimcore</h3>
+        <div class="sidepanel__text">
+          <p><code>data-motion="curtain"</code> kommt auf den Container, dessen <strong>direktes Kind</strong> das Medium ist. Das passt zu <code>pimcore_image</code> mit Thumbnail-Konfiguration: Es gibt ein <code>&lt;picture&gt;</code> aus, und genau das wird animiert. Videos funktionieren genauso (siehe Hinweise).</p>
+          <p>Im Pimcore-Editmode (Bearbeiten im Backend) nicht ausführen. Sonst sind Bilder im Backend unsichtbar, bis man scrollt. Den grauen Platzhalter-Hintergrund der Kachel im Editmode stehen lassen, damit leere Bildfelder sichtbar bleiben.</p>
+        </div>
+        <figure class="sidepanel__code">
+          <figcaption>Twig · Areabrick view.html.twig</figcaption>
+          <pre><code>&lt;a class="card" href="{{ pimcore_link('link').getHref() }}"&gt;
+  &lt;div class="card__media" {% if not editmode %}data-motion="curtain"{% endif %}&gt;
+    {{ pimcore_image('image', { thumbnail: 'teaser-card' }) }}
+  &lt;/div&gt;
+  &lt;p class="card__label"&gt;{{ pimcore_input('label') }}&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+        </figure>
+        <figure class="sidepanel__code">
+          <figcaption>CSS</figcaption>
+          <pre><code>[data-motion~="curtain"] { position: relative; overflow: hidden; }
+[data-motion~="curtain"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: #000;
+  transform: scaleY(0);
+}
+[data-motion~="curtain"] &gt; :is(img, picture, video) {
+  opacity: 0;
+  transform: scale(1.08) translateY(-3%);
+}
+.vfm-in::after {
+  animation: curtain 1.6s cubic-bezier(.77, 0, .18, 1) both;
+  animation-delay: var(--curtain-delay, 0s);
+}
+
+/* Versatz der Kacheln */
+.card:nth-child(2) .card__media { --curtain-delay: 150ms; }
+.card:nth-child(3) .card__media { --curtain-delay: 300ms; }</code></pre>
+        </figure>
+        <figure class="sidepanel__code">
+          <figcaption>JS</figcaption>
+          <pre><code>const io = new IntersectionObserver(entries =&gt; {
+  entries.forEach(e =&gt; {
+    if (e.intersectionRatio &gt;= .35) {
+      e.target.classList.add('vfm-in');
+      io.unobserve(e.target);              // nur einmal
+    }
+  });
+}, { threshold: [0, .35] });
+
+document.querySelectorAll('[data-motion~="curtain"]').forEach(el =&gt; io.observe(el));</code></pre>
+        </figure>
+      </article>
+      <article class="sidepanel__article" data-panel="wave" hidden>
+        <h2 class="sidepanel__title">Wave-Button-Hover</h2>
+        <div class="sidepanel__text">
+          <p>Beim Hover schiebt sich von rechts eine Fläche mit fließender Wellenkante über den Button. Der grüne Button wird dabei schwarz mit grüner Schrift. Beim Verlassen zieht sie sich nach rechts zurück, ohne Nachwippen.</p>
+        </div>
+        <h3 class="sidepanel__sub">So funktioniert es</h3>
+        <div class="sidepanel__text">
+          <p>Die Wellenkante ist eine CSS-<code>mask</code> aus einem kleinen SVG-Wellenstück, das senkrecht wiederholt und laufend verschoben wird. Die Fläche liegt per <code>mix-blend-mode: difference</code> über dem Inhalt. Ist die Fläche so grün wie der Button, ergibt Grün minus Grün Schwarz und Grün minus Schwarz Grün.</p>
+          <p>Damit an den Pixelkanten kein grüner Saum bleibt, ragen Grün und Fläche 2 px über den Button hinaus. Abgeschnitten wird nur einmal per <code>clip-path</code>.</p>
+        </div>
+        <h3 class="sidepanel__sub">Einbau in Pimcore</h3>
+        <div class="sidepanel__text">
+          <p>Das Attribut kommt auf den Link, den <code>pimcore_link</code> ausgibt, oder auf ein eigenes <code>&lt;a&gt;</code> mit dessen <code>href</code>. Am einfachsten ist ein Button-Template als Twig-Include, das überall wiederverwendet wird.</p>
+          <p>Im Editmode darf der Effekt bleiben, er stört das Bearbeiten nicht. Nur das Script hängt zwei leere <code>&lt;span&gt;</code> an den Button.</p>
+        </div>
+        <figure class="sidepanel__code">
+          <figcaption>Twig · Include _button.html.twig</figcaption>
+          <pre><code>{% set link = pimcore_link(name) %}
+{% if editmode %}
+  {{ link }}
+{% else %}
+  &lt;a class="btn-pill" href="{{ link.getHref() }}" data-motion="wave"&gt;
+    {{ link.getText() }}
+  &lt;/a&gt;
+{% endif %}</code></pre>
+        </figure>
+        <figure class="sidepanel__code">
+          <figcaption>CSS</figcaption>
+          <pre><code>.vfm-wave &gt; .vfm-fill {
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: calc(100% + 28px);
+  background: var(--vfm-wave-fill, #fff);
+  mix-blend-mode: difference;
+  transform: translateX(101%);
+  mask: url(wave.svg) 0 0 / 28px 44px repeat-y,
+        linear-gradient(#000 0 0) 27px 0 / 100% 100% no-repeat;
+  animation: flow 1.1s linear infinite;
+}
+.vfm-wave.vfm-in &gt; .vfm-fill { transform: translateX(-28px); transition: transform 1s cubic-bezier(.16, 1, .3, 1); }
+
+/* grüner Button ohne Saum */
+.btn-pill.vfm-wave {
+  --vfm-wave-fill: #b6ff4d;
+  background: transparent;
+  clip-path: inset(0 round 999px);
+}
+.btn-pill.vfm-wave::before { content: ""; position: absolute; inset: -2px; z-index: -2; background: #b6ff4d; }
+.btn-pill.vfm-wave &gt; .vfm-fill { top: -2px; bottom: -2px; width: calc(100% + 30px); }</code></pre>
+        </figure>
+      </article>
+      <article class="sidepanel__article" data-panel="gallery" hidden>
+        <h2 class="sidepanel__title">Gallery-Arrows</h2>
+        <div class="sidepanel__text">
+          <p>Statt fester Pfeile erscheint im linken bzw. rechten Drittel des Bildes eine weiße Bubble mit Pfeil direkt am Mauszeiger. Sie folgt ihm mit leichter Trägheit, wird bei schneller Bewegung größer und beim Drücken grün. Ein Klick in der Zone blättert.</p>
+        </div>
+        <h3 class="sidepanel__sub">So funktioniert es</h3>
+        <div class="sidepanel__text">
+          <p>Die Bibliothek baut keinen eigenen Slider. Sie blendet die vorhandenen Pfeile aus und löst bei einem Klick <code>.click()</code> auf dem originalen Pfeil aus. Die Bewegung läuft über eine <code>requestAnimationFrame</code>-Schleife, die schläft, wenn nichts animiert. Auf Touch-Geräten stehen die Bubbles fest links und rechts.</p>
+        </div>
+        <h3 class="sidepanel__sub">Einbau in Pimcore</h3>
+        <div class="sidepanel__text">
+          <p>Galerien werden in Pimcore meist mit einem <code>pimcore_block</code> oder einem Bildergalerie-Areabrick gebaut, oft zusammen mit Swiper oder Slick. Das bleibt alles so. Es kommen nur das Attribut und die Selektoren der vorhandenen Pfeile auf die Bildfläche.</p>
+          <p>Im Editmode die Pfeile lieber normal lassen, also das Attribut weglassen. Sonst fängt die Zone Klicks ab, die Redakteure zum Bearbeiten der Bilder brauchen.</p>
+        </div>
+        <figure class="sidepanel__code">
+          <figcaption>Twig · Areabrick view.html.twig</figcaption>
+          <pre><code>&lt;section class="slider"&gt;
+  &lt;div class="slider__stage"
+       {% if not editmode %}
+       data-motion="gallery-arrows"
+       data-gallery-prev=".slider .slider__btn--prev"
+       data-gallery-next=".slider .slider__btn--next"
+       {% endif %}&gt;
+    {% for i in pimcore_block('slides').iterator %}
+      &lt;div class="slide"&gt;{{ pimcore_image('image', { thumbnail: 'gallery' }) }}&lt;/div&gt;
+    {% endfor %}
+    &lt;button class="slider__btn slider__btn--prev" aria-label="Vorheriges Bild"&gt;…&lt;/button&gt;
+    &lt;button class="slider__btn slider__btn--next" aria-label="Nächstes Bild"&gt;…&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </figure>
+        <figure class="sidepanel__code">
+          <figcaption>CSS</figcaption>
+          <pre><code>.vfg-original { display: none !important; }
+.vfg-bubble {
+  position: absolute;
+  width: clamp(48px, 4.6vw, 68px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fff;
+}
+.vfg-bubble.vfg-pressed { background: var(--vfg-accent); }
+.slider__stage { --vfg-accent: #b6ff4d; }</code></pre>
+        </figure>
+        <figure class="sidepanel__code">
+          <figcaption>JS</figcaption>
+          <pre><code>stage.addEventListener('pointermove', e =&gt; {
+  const r = stage.getBoundingClientRect();
+  const x = e.clientX - r.left;
+  zone = x &lt; r.width * .3 ? 'prev' : x &gt; r.width * .7 ? 'next' : null;
+  target = { x, y: e.clientY - r.top };
+  start();                                    // rAF-Schleife wecken
+});
+// Klick in der Zone → Original-Pfeil der bestehenden Galerie
+stage.addEventListener('click', () =&gt; zone &amp;&amp; original[zone].click());</code></pre>
+        </figure>
+      </article>
+      <article class="sidepanel__article" data-panel="notes" hidden>
+        <h2 class="sidepanel__title">Hinweise</h2>
+        <div class="sidepanel__text">
+          <p>Alles, was über die einzelnen Animationen hinaus wichtig ist, um das Konzept in ein Pimcore-Projekt zu übernehmen.</p>
+        </div>
+        <h3 class="sidepanel__sub">Was diese Seite ist</h3>
+        <div class="sidepanel__text">
+          <p>Ein statischer Prototyp (HTML, CSS, JS, ohne Build-Step) für GitHub Pages. Er zeigt Look und Bewegung. In Pimcore wird daraus ein Layout-Template plus einzelne Areabricks pro Section (Hero, Intro, Kacheln, Werkstatt, Slider, Zitat, Marken). Redakteure können die Sections dann frei auf Seiten platzieren.</p>
+        </div>
+        <h3 class="sidepanel__sub">Dateien im Pimcore-Projekt</h3>
+        <div class="sidepanel__text">
+          <p>Die Bibliotheken <code>vf-motion.css/.js</code> und <code>vf-gallery-arrows.css/.js</code> unverändert übernehmen, z. B. nach <code>public/static/</code> oder in die Webpack-Encore-Einträge, falls das Projekt Encore nutzt. Eigene Anpassungen in ein separates Projekt-Stylesheet bzw. -Script, nie in die Bibliotheken selbst. So bleiben sie updatefähig.</p>
+        </div>
+        <h3 class="sidepanel__sub">Ladereihenfolge im Layout</h3>
+        <div class="sidepanel__text">
+          <p>Die Inline-Snippets für <code>is-loading</code> und <code>vfm-js</code> ganz oben im <code>&lt;head&gt;</code>. Das Projekt-Script, das Preloader und Lift steuert, muss <strong>vor</strong> den per <code>defer</code> geladenen Bibliotheken laufen. Also ohne <code>defer</code> am Ende des <code>&lt;body&gt;</code>, oder die Bibliotheken danach einbinden.</p>
+        </div>
+        <figure class="sidepanel__code">
+          <figcaption>Twig · Layout</figcaption>
+          <pre><code>&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  {% if not editmode %}
+    &lt;script&gt;document.documentElement.classList.add('is-loading', 'vfm-js')&lt;/script&gt;
+  {% endif %}
+  &lt;link rel="stylesheet" href="{{ asset('static/css/styles.css') }}"&gt;
+  &lt;link rel="stylesheet" href="{{ asset('static/vf-motion/vf-motion.css') }}"&gt;
+  &lt;link rel="stylesheet" href="{{ asset('static/vf-motion/vf-gallery-arrows.css') }}"&gt;
+  {% if not editmode %}
+    &lt;script src="{{ asset('static/vf-motion/vf-motion.js') }}" defer&gt;&lt;/script&gt;
+    &lt;script src="{{ asset('static/vf-motion/vf-gallery-arrows.js') }}" defer&gt;&lt;/script&gt;
+  {% endif %}
+&lt;/head&gt;
+&lt;body&gt;
+  {{ block('content') }}
+  &lt;script src="{{ asset('static/js/script.js') }}"&gt;&lt;/script&gt;  {# ohne defer #}
+&lt;/body&gt;</code></pre>
+        </figure>
+        <h3 class="sidepanel__sub">Editmode – wichtigster Punkt</h3>
+        <div class="sidepanel__text">
+          <p>Im Editmode (Bearbeiten im Pimcore-Backend) sollten Preloader, Lift, Curtain und Gallery-Arrows nicht laufen. Sie verdecken Inhalte, zerlegen editierbaren Text oder fangen Klicks ab. Am einfachsten setzt man alle <code>data-motion</code>-Attribute und die Bibliotheks-Scripts nur bei <code>{% if not editmode %}</code>. Die Wave-Buttons, Dauer-Videos und die Neon-Animation stören nicht.</p>
+        </div>
+        <h3 class="sidepanel__sub">Navigation</h3>
+        <div class="sidepanel__text">
+          <p>Hauptnavigation und Menü kommen in Pimcore aus dem Dokumentenbaum (<code>pimcore_build_nav</code>). Die fliegende grüne Hover-Linie braucht nur die fertigen Links im Container <code>.site-nav</code>. Der Sticky-Header (weg beim Runterscrollen, weiß beim Hochscrollen) ist reines CSS/JS im Layout.</p>
+        </div>
+        <figure class="sidepanel__code">
+          <figcaption>Twig · Navigation</figcaption>
+          <pre><code>{% set nav = pimcore_build_nav({ active: document, root: navStartNode }) %}
+&lt;nav class="site-nav"&gt;
+  {% for page in nav %}
+    {% if page.isVisible() %}
+      &lt;a href="{{ page.getHref() }}"&gt;{{ page.getLabel() }}&lt;/a&gt;
+    {% endif %}
+  {% endfor %}
+&lt;/nav&gt;</code></pre>
+        </figure>
+        <h3 class="sidepanel__sub">Videos</h3>
+        <div class="sidepanel__text">
+          <p>Hintergrund-Videos (Hero, Kacheln, Werkstatt) als Pimcore-Assets pflegen und im Template mit eigenem <code>&lt;video&gt;</code>-Tag ausgeben: <code>autoplay muted loop playsinline</code> plus <code>poster</code>. Format MP4 (H.264), möglichst unter 5 MB. Wenn Pimcore Videos selbst umrechnen soll (Video-Thumbnails), braucht der Server FFmpeg.</p>
+        </div>
+        <figure class="sidepanel__code">
+          <figcaption>Twig · Areabrick</figcaption>
+          <pre><code>{% if editmode %}
+  {{ pimcore_relation('video', { types: ['asset'], subtypes: { asset: ['video'] } }) }}
+{% else %}
+  {% set video = pimcore_relation('video').getElement() %}
+  {% if video %}
+    &lt;video src="{{ video.getFullPath() }}" autoplay muted loop playsinline
+           aria-hidden="true"&gt;&lt;/video&gt;
+  {% endif %}
+{% endif %}</code></pre>
+        </figure>
+        <h3 class="sidepanel__sub">Responsive Skalierung</h3>
+        <div class="sidepanel__text">
+          <p>Alle Maße aus Figma (1600 px) sind als Vielfaches von <code>--u</code> notiert. <code>--k</code> ist das Verhältnis Breite / 1600, begrenzt auf 0,64 bis 1,2. Unter 1025 px und 768 px greifen eigene Layouts. <code>container-type</code> sitzt bewusst auf den Seitenbereichen (<code>main</code>, Hero, Footer) und nicht auf <code>body</code>. Sonst können fixe Elemente wie Header, Menü und Panel mitscrollen.</p>
+        </div>
+        <figure class="sidepanel__code">
+          <figcaption>CSS</figcaption>
+          <pre><code>:root {
+  --k: clamp(0.64, tan(atan2(100cqw, 1600px)), 1.2);
+  --u: calc(1px * var(--k));
+}
+main, .hero, .site-footer { container-type: inline-size; }
+
+.intro__title { font-size: max(22px, calc(30 * var(--u))); }</code></pre>
+        </figure>
+        <h3 class="sidepanel__sub">Schrift</h3>
+        <div class="sidepanel__text">
+          <p>Vorgesehen ist <strong>Suisse Intl</strong>. Die Lizenz hat Manzenreiter, deshalb fehlt sie in diesem öffentlichen Prototyp. Hier steht <strong>Inter</strong> (Google Fonts) als Ersatz. Im Pimcore-Projekt die lizenzierten Webfonts (<code>.woff2</code>) ablegen, per <code>@font-face</code> einbinden und an den Anfang von <code>--font-sans</code> setzen. Die Marken-Pills sind auf die Laufweite von Suisse Intl abgestimmt und wachsen bei breiterer Schrift automatisch mit.</p>
+        </div>
+        <h3 class="sidepanel__sub">Offene Punkte</h3>
+        <div class="sidepanel__text">
+          <p>Links stehen im Prototyp auf <code>#</code>. Der Showroom-Slider hat nur ein Bild, beim Blättern wandert nur die Nummer.</p>
+          <p>Menü und Sidepanel haben noch keinen Focus-Trap für Tastaturnutzer.</p>
+          <p>Die Codebeispiele zeigen das Prinzip. Pimcore-Details wie Editable-Namen, Thumbnail-Konfigurationen und Template-Pfade richten sich nach dem jeweiligen Projekt und der Pimcore-Version.</p>
+          <p>„Bewegung reduzieren“ in den Systemeinstellungen wird überall berücksichtigt.</p>
+        </div>
+      </article>
+    </div>
+  </aside>
+</div>
+
+<!-- Header (sticky, Logik in script.js) -->
+<header class="site-header">
+  <a class="site-header__logo" href="index.html">
+    <img src="assets/logo.svg" alt="Manzenreiter" />
+  </a>
+  <nav class="site-nav">
+    <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="menu" data-menu-open>
+      Animationserklärungen
+      <svg class="site-nav__chevron" viewBox="0 0 12 7" aria-hidden="true"><path d="M1 1l5 5 5-5" /></svg>
+    </button>
+    <a href="#">Manzenreiter</a>
+    <a href="#">Projekte</a>
+    <a href="#">Marken</a>
+    <a class="site-nav__sale" href="#" data-motion="wave">Sale</a>
+  </nav>
+  <button class="burger" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menu" data-menu-open>
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero__media">
+    <video src="assets/hero.mp4" poster="assets/hero.png" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+  </div>
+
+
+  <div class="hero__content">
+    <h1 class="hero__title">Pures Wohnglück überlässt nichts<br />dem Zufall.</h1>
+    <a class="btn-pill" href="#" data-motion="wave">Mehr erfahren</a>
+  </div>
+
+  <div class="hero__bar">
+    <p class="hero__claim"><span>Das ist Innenarchitektur</span><span class="accent">Pur</span></p>
+    <p>seit 1947</p>
+  </div>
+</section>
+
+<main>
+
+  <!-- Intro: Innenarchitektur -->
+  <section class="intro intro--first">
+    <h2 class="intro__title" data-motion="lift">Pures Verständnis für Raum beginnt mit dem Blick fürs Ganze.</h2>
+    <div class="intro__text">
+      <p data-motion="lift">Seit 1947 steht Innenarchitektur bei uns für Räume mit einzigartiger Persönlichkeit. Wir verbinden hochwertige Möbel, individuelle Planung und eigene Handwerkskunst zu Interieurs mit Charakter. Von der ersten Idee bis zum letzten Detail gestalten wir ganzheitlich – mit Gespür für Proportion, Material, Funktion und Ästhetik.</p>
+      <p data-motion="lift">Denn am Ende geht es nicht nur um schöne Räume, sondern um Räume, die Ihre Persönlichkeit widerspiegeln – durchdacht, individuell und mit viel Liebe zum Detail.</p>
+    </div>
+    <a class="link-arrow" href="#">
+      <span>Innenarchitektur pur</span>
+      <span class="link-arrow__icon"><img src="assets/arrow-link.svg" alt="" /></span>
+    </a>
+  </section>
+
+  <!-- Teaser Cards -->
+  <section class="cards">
+    <a class="card" href="#">
+      <div class="card__media" data-motion="curtain"><video src="assets/card-01.mp4" poster="assets/card-1.png" autoplay muted loop playsinline aria-hidden="true"></video></div>
+      <p class="card__label card__label--offset">Innenarchitektur pur.</p>
+      <img class="card__arrow card__label--offset" src="assets/arrow-card-1.svg" alt="" />
+    </a>
+    <a class="card" href="#">
+      <div class="card__media" data-motion="curtain">
+        <video src="assets/card-02.mp4" poster="assets/card-2.png" autoplay muted loop playsinline aria-hidden="true"></video>
+        <img class="card__icon" src="assets/card-icon.svg" alt="" />
+      </div>
+      <p class="card__label">Unser Versprechen.</p>
+      <img class="card__arrow" src="assets/arrow-card-2.svg" alt="" />
+    </a>
+    <a class="card" href="#">
+      <div class="card__media" data-motion="curtain"><video src="assets/card-03.mp4" poster="assets/card-3.png" autoplay muted loop playsinline aria-hidden="true"></video></div>
+      <p class="card__label">Wohndesign</p>
+      <img class="card__arrow" src="assets/arrow-card-3.svg" alt="" />
+    </a>
+  </section>
+
+  <!-- Intro: Versprechen -->
+  <section class="intro">
+    <h2 class="intro__title intro__title--narrow" data-motion="lift">Pure Leidenschaft schafft individuelle Wohnträume.</h2>
+    <div class="intro__text">
+      <p data-motion="lift">Ein gutes Raumkonzept verbindet Idee, individuelle Innenarchitektur, ausgewählte Möbel und echtes Handwerk. Mit eigenen Innenarchitekt:innen und unserer hauseigenen Werkstatt planen und gestalten wir Räume bis ins Detail – alles aus einer Hand und individuell abgestimmt auf Ihre Wünsche, Ihren Raum und Ihr Leben.</p>
+      <p data-motion="lift">Denn für uns bedeutet Innenarchitektur, Möglichkeiten zu schaffen – und aus einem Raum etwas ganz Eigenes zu machen.</p>
+    </div>
+    <a class="link-arrow" href="#">
+      <span>Unser Versprechen</span>
+      <span class="link-arrow__icon"><img src="assets/arrow-link.svg" alt="" /></span>
+    </a>
+  </section>
+
+  <!-- Werkstatt Video -->
+  <section class="feature" data-motion="curtain">
+    <video class="feature__image" src="assets/video-big.mp4" poster="assets/werkstatt.png" autoplay muted loop playsinline aria-hidden="true"></video>
+    <svg class="feature__icon" viewBox="0 0 125 186" fill="#B6FF4D" overflow="visible" aria-hidden="true">
+    <g class="feature__icon-float">
+      <path class="spark spark--1" d="M62 185.89L51.1953 186L49.8975 57.1348L47.8037 178.476L37 178.287L39.5225 32.0801L49.6465 32.2568L49.3223 0.110352L60.127 0L62 185.89Z" />
+      <path class="spark spark--2" d="M36 172.047H30.7432L31.252 183.525L20.1592 184L16.1328 93.0732L11.082 173.561L0 172.89L5.68164 82.3545L15.6855 82.96L14.957 66.5127L26.0498 66.0381L29.7549 149.71V45H36V172.047Z" />
+      <path class="spark spark--3" d="M76 52H87V182H76V172H65V40H76V52Z" />
+      <path class="spark spark--4" d="M125 171.637L118.571 172.117L113.463 110.369V176H102V45.5713H108.104L107.434 37.4805L113.863 37L125 171.637Z" />
+      <path class="spark spark--5" d="M98 69.2383L94.002 174L88 173.762L91.998 69L98 69.2383Z" />
+    </g>
+  </svg>
+  </section>
+
+  <!-- Intro: Werkstatt -->
+  <section class="intro">
+    <h2 class="intro__title intro__title--mid" data-motion="lift">Pures Handwerk bringt Kundenwünsche auf den Punkt.</h2>
+    <div class="intro__text">
+      <p data-motion="lift">Manche Ideen brauchen mehr als eine gute Planung. Sie brauchen Menschen, die wissen, wie man sie Wirklichkeit werden lässt. In unserer eigenen Werkstatt trifft innenarchitektonisches Gespür auf echtes Handwerk. So können wir individuelle Lösungen nicht nur denken, sondern auch selbst umsetzen.</p>
+      <p data-motion="lift">Denn besondere Ideen verdienen Lösungen, die genauso individuell gedacht, mit Gespür umgesetzt und bis ins Detail vollendet werden.</p>
+    </div>
+    <a class="link-arrow" href="#">
+      <span>Werkstatt</span>
+      <span class="link-arrow__icon"><img src="assets/arrow-link.svg" alt="" /></span>
+    </a>
+  </section>
+
+  <!-- Showroom Slider (statisch) -->
+  <section class="slider">
+    <p class="slider__pager"><span>01</span> <span class="accent">02</span> <span>03</span> <span>04</span> <span>05</span></p>
+    <div class="slider__stage"
+         data-motion="gallery-arrows"
+         data-gallery-prev=".slider .slider__btn--prev"
+         data-gallery-next=".slider .slider__btn--next">
+      <img class="slider__image" src="assets/showroom.png" alt="" />
+      <button class="slider__btn slider__btn--prev" type="button" aria-label="Vorheriges Bild">
+        <img src="assets/slider-prev.svg" alt="" />
+      </button>
+      <button class="slider__btn slider__btn--next" type="button" aria-label="Nächstes Bild">
+        <img src="assets/slider-next.svg" alt="" />
+      </button>
+    </div>
+  </section>
+
+  <!-- Zitat -->
+  <section class="quote">
+    <span class="quote__mark" aria-hidden="true" data-motion="lift">„</span>
+    <blockquote class="quote__text" data-motion="lift">Um Welten besser wohnen ist unser Leitsatz – und doch so viel mehr. Es ist der tägliche Anspruch an uns selbst. Denn nur so entsteht Einzigartiges von Hand mit Herz.</blockquote>
+    <span class="quote__mark" aria-hidden="true" data-motion="lift">„</span>
+    <p class="quote__author" data-motion="lift">Armin Manzenreiter - Geschäftsführer</p>
+  </section>
+
+  <!-- Marken -->
+  <section class="brands">
+    <div class="brands__head">
+      <h2 class="brands__title">Pures Markenverständnis</h2>
+      <a class="link-arrow link-arrow--brands" href="#">
+        <span>Markenwelt</span>
+        <span class="link-arrow__icon"><img src="assets/arrow-link.svg" alt="" /></span>
+      </a>
+    </div>
+    <ul class="brands__list">
+      <li><a class="tag" style="--w:126px" href="#">Anrei</a></li>
+      <li><a class="tag" style="--w:182px" href="#">Artemide</a></li>
+      <li><a class="tag is-active" style="--w:189px" href="#" data-motion="wave">B&amp;B Italia</a></li>
+      <li><a class="tag" style="--w:119px" href="#">Bora</a></li>
+      <li><a class="tag" style="--w:196px" href="#">ClassiCon</a></li>
+      <li><a class="tag" style="--w:129px" href="#">Cooc</a></li>
+      <li><a class="tag" style="--w:146px" href="#">Denon</a></li>
+      <li><a class="tag" style="--w:161px" href="#">Desalto</a></li>
+      <li><a class="tag" style="--w:176px" href="#">Draenert</a></li>
+      <li><a class="tag" style="--w:122px" href="#">Fiam</a></li>
+      <li><a class="tag" style="--w:112px" href="#">Flos</a></li>
+      <li><a class="tag" style="--w:180px" href="#">Foscarini</a></li>
+      <li><a class="tag" style="--w:159px" href="#">Freifrau</a></li>
+      <li><a class="tag" style="--w:199px" href="#">Gaggenau</a></li>
+      <li><a class="tag" style="--w:156px" href="#">Gloster</a></li>
+      <li><a class="tag" style="--w:126px" href="#">Haas</a></li>
+      <li><a class="tag" style="--w:139px" href="#">Janua</a></li>
+      <li><a class="tag" style="--w:120px" href="#">Joka</a></li>
+      <li><a class="tag is-active" style="--w:163px" href="#" data-motion="wave">Keramo</a></li>
+      <li><a class="tag" style="--w:108px" href="#">KFF</a></li>
+      <li><a class="tag" style="--w:174px" href="#">Lapalma</a></li>
+      <li><a class="tag" style="--w:130px" href="#">Miele</a></li>
+      <li><a class="tag is-active" style="--w:150px" href="#" data-motion="wave">Minotti</a></li>
+      <li><a class="tag" style="--w:162px" href="#">Missoni</a></li>
+      <li><a class="tag" style="--w:158px" href="#">Optimo</a></li>
+      <li><a class="tag is-active" style="--w:169px" href="#" data-motion="wave">Poliform</a></li>
+      <li><a class="tag" style="--w:193px" href="#">Raumplus</a></li>
+      <li><a class="tag" style="--w:202px" href="#">Rimadesio</a></li>
+      <li><a class="tag" style="--w:186px" href="#">Rolf Benz</a></li>
+      <li><a class="tag" style="--w:175px" href="#">Roshults</a></li>
+      <li><a class="tag" style="--w:170px" href="#">Strasser</a></li>
+      <li><a class="tag" style="--w:248px" href="#">Studio Khodai</a></li>
+      <li><a class="tag" style="--w:187px" href="#">Tagliabue</a></li>
+      <li><a class="tag" style="--w:200px" href="#">Tom Dixon</a></li>
+      <li><a class="tag" style="--w:122px" href="#">Vibia</a></li>
+      <li><a class="tag" style="--w:219px" href="#">Walter Knoll</a></li>
+      <li><a class="tag is-active" style="--w:187px" href="#" data-motion="wave">Wittmann</a></li>
+      <li><a class="tag" style="--w:130px" href="#">Yonei</a></li>
+    </ul>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="site-footer__top">
+    <img class="site-footer__monogram" src="assets/footer-monogram.svg" alt="Manzenreiter" />
+  </div>
+  <img class="site-footer__pattern" src="assets/footer-pattern.svg" alt="" />
+
+  <div class="site-footer__grid">
+    <p class="f-label f-col-1">Kontakt</p>
+    <p class="f-label f-col-2">Öffnungszeiten</p>
+    <p class="f-label f-col-3">Sitemap</p>
+    <p class="f-label f-col-4">Newsletter</p>
+
+    <address class="f-block f-col-1 f-row-a">
+      Manzenreiter Linz<br />
+      Freistädter Straße 334<br />
+      A-4040 Linz<br />
+      +43 732 75 06 75<br />
+      office.linz@manzenreiter.at
+    </address>
+    <p class="f-block f-col-2 f-row-a">
+      Montag - Freitag<br />
+      9:00 -18:00 Uhr<br />
+      Samstag:<br />
+      nach Terminvereinbarung
+    </p>
+    <address class="f-block f-col-1 f-row-b">
+      Holzmanufaktur Reichenthal<br />
+      Ringstraße 6<br />
+      A-4193 Reichenthal<br />
+      +43 7214 4008<br />
+      office@manzenreiter.at
+    </address>
+    <p class="f-block f-col-2 f-row-b">
+      Montag - Donnerstag<br />
+      7:00 - 12:00 / 12:45 - 16:00 Uhr<br />
+      Freitag<br />
+      7:00 - 12:00
+    </p>
+    <img class="f-dot f-col-1" src="assets/footer-dot.svg" alt="" />
+    <img class="f-dot f-col-2" src="assets/footer-dot.svg" alt="" />
+
+    <div class="f-sitemap f-col-3">
+      <ul>
+        <li><a href="#">Approach</a></li>
+        <li><a href="#">Projekte</a></li>
+        <li><a href="#">Wohnwelten</a></li>
+        <li><a href="#">Innenarchitektur</a></li>
+        <li><a href="#">Interior Design</a></li>
+        <li><a href="#">Philosophoie</a></li>
+      </ul>
+      <div class="f-social">
+        <a href="#" aria-label="Facebook"><img src="assets/social-1.svg" alt="" /></a>
+        <a href="#" aria-label="Instagram"><img src="assets/social-2.svg" alt="" /></a>
+      </div>
+    </div>
+
+    <div class="f-newsletter f-col-4">
+      <p class="f-newsletter__intro">Ein Newsletter wie unsere Einrichtung: voller Sinn und Mehrwert. Jetzt anmelden und inspirieren lassen!</p>
+      <form class="f-newsletter__form" onsubmit="return false">
+        <input type="email" placeholder="E-Mail Adresse" aria-label="E-Mail Adresse" />
+        <button type="submit" aria-label="Anmelden">
+          <img src="assets/newsletter-arrow.svg" alt="" />
+        </button>
+      </form>
+      <p class="f-newsletter__consent">Ich stimme zu, dass meine personenbezogenen Daten zur Zusendung und Analyse von E-Mails verarbeitet werden. Diese Einwilligung kann ich jederzeit mit Wirkung für die Zukunft widerrufen.</p>
+    </div>
+  </div>
+
+  <div class="site-footer__bottom">
+    <p class="f-copy">© Manzenreiter 2026</p>
+    <a class="f-privacy" href="#">Privacy policy</a>
+    <a class="f-top" href="#">Back To Top</a>
+    <a class="f-top-icon" href="#" aria-label="Back To Top">
+      <img src="assets/back-to-top.svg" alt="" />
+    </a>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

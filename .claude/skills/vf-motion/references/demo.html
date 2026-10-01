@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Liquid Buttons – Schwarz zu Weiß</title>
+<script>document.documentElement.classList.add('is-loading')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --page: #e6e7e4;
+    --cell: #f3f3f1;
+    --ink: #121212;
+    --muted: #6b6d68;
+    --edge: transparent;
+
+    /* Easing */
+    --out: cubic-bezier(.16, 1, .3, 1);
+    /* sanfte Feder: leichter Overshoot, kein Wackeln */
+    --spring: linear(0, .06 3%, .22 7%, .46 12%, .7 18%, .87 24%, .98 30%, 1.04 36%, 1.06 42%, 1.05 50%, 1.02 60%, 1 72%, .995 85%, 1);
+
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @supports not (transition-timing-function: linear(0, 1)) {
+    :root { --spring: cubic-bezier(.34, 1.25, .64, 1); }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --page: #1b1c1b; --cell: #242524; --ink: #f1f1ef; --muted: #9a9c97;
+      --edge: rgba(255,255,255,.22);
+    }
+  }
+  :root[data-theme="dark"] {
+    --page: #1b1c1b; --cell: #242524; --ink: #f1f1ef; --muted: #9a9c97;
+    --edge: rgba(255,255,255,.22);
+  }
+
+  *, *::before, *::after { box-sizing: inherit; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font-family: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  main { max-width: 1180px; margin: 0 auto; padding: clamp(2rem, 6vw, 5rem) clamp(1rem, 4vw, 2.5rem); }
+  header { max-width: 38rem; margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+  h1 { font-size: clamp(1.75rem, 4vw, 2.6rem); font-weight: 600; letter-spacing: -.03em; line-height: 1.08; margin: 0 0 .8rem; }
+  header p { color: var(--muted); line-height: 1.55; margin: 0; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 6px;
+  }
+  .cell {
+    background: var(--cell);
+    min-height: 280px;
+    padding: 1.5rem;
+    display: grid;
+    grid-template-rows: 1fr auto;
+  }
+  .stage { display: grid; place-items: center; padding: 2rem 0; }
+  .cell h2 { font-size: 1rem; font-weight: 600; margin: 0 0 .3rem; letter-spacing: -.01em; }
+  .cell p { font-size: .875rem; color: var(--muted); margin: 0; line-height: 1.5; max-width: 30ch; }
+
+  /* ───────────── Basis-Button ───────────── */
+  .btn {
+    position: relative;
+    isolation: isolate;          /* Blend-Mode bleibt im Button */
+    overflow: hidden;
+    transform: translateZ(0);    /* Safari: Radius-Clipping bei Transforms */
+    border: 0;
+    border-radius: 999px;
+    padding: 1.15rem 2.3rem;
+    background: #000;
+    color: #fff;
+    font: 500 1rem/1 "Geist", system-ui, sans-serif;
+    letter-spacing: .005em;
+    cursor: pointer;
+    box-shadow: 0 0 0 1px var(--edge);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+  .label { position: relative; z-index: 1; pointer-events: none; }
+
+  /* Weiße Füllung invertiert per difference: Schwarz → Weiß, Text Weiß → Schwarz,
+     genau entlang der Kante der Form */
+  .fill {
+    position: absolute; z-index: 2;
+    background: #fff;
+    mix-blend-mode: difference;
+    pointer-events: none;
+    will-change: transform;
+  }
+  /* Transluzente Vorwelle (läuft unter dem Text, normaler Blend) */
+  .halo {
+    position: absolute; z-index: 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+
+  /* ───────────── 1 · Bloom (Mitte) ───────────── */
+  .bloom .fill,
+  .bloom .halo {
+    left: 50%; top: 50%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  .bloom .fill { width: 140%; transition: transform .55s var(--out); }
+  .bloom .halo {
+    width: 210%;
+    background: radial-gradient(circle, rgba(255,255,255,.06) 0 42%, rgba(255,255,255,.34) 60%, rgba(255,255,255,0) 70%);
+    opacity: 0;
+  }
+  .bloom:is(:hover, :focus-visible) .fill {
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform .95s var(--spring) .07s;
+  }
+  .bloom:is(:hover, :focus-visible) .halo { animation: ripple .85s var(--out) both; }
+
+  @keyframes ripple {
+    0%   { transform: translate(-50%, -50%) scale(.08); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1);   opacity: 0; }
+  }
+
+  /* ───────────── 2 · Drop (ab Cursor) ───────────── */
+  .drop .fill,
+  .drop .halo {
+    left: var(--x, 50%); top: var(--y, 50%);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  .drop .fill { width: 270%; transition: transform .6s var(--out); }
+  .drop .halo {
+    width: 380%;
+    background: radial-gradient(circle, rgba(255,255,255,.05) 0 40%, rgba(255,255,255,.3) 58%, rgba(255,255,255,0) 68%);
+    opacity: 0;
+  }
+  .drop.in .fill { transform: translate(-50%, -50%) scale(1); transition: transform 1s var(--spring) .05s; }
+  .drop.in .halo { animation: ripple .8s var(--out) both; }
+
+  /* ───────────── 3 + 4 · Sweep (Ellipse, flüssige Kante) ───────────── */
+  .sweep { --s: -101%; --e: 64%; }
+  .sweep[data-from="right"] { --s: 64%; }
+  .sweep[data-to="left"]    { --e: -101%; }
+
+  .sweep .fill,
+  .sweep .halo {
+    top: -60%; left: 0;
+    width: 160%; height: 220%;
+    border-radius: 50%;
+    transform: translateX(-101%);
+  }
+  .sweep .halo { background: rgba(255,255,255,.24); }
+
+  .sweep.prep .fill,
+  .sweep.prep .halo { transition: none !important; transform: translateX(var(--s)); opacity: 1; }
+
+  .sweep.in .fill { transform: translateX(-18.75%); transition: transform 1.05s var(--spring); }
+  .sweep.in .halo {
+    transform: translateX(-18.75%);
+    opacity: 0;
+    transition: transform .65s var(--out), opacity .45s ease .38s;
+  }
+  .sweep.out .fill { transform: translateX(var(--e)); transition: transform .75s var(--out); }
+  .sweep.out .halo { transform: translateX(var(--e)); opacity: 0; transition: none; }
+
+  /* ───────────── 5 · Wave (von rechts, fließende Wellenkante) ───────────── */
+  .wave .fill,
+  .wave .halo {
+    top: 0; bottom: 0; left: 0;
+    width: calc(100% + 28px);
+    transform: translateX(101%);
+    -webkit-mask:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 44' preserveAspectRatio='none'%3E%3Cpath d='M28 0H14C2 5.5 2 16.5 14 22C26 27.5 26 38.5 14 44H28Z'/%3E%3C/svg%3E") 0 0 / 28px 44px repeat-y,
+      linear-gradient(#000 0 0) 27px 0 / 100% 100% no-repeat;
+            mask:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 44' preserveAspectRatio='none'%3E%3Cpath d='M28 0H14C2 5.5 2 16.5 14 22C26 27.5 26 38.5 14 44H28Z'/%3E%3C/svg%3E") 0 0 / 28px 44px repeat-y,
+      linear-gradient(#000 0 0) 27px 0 / 100% 100% no-repeat;
+    animation: flow 1.1s linear infinite;
+  }
+  .wave .halo { background: rgba(255,255,255,.24); animation-duration: .8s; }
+
+  @keyframes flow {
+    to { -webkit-mask-position: 0 44px, 27px 0; mask-position: 0 44px, 27px 0; }
+  }
+
+  .wave.prep .fill,
+  .wave.prep .halo { transition: none !important; transform: translateX(101%); opacity: 1; }
+
+  .wave.in .fill { transform: translateX(-28px); transition: transform 1s var(--out); }
+  .wave.in .halo {
+    transform: translateX(-28px);
+    opacity: 0;
+    transition: transform .65s var(--out), opacity .45s ease .4s;
+  }
+  .wave.out .fill { transform: translateX(101%); transition: transform .8s var(--out); }
+  .wave.out .halo { transform: translateX(101%); opacity: 0; transition: none; }
+
+  /* ───────────── Reduced motion ───────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .btn .fill, .btn .halo { transition-duration: .2s !important; animation: none !important; }
+    .btn .halo { display: none; }
+  }
+
+  /* ═════════════ Scroll Reveals ═════════════ */
+  .reveals { margin-top: clamp(5rem, 14vw, 10rem); }
+  .reveals > header { margin-bottom: clamp(3rem, 10vh, 6rem); }
+  .shot { margin: 0 0 clamp(6rem, 22vh, 14rem); }
+  .shot:last-child { margin-bottom: clamp(3rem, 10vh, 6rem); }
+  .shot figcaption { display: flex; gap: 1rem; justify-content: space-between; align-items: baseline; margin-top: 1rem; flex-wrap: wrap; }
+  .shot figcaption strong { font-weight: 600; letter-spacing: -.01em; }
+  .shot figcaption span { color: var(--muted); font-size: .875rem; }
+
+  .media {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 6px;
+    isolation: isolate;
+    transform: translateZ(0);
+  }
+  /* .img kann 1:1 durch <img class="img" src="..."> ersetzt werden */
+  .img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: grid; place-items: center;
+    color: rgba(255,255,255,.55);
+    font-size: .875rem; letter-spacing: .02em;
+    will-change: transform;
+  }
+  .ph-a { background:
+      radial-gradient(60% 80% at 75% 30%, #8d8f8a 0%, transparent 60%),
+      radial-gradient(50% 70% at 20% 85%, #4a4c48 0%, transparent 65%),
+      #1d1e1c; }
+  .ph-b { background:
+      radial-gradient(40% 60% at 30% 35%, #c9cac6 0%, transparent 62%),
+      radial-gradient(70% 90% at 85% 90%, #3a3b38 0%, transparent 60%),
+      #6a6c67; }
+  .ph-c { background:
+      linear-gradient(160deg, transparent 40%, rgba(0,0,0,.45)),
+      radial-gradient(55% 75% at 50% 20%, #f2f2ef 0%, transparent 60%),
+      #2b2c2a; }
+
+  /* ── 1 · Iris: öffnet sich aus der Mitte, Bild zoomt zurück ── */
+  .r-iris .media {
+    clip-path: inset(42% 46% 42% 46% round 999px);
+    transition: clip-path 1.5s var(--out);
+  }
+  .r-iris .img { transform: scale(1.35); transition: transform 1.9s var(--out); }
+  .r-iris.is-visible .media { clip-path: inset(0 0 0 0 round 6px); }
+  .r-iris.is-visible .img { transform: scale(1); }
+
+  /* ── 2 · Curtain: Fullscreen, schwarze Fläche wischt von oben rein und unten raus ── */
+  body { overflow-x: clip; }
+  .r-curtain .media {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    height: 100vh;
+    height: 100svh;
+    aspect-ratio: auto;
+    border-radius: 0;
+  }
+  .r-curtain figcaption { margin-top: 1.25rem; }
+  .r-curtain .img { opacity: 0; transform: scale(1.08) translateY(-3%); }
+  .r-curtain .media::after {
+    content: ""; position: absolute; inset: 0; z-index: 2;
+    background: #000;
+    transform: scaleY(0); transform-origin: center top;
+  }
+  .r-curtain.is-visible .media::after { animation: curtain 1.6s cubic-bezier(.77, 0, .18, 1) both; }
+  .r-curtain.is-visible .img {
+    opacity: 1; transform: none;
+    transition: opacity 0s .72s, transform 1.8s var(--out) .72s;
+  }
+  @keyframes curtain {
+    0%   { transform: scaleY(0); transform-origin: center top; }
+    45%  { transform: scaleY(1); transform-origin: center top; }
+    55%  { transform: scaleY(1); transform-origin: center bottom; }
+    100% { transform: scaleY(0); transform-origin: center bottom; }
+  }
+
+  /* ── 3 · Rise: scroll-gekoppelt, flüssige Wellenkante steigt von unten ── */
+  .r-rise { --p: 0; }
+  .r-rise .img { transform: scale(calc(1.2 - .2 * var(--p))) translateY(calc((1 - var(--p)) * 6%)); }
+  .r-rise .veil {
+    position: absolute; left: 0; right: 0; top: 0; z-index: 2;
+    height: calc(100% + 48px);
+    background: var(--page);
+    transform: translateY(calc(var(--p) * -100%));
+    -webkit-mask:
+      linear-gradient(#000 0 0) 0 0 / 100% calc(100% - 47px) no-repeat,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 48' preserveAspectRatio='none'%3E%3Cpath d='M0 0H160V24C120 48 120 0 80 24C40 48 40 0 0 24Z'/%3E%3C/svg%3E") 0 100% / 160px 48px repeat-x;
+            mask:
+      linear-gradient(#000 0 0) 0 0 / 100% calc(100% - 47px) no-repeat,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 48' preserveAspectRatio='none'%3E%3Cpath d='M0 0H160V24C120 48 120 0 80 24C40 48 40 0 0 24Z'/%3E%3C/svg%3E") 0 100% / 160px 48px repeat-x;
+    animation: drift 2.4s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes drift {
+    to { -webkit-mask-position: 0 0, 160px 100%; mask-position: 0 0, 160px 100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .r-iris .media, .r-iris .img, .r-curtain .img { clip-path: none !important; transform: none !important; opacity: 1 !important; transition: none !important; }
+    .r-curtain .media::after, .r-rise .veil { display: none; }
+    .r-rise .img { transform: none; }
+  }
+  /* ═════════════ Text Reveals ═════════════ */
+  .texts { margin-top: clamp(4rem, 12vw, 8rem); padding-bottom: 40vh; }
+  .texts > header { margin-bottom: clamp(3rem, 10vh, 6rem); }
+  .tx { margin-bottom: clamp(6rem, 22vh, 12rem); }
+  .tx h2 { font-size: .875rem; font-weight: 500; color: var(--muted); margin: 0 0 1.25rem; letter-spacing: 0; }
+  .split {
+    margin: 0;
+    max-width: 30ch;
+    font-size: clamp(1.5rem, 3.1vw, 2.45rem);
+    font-weight: 500;
+    line-height: 1.28;
+    letter-spacing: -.022em;
+    text-wrap: pretty;
+  }
+  .split .line { display: block; }
+  .split .w { display: inline-block; }
+
+  /* A · Focus – scroll-gekoppelt, ganze Zeile wird scharf */
+  [data-split="focus"] .line {
+    --p: 0;
+    opacity: calc(.5 + .5 * var(--p));
+    filter: blur(calc((1 - var(--p)) * 7px));
+    will-change: opacity, filter;
+  }
+
+  /* B · Lift – Zeile wird beim Eintreten ausgelöst, gleitet leicht hoch */
+  [data-split="lift"] .line {
+    opacity: .5;
+    filter: blur(8px);
+    transform: translateY(.45em);
+    transition: opacity .9s var(--out), filter 1s var(--out), transform 1.2s var(--out);
+    will-change: opacity, filter, transform;
+  }
+  [data-split="lift"] .line.on { opacity: 1; filter: blur(0); transform: none; }
+
+  /* C · Ink – scroll-gekoppelt, Zeile wird Wort für Wort von links scharf */
+  [data-split="ink"] .w {
+    --p: 0;
+    opacity: calc(.5 + .5 * var(--p));
+    filter: blur(calc((1 - var(--p)) * 6px));
+    will-change: opacity, filter;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .split .line, .split .w { filter: none !important; transform: none !important; opacity: 1 !important; transition: none !important; }
+  }
+  /* ═════════════ Preloader ═════════════ */
+  html.is-loading body { overflow: hidden; }
+
+  .loader {
+    position: fixed; inset: 0; z-index: 1000;
+    background: #fff;
+    display: grid; place-items: center;
+  }
+  .loader[hidden] { display: none; }
+  .loader-inner { display: grid; justify-items: center; gap: 28px; }
+
+  .loader-mark { width: clamp(64px, 8vw, 104px); height: auto; overflow: visible; }
+  .loader-mark path {
+    fill: none;
+    stroke: #000;
+    stroke-width: 9;
+    stroke-linejoin: miter;
+    stroke-linecap: butt;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+
+  .loader.run .loader-mark { animation: mark-settle 1.6s var(--out) both; }
+  .loader.run .loader-mark .stroke { animation: mark-draw 1.15s cubic-bezier(.65, 0, .35, 1) .15s forwards; }
+
+  @keyframes mark-draw { to { stroke-dashoffset: 0; } }
+  @keyframes mark-fill { to { opacity: 1; } }
+  @keyframes mark-settle {
+    0%   { transform: translateY(10px); }
+    100% { transform: none; }
+  }
+
+
+  /* Curtain über dem Loader: fällt von oben rein, gibt nach unten die Seite frei */
+  .loader-curtain {
+    position: fixed; inset: 0; z-index: 1001;
+    background: #000;
+    transform: scaleY(0); transform-origin: center top;
+    pointer-events: none;
+  }
+  .loader-curtain.run { animation: loader-curtain 1.5s cubic-bezier(.77, 0, .18, 1) both; }
+  @keyframes loader-curtain {
+    0%   { transform: scaleY(0); transform-origin: center top; }
+    45%  { transform: scaleY(1); transform-origin: center top; }
+    55%  { transform: scaleY(1); transform-origin: center bottom; }
+    100% { transform: scaleY(0); transform-origin: center bottom; }
+  }
+
+  /* Seite sitzt beim Reveal leicht vergrößert und gleitet in Position */
+  html.is-loading main { transform: translateY(-24px) scale(1.015); }
+  html.is-revealed main { transform: none; transition: transform 1.4s var(--out); }
+
+  .replay {
+    margin-top: 1.5rem;
+    background: none; border: 0; padding: 0;
+    font: inherit; font-size: .875rem; color: var(--ink);
+    text-decoration: underline; text-underline-offset: 3px;
+    cursor: pointer;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .loader.run .loader-mark, .loader.run .loader-mark * { animation-duration: .01s !important; animation-delay: 0s !important; }
+    .loader-curtain.run { animation-duration: .4s; }
+    html.is-loading main, html.is-revealed main { transform: none; transition: none; }
+  }
+  /* ═════════════ Galerie ═════════════ */
+  .gallery-section { margin-top: clamp(2rem, 6vw, 4rem); padding-bottom: clamp(4rem, 12vw, 8rem); }
+  .gallery-section > header { margin-bottom: clamp(2.5rem, 7vh, 4rem); }
+
+  .gallery { --accent: #c6ea7a; }
+  .gallery-nums {
+    display: flex; justify-content: flex-end; gap: .28em;
+    margin: 0 0 clamp(.75rem, 1.4vw, 1.1rem);
+    padding: 0; list-style: none;
+    font-size: clamp(1.6rem, 3.1vw, 2.75rem);
+    font-weight: 400; letter-spacing: -.035em; line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .gallery-nums button {
+    background: none; border: 0; padding: 0;
+    font: inherit; letter-spacing: inherit; color: var(--ink);
+    cursor: pointer;
+    transition: color .4s var(--out);
+  }
+  .gallery-nums button[aria-current="true"] { color: var(--accent); }
+  .gallery-nums button:hover:not([aria-current="true"]) { color: var(--muted); }
+
+  .gallery-stage {
+    position: relative;
+    aspect-ratio: 2 / 1;
+    overflow: hidden;
+    background: #d9d3c9;
+  }
+  .gallery-slide {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: grid; place-items: center;
+    color: rgba(255,255,255,.7); font-size: .875rem; letter-spacing: .02em;
+    visibility: hidden;
+  }
+  .gallery-slide.is-active { visibility: visible; }
+
+  .g1 { background: linear-gradient(180deg, #cdbfae 0%, #b9a993 55%, #c99f6f 56%, #d8b78b 100%); }
+  .g2 { background: radial-gradient(60% 70% at 30% 40%, #e9e3d8 0%, transparent 70%), linear-gradient(180deg, #a69a89, #7d6f5e); }
+  .g3 { background: linear-gradient(110deg, #3e3a35 0 30%, #b8ab98 30% 70%, #8c7a63 70%); }
+  .g4 { background: radial-gradient(70% 90% at 70% 30%, #f1ece4 0%, transparent 60%), linear-gradient(180deg, #c6b8a4, #9b8a74); }
+  .g5 { background: linear-gradient(180deg, #e2dbd0 0 60%, #b48a5c 60%); }
+
+  /* Pfeile: weiße Bubble mit schwarzem Pfeil, erst bei Hover über der Galerie sichtbar */
+  .gallery-arrow {
+    --shift: 14px;
+    position: absolute; top: 50%; z-index: 2;
+    width: clamp(48px, 4.6vw, 68px);
+    aspect-ratio: 1;
+    display: grid; place-items: center;
+    background: #fff;
+    border: 0; border-radius: 50%;
+    padding: 0;
+    color: #000;
+    cursor: pointer;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, .12);
+    opacity: 0;
+    transform: translate(var(--x, 0), -50%) scale(.6);
+    transition:
+      opacity .35s var(--out),
+      transform .7s var(--out);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .gallery-arrow.prev { left: 2.6%; --x: var(--shift); }
+  .gallery-arrow.next { right: 2.6%; --x: calc(var(--shift) * -1); }
+
+  .gallery-arrow svg {
+    display: block;
+    width: 38%; height: auto;
+    overflow: visible;
+    transition: transform .5s var(--out);
+  }
+  .gallery-arrow path {
+    fill: none; stroke: currentColor;
+    stroke-width: 2.2; vector-effect: non-scaling-stroke;
+    stroke-linecap: butt; stroke-linejoin: miter;
+  }
+
+  /* Einblenden: Bubbles wachsen von innen nach außen in Position */
+  .gallery-stage:hover .gallery-arrow,
+  .gallery-stage:focus-within .gallery-arrow {
+    opacity: 1;
+    transform: translate(0, -50%) scale(1);
+  }
+  .gallery-stage:hover .gallery-arrow.next,
+  .gallery-stage:focus-within .gallery-arrow.next { transition-delay: .04s; }
+
+  /* Hover auf der Bubble: Pfeil schiebt sich leicht in Laufrichtung */
+  .gallery-arrow.prev:hover svg { transform: translateX(-3px); }
+  .gallery-arrow.next:hover svg { transform: translateX(3px); }
+  .gallery-arrow:active { transform: translate(0, -50%) scale(.94); transition-duration: .15s; }
+  .gallery-arrow:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+
+  /* Touch-Geräte ohne Hover: Pfeile immer sichtbar */
+  @media (hover: none) {
+    .gallery-arrow { opacity: 1; transform: translate(0, -50%) scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .gallery-arrow { transform: translate(0, -50%); transition: opacity .2s; }
+  }
+  /* Follow-Modus (nur Maus/Trackpad): Bubble folgt dem Cursor im linken/rechten Bereich */
+  .gallery.is-follow .gallery-arrow {
+    left: 0; right: auto; top: 0;
+    opacity: 0;
+    transition: background-color .35s var(--out);
+    pointer-events: none;            /* Klicks gehen an die Bildfläche, Zone entscheidet */
+    will-change: transform, opacity;
+  }
+  .gallery.is-follow .gallery-stage.in-zone { cursor: pointer; }
+  /* Während des Klicks: Bubble in Neon */
+  .gallery.is-follow .gallery-arrow.is-pressed { background: var(--accent); transition-duration: .08s; }
+</style>
+</head>
+<body>
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-inner">
+    <!-- Platzhalter: hier kommt später das Manzenreiter-"M" aus Figma rein -->
+    <svg class="loader-mark" viewBox="0 0 100 84" xmlns="http://www.w3.org/2000/svg">
+      <path class="stroke" pathLength="1" d="M10 80V9L50 55 90 9v71"/>
+    </svg>
+  </div>
+</div>
+<div class="loader-curtain" id="loaderCurtain"></div>
+<main>
+  <header>
+    <h1>Fünf Hover-Übergänge von Schwarz zu Weiß</h1>
+    <p>Kein Skalieren, kein Wackeln am Button selbst – nur die Farbe fließt. Eine weiße Fläche mit <code>mix-blend-mode: difference</code> invertiert Hintergrund und Schrift exakt entlang ihrer Kante.</p>
+    <button type="button" class="replay" id="replayLoader">Lade-Animation erneut abspielen</button>
+  </header>
+
+  <section class="grid">
+    <article class="cell">
+      <div class="stage">
+        <button type="button" class="btn bloom">
+          <span class="halo"></span><span class="label">Projekt starten</span><span class="fill"></span>
+        </button>
+      </div>
+      <div>
+        <h2>Bloom</h2>
+        <p>Ein transluzenter Ring öffnet sich aus der Mitte, die weiße Fläche folgt mit Federung. Reines CSS.</p>
+      </div>
+    </article>
+
+    <article class="cell">
+      <div class="stage">
+        <button type="button" class="btn drop" data-fx="drop">
+          <span class="halo"></span><span class="label">Kontakt aufnehmen</span><span class="fill"></span>
+        </button>
+      </div>
+      <div>
+        <h2>Drop</h2>
+        <p>Wie Bloom, aber der Tropfen fällt dort ein, wo der Cursor eintritt, und zieht sich zum Austrittspunkt zurück.</p>
+      </div>
+    </article>
+
+    <article class="cell">
+      <div class="stage">
+        <button type="button" class="btn sweep" data-fx="ltr">
+          <span class="halo"></span><span class="label">Mehr erfahren</span><span class="fill"></span>
+        </button>
+      </div>
+      <div>
+        <h2>Sweep</h2>
+        <p>Eine gewölbte Flüssigkeitskante schiebt sich von links herein und läuft beim Verlassen rechts hinaus.</p>
+      </div>
+    </article>
+
+    <article class="cell">
+      <div class="stage">
+        <button type="button" class="btn sweep" data-fx="aware">
+          <span class="halo"></span><span class="label">Jetzt anfragen</span><span class="fill"></span>
+        </button>
+      </div>
+      <div>
+        <h2>Tide</h2>
+        <p>Richtungsabhängig: kommt von der Seite, an der du einfährst, und fließt zur Seite ab, an der du rausgehst.</p>
+      </div>
+    </article>
+
+    <article class="cell">
+      <div class="stage">
+        <button type="button" class="btn wave" data-fx="rtl">
+          <span class="halo"></span><span class="label">Angebot ansehen</span><span class="fill"></span>
+        </button>
+      </div>
+      <div>
+        <h2>Wave</h2>
+        <p>Von rechts mit einer Wellenkante, die während der Bewegung permanent weiterfließt.</p>
+      </div>
+    </article>
+  </section>
+
+  <section class="reveals">
+    <header>
+      <h1>Drei Bilder, drei Reveals</h1>
+      <p>Iris und Curtain starten einmalig, sobald das Bild ins Blickfeld kommt. Rise ist direkt an die Scrollposition gekoppelt und läuft beim Zurückscrollen rückwärts.</p>
+    </header>
+
+    <figure class="shot r-curtain" data-reveal>
+      <div class="media"><div class="img ph-b">Bildplatzhalter 1600 × 900</div><img class="img" src="https://media.schrankwerk.de/images/cms/html_tile_generated_6527f6dbca5257001d265532_01112024113948_5f4b4902-9d8f-40ad-9fcb-5d15bd059faa.png" alt="Schrank" onerror="this.remove()"></div>
+      <figcaption><strong>Curtain</strong><span>Fullscreen: eine schwarze Fläche wischt von oben herein und gibt das Bild nach unten frei.</span></figcaption>
+    </figure>
+
+    <figure class="shot r-iris" data-reveal>
+      <div class="media"><div class="img ph-a">Bildplatzhalter 1600 × 900</div><img class="img" src="https://media.schrankwerk.de/images/cms/html_tile_generated_6527f6dbca5257001d265532_01112024113948_5f4b4902-9d8f-40ad-9fcb-5d15bd059faa.png" alt="Schrank" onerror="this.remove()"></div>
+      <figcaption><strong>Iris</strong><span>Öffnet sich aus der Mitte, das Bild zoomt dabei sanft zurück.</span></figcaption>
+    </figure>
+
+    <figure class="shot r-rise" data-scrub>
+      <div class="media"><div class="img ph-c">Bildplatzhalter 1600 × 900</div><img class="img" src="https://media.schrankwerk.de/images/cms/html_tile_generated_6527f6dbca5257001d265532_01112024113948_5f4b4902-9d8f-40ad-9fcb-5d15bd059faa.png" alt="Schrank" onerror="this.remove()"><div class="veil"></div></div>
+      <figcaption><strong>Rise</strong><span>Eine fließende Wellenkante steigt mit dem Scrollen von unten auf.</span></figcaption>
+    </figure>
+  </section>
+  <section class="texts">
+    <header>
+      <h1>Drei Text-Reveals</h1>
+      <p>Jede Zeile startet leicht unscharf mit 50 % Deckkraft und wird beim Scrollen in den Screen klar. Der Text wird per JS in echte Zeilen zerlegt und bei Resize neu umbrochen.</p>
+    </header>
+
+    <div class="tx">
+      <h2>A – Focus (scroll-gekoppelt, Zeile für Zeile)</h2>
+      <p class="split" data-split="focus">Gute Möbel entstehen nicht am Fließband, sondern in der Werkstatt. Jedes Stück wird auf den Zentimeter genau geplant, aus massivem Holz gefertigt und von Hand veredelt. So entsteht ein Schrank, der nicht nur in den Raum passt, sondern ihn über Jahrzehnte prägt.</p>
+    </div>
+
+    <div class="tx">
+      <h2>B – Lift (beim Eintreten ausgelöst)</h2>
+      <p class="split" data-split="lift">Wir beginnen mit einem Gespräch und einem Maßband. Danach folgen Entwurf, Materialwahl und ein Angebot ohne Kleingedrucktes. Erst wenn jedes Detail sitzt, geht die Planung in die Fertigung und kommt als fertiges Möbel zu dir nach Hause.</p>
+    </div>
+
+    <div class="tx">
+      <h2>C – Ink (scroll-gekoppelt, Wort für Wort innerhalb der Zeile)</h2>
+      <p class="split" data-split="ink">Eiche, Nuss oder Esche, geölt oder lackiert, mit Griffmulde oder Push-to-open. Die Auswahl ist groß, die Entscheidung muss es nicht sein. Wir zeigen dir Muster, erklären die Unterschiede und helfen dir, das Material zu finden, das zu deinem Alltag passt.</p>
+    </div>
+  </section>
+  <section class="gallery-section">
+    <header>
+      <h1>Galerie</h1>
+      <p>Nachbau der Bildergalerie: Nummern-Navigation oben rechts, aktive Nummer in Akzentfarbe, Fahr mit der Maus ins linke oder rechte Drittel des Bildes: Eine Pfeil-Bubble erscheint und zieht unter dem Cursor mit. Je schneller du dich bewegst, desto größer wird sie. Klick irgendwo in der Zone wechselt das Bild, solange die Maustaste gedrückt ist, leuchtet die Bubble neon.</p>
+    </header>
+
+    <div class="gallery" data-gallery aria-roledescription="Karussell" aria-label="Bildergalerie">
+      <ol class="gallery-nums">
+        <li><button type="button" data-go="0" aria-current="true" aria-label="Bild 1">01</button></li>
+        <li><button type="button" data-go="1" aria-label="Bild 2">02</button></li>
+        <li><button type="button" data-go="2" aria-label="Bild 3">03</button></li>
+        <li><button type="button" data-go="3" aria-label="Bild 4">04</button></li>
+        <li><button type="button" data-go="4" aria-label="Bild 5">05</button></li>
+      </ol>
+      <div class="gallery-stage" tabindex="0">
+        <div class="gallery-slide g1 is-active" role="group" aria-roledescription="Slide" aria-label="1 von 5">Bildplatzhalter 1</div>
+        <div class="gallery-slide g2" role="group" aria-roledescription="Slide" aria-label="2 von 5">Bildplatzhalter 2</div>
+        <div class="gallery-slide g3" role="group" aria-roledescription="Slide" aria-label="3 von 5">Bildplatzhalter 3</div>
+        <div class="gallery-slide g4" role="group" aria-roledescription="Slide" aria-label="4 von 5">Bildplatzhalter 4</div>
+        <div class="gallery-slide g5" role="group" aria-roledescription="Slide" aria-label="5 von 5">Bildplatzhalter 5</div>
+        <button type="button" class="gallery-arrow prev" aria-label="Vorheriges Bild">
+          <svg viewBox="0 0 140 128" aria-hidden="true"><path d="M68 3.5 7 64l61 60.5M7 64h133"/></svg>
+        </button>
+        <button type="button" class="gallery-arrow next" aria-label="Nächstes Bild">
+          <svg viewBox="0 0 140 128" aria-hidden="true"><path d="M72 3.5 133 64l-61 60.5M133 64H0"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  document.querySelectorAll('[data-fx]').forEach((btn) => {
+    const mode = btn.dataset.fx;
+
+    const local = (e) => {
+      const r = btn.getBoundingClientRect();
+      // Tastatur-Fokus hat keine Koordinaten → Mitte
+      if (!e || e.clientX == null || (e.clientX === 0 && e.clientY === 0)) {
+        return { x: r.width / 2, y: r.height / 2, w: r.width };
+      }
+      return { x: e.clientX - r.left, y: e.clientY - r.top, w: r.width };
+    };
+    const side = (e) => { const p = local(e); return p.x < p.w / 2 ? 'left' : 'right'; };
+
+    function enter(e) {
+      if (mode === 'drop') {
+        const p = local(e);
+        btn.style.setProperty('--x', p.x + 'px');
+        btn.style.setProperty('--y', p.y + 'px');
+        btn.classList.remove('in', 'out');
+        void btn.offsetWidth;            // Ripple neu starten
+        btn.classList.add('in');
+        return;
+      }
+      btn.dataset.from = mode === 'ltr' ? 'left' : mode === 'rtl' ? 'right' : side(e);
+      btn.classList.remove('in', 'out');
+      btn.classList.add('prep');          // ohne Transition an den Startpunkt
+      void btn.offsetWidth;
+      btn.classList.remove('prep');
+      btn.classList.add('in');
+    }
+
+    function leave(e) {
+      if (mode === 'drop') {
+        const p = local(e);
+        btn.style.setProperty('--x', p.x + 'px');
+        btn.style.setProperty('--y', p.y + 'px');
+        btn.classList.remove('in');
+        btn.classList.add('out');
+        return;
+      }
+      btn.dataset.to = mode === 'aware' ? side(e) : 'right';
+      btn.classList.remove('in');
+      btn.classList.add('out');
+    }
+
+    btn.addEventListener('pointerenter', enter);
+    btn.addEventListener('pointerleave', leave);
+    btn.addEventListener('focus', () => { if (btn.matches(':focus-visible')) enter(); });
+    btn.addEventListener('blur', () => { if (btn.classList.contains('in')) leave(); });
+  });
+
+  /* ── Scroll Reveals: starten bei 35 % Sichtbarkeit,
+        setzen sich zurück, sobald das Bild unten aus dem Viewport verschwindet ── */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.intersectionRatio >= 0.35) {
+        entry.target.classList.add('is-visible');
+      } else if (!entry.isIntersecting && entry.boundingClientRect.top > 0) {
+        // nur zurücksetzen, wenn es nach unten rausgescrollt wurde (also beim Hochscrollen)
+        entry.target.classList.remove('is-visible');
+      }
+    });
+  }, { threshold: [0, 0.35] });
+  document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+
+  /* ── Scroll-gekoppelter Reveal ── */
+  const scrubs = [...document.querySelectorAll('[data-scrub]')];
+  let ticking = false;
+  function updateScrub() {
+    const vh = window.innerHeight;
+    scrubs.forEach((el) => {
+      const r = el.querySelector('.media').getBoundingClientRect();
+      // 0 = Oberkante erreicht unteren Rand, 1 = Bild sitzt bei ca. 35 % der Höhe
+      const raw = (vh - r.top) / (vh * 0.65 + r.height * 0.35);
+      const p = Math.min(1, Math.max(0, raw));
+      const eased = 1 - Math.pow(1 - p, 3);   // easeOutCubic für weiches Auslaufen
+      el.style.setProperty('--p', eased.toFixed(4));
+    });
+    ticking = false;
+  }
+  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(updateScrub); } };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  updateScrub();
+  /* ═════════════ Text Reveals ═════════════ */
+  const splits = [...document.querySelectorAll('.split')];
+  const clamp01 = (v) => Math.min(1, Math.max(0, v));
+
+  function splitLines(el) {
+    if (!el.dataset.text) el.dataset.text = el.textContent.trim().replace(/\s+/g, ' ');
+    const words = el.dataset.text.split(' ');
+    el.innerHTML = words.map((w) => `<span class="w">${w}</span>`).join(' ');
+    const ws = [...el.querySelectorAll('.w')];
+    const lines = [];
+    let cur = [], top = null;
+    ws.forEach((w) => {
+      const t = w.offsetTop;
+      if (top !== null && Math.abs(t - top) > 2) { lines.push(cur); cur = []; }
+      top = t; cur.push(w);
+    });
+    lines.push(cur);
+    el.innerHTML = lines.map((l) => `<span class="line">${l.map((w) => w.outerHTML).join(' ')}</span>`).join('');
+  }
+
+  // Lift: Zeile wird ausgelöst, sobald sie im unteren Bereich des Viewports ankommt
+  const lineIO = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.classList.add('on');
+      else if (entry.boundingClientRect.top > 0) entry.target.classList.remove('on'); // Reset beim Hochscrollen
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0 });
+
+  function buildText() {
+    lineIO.disconnect();
+    splits.forEach(splitLines);
+    document.querySelectorAll('[data-split="lift"] .line').forEach((l) => lineIO.observe(l));
+    updateText();
+  }
+
+  // Scroll-Fortschritt einer Zeile: 0 bei 92 % der Viewporthöhe, 1 bei 64 %
+  const lineProgress = (el, vh) => clamp01((vh * 0.92 - el.getBoundingClientRect().top) / (vh * 0.28));
+
+  function updateText() {
+    const vh = window.innerHeight;
+    document.querySelectorAll('[data-split="focus"] .line').forEach((line) => {
+      line.style.setProperty('--p', lineProgress(line, vh).toFixed(3));
+    });
+    document.querySelectorAll('[data-split="ink"] .line').forEach((line) => {
+      const p = lineProgress(line, vh);
+      const ws = line.querySelectorAll('.w');
+      const n = Math.max(ws.length - 1, 1);
+      const spread = 0.8;                      // wie stark die Wörter gestaffelt sind
+      ws.forEach((w, i) => {
+        w.style.setProperty('--p', clamp01(p * (1 + spread) - (i / n) * spread).toFixed(3));
+      });
+    });
+    textTicking = false;
+  }
+
+  let textTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!textTicking) { textTicking = true; requestAnimationFrame(updateText); }
+  }, { passive: true });
+
+  let resizeTimer;
+  let lastWidth = window.innerWidth;
+  window.addEventListener('resize', () => {
+    if (window.innerWidth === lastWidth) return;   // Mobile: Adressleiste ändert nur die Höhe
+    lastWidth = window.innerWidth;
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(buildText, 150);
+  });
+
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(buildText);
+  /* ═════════════ Preloader ═════════════ */
+  (function () {
+    const html = document.documentElement;
+    const loader = document.getElementById('loader');
+    const curtain = document.getElementById('loaderCurtain');
+    const MIN_DURATION = 1700;                 // M-Animation läuft mindestens so lange
+    const CURTAIN_DURATION = 1500;
+    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+    const pageLoaded = new Promise((r) => {
+      if (document.readyState === 'complete') r();
+      else window.addEventListener('load', r, { once: true });
+    });
+
+    async function play(waitForLoad) {
+      html.classList.add('is-loading');
+      html.classList.remove('is-revealed');
+      loader.hidden = false;
+      loader.classList.remove('run', 'done');
+      curtain.classList.remove('run');
+      void loader.offsetWidth;                 // Animationen neu starten
+      loader.classList.add('run');
+
+      await Promise.all([wait(MIN_DURATION), waitForLoad ? pageLoaded : Promise.resolve()]);
+
+      await wait(150);
+      curtain.classList.add('run');            // Curtain fällt von oben rein
+      await wait(CURTAIN_DURATION * 0.5);      // Mitte: Bildschirm komplett schwarz
+      loader.hidden = true;
+      html.classList.remove('is-loading');
+      html.classList.add('is-revealed');       // Seite gleitet in Position, Curtain gibt nach unten frei
+      window.scrollTo(0, 0);
+      await wait(CURTAIN_DURATION * 0.5);
+      curtain.classList.remove('run');
+    }
+
+    play(true);
+    document.getElementById('replayLoader').addEventListener('click', () => play(false));
+  })();
+  /* ═════════════ Galerie ═════════════ */
+  document.querySelectorAll('[data-gallery]').forEach((g) => {
+    const slides = [...g.querySelectorAll('.gallery-slide')];
+    const nums = [...g.querySelectorAll('[data-go]')];
+    let index = 0;
+
+    function go(i) {
+      index = (i + slides.length) % slides.length;
+      slides.forEach((sl, n) => sl.classList.toggle('is-active', n === index));
+      nums.forEach((b, n) => { if (n === index) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); });
+    }
+
+    g.querySelector('.prev').addEventListener('click', () => go(index - 1));
+    g.querySelector('.next').addEventListener('click', () => go(index + 1));
+    nums.forEach((b) => b.addEventListener('click', () => go(+b.dataset.go)));
+    g.querySelector('.gallery-stage').addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') go(index - 1);
+      if (e.key === 'ArrowRight') go(index + 1);
+    });
+
+    /* ── Follow-Bubble: erscheint nur im äußeren Drittel und folgt dem Cursor ── */
+    const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (finePointer && !reduced) {
+      const ZONE = 0.3;                         // Breite der Aktivzone links/rechts (0.25 = Viertel)
+      const stage = g.querySelector('.gallery-stage');
+      const els = { prev: g.querySelector('.prev'), next: g.querySelector('.next') };
+      const st = {
+        prev: { x: 0, y: 0, tx: 0, ty: 0, show: 0, ts: 0, press: 1 },
+        next: { x: 0, y: 0, tx: 0, ty: 0, show: 0, ts: 0, press: 1 },
+      };
+      const ptr = { x: 0, y: 0, px: 0, py: 0, t: performance.now(), speed: 0 };
+      let zone = null;
+      let half = els.prev.offsetWidth / 2;
+      const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+
+      g.classList.add('is-follow');
+
+      function target(side, px, py, w, h) {
+        const pad = half + 10;
+        const minX = side === 'prev' ? pad : w * (1 - ZONE) + half * .3;
+        const maxX = side === 'prev' ? w * ZONE - half * .3 : w - pad;
+        return { x: clamp(px, minX, maxX), y: clamp(py, pad, h - pad) };
+      }
+
+      stage.addEventListener('pointermove', (e) => {
+        const r = stage.getBoundingClientRect();
+        const px = e.clientX - r.left, py = e.clientY - r.top;
+        ptr.x = px; ptr.y = py;
+        zone = px < r.width * ZONE ? 'prev' : px > r.width * (1 - ZONE) ? 'next' : null;
+        stage.classList.toggle('in-zone', !!zone);
+        ['prev', 'next'].forEach((side) => {
+          const s = st[side];
+          s.ts = side === zone ? 1 : 0;
+          if (side === zone) {
+            const t = target(side, px, py, r.width, r.height);
+            s.tx = t.x; s.ty = t.y;
+            if (s.show < 0.05) { s.x = t.x; s.y = t.y; }   // frisch eingetreten: direkt am Cursor starten
+          }
+        });
+      });
+
+      stage.addEventListener('pointerleave', () => {
+        zone = null;
+        stage.classList.remove('in-zone');
+        st.prev.ts = st.next.ts = 0;
+      });
+
+      // Neon-Zustand nur solange die Maustaste gedrückt ist
+      const release = () => { els.prev.classList.remove('is-pressed'); els.next.classList.remove('is-pressed'); };
+      stage.addEventListener('pointerdown', (e) => {
+        if (!zone || e.button !== 0 || e.target.closest('[data-go]')) return;
+        els[zone].classList.add('is-pressed');
+        st[zone].press = 0.88;
+      });
+      window.addEventListener('pointerup', release);
+      stage.addEventListener('pointerleave', release);
+
+      stage.addEventListener('click', (e) => {
+        if (!zone || e.target.closest('[data-go]')) return;
+        go(zone === 'prev' ? index - 1 : index + 1);
+      });
+
+      // Tastatur: Bubble an fester Position zeigen
+      ['prev', 'next'].forEach((side) => {
+        els[side].addEventListener('focus', () => {
+          if (!els[side].matches(':focus-visible')) return;
+          const r = stage.getBoundingClientRect();
+          const s = st[side];
+          s.tx = side === 'prev' ? r.width * .026 + half : r.width * .974 - half;
+          s.ty = r.height / 2;
+          if (s.show < 0.05) { s.x = s.tx; s.y = s.ty; }
+          s.ts = 1;
+        });
+        els[side].addEventListener('blur', () => { if (zone !== side) st[side].ts = 0; });
+      });
+
+      window.addEventListener('resize', () => { half = els.prev.offsetWidth / 2; });
+
+      const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+      function tick(now) {
+        // Cursor-Geschwindigkeit in px/ms, geglättet
+        const dt = Math.max(now - ptr.t, 1);
+        const v = Math.hypot(ptr.x - ptr.px, ptr.y - ptr.py) / dt;
+        ptr.px = ptr.x; ptr.py = ptr.y; ptr.t = now;
+        ptr.speed += (v - ptr.speed) * 0.12;
+        const speedScale = 1 + Math.min(ptr.speed * 0.16, 0.34);   // schnell → bis zu 34 % größer
+
+        ['prev', 'next'].forEach((side) => {
+          const s = st[side];
+          s.x += (s.tx - s.x) * 0.18;
+          s.y += (s.ty - s.y) * 0.18;
+          s.show += (s.ts - s.show) * 0.14;
+          s.press += (1 - s.press) * 0.18;
+          if (s.show < 0.002 && s.ts === 0) { els[side].style.opacity = 0; return; }
+          const active = side === zone ? speedScale : 1;
+          const scale = (0.5 + 0.5 * easeOut(clamp(s.show, 0, 1))) * active * s.press;
+          els[side].style.opacity = clamp(s.show * 1.4, 0, 1).toFixed(3);
+          els[side].style.transform =
+            `translate3d(${(s.x - half).toFixed(2)}px, ${(s.y - half).toFixed(2)}px, 0) scale(${scale.toFixed(3)})`;
+        });
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+  });
+</script>
+</body>
+</html>

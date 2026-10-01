@@ -1,0 +1,80 @@
+/* ==========================================================================
+   vf-gallery-arrows.css  –  Galerie-Pfeile als Cursor-Bubble
+   Gehört zu vf-gallery-arrows.js. Aktivierung: data-motion="gallery-arrows"
+   auf der Bildfläche (Stage) einer bestehenden Galerie.
+   ========================================================================== */
+
+:root {
+  --vfg-size: clamp(48px, 4.6vw, 68px);   /* Durchmesser der Bubble */
+  --vfg-bg: #fff;                          /* Bubble */
+  --vfg-arrow: #000;                       /* Pfeil */
+  --vfg-accent: #c6ea7a;                   /* Neon während gedrückter Maustaste */
+  --vfg-shadow: 0 6px 24px rgba(0, 0, 0, .12);
+  --vfg-inset: 2.6%;                       /* Abstand zum Rand bei fixer Position (Touch/Tastatur) */
+  --vfg-out: cubic-bezier(.16, 1, .3, 1);
+}
+
+:where([data-motion~="gallery-arrows"]) { position: relative; }  /* bestehende position gewinnt */
+[data-motion~="gallery-arrows"] { overflow: hidden; }
+
+/* Originale Pfeile der Galerie werden ersetzt (bleiben im DOM, damit der Slider weiter funktioniert) */
+.vfg-original { display: none !important; }
+
+.vfg-bubble {
+  position: absolute;
+  top: 50%;
+  z-index: 20;
+  width: var(--vfg-size);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--vfg-bg);
+  color: var(--vfg-arrow);
+  box-shadow: var(--vfg-shadow);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  /* Fallback-Position (Touch, Tastatur, Reduced Motion) */
+  transform: translateY(-50%);
+  transition: background-color .35s var(--vfg-out), transform .5s var(--vfg-out), opacity .35s var(--vfg-out);
+}
+.vfg-bubble.vfg-prev { left: var(--vfg-inset); }
+.vfg-bubble.vfg-next { right: var(--vfg-inset); }
+
+.vfg-bubble svg {
+  display: block;
+  width: 38%;
+  height: auto;
+  overflow: visible;
+  pointer-events: none;
+}
+.vfg-bubble path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+}
+.vfg-bubble:focus-visible { outline: 2px solid var(--vfg-bg); outline-offset: 4px; }
+.vfg-bubble.vfg-pressed { background: var(--vfg-accent); transition-duration: .08s; }
+
+/* ── Follow-Modus (Maus/Trackpad): JS positioniert die Bubble per transform ── */
+.vfg-follow .vfg-bubble {
+  top: 0;
+  left: 0;
+  right: auto;
+  opacity: 0;
+  pointer-events: none;                    /* Klick geht an die Stage, die Zone entscheidet */
+  transition: background-color .35s var(--vfg-out);
+  will-change: transform, opacity;
+}
+.vfg-follow .vfg-bubble.vfg-pressed { transition-duration: .08s; }
+.vfg-follow.vfg-in-zone { cursor: pointer; }
+
+@media (prefers-reduced-motion: reduce) {
+  .vfg-bubble { transition: background-color .2s, opacity .2s; }
+}

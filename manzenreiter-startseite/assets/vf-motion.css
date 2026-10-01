@@ -1,0 +1,203 @@
+/* ==========================================================================
+   vf-motion.css  –  Lift (Text) · Curtain (Bild) · Wave (Button)
+   Gehört zu vf-motion.js. Aktivierung ausschließlich über data-motion="…".
+   ========================================================================== */
+
+:root {
+  --vfm-out: cubic-bezier(.16, 1, .3, 1);   /* Expo-Out, weiches Auslaufen, kein Bounce */
+  --vfm-curtain-ease: cubic-bezier(.77, 0, .18, 1);
+
+  /* Lift */
+  --vfm-lift-blur: 8px;
+  --vfm-lift-opacity: .5;
+  --vfm-lift-offset: .45em;
+  --vfm-lift-duration: 1.1s;
+
+  /* Curtain */
+  --vfm-curtain-color: #000;
+  --vfm-curtain-duration: 1.6s;
+
+  /* Wave */
+  --vfm-wave-fill: #fff;                     /* via difference: invertiert Fläche + Schrift */
+  --vfm-wave-halo: rgba(255, 255, 255, .24);
+  --vfm-wave-duration: 1s;
+}
+
+/* --------------------------------------------------------------------------
+   1 · LIFT  –  Text wird Zeile für Zeile scharf, sobald die Zeile im Viewport ist
+   -------------------------------------------------------------------------- */
+
+/* Vor dem Zerlegen (verhindert kurzes Aufblitzen von scharfem Text) */
+.vfm-js [data-motion~="lift"]:not(.vfm-split) {
+  opacity: var(--vfm-lift-opacity);
+  filter: blur(var(--vfm-lift-blur));
+}
+
+.vfm-w {
+  display: inline-block;
+  text-decoration: inherit;                  /* Unterstreichungen in Links bleiben */
+  opacity: var(--vfm-lift-opacity);
+  filter: blur(var(--vfm-lift-blur));
+  transform: translateY(var(--vfm-lift-offset));
+  transition:
+    opacity calc(var(--vfm-lift-duration) * .82) var(--vfm-out),
+    filter  calc(var(--vfm-lift-duration) * .9)  var(--vfm-out),
+    transform var(--vfm-lift-duration) var(--vfm-out);
+  will-change: opacity, filter, transform;
+}
+.vfm-w.vfm-on {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   2 · CURTAIN  –  schwarze Fläche wischt von oben rein, gibt das Bild nach unten frei
+   -------------------------------------------------------------------------- */
+
+:where([data-motion~="curtain"]) { position: relative; }   /* bestehende position gewinnt */
+[data-motion~="curtain"] {
+  overflow: hidden;
+  isolation: isolate;
+}
+[data-motion~="curtain"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: var(--vfm-curtain-color);
+  transform: scaleY(0);
+  transform-origin: center top;
+  pointer-events: none;
+}
+
+/* Medien im Container: vor dem Reveal unsichtbar */
+.vfm-js [data-motion~="curtain"] > :is(img, picture, video, canvas, svg, .vfm-media),
+.vfm-js img[data-motion~="curtain"] {
+  opacity: 0;
+  transform: scale(1.08) translateY(-3%);
+}
+[data-motion~="curtain"].vfm-in::after {
+  animation: vfm-curtain-down var(--vfm-curtain-duration) var(--vfm-curtain-ease) both;
+}
+.vfm-js [data-motion~="curtain"].vfm-in > :is(img, picture, video, canvas, svg, .vfm-media) {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0s calc(var(--vfm-curtain-duration) * .45),
+    transform 1.8s var(--vfm-out) calc(var(--vfm-curtain-duration) * .45);
+}
+
+@keyframes vfm-curtain-down {
+  0%   { transform: scaleY(0); transform-origin: center top; }
+  45%  { transform: scaleY(1); transform-origin: center top; }
+  55%  { transform: scaleY(1); transform-origin: center bottom; }
+  100% { transform: scaleY(0); transform-origin: center bottom; }
+}
+
+/* Option: horizontal (data-curtain-dir="right") */
+[data-motion~="curtain"][data-curtain-dir="right"]::after { transform: scaleX(0); transform-origin: left center; }
+[data-motion~="curtain"][data-curtain-dir="right"].vfm-in::after { animation-name: vfm-curtain-right; }
+.vfm-js [data-motion~="curtain"][data-curtain-dir="right"] > :is(img, picture, video, canvas, svg, .vfm-media) {
+  transform: scale(1.08) translateX(-3%);
+}
+@keyframes vfm-curtain-right {
+  0%   { transform: scaleX(0); transform-origin: left center; }
+  45%  { transform: scaleX(1); transform-origin: left center; }
+  55%  { transform: scaleX(1); transform-origin: right center; }
+  100% { transform: scaleX(0); transform-origin: right center; }
+}
+
+/* Option: Fullscreen (data-curtain-full) – braucht body { overflow-x: clip; } */
+[data-motion~="curtain"][data-curtain-full] {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  height: 100vh;
+  height: 100svh;
+}
+[data-motion~="curtain"][data-curtain-full] > :is(img, video, picture, .vfm-media) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+[data-motion~="curtain"][data-curtain-full] > picture > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --------------------------------------------------------------------------
+   3 · WAVE BUTTON  –  weiße Fläche mit fließender Wellenkante kommt von rechts
+   -------------------------------------------------------------------------- */
+
+:where(.vfm-wave) { position: relative; }   /* niedrige Spezifität: bestehende position gewinnt */
+.vfm-wave {
+  isolation: isolate;
+  overflow: hidden;
+  transform: translateZ(0);                  /* Safari: Radius-Clipping */
+}
+
+.vfm-wave > .vfm-fill,
+.vfm-wave > .vfm-halo {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: calc(100% + 28px);
+  pointer-events: none;
+  transform: translateX(101%);
+  will-change: transform, opacity;
+  -webkit-mask:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 44' preserveAspectRatio='none'%3E%3Cpath d='M28 0H14C2 5.5 2 16.5 14 22C26 27.5 26 38.5 14 44H28Z'/%3E%3C/svg%3E") 0 0 / 28px 44px repeat-y,
+    linear-gradient(#000 0 0) 27px 0 / 100% 100% no-repeat;
+          mask:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 44' preserveAspectRatio='none'%3E%3Cpath d='M28 0H14C2 5.5 2 16.5 14 22C26 27.5 26 38.5 14 44H28Z'/%3E%3C/svg%3E") 0 0 / 28px 44px repeat-y,
+    linear-gradient(#000 0 0) 27px 0 / 100% 100% no-repeat;
+  animation: vfm-flow 1.1s linear infinite;
+}
+.vfm-wave > .vfm-fill {
+  z-index: 2;                                /* über dem Inhalt, invertiert ihn */
+  background: var(--vfm-wave-fill);
+  mix-blend-mode: difference;
+}
+.vfm-wave > .vfm-halo {
+  z-index: -1;                               /* unter dem Inhalt, über dem Button-Hintergrund */
+  background: var(--vfm-wave-halo);
+  animation-duration: .8s;
+}
+
+@keyframes vfm-flow {
+  to { -webkit-mask-position: 0 44px, 27px 0; mask-position: 0 44px, 27px 0; }
+}
+
+.vfm-wave.vfm-prep > .vfm-fill,
+.vfm-wave.vfm-prep > .vfm-halo { transition: none !important; transform: translateX(101%); opacity: 1; }
+
+.vfm-wave.vfm-in > .vfm-fill {
+  transform: translateX(-28px);
+  transition: transform var(--vfm-wave-duration) var(--vfm-out);   /* kein Spring → kein Bounce */
+}
+.vfm-wave.vfm-in > .vfm-halo {
+  transform: translateX(-28px);
+  opacity: 0;
+  transition: transform .65s var(--vfm-out), opacity .45s ease .4s;
+}
+.vfm-wave.vfm-out > .vfm-fill {
+  transform: translateX(101%);
+  transition: transform .8s var(--vfm-out);
+}
+.vfm-wave.vfm-out > .vfm-halo { transform: translateX(101%); opacity: 0; transition: none; }
+
+/* --------------------------------------------------------------------------
+   Reduced Motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .vfm-w,
+  .vfm-js [data-motion~="lift"]:not(.vfm-split) { opacity: 1 !important; filter: none !important; transform: none !important; transition: none !important; }
+  [data-motion~="curtain"]::after { display: none; }
+  .vfm-js [data-motion~="curtain"] > *,
+  .vfm-js img[data-motion~="curtain"] { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .vfm-wave > .vfm-fill { animation: none; transition-duration: .2s !important; }
+  .vfm-wave > .vfm-halo { display: none; }
+}
