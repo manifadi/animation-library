@@ -87,13 +87,17 @@ main,
   height: 100%;
   object-fit: cover;
 }
+/* Schwarzes Overlay über dem Hero-Video, damit Text und Navigation sich klar abheben:
+   oben ein Verlauf für die Navigation, unten einer für die Leiste, dazu 60 % Schwarz
+   über die ganze Fläche (Figma-Bild: 50 %, beim bewegten Video etwas kräftiger). */
 .hero__media::after {
   content: "";
   position: absolute;
   inset: 0;
   background-image:
     linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 18.49%),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%);
+    linear-gradient(0deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 22%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%);
 }
 
 /* Sticky-Header (Logik in script.js):
@@ -1338,7 +1342,7 @@ html.menu-open body { overflow: hidden; }
 
 /* =========================================================
    Text-Links mit Pfeil (Intro-Sections, "Markenwelt", Kachel-Beschriftungen)
-   Hover: grüne Unterstreichung wächst vom Textanfang nach rechts (wie im Menü),
+   Hover: schwarze Unterstreichung wächst vom Textanfang nach rechts (wie im Menü),
    der Pfeil rückt als kleines Feedback ein Stück nach rechts.
    Bei den Kacheln reagiert die ganze Kachel (sie ist ein Link).
    ========================================================= */
@@ -1356,7 +1360,7 @@ html.menu-open body { overflow: hidden; }
   right: 0;
   bottom: -0.2em;
   height: 2px;
-  background: var(--green);
+  background: var(--black);
   transform: scaleX(0);
   transform-origin: right center;
   transition: transform .5s cubic-bezier(.16, 1, .3, 1);
@@ -1386,4 +1390,110 @@ html.menu-open body { overflow: hidden; }
   .card__label::after,
   .link-arrow__icon,
   .card__arrow { transition: none; }
+}
+
+/* =========================================================
+   Kacheln: leichtes schwarzes Overlay beim Hover (signalisiert "klickbar").
+   ::after ist vom Curtain-Reveal belegt, deshalb ::before.
+   ========================================================= */
+.card__media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.28);
+  opacity: 0;
+  transition: opacity .45s ease;
+  pointer-events: none;
+}
+.card:hover .card__media::before,
+.card:focus-visible .card__media::before { opacity: 1; }
+.card__icon { z-index: 2; }     /* Neon-Icon bleibt über dem Overlay hell */
+
+/* =========================================================
+   Footer-"M": wird wie im Preloader gezeichnet, sobald es ins Bild kommt,
+   und läuft rückwärts wieder heraus, wenn es den Bildschirm verlässt
+   (Klasse .is-drawn per IntersectionObserver in script.js).
+   Transitions statt Keyframes, damit beide Richtungen sauber umkehrbar sind.
+   ========================================================= */
+.site-footer__monogram {
+  aspect-ratio: 110 / 82;
+  overflow: visible;
+  color: var(--white);
+  translate: 0 10px;
+  transition: translate .6s ease;
+}
+.monogram__fill {
+  fill: currentColor;
+  opacity: 0;
+  transition: opacity .35s ease;                       /* raus: Füllung zuerst weg */
+}
+.monogram__stroke {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 1;
+  transition:
+    stroke-dashoffset .9s var(--loader-draw-ease) .25s, /* raus: Kontur zurückziehen */
+    opacity 0s;
+}
+
+.site-footer__monogram.is-drawn {
+  translate: 0 0;
+  transition: translate 1.6s var(--loader-slide-ease) .15s;
+}
+.site-footer__monogram.is-drawn .monogram__fill {
+  opacity: 1;
+  transition: opacity .4s ease 1.3s;                    /* rein: nach dem Zeichnen einblenden */
+}
+.site-footer__monogram.is-drawn .monogram__stroke {
+  stroke-dashoffset: 0;
+  opacity: 0;
+  transition:
+    stroke-dashoffset 1.15s var(--loader-draw-ease) .15s,
+    opacity .4s ease 1.3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-footer__monogram,
+  .site-footer__monogram * { transition: none !important; }
+}
+
+/* =========================================================
+   Seitenwechsel-Curtain
+   Klick auf einen Link: schwarze Fläche fällt von oben über die Seite →
+   neue Seite lädt verdeckt → Fläche löst sich nach unten auf.
+   Ausgenommen: Mega-Menü und Sidepanel (Logik in script.js).
+   ========================================================= */
+.page-curtain {
+  --page-curtain-ease: cubic-bezier(.77, 0, .18, 1);
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--black);
+  transform: scaleY(0);
+  transform-origin: center top;
+  pointer-events: none;
+}
+/* Ankunft per Seitenwechsel: vom ersten Paint an verdeckt */
+html.is-arriving .page-curtain {
+  transform: scaleY(1);
+  transform-origin: center bottom;
+}
+/* Wegklicken: Fläche fällt von oben */
+.page-curtain.is-covering {
+  transform: scaleY(1);
+  transform-origin: center top;
+  pointer-events: auto;
+  transition: transform .7s var(--page-curtain-ease);
+}
+/* Auflösen: Fläche zieht nach unten ab */
+.page-curtain.is-revealing {
+  transform: scaleY(0);
+  transform-origin: center bottom;
+  transition: transform .8s var(--page-curtain-ease);
 }

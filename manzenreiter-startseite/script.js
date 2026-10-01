@@ -486,3 +486,107 @@
     header.classList.toggle('is-solid', !overHero(window.scrollY));
   });
 })();
+
+/* ---------- Footer-"M" ----------
+   Wird wie im Preloader gezeichnet, sobald es ins Bild kommt, und läuft rückwärts
+   heraus, sobald es den Bildschirm verlässt (Randzone 12 % oben/unten). */
+(function () {
+  var mono = document.querySelector('.site-footer__monogram');
+  if (!mono || !('IntersectionObserver' in window)) {
+    if (mono) mono.classList.add('is-drawn');
+    return;
+  }
+  new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { mono.classList.toggle('is-drawn', e.isIntersecting); });
+  }, { rootMargin: '-12% 0px -12% 0px', threshold: 0 }).observe(mono);
+})();
+
+/* ---------- Seitenwechsel-Curtain ----------
+   Klick auf einen Link (außer Mega-Menü und Sidepanel):
+   1. schwarze Fläche fällt von oben über die Seite
+   2. Navigation zur neuen Seite – ein Flag in sessionStorage sagt ihr, dass sie
+      verdeckt startet (siehe Inline-Script im <head>, Klasse .is-arriving)
+   3. auf der neuen Seite löst sich die Fläche nach unten auf
+   Platzhalter-Links (href="#") simulieren einen Seitenwechsel: verdecken, nach oben
+   springen, auflösen. */
+(function () {
+  var root = document.documentElement;
+  var curtain = document.querySelector('.page-curtain');
+  if (!curtain) return;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var busy = false;
+
+  function onceTransition(fn) {
+    var done = false;
+    function finish() { if (done) return; done = true; fn(); }
+    curtain.addEventListener('transitionend', function handler(e) {
+      if (e.target !== curtain || e.propertyName !== 'transform') return;
+      curtain.removeEventListener('transitionend', handler);
+      finish();
+    });
+    setTimeout(finish, 1100);          // Absicherung, falls transitionend ausbleibt
+  }
+
+  function reveal() {
+    curtain.classList.add('is-revealing');
+    curtain.classList.remove('is-covering');
+    root.classList.remove('is-arriving');
+    onceTransition(function () {
+      curtain.classList.remove('is-revealing');
+      busy = false;
+    });
+  }
+
+  // 3. Ankunft: kurz warten, bis die Seite steht, dann auflösen
+  if (root.classList.contains('is-arriving')) {
+    busy = true;
+    var ready = new Promise(function (resolve) {
+      if (document.readyState === 'complete') resolve();
+      else window.addEventListener('load', resolve, { once: true });
+    });
+    var cap = new Promise(function (resolve) { setTimeout(resolve, 1200); });
+    Promise.race([ready, cap]).then(function () {
+      requestAnimationFrame(function () { requestAnimationFrame(reveal); });
+    });
+  }
+
+  document.addEventListener('click', function (e) {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var a = e.target.closest('a[href]');
+    if (!a || a.closest('#menu, #sidepanel')) return;              // Mega-Menü & Panel ausgenommen
+    if ((a.target && a.target !== '_self') || a.hasAttribute('download')) return;
+    var url = new URL(a.getAttribute('href'), location.href);
+    // http(s) und lokal geöffnete Dateien (file://); mailto:, tel: … normal lassen
+    if (!/^(https?|file):$/.test(url.protocol)) return;
+    if (reduced) return;
+
+    e.preventDefault();
+    if (busy) return;
+    busy = true;
+
+    var placeholder = a.getAttribute('href') === '#';
+    curtain.classList.remove('is-revealing');
+    curtain.classList.add('is-covering');
+
+    onceTransition(function () {
+      if (placeholder) {
+        window.scrollTo(0, 0);
+        setTimeout(reveal, 150);
+        return;
+      }
+      // nur eigene Seiten wissen mit dem Flag etwas anzufangen
+      if (url.origin === location.origin) {
+        try { sessionStorage.setItem('vf-page-transition', '1'); } catch (err) {}
+      }
+      window.location.href = url.href;
+    });
+  });
+
+  // Zurück-Button (Seite aus dem Browser-Cache): Fläche wieder entfernen
+  window.addEventListener('pageshow', function (e) {
+    if (!e.persisted) return;
+    curtain.classList.remove('is-covering', 'is-revealing');
+    root.classList.remove('is-arriving');
+    busy = false;
+  });
+})();
