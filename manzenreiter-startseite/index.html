@@ -448,15 +448,13 @@ stage.addEventListener('click', () =&gt; zone &amp;&amp; original[zone].click())
         </figure>
         <h3 class="sidepanel__sub">Responsive Skalierung</h3>
         <div class="sidepanel__text">
-          <p>Alle Maße aus Figma (1600 px) sind als Vielfaches von <code>--u</code> notiert. <code>--k</code> ist das Verhältnis Breite / 1600, begrenzt auf 0,64 bis 1,2. Unter 1025 px und 768 px greifen eigene Layouts. <code>container-type</code> sitzt bewusst auf den Seitenbereichen (<code>main</code>, Hero, Footer) und nicht auf <code>body</code>. Sonst können fixe Elemente wie Header, Menü und Panel mitscrollen.</p>
+          <p>Alle Maße aus Figma (1600 px) sind als Vielfaches von <code>--u</code> notiert. <code>--u</code> ist die Seitenbreite / 1600, begrenzt auf 0,64 bis 1,2 px, also genau 1 px bei 1600 px Breite. Unter 1025 px und 768 px greifen eigene Layouts. Die Formel nutzt bewusst nur <code>clamp()</code> und <code>calc()</code>, die in allen aktuellen Browsern zuverlässig funktionieren.</p>
         </div>
         <figure class="sidepanel__code">
           <figcaption>CSS</figcaption>
           <pre><code>:root {
-  --k: clamp(0.64, tan(atan2(100cqw, 1600px)), 1.2);
-  --u: calc(1px * var(--k));
+  --u: clamp(0.64px, calc(100vw / 1600), 1.2px);
 }
-main, .hero, .site-footer { container-type: inline-size; }
 
 .intro__title { font-size: max(22px, calc(30 * var(--u))); }</code></pre>
         </figure>
@@ -626,44 +624,44 @@ main, .hero, .site-footer { container-type: inline-size; }
       </a>
     </div>
     <ul class="brands__list">
-      <li><a class="tag" style="--w:126px" href="#">Anrei</a></li>
-      <li><a class="tag" style="--w:182px" href="#">Artemide</a></li>
-      <li><a class="tag is-active" style="--w:189px" href="#" data-motion="wave">B&amp;B Italia</a></li>
-      <li><a class="tag" style="--w:119px" href="#">Bora</a></li>
-      <li><a class="tag" style="--w:196px" href="#">ClassiCon</a></li>
-      <li><a class="tag" style="--w:129px" href="#">Cooc</a></li>
-      <li><a class="tag" style="--w:146px" href="#">Denon</a></li>
-      <li><a class="tag" style="--w:161px" href="#">Desalto</a></li>
-      <li><a class="tag" style="--w:176px" href="#">Draenert</a></li>
-      <li><a class="tag" style="--w:122px" href="#">Fiam</a></li>
-      <li><a class="tag" style="--w:112px" href="#">Flos</a></li>
-      <li><a class="tag" style="--w:180px" href="#">Foscarini</a></li>
-      <li><a class="tag" style="--w:159px" href="#">Freifrau</a></li>
-      <li><a class="tag" style="--w:199px" href="#">Gaggenau</a></li>
-      <li><a class="tag" style="--w:156px" href="#">Gloster</a></li>
-      <li><a class="tag" style="--w:126px" href="#">Haas</a></li>
-      <li><a class="tag" style="--w:139px" href="#">Janua</a></li>
-      <li><a class="tag" style="--w:120px" href="#">Joka</a></li>
-      <li><a class="tag is-active" style="--w:163px" href="#" data-motion="wave">Keramo</a></li>
-      <li><a class="tag" style="--w:108px" href="#">KFF</a></li>
-      <li><a class="tag" style="--w:174px" href="#">Lapalma</a></li>
-      <li><a class="tag" style="--w:130px" href="#">Miele</a></li>
-      <li><a class="tag is-active" style="--w:150px" href="#" data-motion="wave">Minotti</a></li>
-      <li><a class="tag" style="--w:162px" href="#">Missoni</a></li>
-      <li><a class="tag" style="--w:158px" href="#">Optimo</a></li>
-      <li><a class="tag is-active" style="--w:169px" href="#" data-motion="wave">Poliform</a></li>
-      <li><a class="tag" style="--w:193px" href="#">Raumplus</a></li>
-      <li><a class="tag" style="--w:202px" href="#">Rimadesio</a></li>
-      <li><a class="tag" style="--w:186px" href="#">Rolf Benz</a></li>
-      <li><a class="tag" style="--w:175px" href="#">Roshults</a></li>
-      <li><a class="tag" style="--w:170px" href="#">Strasser</a></li>
-      <li><a class="tag" style="--w:248px" href="#">Studio Khodai</a></li>
-      <li><a class="tag" style="--w:187px" href="#">Tagliabue</a></li>
-      <li><a class="tag" style="--w:200px" href="#">Tom Dixon</a></li>
-      <li><a class="tag" style="--w:122px" href="#">Vibia</a></li>
-      <li><a class="tag" style="--w:219px" href="#">Walter Knoll</a></li>
-      <li><a class="tag is-active" style="--w:187px" href="#" data-motion="wave">Wittmann</a></li>
-      <li><a class="tag" style="--w:130px" href="#">Yonei</a></li>
+      <li><a class="tag" style="--w:126" href="#">Anrei</a></li>
+      <li><a class="tag" style="--w:182" href="#">Artemide</a></li>
+      <li><a class="tag is-active" style="--w:189" href="#" data-motion="wave">B&amp;B Italia</a></li>
+      <li><a class="tag" style="--w:119" href="#">Bora</a></li>
+      <li><a class="tag" style="--w:196" href="#">ClassiCon</a></li>
+      <li><a class="tag" style="--w:129" href="#">Cooc</a></li>
+      <li><a class="tag" style="--w:146" href="#">Denon</a></li>
+      <li><a class="tag" style="--w:161" href="#">Desalto</a></li>
+      <li><a class="tag" style="--w:176" href="#">Draenert</a></li>
+      <li><a class="tag" style="--w:122" href="#">Fiam</a></li>
+      <li><a class="tag" style="--w:112" href="#">Flos</a></li>
+      <li><a class="tag" style="--w:180" href="#">Foscarini</a></li>
+      <li><a class="tag" style="--w:159" href="#">Freifrau</a></li>
+      <li><a class="tag" style="--w:199" href="#">Gaggenau</a></li>
+      <li><a class="tag" style="--w:156" href="#">Gloster</a></li>
+      <li><a class="tag" style="--w:126" href="#">Haas</a></li>
+      <li><a class="tag" style="--w:139" href="#">Janua</a></li>
+      <li><a class="tag" style="--w:120" href="#">Joka</a></li>
+      <li><a class="tag is-active" style="--w:163" href="#" data-motion="wave">Keramo</a></li>
+      <li><a class="tag" style="--w:108" href="#">KFF</a></li>
+      <li><a class="tag" style="--w:174" href="#">Lapalma</a></li>
+      <li><a class="tag" style="--w:130" href="#">Miele</a></li>
+      <li><a class="tag is-active" style="--w:150" href="#" data-motion="wave">Minotti</a></li>
+      <li><a class="tag" style="--w:162" href="#">Missoni</a></li>
+      <li><a class="tag" style="--w:158" href="#">Optimo</a></li>
+      <li><a class="tag is-active" style="--w:169" href="#" data-motion="wave">Poliform</a></li>
+      <li><a class="tag" style="--w:193" href="#">Raumplus</a></li>
+      <li><a class="tag" style="--w:202" href="#">Rimadesio</a></li>
+      <li><a class="tag" style="--w:186" href="#">Rolf Benz</a></li>
+      <li><a class="tag" style="--w:175" href="#">Roshults</a></li>
+      <li><a class="tag" style="--w:170" href="#">Strasser</a></li>
+      <li><a class="tag" style="--w:248" href="#">Studio Khodai</a></li>
+      <li><a class="tag" style="--w:187" href="#">Tagliabue</a></li>
+      <li><a class="tag" style="--w:200" href="#">Tom Dixon</a></li>
+      <li><a class="tag" style="--w:122" href="#">Vibia</a></li>
+      <li><a class="tag" style="--w:219" href="#">Walter Knoll</a></li>
+      <li><a class="tag is-active" style="--w:187" href="#" data-motion="wave">Wittmann</a></li>
+      <li><a class="tag" style="--w:130" href="#">Yonei</a></li>
     </ul>
   </section>
 

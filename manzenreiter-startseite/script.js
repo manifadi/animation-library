@@ -401,7 +401,12 @@
 
     items.forEach(function (item) {
       item.addEventListener('pointerenter', function () { to(item); });
-      item.addEventListener('focus', function () { if (item.matches(':focus-visible')) to(item); });
+      item.addEventListener('focus', function () {
+        // :focus-visible kennt nicht jeder Browser – dann Fokus einfach immer zeigen
+        var visible = true;
+        try { visible = item.matches(':focus-visible'); } catch (err) {}
+        if (visible) to(item);
+      });
     });
     (leaveTriggers || []).forEach(function (el) { el.addEventListener('pointerenter', out); });
     container.addEventListener('pointerleave', out);
