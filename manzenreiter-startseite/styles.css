@@ -199,43 +199,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   line-height: 1.875;
 }
 
-/* Wave-Hover (vf-motion) für die grünen Pill-Buttons (Hero "Mehr erfahren", Menü "Sale"):
-   Füllung in Button-Grün → per difference
-   wird der Hintergrund schwarz (#b6ff4d − #b6ff4d) und die Schrift grün (#b6ff4d − #000). */
-.btn-pill[data-motion~="wave"],
-.site-nav__sale[data-motion~="wave"] { --vfm-wave-fill: var(--green); }
-
-/* Saumfreie Kanten: Würden grüner Hintergrund (border-radius) und Wave-Fläche
-   (overflow: hidden) jeweils einzeln an der runden Kante abgeschnitten, bliebe an den
-   halben Pixeln oben/unten ein grüner Rest, weil difference dort nicht ganz aufgeht.
-   Daher: Grün und Fläche ragen 2px über den Button hinaus und das fertige Ergebnis
-   wird nur EINMAL per clip-path in Pillenform geschnitten. */
-.btn-pill.vfm-wave,
-.site-nav .site-nav__sale.vfm-wave {
-  background: transparent;
-  border-radius: 0;
-  overflow: visible;
-  clip-path: inset(0 round 999px);
-}
-.btn-pill.vfm-wave::before,
-.site-nav .site-nav__sale.vfm-wave::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  z-index: -2;                 /* unter Halo (-1) und Text */
-  background: var(--green);
-}
-.btn-pill.vfm-wave > .vfm-fill,
-.btn-pill.vfm-wave > .vfm-halo,
-.site-nav__sale.vfm-wave > .vfm-fill,
-.site-nav__sale.vfm-wave > .vfm-halo {
-  top: -2px;
-  bottom: -2px;
-  /* auch rechts 2px Überstand: Endposition ist translateX(-28px), die Fläche endet
-     sonst exakt an der Button-Kante und lässt dort ein grünes Pixel stehen */
-  width: calc(100% + 30px);
-}
-
 .hero__bar {
   position: absolute;
   bottom: calc(16 * var(--u));
@@ -501,13 +464,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   background: var(--black);
   color: var(--green);
 }
-/* Wave-Hover (vf-motion) auf den schwarzen Pills: Füllung in Grün → per difference
-   wird der Hintergrund grün (#b6ff4d − #000) und die Schrift schwarz (#b6ff4d − #b6ff4d).
-   Der schwarze Rand liegt außerhalb der Fläche und bleibt schwarz. */
-.tag.is-active[data-motion~="wave"] { --vfm-wave-fill: var(--green); }
-/* Ohne die weiße Vorwelle: die würde auf Schwarz erst grau aufblitzen,
-   bevor das Neon kommt – hier soll sofort Neon erscheinen. */
-.tag.is-active.vfm-wave > .vfm-halo { display: none; }
 
 /* ---------- Footer ---------- */
 
@@ -1505,4 +1461,85 @@ html.is-arriving .page-curtain {
   transform: scaleY(0);
   transform-origin: center bottom;
   transition: transform .8s var(--page-curtain-ease);
+}
+
+/* =========================================================
+   Wave-Hover (browsersicher) – "Mehr erfahren", "Sale", schwarze Marken-Pills
+   Statt der Farbumkehr per mix-blend-mode (in Safari unzuverlässig) liegt der
+   Hover-Zustand als fertige Ebene über dem Button (::after mit demselben Text aus
+   data-label). Eine Maske mit Wellenkante deckt ihn von rechts auf und zieht sich
+   beim Verlassen wieder nach rechts zurück. Nur Maske + Transition: läuft in
+   Chrome, Edge, Firefox und Safari gleich.
+   ========================================================= */
+.wave-swap {
+  position: relative;
+  isolation: isolate;
+}
+.wave-swap::after {
+  content: attr(data-label);
+  content: attr(data-label) / "";          /* Screenreader lesen den Text nicht doppelt */
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+  background: var(--swap-bg);
+  color: var(--swap-fg);
+  white-space: nowrap;
+  pointer-events: none;
+  /* Ebene 1: Wellenkante (28 × 44 px, senkrecht wiederholt), Ebene 2: volle Fläche.
+     Versteckt liegen beide rechts außerhalb; sichtbar decken sie alles ab. */
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 44' preserveAspectRatio='none'%3E%3Cpath d='M28 0H14C2 5.5 2 16.5 14 22C26 27.5 26 38.5 14 44H28Z'/%3E%3C/svg%3E"), linear-gradient(#000, #000);
+          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 44' preserveAspectRatio='none'%3E%3Cpath d='M28 0H14C2 5.5 2 16.5 14 22C26 27.5 26 38.5 14 44H28Z'/%3E%3C/svg%3E"), linear-gradient(#000, #000);
+  -webkit-mask-size: 28px 44px, 200% 100%;
+          mask-size: 28px 44px, 200% 100%;
+  -webkit-mask-repeat: repeat-y, no-repeat;
+          mask-repeat: repeat-y, no-repeat;
+  -webkit-mask-position: calc(100% + 28px) 0, calc(-100% + 27px) 0;
+          mask-position: calc(100% + 28px) 0, calc(-100% + 27px) 0;
+  transition:
+    -webkit-mask-position .8s cubic-bezier(.16, 1, .3, 1),
+    mask-position .8s cubic-bezier(.16, 1, .3, 1);
+}
+.wave-swap:hover::after {
+  -webkit-mask-position: -28px 0, -1px 0;
+          mask-position: -28px 0, -1px 0;
+  transition-duration: 1s;
+}
+.wave-swap:focus-visible::after {
+  -webkit-mask-position: -28px 0, -1px 0;
+          mask-position: -28px 0, -1px 0;
+  transition-duration: 1s;
+}
+
+/* Grüne Buttons → schwarz mit grüner Schrift. Ebene ragt 2px über, geschnitten wird
+   einmal per clip-path → kein grüner Saum an den Pixelkanten. */
+.btn-pill.wave-swap,
+.site-nav .site-nav__sale.wave-swap {
+  --swap-bg: var(--black);
+  --swap-fg: var(--green);
+  clip-path: inset(0 round 999px);
+}
+.btn-pill.wave-swap::after,
+.site-nav .site-nav__sale.wave-swap::after { inset: -2px; }
+
+/* Schwarze Marken-Pills → neongrün mit schwarzer Schrift, schwarzer Rand bleibt */
+.tag.is-active.wave-swap {
+  --swap-bg: var(--green);
+  --swap-fg: var(--black);
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave-swap::after { transition: none; }
+}
+
+/* Galerie-Bubbles: feste Maße statt nur aspect-ratio/height:auto
+   (ältere Safari-Versionen berechnen sonst die Pfeil-Grafik falsch) */
+.vfg-bubble { height: var(--vfg-size); }
+.vfg-bubble svg {
+  width: calc(var(--vfg-size) * .38);
+  height: calc(var(--vfg-size) * .3474);   /* .38 × 128/140 (viewBox) */
 }

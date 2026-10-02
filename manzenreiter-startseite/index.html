@@ -269,17 +269,17 @@ document.querySelectorAll('[data-motion~="curtain"]').forEach(el =&gt; io.observ
       <article class="sidepanel__article" data-panel="wave" hidden>
         <h2 class="sidepanel__title">Wave-Button-Hover</h2>
         <div class="sidepanel__text">
-          <p>Beim Hover schiebt sich von rechts eine Fläche mit fließender Wellenkante über den Button. Der grüne Button wird dabei schwarz mit grüner Schrift. Beim Verlassen zieht sie sich nach rechts zurück, ohne Nachwippen.</p>
+          <p>Beim Hover schiebt sich von rechts eine Fläche mit Wellenkante über den Button. Der grüne Button wird schwarz mit grüner Schrift, die schwarzen Marken-Pills werden neongrün mit schwarzer Schrift. Beim Verlassen zieht sich die Fläche nach rechts zurück, ohne Nachwippen.</p>
         </div>
         <h3 class="sidepanel__sub">So funktioniert es</h3>
         <div class="sidepanel__text">
-          <p>Die Wellenkante ist eine CSS-<code>mask</code> aus einem kleinen SVG-Wellenstück, das senkrecht wiederholt und laufend verschoben wird. Die Fläche liegt per <code>mix-blend-mode: difference</code> über dem Inhalt. Ist die Fläche so grün wie der Button, ergibt Grün minus Grün Schwarz und Grün minus Schwarz Grün.</p>
-          <p>Damit an den Pixelkanten kein grüner Saum bleibt, ragen Grün und Fläche 2 px über den Button hinaus. Abgeschnitten wird nur einmal per <code>clip-path</code>.</p>
+          <p>Der Hover-Zustand liegt als fertige Ebene über dem Button: ein <code>::after</code>, das denselben Text aus <code>data-label</code> in den Hover-Farben zeigt. Eine CSS-Maske aus zwei Ebenen deckt diese Ebene auf: ein 28 × 44 px großes SVG-Wellenstück (senkrecht wiederholt) und eine volle Fläche. Beim Hover wandert die Maske per Transition von rechts nach links.</p>
+          <p>Bewusst ohne <code>mix-blend-mode</code>: Die Farbumkehr per Mischmodus (wie in der vf-motion-Bibliothek) läuft in Safari zusammen mit Maske und Zuschnitt nicht zuverlässig. Die Masken-Variante sieht in Chrome, Edge, Firefox und Safari gleich aus.</p>
+          <p>Bei den grünen Buttons ragt die Ebene 2 px über den Button hinaus, geschnitten wird einmal per <code>clip-path</code>. So bleibt an den Pixelkanten kein grüner Saum stehen.</p>
         </div>
         <h3 class="sidepanel__sub">Einbau in Pimcore</h3>
         <div class="sidepanel__text">
-          <p>Das Attribut kommt auf den Link, den <code>pimcore_link</code> ausgibt, oder auf ein eigenes <code>&lt;a&gt;</code> mit dessen <code>href</code>. Am einfachsten ist ein Button-Template als Twig-Include, das überall wiederverwendet wird.</p>
-          <p>Im Editmode darf der Effekt bleiben, er stört das Bearbeiten nicht. Nur das Script hängt zwei leere <code>&lt;span&gt;</code> an den Button.</p>
+          <p>Am einfachsten über ein Button-Template als Twig-Include: Klasse <code>wave-swap</code> und <code>data-label</code> mit demselben Text wie im Link. Es ist kein JavaScript nötig, der Effekt ist reines CSS. Im Editmode darf er bleiben.</p>
         </div>
         <figure class="sidepanel__code">
           <figcaption>Twig · Include _button.html.twig</figcaption>
@@ -287,34 +287,48 @@ document.querySelectorAll('[data-motion~="curtain"]').forEach(el =&gt; io.observ
 {% if editmode %}
   {{ link }}
 {% else %}
-  &lt;a class="btn-pill" href="{{ link.getHref() }}" data-motion="wave"&gt;
-    {{ link.getText() }}
-  &lt;/a&gt;
+  &lt;a class="btn-pill wave-swap" href="{{ link.getHref() }}"
+     data-label="{{ link.getText() }}"&gt;{{ link.getText() }}&lt;/a&gt;
 {% endif %}</code></pre>
         </figure>
         <figure class="sidepanel__code">
           <figcaption>CSS</figcaption>
-          <pre><code>.vfm-wave &gt; .vfm-fill {
+          <pre><code>.wave-swap { position: relative; isolation: isolate; }
+.wave-swap::after {
+  content: attr(data-label);
   position: absolute;
-  top: 0; bottom: 0; left: 0;
-  width: calc(100% + 28px);
-  background: var(--vfm-wave-fill, #fff);
-  mix-blend-mode: difference;
-  transform: translateX(101%);
-  mask: url(wave.svg) 0 0 / 28px 44px repeat-y,
-        linear-gradient(#000 0 0) 27px 0 / 100% 100% no-repeat;
-  animation: flow 1.1s linear infinite;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+  background: var(--swap-bg);
+  color: var(--swap-fg);
+  pointer-events: none;
+  -webkit-mask-image: url(wave.svg), linear-gradient(#000, #000);
+          mask-image: url(wave.svg), linear-gradient(#000, #000);
+  -webkit-mask-size: 28px 44px, 200% 100%;
+          mask-size: 28px 44px, 200% 100%;
+  -webkit-mask-repeat: repeat-y, no-repeat;
+          mask-repeat: repeat-y, no-repeat;
+  /* versteckt: beide Ebenen rechts außerhalb */
+  -webkit-mask-position: calc(100% + 28px) 0, calc(-100% + 27px) 0;
+          mask-position: calc(100% + 28px) 0, calc(-100% + 27px) 0;
+  transition: -webkit-mask-position .8s cubic-bezier(.16, 1, .3, 1),
+              mask-position .8s cubic-bezier(.16, 1, .3, 1);
 }
-.vfm-wave.vfm-in &gt; .vfm-fill { transform: translateX(-28px); transition: transform 1s cubic-bezier(.16, 1, .3, 1); }
+.wave-swap:hover::after {
+  -webkit-mask-position: -28px 0, -1px 0;
+          mask-position: -28px 0, -1px 0;
+  transition-duration: 1s;
+}
 
-/* grüner Button ohne Saum */
-.btn-pill.vfm-wave {
-  --vfm-wave-fill: #b6ff4d;
-  background: transparent;
-  clip-path: inset(0 round 999px);
-}
-.btn-pill.vfm-wave::before { content: ""; position: absolute; inset: -2px; z-index: -2; background: #b6ff4d; }
-.btn-pill.vfm-wave &gt; .vfm-fill { top: -2px; bottom: -2px; width: calc(100% + 30px); }</code></pre>
+/* grüner Button → schwarz/grün, ohne Saum */
+.btn-pill.wave-swap { --swap-bg: #000; --swap-fg: #b6ff4d; clip-path: inset(0 round 999px); }
+.btn-pill.wave-swap::after { inset: -2px; }
+
+/* schwarze Pill → grün/schwarz, Rand bleibt */
+.tag.is-active.wave-swap { --swap-bg: #b6ff4d; --swap-fg: #000; overflow: hidden; }</code></pre>
         </figure>
       </article>
       <article class="sidepanel__article" data-panel="gallery" hidden>
@@ -487,7 +501,7 @@ stage.addEventListener('click', () =&gt; zone &amp;&amp; original[zone].click())
     <a href="#">Manzenreiter</a>
     <a href="#">Projekte</a>
     <a href="#">Marken</a>
-    <a class="site-nav__sale" href="#" data-motion="wave">Sale</a>
+    <a class="site-nav__sale wave-swap" href="#" data-label="Sale">Sale</a>
   </nav>
   <button class="burger" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menu" data-menu-open>
     <span></span><span></span><span></span>
@@ -503,7 +517,7 @@ stage.addEventListener('click', () =&gt; zone &amp;&amp; original[zone].click())
 
   <div class="hero__content">
     <h1 class="hero__title">Pures Wohnglück überlässt nichts<br />dem Zufall.</h1>
-    <a class="btn-pill" href="#" data-motion="wave">Mehr erfahren</a>
+    <a class="btn-pill wave-swap" href="#" data-label="Mehr erfahren">Mehr erfahren</a>
   </div>
 
   <div class="hero__bar">
@@ -626,7 +640,7 @@ stage.addEventListener('click', () =&gt; zone &amp;&amp; original[zone].click())
     <ul class="brands__list">
       <li><a class="tag" style="--w:126" href="#">Anrei</a></li>
       <li><a class="tag" style="--w:182" href="#">Artemide</a></li>
-      <li><a class="tag is-active" style="--w:189" href="#" data-motion="wave">B&amp;B Italia</a></li>
+      <li><a class="tag is-active wave-swap" style="--w:189" href="#" data-label="B&amp;B Italia">B&amp;B Italia</a></li>
       <li><a class="tag" style="--w:119" href="#">Bora</a></li>
       <li><a class="tag" style="--w:196" href="#">ClassiCon</a></li>
       <li><a class="tag" style="--w:129" href="#">Cooc</a></li>
@@ -642,14 +656,14 @@ stage.addEventListener('click', () =&gt; zone &amp;&amp; original[zone].click())
       <li><a class="tag" style="--w:126" href="#">Haas</a></li>
       <li><a class="tag" style="--w:139" href="#">Janua</a></li>
       <li><a class="tag" style="--w:120" href="#">Joka</a></li>
-      <li><a class="tag is-active" style="--w:163" href="#" data-motion="wave">Keramo</a></li>
+      <li><a class="tag is-active wave-swap" style="--w:163" href="#" data-label="Keramo">Keramo</a></li>
       <li><a class="tag" style="--w:108" href="#">KFF</a></li>
       <li><a class="tag" style="--w:174" href="#">Lapalma</a></li>
       <li><a class="tag" style="--w:130" href="#">Miele</a></li>
-      <li><a class="tag is-active" style="--w:150" href="#" data-motion="wave">Minotti</a></li>
+      <li><a class="tag is-active wave-swap" style="--w:150" href="#" data-label="Minotti">Minotti</a></li>
       <li><a class="tag" style="--w:162" href="#">Missoni</a></li>
       <li><a class="tag" style="--w:158" href="#">Optimo</a></li>
-      <li><a class="tag is-active" style="--w:169" href="#" data-motion="wave">Poliform</a></li>
+      <li><a class="tag is-active wave-swap" style="--w:169" href="#" data-label="Poliform">Poliform</a></li>
       <li><a class="tag" style="--w:193" href="#">Raumplus</a></li>
       <li><a class="tag" style="--w:202" href="#">Rimadesio</a></li>
       <li><a class="tag" style="--w:186" href="#">Rolf Benz</a></li>
@@ -660,7 +674,7 @@ stage.addEventListener('click', () =&gt; zone &amp;&amp; original[zone].click())
       <li><a class="tag" style="--w:200" href="#">Tom Dixon</a></li>
       <li><a class="tag" style="--w:122" href="#">Vibia</a></li>
       <li><a class="tag" style="--w:219" href="#">Walter Knoll</a></li>
-      <li><a class="tag is-active" style="--w:187" href="#" data-motion="wave">Wittmann</a></li>
+      <li><a class="tag is-active wave-swap" style="--w:187" href="#" data-label="Wittmann">Wittmann</a></li>
       <li><a class="tag" style="--w:130" href="#">Yonei</a></li>
     </ul>
   </section>
