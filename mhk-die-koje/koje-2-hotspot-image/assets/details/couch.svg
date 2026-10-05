@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400" role="img" aria-label="Animation: Die Sitzbank wird zur Couch ausgezogen (Seitenansicht)."><defs><pattern id="co-oak" width="60" height="200" patternUnits="userSpaceOnUse"><rect width="60" height="200" fill="#c99a6a"/><path d="M8 0 C12 60 4 120 9 200 M22 0 C18 70 26 140 21 200 M37 0 C41 50 33 130 38 200 M51 0 C47 80 55 150 50 200" stroke="#a77a4e" stroke-opacity=".3" stroke-width="1.4" fill="none"/></pattern></defs><style>
+.co-ext{animation:co-ext 5.5s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes co-ext{0%,12%{transform:translateX(0)}42%,82%{transform:translateX(190px)}100%{transform:translateX(0)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}</style>
+<rect x="0" y="340" width="600" height="60" fill="#e2cfb2"/>
+<ellipse cx="330" cy="342" rx="260" ry="10" fill="#000" opacity=".08"/>
+<g class="co-ext" transform="translate(190 0)">
+  <rect x="140" y="262" width="230" height="72" fill="#b48558"/>
+  <rect x="366" y="258" width="14" height="80" rx="2" fill="url(#co-oak)"/>
+  <rect x="150" y="226" width="222" height="38" rx="16" fill="#d8c8b4"/>
+</g>
+<rect x="60" y="248" width="320" height="92" rx="4" fill="url(#co-oak)"/>
+<rect x="60" y="112" width="68" height="150" rx="24" fill="#d8c8b4"/>
+<rect x="110" y="206" width="270" height="48" rx="18" fill="#cdbba5"/>
+<rect x="140" y="150" width="70" height="62" rx="18" fill="#c61d27" transform="rotate(-12 175 181)"/>
+<text x="540" y="380" text-anchor="end" font-family="Open Sans, Arial, sans-serif" font-size="14" fill="#6b6b6b">[Maß folgt]</text>
+</svg>

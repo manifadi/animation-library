@@ -1,0 +1,191 @@
+{
+  "categories": [
+    { "id": "wohnen", "name": "Wohnen" },
+    { "id": "familie", "name": "Familie" },
+    { "id": "kochen", "name": "Kochen" },
+    { "id": "stauraum", "name": "Stauraum" },
+    { "id": "licht", "name": "Licht" }
+  ],
+  "features": [
+    {
+      "id": "couch",
+      "name": "Ausziehcouch",
+      "short": "Fährt aus der Nische neben der Küche, das Polster klappt auf.",
+      "detail": "Neben der Küchenzeile steht eine Couch in einer eigenen Nische. Sie fährt aus, das Rückenpolster klappt auf – Platz für den Kaffee zwischendurch, Hausaufgaben oder Gäste beim Kochen.",
+      "category": "wohnen",
+      "default": false,
+      "variants": [
+        { "id": "2", "name": "2-Sitzer" },
+        { "id": "3", "name": "3-Sitzer" }
+      ],
+      "defaultVariant": "2",
+      "layer": "#feature-couch",
+      "animation": "slide-out",
+      "focus": [0, 370, 480, 320],
+      "requires": [],
+      "excludes": [
+        { "id": "oberschrank-links", "reason": "Die ausziehbare Couch braucht die freie Wandfläche links – daher entfällt der Oberschrank links." }
+      ],
+      "placeholder": "Sitzplätze und Maße [Platzhalter – Maß folgt]"
+    },
+    {
+      "id": "regal",
+      "name": "Nischenregal",
+      "short": "Offenes Regal über der Couch für Bücher und Lieblingsstücke.",
+      "detail": "Ein offenes Regal in der Couch-Nische. Mit Ambiente-Licht bekommt es eine eigene, warme Beleuchtung.",
+      "category": "wohnen",
+      "default": false,
+      "layer": "#feature-regal",
+      "animation": "fade",
+      "focus": [0, 300, 480, 320],
+      "requires": [
+        { "id": "couch", "reason": "Das Nischenregal sitzt über der Couch – deshalb kommt die Couch automatisch dazu.", "reasonOff": "Ohne Couch gibt es keine Nische – das Nischenregal entfällt deshalb ebenfalls." }
+      ],
+      "excludes": [],
+      "placeholder": "[Maß folgt]"
+    },
+    {
+      "id": "spielwand",
+      "name": "Spielwand",
+      "short": "Kreide- und Magnetfläche an der Inselseite, mit Klappfach.",
+      "detail": "Die Wohnseite der Insel wird zur Malfläche. Kreide, Magnete und ein Klappfach für Stifte – auf Kinderhöhe, direkt neben der Kochstelle.",
+      "category": "familie",
+      "default": false,
+      "layer": "#feature-spielwand",
+      "animation": "flip-down",
+      "focus": [520, 470, 420, 280],
+      "requires": [],
+      "excludes": [],
+      "placeholder": "Oberflächen [Platzhalter]"
+    },
+    {
+      "id": "arbeitsplatz",
+      "name": "Klapp-Arbeitsplatz",
+      "short": "Eine Klappe an der Insel wird zum Schreibtisch.",
+      "detail": "Am Inselende klappt eine Platte herunter und wird zum Arbeitsplatz für Laptop oder Hausaufgaben. Danach verschwindet alles wieder hinter der Front.",
+      "category": "familie",
+      "default": false,
+      "layer": "#feature-arbeitsplatz",
+      "animation": "flip-down",
+      "focus": [780, 500, 330, 220],
+      "requires": [],
+      "excludes": [],
+      "placeholder": "[Platzhalter-Feature – Ausstattung noch nicht bestätigt]"
+    },
+    {
+      "id": "tablet",
+      "name": "Tablet-Halterung",
+      "short": "Fährt aus der Arbeitsplatte und hält das Rezept auf Augenhöhe.",
+      "detail": "Ein Arm fährt aus der Arbeitsplatte und hält Tablet oder Handy auf Augenhöhe. Danach verschwindet er wieder bündig.",
+      "category": "kochen",
+      "default": true,
+      "layer": "#feature-tablet",
+      "animation": "rise",
+      "focus": [600, 250, 330, 220],
+      "requires": [],
+      "excludes": [],
+      "placeholder": "Mechanik [Platzhalter]"
+    },
+    {
+      "id": "steckdose",
+      "name": "Steckdosen-Turm",
+      "short": "Versenkbare Steckdosen in der Arbeitsplatte.",
+      "detail": "Ein Steckdosen-Turm fährt bei Bedarf aus der Arbeitsplatte. Sonst bleibt die Rückwand frei.",
+      "category": "kochen",
+      "default": false,
+      "layer": "#feature-steckdose",
+      "animation": "rise",
+      "focus": [840, 320, 270, 180],
+      "requires": [],
+      "excludes": [],
+      "placeholder": "[Platzhalter-Feature – Ausstattung noch nicht bestätigt]"
+    },
+    {
+      "id": "staubsauger",
+      "name": "Sockel-Garage",
+      "short": "Der Saugroboter parkt unsichtbar im Sockel der Insel.",
+      "detail": "Im Sockel der Insel ist ein Fach für den Saugroboter. Er fährt raus, wenn es nötig ist, und parkt danach wieder unsichtbar.",
+      "category": "stauraum",
+      "default": true,
+      "layer": "#feature-staubsauger",
+      "animation": "peek",
+      "focus": [500, 580, 330, 220],
+      "requires": [],
+      "excludes": [],
+      "placeholder": "Ausstattung [Platzhalter]"
+    },
+    {
+      "id": "oberschrank-links",
+      "name": "Oberschrank links",
+      "short": "Zusätzlicher Stauraum über der linken Wandfläche.",
+      "detail": "Zwei Oberschränke über der linken Wandfläche – für alles, was nicht täglich gebraucht wird.",
+      "category": "stauraum",
+      "default": true,
+      "layer": "#feature-oberschrank-links",
+      "animation": "fade",
+      "focus": [0, 80, 480, 320],
+      "requires": [],
+      "excludes": [
+        { "id": "couch", "reason": "Der Oberschrank links belegt die Wandfläche, die die Couch braucht – daher entfällt die Couch." }
+      ],
+      "placeholder": "[Maß folgt]"
+    },
+    {
+      "id": "licht",
+      "name": "Beleuchtung",
+      "short": "Unterbau- und Pendellicht, als Ambiente zusätzlich Sockel- und Nischenlicht.",
+      "detail": "Basis: Licht unter den Oberschränken und über der Insel. Ambiente: zusätzlich warmes Sockel-, Nischen- und Regallicht für den Abend.",
+      "category": "licht",
+      "default": true,
+      "variants": [
+        { "id": "basis", "name": "Basis" },
+        { "id": "ambiente", "name": "Ambiente" }
+      ],
+      "defaultVariant": "basis",
+      "layer": "#feature-licht",
+      "animation": "light",
+      "focus": [0, 0, 1200, 800],
+      "requires": [],
+      "excludes": [],
+      "placeholder": "Lichtsteuerung [Platzhalter]"
+    }
+  ],
+  "profile": {
+    "questions": [
+      {
+        "id": "kochen",
+        "question": "Wer kocht bei euch?",
+        "options": [
+          { "id": "ich", "label": "Vor allem ich" },
+          { "id": "zwei", "label": "Wir zu zweit" },
+          { "id": "familie", "label": "Die ganze Familie" }
+        ]
+      },
+      {
+        "id": "kinder",
+        "question": "Gibt es Kinder im Haushalt?",
+        "options": [
+          { "id": "ja", "label": "Ja" },
+          { "id": "nein", "label": "Nein" }
+        ]
+      },
+      {
+        "id": "homeoffice",
+        "question": "Arbeitest du zu Hause?",
+        "options": [
+          { "id": "oft", "label": "Ja, regelmäßig" },
+          { "id": "manchmal", "label": "Manchmal" },
+          { "id": "nein", "label": "Nein" }
+        ]
+      }
+    ],
+    "presets": {
+      "kochen.ich": { "on": ["tablet"] },
+      "kochen.zwei": { "on": ["couch"], "variants": { "couch": "2" } },
+      "kochen.familie": { "on": ["couch", "regal"], "variants": { "couch": "3", "licht": "ambiente" } },
+      "kinder.ja": { "on": ["spielwand"] },
+      "homeoffice.oft": { "on": ["arbeitsplatz", "steckdose"] },
+      "homeoffice.manchmal": { "on": ["arbeitsplatz"] }
+    }
+  }
+}

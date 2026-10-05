@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400" role="img" aria-label="Animation: Eine Tablet-Halterung fährt aus der Arbeitsplatte."><defs><pattern id="tb-oak" width="60" height="200" patternUnits="userSpaceOnUse"><rect width="60" height="200" fill="#c99a6a"/><path d="M8 0 C12 60 4 120 9 200 M22 0 C18 70 26 140 21 200 M37 0 C41 50 33 130 38 200 M51 0 C47 80 55 150 50 200" stroke="#a77a4e" stroke-opacity=".3" stroke-width="1.4" fill="none"/></pattern><clipPath id="tb-clip"><rect x="0" y="0" width="600" height="270"/></clipPath></defs><style>
+.tb-lift{animation:tb-lift 5s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes tb-lift{0%,12%{transform:translateY(190px)}42%,82%{transform:none}100%{transform:translateY(190px)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}</style>
+<rect x="0" y="0" width="600" height="272" fill="url(#tb-oak)"/>
+<rect x="0" y="0" width="600" height="272" fill="#ffe3b3" opacity=".18"/>
+<g clip-path="url(#tb-clip)"><g class="tb-lift">
+  <rect x="294" y="200" width="12" height="120" rx="3" fill="#bfc1c3"/>
+  <rect x="210" y="86" width="180" height="124" rx="12" fill="#3c3c3c"/>
+  <rect x="220" y="96" width="160" height="104" rx="3" fill="#fbfaf8"/>
+  <rect x="220" y="96" width="160" height="18" fill="#e30613"/>
+  <rect x="232" y="126" width="96" height="8" rx="4" fill="#3c3c3c"/>
+  <rect x="232" y="144" width="120" height="5" rx="2.5" fill="#bdb8b0"/>
+  <rect x="232" y="158" width="104" height="5" rx="2.5" fill="#bdb8b0"/>
+  <rect x="232" y="172" width="80" height="5" rx="2.5" fill="#bdb8b0"/>
+</g></g>
+<rect x="0" y="270" width="600" height="28" fill="#eeebe5"/>
+<rect x="0" y="296" width="600" height="3" fill="#d6d1c8"/>
+<rect x="240" y="268" width="120" height="4" fill="#1b1b1c"/>
+<rect x="0" y="299" width="600" height="101" fill="#8f877c"/>
+<rect x="2" y="301" width="296" height="99" fill="#dcd6cb"/><rect x="302" y="301" width="296" height="99" fill="#dcd6cb"/>
+</svg>

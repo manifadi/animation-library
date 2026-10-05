@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Meine Koje · Konfigurator – musterhaus küchen</title>
+<meta name="description" content="Klickdummy: Stell dir deine Koje zusammen – Features an- und ausschalten, live sehen, Zusammenfassung teilen und Beratung anfragen." />
+<link rel="icon" href="assets/mhk-logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- Figma: „Dashiell Bright Black" (Adobe Fonts) – Fraunces 900 als frei verfügbarer Ersatz -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,800;9..144,900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+<script type="importmap">
+{ "imports": { "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js" } }
+</script>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-check" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-info" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 9v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="10" cy="6.2" r="1.1" fill="currentColor"/></symbol>
+    <symbol id="i-close" viewBox="0 0 20 20"><path d="M4 4l12 12M16 4L4 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-sound-off" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M17 9l5 6M22 9l-5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></symbol>
+    <symbol id="i-sound-on" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 30 10"><path d="M0 5h29m0 0-4-4m4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
+  </defs>
+</svg>
+
+<a class="skip-link" href="#optionen">Zu den Optionen springen</a>
+
+<header class="site-header">
+  <a class="logo" href="../" aria-label="Zur Versionsübersicht „Die Koje“">
+    <img src="assets/mhk-logo.png" alt="musterhaus küchen – Gehören zum Leben." width="285" height="296" />
+  </a>
+  <nav class="header-nav" aria-label="Seitennavigation">
+    <a class="header-link" href="../">Alle Versionen</a>
+    <a class="btn btn--small" href="https://www.musterhauskuechen.de/terminvereinbarung">Beratungstermin</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-inner">
+      <div>
+        <p class="eyebrow">Konfigurator</p>
+        <h1 id="hero-title" class="serif">Meine <span class="accent">Koje.</span></h1>
+      </div>
+      <div class="hero-side">
+        <p class="lede">Schalte Features an und aus und sieh sofort, wie sich deine Koje verändert. Am Ende bekommst du deine Zusammenfassung – zum Teilen oder für die Beratung im Studio.</p>
+        <div class="hero-actions">
+          <button type="button" class="btn btn--outline" data-open-intro>3 Fragen beantworten</button>
+          <a class="text-link" href="#meine-koje">Zur Zusammenfassung</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="configurator" aria-label="Konfigurator">
+    <div class="config-grid">
+      <div class="preview-col">
+        <div class="preview-card">
+          <div class="preview-bar">
+            <div class="progress-wrap">
+              <p class="progress-label">Deine Koje: <strong data-count>0</strong> von <span data-total>9</span> Features</p>
+              <div class="progress-track" aria-hidden="true"><span data-bar></span></div>
+            </div>
+            <div class="preview-tools">
+              <div class="segmented" role="group" aria-label="Ansicht">
+                <button type="button" data-view="gesamt" aria-pressed="true">Gesamt</button>
+                <button type="button" data-view="detail" aria-pressed="false" disabled><span data-detail-label>Detail</span></button>
+              </div>
+              <button type="button" class="icon-btn" data-sound aria-pressed="false" aria-label="Klick-Sound einschalten"><svg width="20" height="20" aria-hidden="true"><use href="#i-sound-off"/></svg></button>
+            </div>
+          </div>
+          <div class="preview-stage" data-preview></div>
+        </div>
+      </div>
+
+      <div class="options-col" id="optionen">
+        <div class="notice" data-notice role="status" hidden>
+          <p class="notice-title">Automatisch angepasst</p>
+          <ul data-notice-list></ul>
+          <button type="button" class="link-btn" data-undo>Rückgängig</button>
+        </div>
+        <div class="categories" data-categories></div>
+        <a class="btn btn--block" href="#meine-koje">Zu „Meine Koje“ <svg width="30" height="10" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+    <p class="visually-hidden" aria-live="polite" data-live></p>
+  </section>
+
+  <section class="summary" id="meine-koje" aria-labelledby="summary-title">
+    <div class="wrap">
+      <article class="summary-card">
+        <figure class="summary-figure" data-summary-figure></figure>
+        <div class="summary-body">
+          <p class="eyebrow eyebrow--soft">Zusammenfassung</p>
+          <h2 id="summary-title" class="serif">Meine <span class="accent">Koje.</span></h2>
+          <p class="summary-line" data-summary-line></p>
+          <p class="summary-count" data-summary-count></p>
+          <ul class="summary-list" data-summary-list></ul>
+          <div class="summary-actions">
+            <button type="button" class="btn btn--outline" data-share>Link kopieren / teilen</button>
+            <button type="button" class="btn btn--outline" data-download>Als Bild speichern</button>
+            <span class="action-status" data-action-status aria-live="polite"></span>
+          </div>
+          <div class="summary-cta">
+            <a class="btn" href="https://www.musterhauskuechen.de/terminvereinbarung">Beratungstermin vereinbaren</a>
+            <a class="btn btn--dark" href="https://www.musterhauskuechen.de/studio-suche">Studio in deiner Nähe finden</a>
+          </div>
+        </div>
+      </article>
+
+      <section class="lead" aria-labelledby="lead-title">
+        <div class="lead-intro">
+          <h2 id="lead-title" class="serif">Koje im Studio <span class="accent">anfragen.</span></h2>
+          <p>Schick deine Zusammenstellung an ein Studio und lass dich beraten.</p>
+          <p class="demo-flag" role="note"><strong>Demo:</strong> Dieses Formular sendet nichts ab – es werden keine Daten übertragen oder gespeichert.</p>
+        </div>
+        <form class="lead-form" data-lead novalidate>
+          <div class="field">
+            <label for="lead-name">Name</label>
+            <input id="lead-name" name="name" autocomplete="name" required />
+            <p class="field-error" data-error-for="name">Bitte gib deinen Namen an.</p>
+          </div>
+          <div class="field">
+            <label for="lead-mail">E-Mail</label>
+            <input id="lead-mail" name="email" type="email" autocomplete="email" required />
+            <p class="field-error" data-error-for="email">Bitte gib eine gültige E-Mail-Adresse an.</p>
+          </div>
+          <div class="field">
+            <label for="lead-studio">Wunschstudio</label>
+            <select id="lead-studio" name="studio" required>
+              <option value="">Bitte wählen</option>
+              <option>[Platzhalter] Studio Nord</option>
+              <option>[Platzhalter] Studio Mitte</option>
+              <option>[Platzhalter] Studio Süd</option>
+              <option>Weiß ich noch nicht</option>
+            </select>
+            <p class="field-error" data-error-for="studio">Bitte wähle ein Studio.</p>
+          </div>
+          <div class="field field--check">
+            <input id="lead-privacy" name="privacy" type="checkbox" required />
+            <label for="lead-privacy">Ich habe die <a href="https://www.musterhauskuechen.de/datenschutz">Datenschutzhinweise</a> gelesen. [Platzhalter-Text]</label>
+            <p class="field-error" data-error-for="privacy">Bitte bestätige die Datenschutzhinweise.</p>
+          </div>
+          <button type="submit" class="btn">Anfrage senden (Demo)</button>
+          <div class="lead-success" data-lead-success tabindex="-1" hidden>
+            <p><strong>Danke!</strong> So würde die Bestätigung aussehen.</p>
+            <p>Demo – es wurden keine Daten übertragen.</p>
+          </div>
+        </form>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>Klickdummy · Proof of Concept – keine Preise, Maße oder verbindlichen Angaben.</span>
+    <a href="../">← Alle Versionen</a>
+  </div>
+</footer>
+
+<!-- Einstiegsfragen -->
+<dialog class="dialog intro" data-intro aria-labelledby="intro-q">
+  <form method="dialog" class="intro-inner">
+    <div class="intro-head">
+      <p class="intro-step" data-intro-step>Frage 1 von 3</p>
+      <button type="button" class="link-btn" data-intro-skip>Überspringen</button>
+    </div>
+    <div class="intro-dots" aria-hidden="true" data-intro-dots></div>
+    <h2 id="intro-q" class="serif" data-intro-q tabindex="-1"></h2>
+    <div class="intro-options" role="radiogroup" aria-labelledby="intro-q" data-intro-options></div>
+    <div class="intro-foot">
+      <button type="button" class="link-btn" data-intro-back>Zurück</button>
+      <button type="button" class="btn btn--small" data-intro-resume hidden>Letzte Koje fortsetzen</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Info-Modal -->
+<dialog class="dialog info" data-info aria-labelledby="info-title">
+  <div class="info-inner">
+    <button type="button" class="dialog-close" data-info-close aria-label="Schließen"><svg width="20" height="20" aria-hidden="true"><use href="#i-close"/></svg></button>
+    <p class="info-cat" data-info-cat></p>
+    <h2 id="info-title" class="serif" data-info-title></h2>
+    <p data-info-text></p>
+    <p class="info-rules" data-info-rules></p>
+    <p class="note" data-info-note></p>
+  </div>
+</dialog>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

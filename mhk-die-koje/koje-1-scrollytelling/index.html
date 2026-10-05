@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Die Koje · Scrollytelling – musterhaus küchen</title>
+<meta name="description" content="Klickdummy: Kamerafahrt durch die Koje von musterhaus küchen – Spielwand, Tablet-Halterung, Ausziehcouch, Sockel-Staubsauger und Lichtstimmungen." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- Figma: „Dashiell Bright Black" (Adobe Fonts) – Fraunces 900 als frei verfügbarer Ersatz -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,800;9..144,900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+<link rel="icon" href="assets/mhk-logo.png" />
+<link rel="stylesheet" href="css/style.css" />
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/",
+    "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js",
+    "gsap/ScrollTrigger": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js",
+    "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.mjs"
+  }
+}
+</script>
+<script>
+  // Reduzierte Bewegung oder ?static → statische Feature-Abschnitte statt Kamerafahrt.
+  (function () {
+    var d = document.documentElement;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches || /[?&]static\b/.test(location.search)) d.classList.add("is-static");
+    // Sicherheitsnetz: Wenn die Module (CDN) nicht laden, nach 12 s statisch anzeigen.
+    setTimeout(function () {
+      if (!window.__kojeReady) { d.classList.add("is-static", "no-webgl", "is-loaded"); }
+    }, 12000);
+  })();
+</script>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-spielwand" viewBox="0 0 40 40"><rect x="5" y="7" width="30" height="21" rx="1.5"/><path d="M11 22l5-6 4 4 3-3 6 5"/><circle cx="27" cy="13" r="2"/><path d="M14 33h12M20 28v5"/></symbol>
+    <symbol id="i-tablet" viewBox="0 0 40 40"><rect x="9" y="5" width="22" height="16" rx="1.5" transform="rotate(-8 20 13)"/><path d="M20 22v9M12 33h16"/><path d="M14 10h8M14 14h11" transform="rotate(-8 20 13)"/></symbol>
+    <symbol id="i-couch" viewBox="0 0 40 40"><path d="M8 18v-5a2 2 0 0 1 2-2h20a2 2 0 0 1 2 2v5"/><path d="M5 20a2 2 0 0 1 4 0v4h22v-4a2 2 0 0 1 4 0v8H5z"/><path d="M8 28v3M32 28v3"/><path d="M14 24h12" stroke-dasharray="2 2"/></symbol>
+    <symbol id="i-staubsauger" viewBox="0 0 40 40"><circle cx="20" cy="22" r="11"/><circle cx="20" cy="17" r="3"/><path d="M12 29.5c2 1.6 4.8 2.5 8 2.5s6-.9 8-2.5"/><path d="M5 34h30"/></symbol>
+    <symbol id="i-licht" viewBox="0 0 40 40"><path d="M20 3v8"/><path d="M11 21a9 9 0 0 1 18 0z"/><path d="M17 25a3 3 0 0 0 6 0"/><path d="M8 30l-3 2M32 30l3 2M20 31v4"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 30 10"><path d="M0 5h29m0 0-4-4m4 4-4 4"/></symbol>
+  </defs>
+</svg>
+
+<a class="skip-link" href="#zusammenfassung">Zur Zusammenfassung springen</a>
+
+<div class="preloader" aria-hidden="true">
+  <img src="assets/mhk-logo.png" alt="" width="285" height="296" />
+  <div class="preloader-bar"><span></span></div>
+  <p>Die Koje wird aufgebaut …</p>
+</div>
+
+<header class="site-header">
+  <a class="logo" href="../" aria-label="Zur Versionsübersicht „Die Koje“">
+    <img src="assets/mhk-logo.png" alt="musterhaus küchen – Gehören zum Leben." width="285" height="296" />
+  </a>
+  <nav class="header-nav" aria-label="Seitennavigation">
+    <a class="header-link" href="../">Alle Versionen</a>
+    <a class="btn btn--small" href="https://www.musterhauskuechen.de/terminvereinbarung">Beratungstermin</a>
+  </nav>
+</header>
+
+<main>
+  <section class="journey" id="journey" aria-label="Kamerafahrt durch die Koje">
+    <div class="stage">
+      <canvas id="scene" aria-hidden="true"></canvas>
+      <div class="stage-veil" aria-hidden="true"></div>
+      <div class="hotspot" aria-hidden="true"><span class="hotspot-dot"></span><span class="hotspot-label"></span></div>
+
+      <div class="hero-copy">
+        <figure class="hero-still" aria-hidden="true"></figure>
+        <p class="eyebrow">musterhaus küchen präsentiert</p>
+        <h1 class="serif">Die Koje.</h1>
+        <p class="lede">Eine Küche, in der mehr steckt, als man auf den ersten Blick sieht. Scroll dich hinein – wir zeigen dir jedes Detail.</p>
+        <a class="btn" href="#station-spielwand" data-jump="spielwand">Rundgang starten</a>
+      </div>
+      <div class="scroll-hint" aria-hidden="true"><span>Scrollen</span><i></i></div>
+
+      <div class="stations">
+        <article class="station" id="station-spielwand" data-station="spielwand" data-hotspot="Klappfach">
+          <figure class="station-media"></figure>
+          <div class="station-card">
+            <p class="station-num">01 <span>/ 05</span></p>
+            <div class="station-head">
+              <svg class="icon" aria-hidden="true"><use href="#i-spielwand"/></svg>
+              <h2 class="serif">Eine Wand, die <span class="accent">mitspielt.</span></h2>
+            </div>
+            <p>Die Wohnseite der Insel wird zur Malfläche: Kreide, Magnete und ein Klappfach für Stifte und Papier – genau auf Kinderhöhe. Du kochst, die Kleinen malen direkt neben dir.</p>
+            <ul class="tags"><li>Kreidefläche</li><li>Magnetisch</li><li>Klappfach</li></ul>
+            <p class="placeholder">[Platzhalter: Oberflächen &amp; Maße folgen]</p>
+          </div>
+        </article>
+
+        <article class="station" id="station-tablet" data-station="tablet" data-hotspot="Ausfahrbar">
+          <figure class="station-media"></figure>
+          <div class="station-card">
+            <p class="station-num">02 <span>/ 05</span></p>
+            <div class="station-head">
+              <svg class="icon" aria-hidden="true"><use href="#i-tablet"/></svg>
+              <h2 class="serif">Das Rezept <span class="accent">fährt mit.</span></h2>
+            </div>
+            <p>Aus der Arbeitsplatte fährt eine Halterung für Tablet oder Handy. Das Rezept steht auf Augenhöhe, nichts lehnt an der Wand, kein Mehl auf dem Display. Danach verschwindet sie wieder bündig.</p>
+            <ul class="tags"><li>Tablet &amp; Handy</li><li>Bündig versenkt</li></ul>
+            <p class="placeholder">[Platzhalter: Mechanik &amp; Maße folgen]</p>
+          </div>
+        </article>
+
+        <article class="station" id="station-couch" data-station="couch" data-hotspot="Auszug">
+          <figure class="station-media"></figure>
+          <div class="station-card">
+            <p class="station-num">03 <span>/ 05</span></p>
+            <div class="station-head">
+              <svg class="icon" aria-hidden="true"><use href="#i-couch"/></svg>
+              <h2 class="serif">Sitzen, wo <span class="accent">gekocht wird.</span></h2>
+            </div>
+            <p>Neben der Küchenzeile wartet eine Sitzbank, die sich mit einem Griff zur Couch ausziehen lässt. Für den Kaffee zwischendurch, die Hausaufgaben oder Gäste, die beim Kochen dabei sein wollen.</p>
+            <ul class="tags"><li>Ausziehbar</li><li>Direkt in der Küche</li></ul>
+            <p class="placeholder">[Maß folgt]</p>
+          </div>
+        </article>
+
+        <article class="station" id="station-staubsauger" data-station="staubsauger" data-hotspot="Garage im Sockel">
+          <figure class="station-media"></figure>
+          <div class="station-card">
+            <p class="station-num">04 <span>/ 05</span></p>
+            <div class="station-head">
+              <svg class="icon" aria-hidden="true"><use href="#i-staubsauger"/></svg>
+              <h2 class="serif">Der Sauger <span class="accent">wohnt im Sockel.</span></h2>
+            </div>
+            <p>Im Sockel der Insel parkt der Saugroboter. Er fährt raus, wenn es nötig ist, und verschwindet danach wieder. Krümel unter der Insel? Erledigt, bevor du abgewaschen hast.</p>
+            <ul class="tags"><li>Unsichtbar geparkt</li><li>Sockel-Garage</li></ul>
+            <p class="placeholder">[Platzhalter: Variante für Akkusauger folgt]</p>
+          </div>
+        </article>
+
+        <article class="station" id="station-licht" data-station="licht" data-hotspot="Pendelleuchte">
+          <figure class="station-media station-media--trio"></figure>
+          <div class="station-card">
+            <p class="station-num">05 <span>/ 05</span></p>
+            <div class="station-head">
+              <svg class="icon" aria-hidden="true"><use href="#i-licht"/></svg>
+              <h2 class="serif">Licht für <span class="accent">jede Stunde.</span></h2>
+            </div>
+            <p>Morgens hell und klar, beim Kochen gezielt auf der Arbeitsfläche, abends warm und gedimmt. Unterbauleuchten, Pendel und Akzentlicht spielen zusammen – scroll weiter und sieh selbst.</p>
+            <ul class="moods" aria-label="Lichtstimmungen">
+              <li data-mood="morgen">Morgen</li>
+              <li data-mood="kochen">Kochen</li>
+              <li data-mood="abend">Abend</li>
+            </ul>
+            <p class="placeholder">[Platzhalter: Lichtsteuerung folgt]</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="outro-copy" aria-hidden="true">
+        <p class="serif">Fünf Ideen.<br /><span class="accent">Eine Koje.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="summary" id="zusammenfassung" aria-labelledby="summary-title">
+    <div class="wrap">
+      <h2 id="summary-title" class="serif">Alles drin. <span class="accent">Auf einen Blick.</span></h2>
+      <p class="summary-intro">Jedes Detail der Koje macht den Alltag in der Küche ein Stück leichter. Tippe auf eine Karte, um zur Station zurückzuspringen.</p>
+      <ul class="feature-grid">
+        <li><a class="feature" href="#station-spielwand" data-jump="spielwand"><svg class="icon" aria-hidden="true"><use href="#i-spielwand"/></svg><h3 class="serif">Spielwand</h3><p>Kreide, Magnete und Klappfach auf Kinderhöhe.</p><span class="more">Zur Station <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+        <li><a class="feature" href="#station-tablet" data-jump="tablet"><svg class="icon" aria-hidden="true"><use href="#i-tablet"/></svg><h3 class="serif">Tablet-Halterung</h3><p>Fährt aus der Arbeitsplatte und verschwindet bündig.</p><span class="more">Zur Station <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+        <li><a class="feature" href="#station-couch" data-jump="couch"><svg class="icon" aria-hidden="true"><use href="#i-couch"/></svg><h3 class="serif">Ausziehcouch</h3><p>Sitzbank neben der Zeile, ausziehbar zur Couch.</p><span class="more">Zur Station <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+        <li><a class="feature" href="#station-staubsauger" data-jump="staubsauger"><svg class="icon" aria-hidden="true"><use href="#i-staubsauger"/></svg><h3 class="serif">Sockel-Garage</h3><p>Der Saugroboter parkt unsichtbar in der Insel.</p><span class="more">Zur Station <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+        <li><a class="feature" href="#station-licht" data-jump="licht"><svg class="icon" aria-hidden="true"><use href="#i-licht"/></svg><h3 class="serif">Lichtstimmungen</h3><p>Morgen, Kochen, Abend – Licht, das mitgeht.</p><span class="more">Zur Station <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="cta" aria-labelledby="cta-title">
+    <div class="wrap">
+      <h2 id="cta-title" class="serif">Lust auf deine Koje?</h2>
+      <p>Schau sie dir im Studio an oder lass dich persönlich beraten.</p>
+      <div class="cta-buttons">
+        <a class="btn btn--light" href="https://www.musterhauskuechen.de/studio-suche">Studio in deiner Nähe finden</a>
+        <a class="btn btn--dark" href="https://www.musterhauskuechen.de/terminvereinbarung">Beratungstermin vereinbaren</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>Klickdummy · Proof of Concept – alle Inhalte und die 3D-Szene sind vorläufig.</span>
+    <a href="../">← Alle Versionen</a>
+  </div>
+</footer>
+
+<nav class="progress-nav" aria-label="Stationen der Koje">
+  <div class="progress-track" aria-hidden="true"><span></span></div>
+  <ol>
+    <li><button type="button" data-jump="spielwand"><span class="label">Spielwand</span><span class="dot"></span></button></li>
+    <li><button type="button" data-jump="tablet"><span class="label">Tablet-Halterung</span><span class="dot"></span></button></li>
+    <li><button type="button" data-jump="couch"><span class="label">Ausziehcouch</span><span class="dot"></span></button></li>
+    <li><button type="button" data-jump="staubsauger"><span class="label">Sockel-Garage</span><span class="dot"></span></button></li>
+    <li><button type="button" data-jump="licht"><span class="label">Licht</span><span class="dot"></span></button></li>
+  </ol>
+</nav>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

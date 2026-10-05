@@ -1,0 +1,120 @@
+{
+  "image": {
+    "src": "assets/koje-16x9.svg",
+    "width": 1600,
+    "height": 900,
+    "mobile": {
+      "src": "assets/koje-4x5.svg",
+      "width": 800,
+      "height": 1000,
+      "media": "(max-width: 700px)"
+    },
+    "alt": "Illustration der Koje [Platzhalter]: Küchenzeile mit Oberschränken, Insel mit Spielwand, Hochschränke und eine Sitzbank neben der Küche."
+  },
+  "hotspots": [
+    {
+      "id": "spielwand",
+      "order": 1,
+      "title": "Spielwand",
+      "headline": "Eine Wand, die mitspielt.",
+      "text": "Die Wohnseite der Insel ist eine Malfläche mit Kreide und Magneten. Im Klappfach daneben warten Stifte und Papier. Alles auf Kinderhöhe – du kochst, die Kleinen malen direkt neben dir.",
+      "tags": ["Kreidefläche", "Magnetisch", "Klappfach"],
+      "note": "[Platzhalter: Oberflächen & Maße folgen]",
+      "placeholder": false,
+      "x": 41.88, "y": 83.78,
+      "mobile": { "x": 21.25, "y": 68.9 },
+      "detail": { "src": "assets/details/spielwand.svg", "alt": "Animation: Auf der Kreidefläche entsteht eine Zeichnung, ein Magnet haftet." }
+    },
+    {
+      "id": "tablet",
+      "order": 2,
+      "title": "Tablet-Halterung",
+      "headline": "Das Rezept fährt mit.",
+      "text": "Aus der Arbeitsplatte fährt eine Halterung für Tablet oder Handy. Das Rezept steht auf Augenhöhe, kein Mehl auf dem Display. Danach verschwindet sie wieder bündig.",
+      "tags": ["Tablet & Handy", "Bündig versenkt"],
+      "note": "[Platzhalter: Mechanik & Maße folgen]",
+      "placeholder": false,
+      "x": 41.88, "y": 55.78,
+      "mobile": { "x": 22.0, "y": 43.74 },
+      "detail": { "src": "assets/details/tablet.svg", "alt": "Animation: Eine Tablet-Halterung fährt aus der Arbeitsplatte." }
+    },
+    {
+      "id": "couch",
+      "order": 3,
+      "title": "Ausziehcouch",
+      "headline": "Sitzen, wo gekocht wird.",
+      "text": "Neben der Küchenzeile steht eine Sitzbank, die sich mit einem Griff zur Couch ausziehen lässt. Für den Kaffee zwischendurch, die Hausaufgaben oder Gäste, die beim Kochen dabei sein wollen.",
+      "tags": ["Ausziehbar", "Direkt in der Küche"],
+      "note": "[Maß folgt]",
+      "placeholder": false,
+      "x": 15.62, "y": 79.33,
+      "mobile": { "x": 78.3, "y": 86.09 },
+      "detail": { "src": "assets/details/couch.svg", "alt": "Animation: Die Sitzbank wird zur Couch ausgezogen (Seitenansicht)." }
+    },
+    {
+      "id": "staubsauger",
+      "order": 4,
+      "title": "Sockel-Garage",
+      "headline": "Der Sauger wohnt im Sockel.",
+      "text": "Im Sockel der Insel parkt der Saugroboter. Er fährt raus, wenn es nötig ist, und verschwindet danach wieder. Krümel unter der Insel sind erledigt, bevor du abgewaschen hast.",
+      "tags": ["Unsichtbar geparkt", "Sockel-Garage"],
+      "note": "[Platzhalter: Variante für Akkusauger folgt]",
+      "placeholder": false,
+      "x": 63.88, "y": 93.78,
+      "mobile": { "x": 53.81, "y": 75.56 },
+      "detail": { "src": "assets/details/staubsauger.svg", "alt": "Animation: Ein Saugroboter fährt aus dem Sockel der Insel und wieder zurück." }
+    },
+    {
+      "id": "licht",
+      "order": 5,
+      "title": "Lichtstimmungen",
+      "headline": "Licht für jede Stunde.",
+      "text": "Morgens hell und klar, beim Kochen gezielt auf der Arbeitsfläche, abends warm und gedimmt. Unterbauleuchten, Pendel und Akzentlicht spielen zusammen.",
+      "tags": ["Morgen", "Kochen", "Abend"],
+      "note": "[Platzhalter: Lichtsteuerung folgt]",
+      "placeholder": false,
+      "x": 56.88, "y": 30.67,
+      "mobile": { "x": 41.0, "y": 18.88 },
+      "detail": { "src": "assets/details/licht.svg", "alt": "Animation: Die Küche wechselt von Morgenlicht über Kochlicht zu Abendlicht." }
+    },
+    {
+      "id": "steckdose",
+      "order": 6,
+      "title": "Steckdosen-Turm",
+      "headline": "Strom, wenn du ihn brauchst.",
+      "text": "Ein Steckdosen-Turm fährt aus der Arbeitsplatte, wenn Mixer oder Wasserkocher Strom brauchen. Sonst bleibt die Rückwand frei von Steckdosen.",
+      "tags": ["Versenkbar", "Mehrfach-Steckdose"],
+      "note": "[Platzhalter-Feature – Ausstattung noch nicht bestätigt]",
+      "placeholder": true,
+      "x": 77.12, "y": 59.78,
+      "mobile": { "x": 69.94, "y": 46.18 },
+      "detail": { "src": "assets/details/steckdose.svg", "alt": "Animation: Ein Steckdosen-Turm fährt aus der Arbeitsplatte [Platzhalter]." }
+    },
+    {
+      "id": "ladeschublade",
+      "order": 7,
+      "title": "Ladeschublade",
+      "headline": "Handys laden, wo sie keiner sieht.",
+      "text": "In der obersten Schublade laden Handys und Kopfhörer, ohne dass Kabel über die Arbeitsfläche laufen. Schublade zu – Ordnung da.",
+      "tags": ["Ladestation", "Kabel unsichtbar"],
+      "note": "[Platzhalter-Feature – Ausstattung noch nicht bestätigt]",
+      "placeholder": true,
+      "x": 70.0, "y": 69.11,
+      "mobile": { "x": 60.25, "y": 51.9 },
+      "detail": { "src": "assets/details/ladeschublade.svg", "alt": "Animation: Eine Schublade mit Ladestation für Handys öffnet sich [Platzhalter]." }
+    },
+    {
+      "id": "abfall",
+      "order": 8,
+      "title": "Abfall-Auszug",
+      "headline": "Alles an seinem Platz.",
+      "text": "Ein Vollauszug mit mehreren Behältern sitzt direkt unter der Arbeitsfläche. Ein Griff, und alles verschwindet dort, wo es hingehört.",
+      "tags": ["Vollauszug", "Mehrere Behälter"],
+      "note": "[Platzhalter-Feature – Ausstattung noch nicht bestätigt]",
+      "placeholder": true,
+      "x": 79.38, "y": 83.11,
+      "mobile": { "x": 73.0, "y": 60.46 },
+      "detail": { "src": "assets/details/abfall.svg", "alt": "Animation: Ein Auszug mit mehreren Abfallbehältern öffnet sich [Platzhalter]." }
+    }
+  ]
+}

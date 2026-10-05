@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Die Koje · Live ausprobieren – musterhaus küchen</title>
+<meta name="description" content="Klickdummy: Bediene die Koje von musterhaus küchen selbst – Schubladen ziehen, Couch ausfahren, Licht schalten, auf der Spielwand malen." />
+<link rel="icon" href="assets/mhk-logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- Figma: „Dashiell Bright Black" (Adobe Fonts) – Fraunces 900 als frei verfügbarer Ersatz -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,800;9..144,900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+<script type="importmap">
+{
+  "imports": {
+    "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js",
+    "gsap/Draggable": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/Draggable.js",
+    "gsap/Flip": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/Flip.js"
+  }
+}
+</script>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-sound-off" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M17 9l5 6M22 9l-5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></symbol>
+    <symbol id="i-sound-on" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></symbol>
+    <symbol id="i-hint" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="currentColor"/><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".5"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-hand" viewBox="0 0 48 64"><path d="M14 30V8a5 5 0 0 1 10 0v18-6a5 5 0 0 1 10 0v6-3a5 5 0 0 1 10 0v5-1a5 5 0 0 1 10 0v15c0 15-8 24-22 24h-5c-10 0-15-5-20-13L2 40a5 5 0 0 1 8.5-5z" transform="translate(-4 0) scale(.92)" fill="#fff" stroke="#3c3c3c" stroke-width="2.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<a class="skip-link" href="#feature-dock">Zu den Bedienelementen springen</a>
+
+<header class="site-header">
+  <a class="logo" href="../" aria-label="Zur Versionsübersicht „Die Koje“">
+    <img src="assets/mhk-logo.png" alt="musterhaus küchen – Gehören zum Leben." width="285" height="296" />
+  </a>
+  <nav class="header-nav" aria-label="Seitennavigation">
+    <a class="header-link" href="../">Alle Versionen</a>
+    <a class="btn btn--small" href="https://www.musterhauskuechen.de/terminvereinbarung">Beratungstermin</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-inner">
+      <div>
+        <p class="eyebrow">Live ausprobieren</p>
+        <h1 id="hero-title" class="serif">Die Koje. <span class="accent">Zum Anfassen.</span></h1>
+      </div>
+      <p class="lede">Zieh Schubladen auf, fahr die Couch aus, schalte das Licht und mal auf der Spielwand. Anfassen schlägt Anschauen.</p>
+    </div>
+  </section>
+
+  <section class="play" aria-labelledby="play-title">
+    <h2 id="play-title" class="visually-hidden">Interaktive Küche</h2>
+    <div class="wrap play-bar">
+      <div class="counter">
+        <p class="counter-label" aria-live="polite"><strong data-count>0</strong> von <span data-total>6</span> Features ausprobiert</p>
+        <ol class="pips" data-pips aria-hidden="true"></ol>
+      </div>
+      <div class="tools">
+        <button type="button" class="tool" data-sound aria-pressed="false">
+          <svg width="20" height="20" aria-hidden="true"><use href="#i-sound-off"/></svg><span data-sound-label>Ton aus</span>
+        </button>
+        <button type="button" class="tool" data-hints aria-pressed="true">
+          <svg width="20" height="20" aria-hidden="true"><use href="#i-hint"/></svg><span data-hints-label>Hinweise an</span>
+        </button>
+        <button type="button" class="tool" data-reset>
+          <svg width="20" height="20" aria-hidden="true"><use href="#i-reset"/></svg><span>Alles zurücksetzen</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="stage" data-stage>
+      <div class="scene-scroll" data-scroll>
+        <div class="scene-wrap" data-scene></div>
+      </div>
+
+      <div class="light-panel" role="group" aria-labelledby="light-title" data-light-panel>
+        <p id="light-title" class="panel-title">Lichtstimmung</p>
+        <div class="presets" role="radiogroup" aria-labelledby="light-title">
+          <button type="button" role="radio" aria-checked="false" data-mood="morgen">Morgen</button>
+          <button type="button" role="radio" aria-checked="true" data-mood="kochen">Kochen</button>
+          <button type="button" role="radio" aria-checked="false" data-mood="abend">Abend</button>
+        </div>
+        <label class="dimmer"><span>Dimmer</span>
+          <input type="range" min="10" max="100" value="85" data-dimmer aria-valuetext="85 %" />
+        </label>
+      </div>
+
+      <aside class="feature-card" data-card aria-live="polite">
+        <p class="fc-kicker" data-fc-kicker>So geht's</p>
+        <h3 class="serif fc-title" data-fc-title>Zieh, tippe, probier aus.</h3>
+        <p class="fc-text" data-fc-text>Starte mit der Schublade unten links an der Küchenzeile – einfach nach unten ziehen.</p>
+        <p class="fc-note" data-fc-note></p>
+        <div class="fc-actions" data-fc-actions></div>
+      </aside>
+
+      <div class="intro" data-intro role="dialog" aria-modal="false" aria-labelledby="intro-title">
+        <div class="intro-card">
+          <div class="intro-hand" aria-hidden="true"><svg width="48" height="64"><use href="#i-hand"/></svg></div>
+          <h3 id="intro-title" class="serif">Zieh, tippe, <span class="accent">probier aus.</span></h3>
+          <p>Diese Koje kannst du selbst bedienen. Zieh an Schubladen, tippe auf Couch, Tablet und Spielwand und stell das Licht ein. Die roten Punkte zeigen dir, wo noch etwas wartet.</p>
+          <p class="intro-small">Tastatur: <kbd>Tab</kbd> wählt, <kbd>Enter</kbd> öffnet, <kbd>↑</kbd><kbd>↓</kbd> verschieben.</p>
+          <button type="button" class="btn" data-intro-close>Los geht's</button>
+        </div>
+      </div>
+
+      <div class="reward" data-reward role="dialog" aria-modal="true" aria-labelledby="reward-title" hidden>
+        <div class="reward-card">
+          <div class="confetti" aria-hidden="true"></div>
+          <span class="reward-icon" aria-hidden="true"><svg width="34" height="34"><use href="#i-check"/></svg></span>
+          <h3 id="reward-title" class="serif" tabindex="-1">Alles ausprobiert. <span class="accent">Und?</span></h3>
+          <p>Wenn du jetzt denkst „Das will ich haben“ – im Studio kannst du die Koje echt anfassen.</p>
+          <div class="reward-actions">
+            <a class="btn" href="https://www.musterhauskuechen.de/studio-suche">Studio in deiner Nähe finden</a>
+            <a class="btn btn--dark" href="https://www.musterhauskuechen.de/terminvereinbarung">Beratungstermin vereinbaren</a>
+          </div>
+          <button type="button" class="link-btn" data-reward-close>Weiter ausprobieren</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <nav class="feature-dock" id="feature-dock" aria-label="Elemente direkt bedienen" data-dock></nav>
+    </div>
+  </section>
+
+  <section class="cta" aria-labelledby="cta-title">
+    <div class="wrap">
+      <h2 id="cta-title" class="serif">Das will ich haben.</h2>
+      <p>Schau dir die Koje im Studio an oder lass dich persönlich beraten.</p>
+      <div class="cta-buttons">
+        <a class="btn btn--light" href="https://www.musterhauskuechen.de/studio-suche">Studio in deiner Nähe finden</a>
+        <a class="btn btn--dark" href="https://www.musterhauskuechen.de/terminvereinbarung">Beratungstermin vereinbaren</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>Klickdummy · Proof of Concept – Szene, Sounds und Inhalte sind Platzhalter.</span>
+    <a href="../">← Alle Versionen</a>
+  </div>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

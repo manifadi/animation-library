@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400" role="img" aria-label="Animation: Ein Saugroboter fährt aus dem Sockel der Insel und wieder zurück."><defs><pattern id="ro-oak" width="60" height="200" patternUnits="userSpaceOnUse"><rect width="60" height="200" fill="#c99a6a"/><path d="M8 0 C12 60 4 120 9 200 M22 0 C18 70 26 140 21 200 M37 0 C41 50 33 130 38 200 M51 0 C47 80 55 150 50 200" stroke="#a77a4e" stroke-opacity=".3" stroke-width="1.4" fill="none"/></pattern></defs><style>
+.ro-bot{animation:ro-bot 7s cubic-bezier(.65,0,.35,1) infinite}
+.ro-c{animation:ro-c 7s linear infinite}
+.ro-c2{animation-delay:.25s}.ro-c3{animation-delay:.5s}
+@keyframes ro-bot{0%,10%{transform:translateX(0)}45%,60%{transform:translateX(250px)}90%,100%{transform:translateX(0)}}
+@keyframes ro-c{0%,30%{opacity:1}38%,88%{opacity:0}96%,100%{opacity:1}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}</style>
+<rect x="0" y="340" width="600" height="60" fill="#e2cfb2"/>
+<rect x="0" y="40" width="320" height="270" fill="url(#ro-oak)"/>
+<rect x="0" y="40" width="320" height="16" fill="#eeebe5"/>
+<rect x="0" y="310" width="320" height="30" fill="#34322f"/>
+<rect x="150" y="310" width="170" height="30" fill="#191817"/>
+<rect x="152" y="310" width="166" height="3" fill="#ffb36b"/>
+<g fill="#9c7a52"><circle class="ro-c" cx="430" cy="334" r="3"/><circle class="ro-c ro-c2" cx="458" cy="337" r="2.5"/><circle class="ro-c ro-c3" cx="492" cy="333" r="3"/><circle class="ro-c ro-c3" cx="520" cy="336" r="2"/></g>
+<g class="ro-bot" transform="translate(250 0)">
+  <ellipse cx="236" cy="342" rx="72" ry="6" fill="#000" opacity=".15"/>
+  <rect x="166" y="306" width="140" height="34" rx="17" fill="#3c3c3c"/>
+  <rect x="176" y="308" width="120" height="7" rx="3.5" fill="#5c5c5c"/>
+  <circle cx="290" cy="323" r="3.5" fill="#52e0bf"/>
+</g>
+</svg>
