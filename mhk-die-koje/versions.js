@@ -1,4 +1,4 @@
-// Die vier Versionen der Landing Page „Die Koje“.
+// Die Versionen der Landing Page „Die Koje“.
 // Neue Version: Ordner in mhk-die-koje/ anlegen (mit index.html) und hier
 // den passenden Slot ausfüllen – `slug` = Ordnername. Slots ohne `slug`
 // erscheinen auf der Übersicht als „In Vorbereitung".
@@ -25,6 +25,12 @@ window.KOJE_VERSIONS = [
     slug: "koje-4-konfigurator",
     title: "Konfigurator",
     description: "„Meine Koje“: Features an- und ausschalten, Live-Vorschau mit Regeln, teilbarer Link, Zusammenfassung als Bild und Anfrage-Weg.",
+    thumbnail: "assets/thumbnail.jpg",
+  },
+  {
+    slug: "koje-5-licht-an-feature-tour",
+    title: "Licht an. Küche entdecken.",
+    description: "Schwarzer Auftakt, Licht an und ein interaktiver Rundgang mit dynamischen Perspektivfahrten, Feature-Animationen und Werbevideo.",
     thumbnail: "assets/thumbnail.jpg",
   },
 ];

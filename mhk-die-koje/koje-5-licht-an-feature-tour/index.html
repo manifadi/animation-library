@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#11110f" />
+  <title>Licht an. Küche entdecken. · musterhaus küchen</title>
+  <meta name="description" content="Ein interaktiver Küchenrundgang: Licht an, Features entdecken, näher heranzoomen." />
+  <link rel="icon" href="../assets/mhk-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,800;9..144,900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#kitchen-stage">Direkt zur interaktiven Küche</a>
+
+  <header class="site-header">
+    <a class="brand" href="../" aria-label="musterhaus küchen – alle Varianten">
+      <img src="../assets/mhk-logo.png" alt="musterhaus küchen – Gehören zum Leben." width="285" height="296" />
+    </a>
+    <nav class="header-nav" aria-label="Seitennavigation">
+      <a href="../">Alle Varianten</a>
+      <a class="header-cta" href="https://www.musterhauskuechen.de/terminvereinbarung">Beratungstermin</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="experience" id="kitchen-stage" aria-label="Interaktive Küchenwelt">
+      <div class="stage-sticky" data-stage>
+        <div class="scene-window" aria-label="Frontansicht der Küche">
+          <div class="scene-plane" data-scene-plane></div>
+          <div class="scene-vignette" aria-hidden="true"></div>
+
+          <div class="light-flare" aria-hidden="true"></div>
+          <div class="feature-effect" data-effect aria-hidden="true"></div>
+          <button class="tour-return" type="button" data-close aria-label="Kamerafahrt beenden und zur Küche zurückkehren">← Zur Übersicht</button>
+
+          <div class="intro-copy" data-intro-copy>
+            <p class="eyebrow"><span class="eyebrow-light"></span> musterhaus küchen präsentiert</p>
+            <h1 class="serif">Die Küche,<br />die alles, alles,<br class="mobile-break" /> alles kann!</h1>
+            <p class="lede">Entdecke, was in ihr steckt – und was deinen Alltag plötzlich einfacher macht.</p>
+            <button class="button" type="button" data-discover>Jetzt entdecken <span aria-hidden="true">↓</span></button>
+          </div>
+
+          <div class="experience-head" data-experience-head>
+            <div>
+              <p class="kicker">Ein Rundgang voller Aha-Momente</p>
+              <h2 class="serif">Was kann deine Küche?</h2>
+            </div>
+            <p class="head-hint">Wähle einen leuchtenden Punkt und entdecke ein Feature.</p>
+          </div>
+
+          <div class="hotspots" data-hotspots aria-label="Küchenfeatures">
+            <button class="hotspot" style="--x:53%;--y:67%" data-feature="zapfhahn" aria-label="Bierzapfhahn entdecken"><span></span><b>01</b></button>
+            <button class="hotspot" style="--x:17%;--y:73%" data-feature="couch" aria-label="Ausziehcouch entdecken"><span></span><b>02</b></button>
+            <button class="hotspot" style="--x:64%;--y:58%" data-feature="tablet" aria-label="Tablet-Halterung entdecken"><span></span><b>03</b></button>
+            <button class="hotspot" style="--x:39%;--y:79%" data-feature="schublade" aria-label="Schublade entdecken"><span></span><b>04</b></button>
+            <button class="hotspot" style="--x:60%;--y:82%" data-feature="spielwand" aria-label="Spielwand entdecken"><span></span><b>05</b></button>
+            <button class="hotspot" style="--x:55%;--y:93%" data-feature="roboter" aria-label="Saugroboter-Garage entdecken"><span></span><b>06</b></button>
+            <button class="hotspot" style="--x:72%;--y:37%" data-feature="licht" aria-label="Lichtstimmung entdecken"><span></span><b>07</b></button>
+          </div>
+
+          <div class="feature-card" data-feature-card role="dialog" aria-modal="false" aria-labelledby="feature-title" hidden>
+            <button class="close-button" type="button" data-close aria-label="Feature schließen"><span aria-hidden="true">×</span></button>
+            <p class="feature-count"><span data-feature-number>01</span><span> / 07</span><i>Feature entdecken</i></p>
+            <h3 class="serif" id="feature-title" data-title></h3>
+            <p class="feature-description" data-description></p>
+            <a class="button feature-cta" href="https://www.musterhauskuechen.de/studio-suche">Im Studio erleben <span aria-hidden="true">→</span></a>
+            <button class="back-to-kitchen" type="button" data-close>Zur Küchenübersicht</button>
+          </div>
+
+          <div class="camera-label" data-camera-label aria-live="polite"></div>
+          <p class="scroll-cue" data-scroll-cue><span>Scrollen zum Entdecken</span><i aria-hidden="true"></i></p>
+          <div class="loading-cover" data-loading-cover aria-hidden="true"><span class="loader-mark">M</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="film-section" aria-labelledby="film-title">
+      <div class="film-copy">
+        <p class="eyebrow">Die Idee in Bewegung</p>
+        <h2 class="serif" id="film-title">Erst ansehen.<br /><span>Dann selbst entdecken.</span></h2>
+        <p>Das Werbevideo zeigt die Küche und ihre Funktionen im Film. Danach kannst du oben einzelne Ideen selbst ansteuern.</p>
+      </div>
+      <figure class="film-frame">
+        <video controls playsinline preload="metadata" aria-label="Werbevideo zur Küche">
+          <source src="../assets/MHK%20v2%20(1).mp4" type="video/mp4" />
+          Dein Browser unterstützt die Videowiedergabe nicht.
+        </video>
+        <figcaption><span>musterhaus küchen</span><span>Werbevideo · mit Ton</span></figcaption>
+      </figure>
+    </section>
+
+    <section class="afterword" aria-label="Weitere Informationen">
+      <p class="eyebrow">Eine Küche. Viele Möglichkeiten.</p>
+      <h2 class="serif">Und das ist erst<br /><span>der Anfang.</span></h2>
+      <p>Jedes Detail kann sich deinem Leben anpassen. Entdecke die Möglichkeiten persönlich in einem musterhaus küchen Studio.</p>
+      <a class="button" href="https://www.musterhauskuechen.de/studio-suche">Studio in deiner Nähe finden <span aria-hidden="true">→</span></a>
+      <a class="version-link" href="../">← Zurück zu allen Varianten</a>
+    </section>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
