@@ -1,36 +1,34 @@
-// Die Versionen der Landing Page „Die Koje“.
-// Neue Version: Ordner in mhk-die-koje/ anlegen (mit index.html) und hier
-// den passenden Slot ausfüllen – `slug` = Ordnername. Slots ohne `slug`
-// erscheinen auf der Übersicht als „In Vorbereitung".
+// Die Versionen der Landing Page „Die Koje“, wie sie auf der Startseite gelistet werden.
+// `slug` = Ordnername in mhk-die-koje/. Einträge ohne `slug` erscheinen als
+// „In Planung“ und sind nicht verlinkt. `cost` ist der geschätzte Aufwand.
+// Nicht gelistet, aber weiterhin im Repo: koje-2-hotspot-image,
+// koje-3-live-ausprobieren, koje-4-konfigurator.
 window.KOJE_VERSIONS = [
   {
+    slug: "koje-6-video-scrollytelling",
+    title: "Scrollytelling mit Hintergrund-Videos",
+    short: "Videos statt 3D",
+    cost: "~5.000 €",
+    description: "Hero mit Headline, danach führt die Seite Feature für Feature durch die Koje. Im Hintergrund läuft jeweils ein Video-Snippet aus dem Werbespot, davor Headline, Text und „Termin vereinbaren“.",
+    features: ["Neun Feature-Snippets aus dem Werbespot", "Scroll-Reveals für Texte", "Ohne 3D, ohne Abhängigkeiten"],
+    thumbnail: "assets/thumbnail.jpg",
+  },
+  {
     slug: "koje-1-scrollytelling",
-    title: "Scrollytelling",
-    description: "Kamerafahrt durch eine 3D-Koje wie auf einer Apple-Produktseite – fünf Feature-Stationen inkl. wechselnder Lichtstimmungen.",
-    thumbnail: "assets/thumbnail.jpg",
-  },
-  {
-    slug: "koje-2-hotspot-image",
-    title: "Hotspot-Bild",
-    description: "Interaktive Illustration mit acht pulsierenden Hotspots – Zoom, Detail-Animationen, Fortschritt und Belohnung.",
-    thumbnail: "assets/thumbnail.jpg",
-  },
-  {
-    slug: "koje-3-live-ausprobieren",
-    title: "Live ausprobieren",
-    description: "Die Koje zum Anfassen: Schubladen ziehen, Couch ausfahren, Licht schalten, auf der Spielwand malen – mit synthetischen Sounds.",
-    thumbnail: "assets/thumbnail.jpg",
-  },
-  {
-    slug: "koje-4-konfigurator",
-    title: "Konfigurator",
-    description: "„Meine Koje“: Features an- und ausschalten, Live-Vorschau mit Regeln, teilbarer Link, Zusammenfassung als Bild und Anfrage-Weg.",
+    title: "3D Scrollytelling",
+    short: "Kamerafahrt in 3D",
+    cost: "~12.000 €",
+    description: "Wie auf einer Apple-Produktseite: Beim Scrollen fährt die Kamera durch die Koje und hält an neun Features. Ein markanter Hotspot öffnet ein Seitenpanel mit Beschreibung und Video.",
+    features: ["Vorgerenderte Kamerafahrt, per Scroll abgespielt", "Neun Feature-Hotspots", "Seitenpanel mit Video und Ton"],
     thumbnail: "assets/thumbnail.jpg",
   },
   {
     slug: "koje-5-licht-an-feature-tour",
     title: "Licht an. Küche entdecken.",
-    description: "Schwarzer Auftakt, Licht an und ein interaktiver Rundgang mit dynamischen Perspektivfahrten, Feature-Animationen und Werbevideo.",
+    short: "Interaktiver Rundgang",
+    cost: "~12.000 €",
+    description: "Die Seite startet schwarz, dann geht das Licht an. Ein interaktiver Rundgang mit räumlichen Kamerafahrten zeigt jedes Feature im Detail, am Ende läuft das Werbevideo.",
+    features: ["Licht-an-Auftakt", "Sieben Hotspots mit Kamerafahrten", "Werbevideo eingebunden"],
     thumbnail: "assets/thumbnail.jpg",
   },
 ];
