@@ -12,9 +12,11 @@ import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { RectAreaLightUniformsLib } from "three/addons/lights/RectAreaLightUniformsLib.js";
 import { ANCHOR_DEFAULTS } from "./camera-path.js";
-import { woodTexture, plankTexture, chalkTexture, recipeTexture } from "./textures.js";
+import { woodTexture, plankTexture, chalkTexture } from "./textures.js";
 
 const lerp = (a, b, t) => a + (b - a) * t;
+const clamp01 = (v) => Math.min(1, Math.max(0, v));
+const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 
 function box(parent, mat, [x0, x1], [y0, y1], [z0, z1], { cast = true, receive = true } = {}) {
   const m = new THREE.Mesh(new THREE.BoxGeometry(x1 - x0, y1 - y0, z1 - z0), mat);
@@ -41,9 +43,10 @@ function frontRun(parent, mat, { x0, widths, types = [], y0, y1, z, dir = 1 }) {
   let x = x0;
   widths.forEach((w, i) => {
     const type = types[i] || "door";
-    const rows = type === "drawers" ? [0.42, 0.33, 0.25] : type === "drawers2" ? [0.55, 0.45] : [1];
+    const rows = type === "drawers" || type === "drawers-lower" ? [0.42, 0.33, 0.25] : type === "drawers2" ? [0.55, 0.45] : [1];
     let y = y0;
-    rows.forEach((fr) => {
+    rows.forEach((fr, r) => {
+      if (type === "drawers-lower" && r === 2) return;
       const h = (y1 - y0) * fr;
       box(parent, mat, [x + gap / 2, x + w - gap / 2], [y + gap / 2, y + h - gap / 2], [za, zb]);
       y += h;
@@ -91,7 +94,14 @@ export function buildKitchen({ anisotropy = 4 } = {}) {
     accent:   new THREE.MeshStandardMaterial({ color: 0x111111, emissive: 0xffb36b, emissiveIntensity: 0 }),
     status:   new THREE.MeshStandardMaterial({ color: 0x0b2a24, emissive: 0x52e0bf, emissiveIntensity: 1.6 }),
     window:   new THREE.MeshBasicMaterial({ color: 0xfff4e6 }),
-    screen:   new THREE.MeshBasicMaterial({ map: recipeTexture(), color: 0xd9d9d9 }),
+    ovenGlass: new THREE.MeshStandardMaterial({ color: 0x151516, roughness: 0.12, metalness: 0.3, emissive: 0xff6a1f, emissiveIntensity: 0 }),
+    rgb:      new THREE.MeshStandardMaterial({ color: 0x111111, emissive: 0xff0000, emissiveIntensity: 0 }),
+    water:    new THREE.MeshStandardMaterial({ color: 0xcfe6f2, roughness: 0.05, transparent: true, opacity: 0.75 }),
+    steam:    new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1, transparent: true, opacity: 0, depthWrite: false }),
+    beer:     new THREE.MeshStandardMaterial({ color: 0xd99a2b, roughness: 0.2, transparent: true, opacity: 0.92 }),
+    foam:     new THREE.MeshStandardMaterial({ color: 0xfbf6ea, roughness: 0.9 }),
+    cup:      new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.05, transparent: true, opacity: 0.25, depthWrite: false }),
+    food:     new THREE.MeshStandardMaterial({ color: 0x5a3b22, roughness: 1 }),
   };
 
   // ---------- Raum ----------
@@ -118,7 +128,7 @@ export function buildKitchen({ anisotropy = 4 } = {}) {
   box(root, M.plinth, [-2.45, 1.55], [0, 0.1], [-2.55, -2.04]);
   box(root, M.carcass, [-2.45, 1.55], [0.1, 0.88], [-2.6, -1.98]);
   frontRun(root, M.front, {
-    x0: -2.45, widths: runW, types: ["drawers", "door", "door", "drawers", "drawers2", "drawers"],
+    x0: -2.45, widths: runW, types: ["drawers", "door", "door", "drawers-lower", "drawers2", "drawers"],
     y0: 0.1, y1: 0.88, z: -1.98, dir: 1,
   });
   box(root, M.counter, [-2.47, 1.55], [0.88, 0.92], [-2.6, -1.95]);
@@ -144,7 +154,10 @@ export function buildKitchen({ anisotropy = 4 } = {}) {
   box(root, M.plinth, [1.55, 2.75], [0, 0.1], [-2.55, -2.04]);
   box(root, M.carcass, [1.55, 2.75], [0.1, 2.3], [-2.6, -1.98]);
   frontRun(root, M.front, { x0: 1.55, widths: [0.6], y0: 0.1, y1: 0.9, z: -1.98 });
-  box(root, M.glass, [1.56, 2.14], [0.92, 1.5], [-1.98, -1.958]);
+  box(root, M.ovenGlass, [1.56, 2.14], [0.92, 1.5], [-1.98, -1.958]);
+  const ovenLight = new THREE.PointLight(0xff7a2a, 0, 0, 2);
+  ovenLight.position.set(1.85, 1.2, -1.75);
+  root.add(ovenLight);
   frontRun(root, M.front, { x0: 1.55, widths: [0.6], y0: 1.52, y1: 2.3, z: -1.98 });
   frontRun(root, M.front, { x0: 2.15, widths: [0.6], y0: 0.1, y1: 1.3, z: -1.98 });
   frontRun(root, M.front, { x0: 2.15, widths: [0.6], y0: 1.3, y1: 2.3, z: -1.98 });
@@ -162,20 +175,49 @@ export function buildKitchen({ anisotropy = 4 } = {}) {
     root.add(leaf);
   });
 
-  // ---------- Tablet-Halterung (fährt aus der Arbeitsplatte) ----------
-  box(root, M.glass, [-0.93, -0.57], [0.92, 0.9215], [-2.405, -2.365], { cast: false });
-  const tablet = new THREE.Group();
-  tablet.position.set(-0.75, 0.92, -2.385);
-  root.add(tablet);
-  box(tablet, M.steel, [-0.016, 0.016], [-0.34, 0.02], [-0.008, 0.008]);
-  const cradle = new THREE.Group();
-  cradle.position.y = 0.02;
-  cradle.rotation.x = -0.28;
-  tablet.add(cradle);
-  box(cradle, M.anthra, [-0.155, 0.155], [0, 0.21], [-0.006, 0.006]);
-  const screen = new THREE.Mesh(new THREE.PlaneGeometry(0.29, 0.193), M.screen);
-  screen.position.set(0, 0.105, 0.0065);
-  cradle.add(screen);
+  // ---------- Leise Schublade (oberste Reihe, Einheit x -0.35 … 0.25) ----------
+  const DY0 = 0.1 + 0.78 * 0.75, DY1 = 0.88;
+  const drawer = new THREE.Group();
+  root.add(drawer);
+  box(drawer, M.front, [-0.3485, 0.2485], [DY0 + 0.0015, DY1 - 0.0015], [-1.98, -1.961]);
+  box(drawer, M.inner, [-0.33, 0.23], [DY0 + 0.01, DY0 + 0.022], [-2.48, -1.98]);          // Boden
+  box(drawer, M.inner, [-0.33, -0.318], [DY0 + 0.01, DY1 - 0.04], [-2.48, -1.98]);         // Seiten
+  box(drawer, M.inner, [0.218, 0.23], [DY0 + 0.01, DY1 - 0.04], [-2.48, -1.98]);
+  box(drawer, M.inner, [-0.33, 0.23], [DY0 + 0.01, DY1 - 0.04], [-2.49, -2.478]);
+  [[-0.27, -0.14], [-0.12, 0.0], [0.02, 0.17]].forEach(([a, b], i) => {                    // Besteck-Einsätze
+    box(drawer, i === 1 ? M.steel : M.anthra, [a, b], [DY0 + 0.022, DY0 + 0.05], [-2.42, -2.05]);
+  });
+
+  // ---------- Heißwasser: Strahl + Dampf ----------
+  const stream = new THREE.Mesh(new THREE.CylinderGeometry(0.006, 0.008, 0.3, 12), M.water);
+  stream.position.set(-1.16, 1.07, -2.345);
+  root.add(stream);
+  const puffs = [0, 1, 2, 3, 4, 5].map((i) => {
+    const m = new THREE.Mesh(new THREE.SphereGeometry(0.018 + (i % 3) * 0.006, 14, 10), M.steam.clone());
+    m.userData.phase = i / 6;
+    m.userData.dx = ((i * 37) % 7 - 3) * 0.012;
+    root.add(m);
+    return m;
+  });
+
+  // ---------- Napf-Schublade im Sockel (Einheit x -2.4 … -1.9) ----------
+  const napf = new THREE.Group();
+  root.add(napf);
+  box(napf, M.plinth, [-2.4, -1.9], [0.006, 0.088], [-2.05, -2.03]);
+  box(napf, M.steel, [-2.38, -1.92], [0.004, 0.016], [-2.46, -2.05]);
+  [[-2.27, M.food], [-2.03, M.water]].forEach(([x, fill]) => {
+    const bowl = new THREE.Mesh(new THREE.CylinderGeometry(0.085, 0.065, 0.06, 32, 1, true), M.steel);
+    bowl.material = M.steel.clone();
+    bowl.material.side = THREE.DoubleSide;
+    bowl.position.set(x, 0.046, -2.25);
+    napf.add(bowl);
+    const base = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.065, 0.004, 32), M.steel);
+    base.position.set(x, 0.018, -2.25);
+    napf.add(base);
+    const content = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.07, 0.02, 32), fill);
+    content.position.set(x, 0.04, -2.25);
+    napf.add(content);
+  });
 
   // ---------- Insel ----------
   box(root, M.carcass, [-1.8, 0.9], [0.1, 0.88], [-0.75, 0.0]);
@@ -187,6 +229,52 @@ export function buildKitchen({ anisotropy = 4 } = {}) {
   // Eichen-Wangen an den Inselenden
   box(root, M.oak, [-1.83, -1.8], [0, 0.88], [-0.78, 0.26]);
   box(root, M.oak, [0.9, 0.93], [0, 0.88], [-0.78, 0.26]);
+  // RGB-LED-Bänder unter den Arbeitsplatten
+  box(root, M.rgb, [-1.8, 0.9], [0.872, 0.88], [0.27, 0.29], { cast: false, receive: false });
+  box(root, M.rgb, [-1.8, 0.9], [0.872, 0.88], [-0.79, -0.77], { cast: false, receive: false });
+  box(root, M.rgb, [-1.75, 0.4], [0.092, 0.1], [0.17, 0.2], { cast: false, receive: false });
+  box(root, M.rgb, [-2.42, 1.52], [0.092, 0.1], [-2.04, -2.03], { cast: false, receive: false });
+  const rgbA = new THREE.PointLight(0xff0000, 0, 0, 2);
+  rgbA.position.set(-0.4, 0.35, 0.9);
+  const rgbB = new THREE.PointLight(0x00ff00, 0, 0, 2);
+  rgbB.position.set(-0.6, 1.3, -1.6);
+  const rgbC = new THREE.PointLight(0x0000ff, 0, 0, 2);
+  rgbC.position.set(2.2, 1.6, -1.2);
+  root.add(rgbA, rgbB, rgbC);
+
+  // Zapfhahn auf der Insel
+  const ZX = 0.66, ZZ = -0.12;
+  const column = new THREE.Mesh(new THREE.CylinderGeometry(0.026, 0.03, 0.3, 28), M.steel);
+  column.position.set(ZX, 1.07, ZZ);
+  column.castShadow = true;
+  root.add(column);
+  const spout = new THREE.Mesh(new THREE.CylinderGeometry(0.011, 0.011, 0.09, 16), M.steel);
+  spout.rotation.x = Math.PI / 2;
+  spout.position.set(ZX, 1.17, ZZ + 0.055);
+  root.add(spout);
+  const nozzle = new THREE.Mesh(new THREE.CylinderGeometry(0.009, 0.007, 0.04, 16), M.steel);
+  nozzle.position.set(ZX, 1.15, ZZ + 0.095);
+  root.add(nozzle);
+  const lever = new THREE.Group();
+  lever.position.set(ZX, 1.2, ZZ + 0.03);
+  root.add(lever);
+  const leverHandle = new THREE.Mesh(new THREE.CylinderGeometry(0.011, 0.014, 0.13, 16), M.plinth);
+  leverHandle.position.y = 0.065;
+  leverHandle.castShadow = true;
+  lever.add(leverHandle);
+  const glass = new THREE.Mesh(new THREE.CylinderGeometry(0.036, 0.03, 0.13, 28, 1, true), M.cup);
+  glass.position.set(ZX, 0.987, ZZ + 0.095);
+  root.add(glass);
+  const beer = new THREE.Mesh(new THREE.CylinderGeometry(0.033, 0.029, 1, 24), M.beer);
+  beer.position.set(ZX, 0.925, ZZ + 0.095);
+  root.add(beer);
+  const foam = new THREE.Mesh(new THREE.CylinderGeometry(0.034, 0.034, 0.014, 24), M.foam);
+  foam.position.set(ZX, 0.93, ZZ + 0.095);
+  root.add(foam);
+  const beerStream = new THREE.Mesh(new THREE.CylinderGeometry(0.004, 0.005, 1, 10), M.beer);
+  beerStream.position.set(ZX, 1.05, ZZ + 0.095);
+  root.add(beerStream);
+
   // Sockel mit Roboter-Garage (Nische x 0.42 … 0.82)
   box(root, M.plinth, [-1.75, 0.42], [0, 0.1], [-0.69, 0.16]);
   box(root, M.plinth, [0.82, 0.85], [0, 0.1], [-0.69, 0.16]);
@@ -336,13 +424,61 @@ export function buildKitchen({ anisotropy = 4 } = {}) {
   }
 
   // ---------- Feature-Animationen (t = 0 … 1) ----------
+  const color = new THREE.Color();
   const features = {
+    schublade(t) {
+      // schnell auf, kurz offen, dann gedämpft (langsam auslaufend) wieder zu
+      const open = t < 0.35 ? easeOut(t / 0.35) : t < 0.6 ? 1 : 1 - easeOut((t - 0.6) / 0.4);
+      drawer.position.z = open * 0.42;
+    },
+    wasser(t) {
+      const on = clamp01(Math.min(t, 1 - t) * 8);
+      stream.visible = on > 0.02;
+      stream.scale.set(1, Math.max(0.001, on), 1);
+      stream.position.y = 1.22 - 0.15 * on;
+      puffs.forEach((m) => {
+        const k = (t * 3 + m.userData.phase) % 1;
+        m.visible = on > 0.02;
+        m.position.set(-1.16 + m.userData.dx + k * 0.03, 0.95 + k * 0.42, -2.3 + k * 0.05);
+        m.scale.setScalar(0.6 + k * 1.3);
+        m.material.opacity = on * 0.22 * Math.sin(Math.PI * k);
+      });
+    },
+    ofen(t) {
+      const glow = smoothPulse(t);
+      M.ovenGlass.emissiveIntensity = glow * 0.45;
+      ovenLight.intensity = glow * 1.2;
+    },
+    rgb(t) {
+      const on = clamp01(Math.min(t, 1 - t) * 6);
+      const hue = (t * 1.6) % 1;
+      M.rgb.emissive.setHSL(hue, 1, 0.5);
+      M.rgb.emissiveIntensity = on * 4;
+      [rgbA, rgbB, rgbC].forEach((l, i) => {
+        l.color.copy(color.setHSL((hue + i * 0.33) % 1, 1, 0.5));
+        l.intensity = on * (i === 2 ? 2.5 : 3.2);
+      });
+    },
+    napf(t) {
+      // ausfahren, kurz stehen lassen, wieder einfahren
+      const open = t < 0.3 ? easeOut(t / 0.3) : t < 0.65 ? 1 : 1 - easeOut((t - 0.65) / 0.35);
+      napf.position.z = open * 0.4;
+    },
+    zapfhahn(t) {
+      const pour = clamp01((t - 0.1) / 0.75);
+      lever.rotation.x = (t > 0.05 && t < 0.92 ? 1 : 0) * 0.55;
+      beerStream.visible = t > 0.1 && t < 0.88;
+      const level = 0.005 + pour * 0.1;
+      beerStream.scale.y = 1.13 - (0.925 + level);
+      beerStream.position.y = (1.13 + 0.925 + level) / 2;
+      beer.scale.y = level;
+      beer.position.y = 0.925 + level / 2;
+      foam.visible = pour > 0.05;
+      foam.position.y = 0.925 + level + 0.007;
+    },
     klappe(t) {
       flap.rotation.x = t * Math.PI * 0.5;
       sheet.visible = t > 0.55;
-    },
-    tablet(t) {
-      tablet.position.y = 0.92 + lerp(-0.33, 0.08, t);
     },
     couch(t) {
       couchExt.position.z = t * 0.55;
@@ -352,6 +488,9 @@ export function buildKitchen({ anisotropy = 4 } = {}) {
       robot.rotation.y = t * 0.45;
     },
   };
+  function smoothPulse(t) {
+    return clamp01(Math.min(t, 1 - t) * 5);
+  }
   Object.values(features).forEach((f) => f(0));
 
   return {

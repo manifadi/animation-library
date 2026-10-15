@@ -32,10 +32,10 @@ const canvas = $("#scene");
 const heroCopy = $(".hero-copy");
 const hotspot = $(".hotspot");
 const hotspotLabel = $(".hotspot-label");
+const hotspotDesc = $(".hotspot-desc");
 const progressFill = $(".progress-track");
 const stationEls = Object.fromEntries($$(".station").map((el) => [el.dataset.station, el]));
 const navButtons = $$(".progress-nav button");
-const moodChips = $$(".moods li");
 const loadBar = $(".preloader-bar span");
 
 const isStatic = () => html.classList.contains("is-static");
@@ -276,21 +276,10 @@ async function main() {
     };
     const img = (src, alt) => Object.assign(new Image(), { src, alt, loading: "lazy", width: w, height: h });
     $(".hero-still").append(img(snap(0), "3D-Ansicht der kompletten Koje"));
-    const shots = { spielwand: 0.195, tablet: 0.35, couch: 0.565, staubsauger: 0.735 };
-    for (const [id, p] of Object.entries(shots)) {
-      const title = stationEls[id].querySelector("h2").textContent;
-      stationEls[id].querySelector(".station-media").append(img(snap(p), `3D-Detailansicht: ${title}`));
+    for (const st of STATIONS) {
+      const title = stationEls[st.id].querySelector("h2").textContent;
+      stationEls[st.id].querySelector(".station-media").append(img(snap(st.jump), `3D-Detailansicht: ${title}`));
     }
-    const trio = stationEls.licht.querySelector(".station-media");
-    [["Morgen", 0.825], ["Kochen", 0.867], ["Abend", 0.925]].forEach(([label, p]) => {
-      const fig = document.createElement("figure");
-      fig.style.margin = "0";
-      fig.append(img(snap(p), `Lichtstimmung ${label}`));
-      const cap = document.createElement("figcaption");
-      cap.textContent = label;
-      fig.append(cap);
-      trio.append(fig);
-    });
     html.classList.remove("is-dark-scene");
   }
 
@@ -352,6 +341,68 @@ async function main() {
     }),
   );
 
+  // ---------- Seitenpanel ----------
+  // Öffnet beim Klick auf den Hotspot. Der Scroll wird angehalten, beim Schließen
+  // geht es exakt an derselben Stelle weiter.
+  const panel = $("#panel");
+  const sheet = panel.querySelector(".panel-sheet");
+  const media = panel.querySelector(".panel-media");
+  const playBtn = panel.querySelector(".panel-play");
+  let panelOpen = false;
+  let panelVideo = null;
+
+  function openPanel(id) {
+    const el = stationEls[id];
+    if (!el) return;
+    panel.querySelector(".station-num").innerHTML = el.querySelector(".station-num").innerHTML;
+    panel.querySelector("#panel-title").innerHTML = el.querySelector("h2").innerHTML;
+    panel.querySelector(".panel-text").textContent = el.querySelector(".station-text").textContent;
+    panel.querySelector(".tags").innerHTML = el.querySelector(".tags").innerHTML;
+    const ph = el.querySelector(".placeholder");
+    panel.querySelector(".placeholder").innerHTML = ph ? ph.innerHTML : "";
+    playBtn.querySelector("img").src = el.dataset.poster;
+    playBtn.dataset.video = el.dataset.video;
+    resetVideo();
+    panelOpen = true;
+    lenis.stop();
+    html.classList.add("panel-open");
+    panel.setAttribute("aria-hidden", "false");
+    sheet.focus({ preventScroll: true });
+  }
+
+  function resetVideo() {
+    if (panelVideo) {
+      panelVideo.pause();
+      panelVideo.remove();
+      panelVideo = null;
+    }
+    playBtn.hidden = false;
+  }
+
+  function closePanel() {
+    if (!panelOpen) return;
+    panelOpen = false;
+    resetVideo();
+    html.classList.remove("panel-open");
+    panel.setAttribute("aria-hidden", "true");
+    lenis.start();
+    hotspot.focus({ preventScroll: true });
+  }
+
+  playBtn.addEventListener("click", () => {
+    panelVideo = document.createElement("video");
+    Object.assign(panelVideo, { src: playBtn.dataset.video, controls: true, playsInline: true, autoplay: true });
+    panelVideo.poster = playBtn.querySelector("img").src;
+    playBtn.hidden = true;
+    media.append(panelVideo);
+    panelVideo.play().catch(() => {});
+  });
+  hotspot.addEventListener("click", () => activeId && openPanel(activeId));
+  panel.querySelectorAll("[data-close]").forEach((el) => el.addEventListener("click", closePanel));
+  addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closePanel();
+  });
+
   // ---------- Maus-Parallax ----------
   const ptr = { x: 0, y: 0, tx: 0, ty: 0 };
   if (finePointer) {
@@ -369,7 +420,6 @@ async function main() {
   let shift = 0;
   let last = performance.now();
   let activeId = undefined;
-  let currentMood = null;
   let navVisible = false;
 
   function frame() {
@@ -390,7 +440,11 @@ async function main() {
       activeId = active;
       for (const [id, el] of Object.entries(stationEls)) el.classList.toggle("is-active", id === active);
       navButtons.forEach((b) => (b.dataset.jump === active ? b.setAttribute("aria-current", "step") : b.removeAttribute("aria-current")));
-      hotspotLabel.textContent = active ? stationEls[active].dataset.hotspot : "";
+      if (active) {
+        hotspotLabel.textContent = stationEls[active].dataset.hotspot;
+        hotspotDesc.textContent = stationEls[active].dataset.tip;
+      }
+      hotspot.tabIndex = active ? 0 : -1;
     }
     navButtons.forEach((b) => b.classList.toggle("is-done", p > stationById[b.dataset.jump].range[1]));
     html.classList.toggle("past-journey", rect.bottom < innerHeight * 0.6);
@@ -410,12 +464,7 @@ async function main() {
     if (!onScreen) return; // Bühne nicht sichtbar → nicht rendern
 
     // Licht + Ausstattung
-    const mood = applyLight(p);
-    const showMood = active === "licht" ? mood : null;
-    if (showMood !== currentMood) {
-      currentMood = showMood;
-      moodChips.forEach((c) => c.classList.toggle("is-current", c.dataset.mood === showMood));
-    }
+    applyLight(p);
     applyFeatures(p);
 
     // Kamera
@@ -432,9 +481,9 @@ async function main() {
     // Motiv neben/über das Textpanel schieben
     // Hero: Querformat → Küche nach rechts, Hochformat → Küche nach oben.
     const portrait = W < H;
-    const wantShift = active ? 1 : heroOp > 0.5 ? (portrait ? 1 : 0.8) : 0;
+    const wantShift = heroOp > 0.5 ? (portrait ? 1 : 0.8) : 0;
     shift += (wantShift - shift) * (1 - Math.exp(-dt * 3));
-    const vertical = isSmall() || (portrait && !active);
+    const vertical = isSmall() || portrait;
     if (vertical) camera.setViewOffset(W, H, 0, H * 0.2 * shift, W, H);
     else camera.setViewOffset(W, H, -W * 0.14 * shift, 0, W, H);
 
@@ -446,7 +495,8 @@ async function main() {
       _h.project(camera);
       const visible = _h.z < 1 && Math.abs(_h.x) < 0.95 && Math.abs(_h.y) < 0.95;
       hotspot.classList.toggle("is-visible", visible);
-      hotspot.classList.toggle("is-flipped", (_h.x + 1) / 2 > 0.7);
+      hotspot.classList.toggle("is-flipped", (_h.x + 1) / 2 > 0.62);
+      hotspot.classList.toggle("is-low", (1 - _h.y) / 2 > 0.7);
       hotspot.style.transform = `translate3d(${((_h.x + 1) / 2) * W}px, ${((1 - _h.y) / 2) * H}px, 0)`;
     } else {
       hotspot.classList.remove("is-visible");

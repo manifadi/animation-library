@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Die Koje · Scrollytelling – musterhaus küchen</title>
-<meta name="description" content="Klickdummy: Kamerafahrt durch die Koje von musterhaus küchen – Spielwand, Tablet-Halterung, Ausziehcouch, Sockel-Staubsauger und Lichtstimmungen." />
+<meta name="description" content="Klickdummy: Kamerafahrt durch die Koje von musterhaus küchen – neun Features mit Hotspots, Seitenpanel und Video." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <!-- Figma: „Dashiell Bright Black" (Adobe Fonts) – Fraunces 900 als frei verfügbarer Ersatz -->
@@ -38,12 +38,17 @@
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
-    <symbol id="i-spielwand" viewBox="0 0 40 40"><rect x="5" y="7" width="30" height="21" rx="1.5"/><path d="M11 22l5-6 4 4 3-3 6 5"/><circle cx="27" cy="13" r="2"/><path d="M14 33h12M20 28v5"/></symbol>
-    <symbol id="i-tablet" viewBox="0 0 40 40"><rect x="9" y="5" width="22" height="16" rx="1.5" transform="rotate(-8 20 13)"/><path d="M20 22v9M12 33h16"/><path d="M14 10h8M14 14h11" transform="rotate(-8 20 13)"/></symbol>
-    <symbol id="i-couch" viewBox="0 0 40 40"><path d="M8 18v-5a2 2 0 0 1 2-2h20a2 2 0 0 1 2 2v5"/><path d="M5 20a2 2 0 0 1 4 0v4h22v-4a2 2 0 0 1 4 0v8H5z"/><path d="M8 28v3M32 28v3"/><path d="M14 24h12" stroke-dasharray="2 2"/></symbol>
-    <symbol id="i-staubsauger" viewBox="0 0 40 40"><circle cx="20" cy="22" r="11"/><circle cx="20" cy="17" r="3"/><path d="M12 29.5c2 1.6 4.8 2.5 8 2.5s6-.9 8-2.5"/><path d="M5 34h30"/></symbol>
+    <symbol id="i-schubladen" viewBox="0 0 40 40"><rect x="6" y="8" width="28" height="24" rx="1.5"/><path d="M6 16h28M6 24h28"/><path d="M17 12h6M17 20h6M17 28h6"/></symbol>
+    <symbol id="i-heisswasser" viewBox="0 0 40 40"><path d="M12 34V12a5 5 0 0 1 5-5h9v5"/><path d="M26 16v4"/><path d="M8 34h10"/><path d="M30 24c-1.5 1.8-1.5 3.6 0 5.4M34 24c-1.5 1.8-1.5 3.6 0 5.4"/></symbol>
+    <symbol id="i-ofen" viewBox="0 0 40 40"><rect x="6" y="6" width="28" height="28" rx="1.5"/><path d="M6 13h28"/><rect x="11" y="18" width="18" height="11" rx="1"/><circle cx="12" cy="9.5" r="1"/><circle cx="17" cy="9.5" r="1"/></symbol>
     <symbol id="i-licht" viewBox="0 0 40 40"><path d="M20 3v8"/><path d="M11 21a9 9 0 0 1 18 0z"/><path d="M17 25a3 3 0 0 0 6 0"/><path d="M8 30l-3 2M32 30l3 2M20 31v4"/></symbol>
+    <symbol id="i-futternapf" viewBox="0 0 40 40"><path d="M5 26h30"/><path d="M8 26l2 6h20l2-6"/><circle cx="14" cy="13" r="2.2"/><circle cx="20" cy="10" r="2.2"/><circle cx="26" cy="13" r="2.2"/><path d="M16 21a4 4 0 0 1 8 0c0 1.7-1.8 2.5-4 2.5s-4-.8-4-2.5z"/></symbol>
+    <symbol id="i-spielwand" viewBox="0 0 40 40"><rect x="5" y="7" width="30" height="21" rx="1.5"/><path d="M11 22l5-6 4 4 3-3 6 5"/><circle cx="27" cy="13" r="2"/><path d="M14 33h12M20 28v5"/></symbol>
+    <symbol id="i-zapfhahn" viewBox="0 0 40 40"><path d="M15 34V14h8v20"/><path d="M23 18h5v4"/><path d="M19 14V6l5-1"/><path d="M8 34h24"/></symbol>
+    <symbol id="i-staubsauger" viewBox="0 0 40 40"><circle cx="20" cy="22" r="11"/><circle cx="20" cy="17" r="3"/><path d="M12 29.5c2 1.6 4.8 2.5 8 2.5s6-.9 8-2.5"/><path d="M5 34h30"/></symbol>
+    <symbol id="i-couch" viewBox="0 0 40 40"><path d="M8 18v-5a2 2 0 0 1 2-2h20a2 2 0 0 1 2 2v5"/><path d="M5 20a2 2 0 0 1 4 0v4h22v-4a2 2 0 0 1 4 0v8H5z"/><path d="M8 28v3M32 28v3"/><path d="M14 24h12" stroke-dasharray="2 2"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 30 10"><path d="M0 5h29m0 0-4-4m4 4-4 4"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z"/></symbol>
   </defs>
 </svg>
 
@@ -70,95 +75,154 @@
     <div class="stage">
       <canvas id="scene" aria-hidden="true"></canvas>
       <div class="stage-veil" aria-hidden="true"></div>
-      <div class="hotspot" aria-hidden="true"><span class="hotspot-dot"></span><span class="hotspot-label"></span></div>
+      <button type="button" class="hotspot" aria-label="Feature-Details öffnen" tabindex="-1">
+        <span class="hotspot-dot" aria-hidden="true"></span>
+        <span class="hotspot-tip">
+          <span class="hotspot-label"></span>
+          <span class="hotspot-desc"></span>
+          <span class="hotspot-more">Details ansehen <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </span>
+      </button>
 
       <div class="hero-copy">
         <figure class="hero-still" aria-hidden="true"></figure>
         <p class="eyebrow">musterhaus küchen präsentiert</p>
         <h1 class="serif">Die Koje.</h1>
         <p class="lede">Eine Küche, in der mehr steckt, als man auf den ersten Blick sieht. Scroll dich hinein – wir zeigen dir jedes Detail.</p>
-        <a class="btn" href="#station-spielwand" data-jump="spielwand">Rundgang starten</a>
+        <a class="btn" href="#station-schubladen" data-jump="schubladen">Rundgang starten</a>
       </div>
       <div class="scroll-hint" aria-hidden="true"><span>Scrollen</span><i></i></div>
 
       <div class="stations">
-        <article class="station" id="station-spielwand" data-station="spielwand" data-hotspot="Klappfach">
+        <article class="station" id="station-schubladen" data-station="schubladen" data-hotspot="Leise Schubladen" data-tip="Schubladen, die sanft und lautlos schließen." data-video="assets/video/schubladen.mp4" data-poster="assets/video/schubladen.jpg">
           <figure class="station-media"></figure>
           <div class="station-card">
-            <p class="station-num">01 <span>/ 05</span></p>
+            <p class="station-num">01 <span>/ 09</span></p>
+            <div class="station-head">
+              <svg class="icon" aria-hidden="true"><use href="#i-schubladen"/></svg>
+              <h2 class="serif">Zu. Ganz <span class="accent">ohne Knall.</span></h2>
+            </div>
+            <p class="station-text">Alle Schubladen und Auszüge schließen sanft und gedämpft. Ein leichter Stoß genügt, den Rest erledigt die Dämpfung – kein Klappern, auch wenn die Kinder schon schlafen.</p>
+            <ul class="tags"><li>Soft-Close</li><li>Vollauszug</li></ul>
+            
+          </div>
+        </article>
+
+        <article class="station" id="station-heisswasser" data-station="heisswasser" data-hotspot="Heißes Wasser" data-tip="Kochend heißes Wasser direkt aus dem Hahn." data-video="assets/video/heisswasser.mp4" data-poster="assets/video/heisswasser.jpg">
+          <figure class="station-media"></figure>
+          <div class="station-card">
+            <p class="station-num">02 <span>/ 09</span></p>
+            <div class="station-head">
+              <svg class="icon" aria-hidden="true"><use href="#i-heisswasser"/></svg>
+              <h2 class="serif">Kochend heiß. <span class="accent">Auf Knopfdruck.</span></h2>
+            </div>
+            <p class="station-text">Die Armatur liefert heißes Wasser direkt aus dem Hahn. Für Tee, Pasta oder zum Blanchieren – ohne Wasserkocher und ohne Warten.</p>
+            <ul class="tags"><li>Heißwasser-Armatur</li><li>Sofort verfügbar</li></ul>
+            
+          </div>
+        </article>
+
+        <article class="station" id="station-ofen" data-station="ofen" data-hotspot="Backofen" data-tip="Pizza, Brot und Braten auf bequemer Arbeitshöhe." data-video="assets/video/ofen.mp4" data-poster="assets/video/ofen.jpg">
+          <figure class="station-media"></figure>
+          <div class="station-card">
+            <p class="station-num">03 <span>/ 09</span></p>
+            <div class="station-head">
+              <svg class="icon" aria-hidden="true"><use href="#i-ofen"/></svg>
+              <h2 class="serif">Knusprig wie <span class="accent">beim Italiener.</span></h2>
+            </div>
+            <p class="station-text">Der Backofen sitzt auf bequemer Arbeitshöhe und bringt Pizza, Brot und Braten auf den Punkt. Rein, warten, staunen.</p>
+            <ul class="tags"><li>Auf Arbeitshöhe</li><li>Pizza-tauglich</li></ul>
+            <p class="placeholder">[Platzhalter: Gerätedetails folgen]</p>
+          </div>
+        </article>
+
+        <article class="station" id="station-licht" data-station="licht" data-hotspot="Bunte Lichter" data-tip="LED-Bänder tauchen die Koje in jede Farbe." data-video="assets/video/licht.mp4" data-poster="assets/video/licht.jpg">
+          <figure class="station-media"></figure>
+          <div class="station-card">
+            <p class="station-num">04 <span>/ 09</span></p>
+            <div class="station-head">
+              <svg class="icon" aria-hidden="true"><use href="#i-licht"/></svg>
+              <h2 class="serif">Licht in <span class="accent">jeder Farbe.</span></h2>
+            </div>
+            <p class="station-text">LED-Bänder unter Arbeitsplatten und im Sockel tauchen die Koje in genau die Stimmung, die gerade passt: warmweiß zum Kochen, bunt für die Party.</p>
+            <ul class="tags"><li>RGB-LED</li><li>Stimmungen per Knopfdruck</li></ul>
+            
+          </div>
+        </article>
+
+        <article class="station" id="station-futternapf" data-station="futternapf" data-hotspot="Futternapf" data-tip="Im Sockel wartet der Napf für den Hund." data-video="assets/video/futternapf.mp4" data-poster="assets/video/futternapf.jpg">
+          <figure class="station-media"></figure>
+          <div class="station-card">
+            <p class="station-num">05 <span>/ 09</span></p>
+            <div class="station-head">
+              <svg class="icon" aria-hidden="true"><use href="#i-futternapf"/></svg>
+              <h2 class="serif">Auch der Hund <span class="accent">hat seinen Platz.</span></h2>
+            </div>
+            <p class="station-text">Im Sockel versteckt sich eine Schublade mit Futter- und Wassernapf. Ausziehen, füttern, zuschieben – kein Napf mehr im Weg, keine Stolperfalle.</p>
+            <ul class="tags"><li>Sockelschublade</li><li>Zwei Näpfe</li></ul>
+            
+          </div>
+        </article>
+
+        <article class="station" id="station-spielwand" data-station="spielwand" data-hotspot="Spielwand" data-tip="Die Inselseite wird zur Spielfläche für Kinder." data-video="assets/video/spielwand.mp4" data-poster="assets/video/spielwand.jpg">
+          <figure class="station-media"></figure>
+          <div class="station-card">
+            <p class="station-num">06 <span>/ 09</span></p>
             <div class="station-head">
               <svg class="icon" aria-hidden="true"><use href="#i-spielwand"/></svg>
-              <h2 class="serif">Eine Wand, die <span class="accent">mitspielt.</span></h2>
+              <h2 class="serif">Eine Wand, <span class="accent">die mitspielt.</span></h2>
             </div>
-            <p>Die Wohnseite der Insel wird zur Malfläche: Kreide, Magnete und ein Klappfach für Stifte und Papier – genau auf Kinderhöhe. Du kochst, die Kleinen malen direkt neben dir.</p>
-            <ul class="tags"><li>Kreidefläche</li><li>Magnetisch</li><li>Klappfach</li></ul>
-            <p class="placeholder">[Platzhalter: Oberflächen &amp; Maße folgen]</p>
+            <p class="station-text">Die Wohnseite der Insel wird zur Spielfläche für kleine Künstler – genau auf Kinderhöhe und direkt neben dir, während du kochst.</p>
+            <ul class="tags"><li>Auf Kinderhöhe</li><li>Klappfach</li></ul>
+            <p class="placeholder">[Platzhalter: Oberfläche (Steck- oder Kreidewand) folgt]</p>
           </div>
         </article>
 
-        <article class="station" id="station-tablet" data-station="tablet" data-hotspot="Ausfahrbar">
+        <article class="station" id="station-zapfhahn" data-station="zapfhahn" data-hotspot="Zapfhahn" data-tip="Frisch gezapft – direkt aus der Arbeitsplatte." data-video="assets/video/zapfhahn.mp4" data-poster="assets/video/zapfhahn.jpg">
           <figure class="station-media"></figure>
           <div class="station-card">
-            <p class="station-num">02 <span>/ 05</span></p>
+            <p class="station-num">07 <span>/ 09</span></p>
             <div class="station-head">
-              <svg class="icon" aria-hidden="true"><use href="#i-tablet"/></svg>
-              <h2 class="serif">Das Rezept <span class="accent">fährt mit.</span></h2>
+              <svg class="icon" aria-hidden="true"><use href="#i-zapfhahn"/></svg>
+              <h2 class="serif">Frisch gezapft. <span class="accent">Zuhause.</span></h2>
             </div>
-            <p>Aus der Arbeitsplatte fährt eine Halterung für Tablet oder Handy. Das Rezept steht auf Augenhöhe, nichts lehnt an der Wand, kein Mehl auf dem Display. Danach verschwindet sie wieder bündig.</p>
-            <ul class="tags"><li>Tablet &amp; Handy</li><li>Bündig versenkt</li></ul>
-            <p class="placeholder">[Platzhalter: Mechanik &amp; Maße folgen]</p>
+            <p class="station-text">Der Zapfhahn in der Arbeitsplatte macht die Küche zur Lieblingsbar – für das Feierabendbier oder die nächste Party.</p>
+            <ul class="tags"><li>Integrierter Zapfhahn</li></ul>
+            <p class="placeholder">[Platzhalter: Technik &amp; Kühlung folgen]</p>
           </div>
         </article>
 
-        <article class="station" id="station-couch" data-station="couch" data-hotspot="Auszug">
+        <article class="station" id="station-staubsauger" data-station="staubsauger" data-hotspot="Saugroboter" data-tip="Der Saugroboter parkt unsichtbar im Sockel." data-video="assets/video/saugroboter.mp4" data-poster="assets/video/saugroboter.jpg">
           <figure class="station-media"></figure>
           <div class="station-card">
-            <p class="station-num">03 <span>/ 05</span></p>
-            <div class="station-head">
-              <svg class="icon" aria-hidden="true"><use href="#i-couch"/></svg>
-              <h2 class="serif">Sitzen, wo <span class="accent">gekocht wird.</span></h2>
-            </div>
-            <p>Neben der Küchenzeile wartet eine Sitzbank, die sich mit einem Griff zur Couch ausziehen lässt. Für den Kaffee zwischendurch, die Hausaufgaben oder Gäste, die beim Kochen dabei sein wollen.</p>
-            <ul class="tags"><li>Ausziehbar</li><li>Direkt in der Küche</li></ul>
-            <p class="placeholder">[Maß folgt]</p>
-          </div>
-        </article>
-
-        <article class="station" id="station-staubsauger" data-station="staubsauger" data-hotspot="Garage im Sockel">
-          <figure class="station-media"></figure>
-          <div class="station-card">
-            <p class="station-num">04 <span>/ 05</span></p>
+            <p class="station-num">08 <span>/ 09</span></p>
             <div class="station-head">
               <svg class="icon" aria-hidden="true"><use href="#i-staubsauger"/></svg>
               <h2 class="serif">Der Sauger <span class="accent">wohnt im Sockel.</span></h2>
             </div>
-            <p>Im Sockel der Insel parkt der Saugroboter. Er fährt raus, wenn es nötig ist, und verschwindet danach wieder. Krümel unter der Insel? Erledigt, bevor du abgewaschen hast.</p>
-            <ul class="tags"><li>Unsichtbar geparkt</li><li>Sockel-Garage</li></ul>
-            <p class="placeholder">[Platzhalter: Variante für Akkusauger folgt]</p>
+            <p class="station-text">Im Sockel der Insel parkt der Saugroboter. Er fährt raus, wenn es nötig ist, und verschwindet danach wieder. Krümel unter der Insel? Erledigt, bevor du abgewaschen hast.</p>
+            <ul class="tags"><li>Sockel-Garage</li><li>Unsichtbar geparkt</li></ul>
+            
           </div>
         </article>
 
-        <article class="station" id="station-licht" data-station="licht" data-hotspot="Pendelleuchte">
-          <figure class="station-media station-media--trio"></figure>
+        <article class="station" id="station-couch" data-station="couch" data-hotspot="Ausfahrbare Couch" data-tip="Aus der Insel fährt eine Couch heraus." data-video="assets/video/couch.mp4" data-poster="assets/video/couch.jpg">
+          <figure class="station-media"></figure>
           <div class="station-card">
-            <p class="station-num">05 <span>/ 05</span></p>
+            <p class="station-num">09 <span>/ 09</span></p>
             <div class="station-head">
-              <svg class="icon" aria-hidden="true"><use href="#i-licht"/></svg>
-              <h2 class="serif">Licht für <span class="accent">jede Stunde.</span></h2>
+              <svg class="icon" aria-hidden="true"><use href="#i-couch"/></svg>
+              <h2 class="serif">Sitzen, wo <span class="accent">gekocht wird.</span></h2>
             </div>
-            <p>Morgens hell und klar, beim Kochen gezielt auf der Arbeitsfläche, abends warm und gedimmt. Unterbauleuchten, Pendel und Akzentlicht spielen zusammen – scroll weiter und sieh selbst.</p>
-            <ul class="moods" aria-label="Lichtstimmungen">
-              <li data-mood="morgen">Morgen</li>
-              <li data-mood="kochen">Kochen</li>
-              <li data-mood="abend">Abend</li>
-            </ul>
-            <p class="placeholder">[Platzhalter: Lichtsteuerung folgt]</p>
+            <p class="station-text">Aus der Koje fährt eine Couch heraus. Für den Kaffee zwischendurch, die Hausaufgaben oder Gäste, die beim Kochen dabei sein wollen.</p>
+            <ul class="tags"><li>Ausfahrbar</li><li>Direkt in der Küche</li></ul>
+            
           </div>
         </article>
       </div>
 
       <div class="outro-copy" aria-hidden="true">
-        <p class="serif">Fünf Ideen.<br /><span class="accent">Eine Koje.</span></p>
+        <p class="serif">Neun Ideen.<br /><span class="accent">Eine Koje.</span></p>
       </div>
     </div>
   </section>
@@ -168,11 +232,15 @@
       <h2 id="summary-title" class="serif">Alles drin. <span class="accent">Auf einen Blick.</span></h2>
       <p class="summary-intro">Jedes Detail der Koje macht den Alltag in der Küche ein Stück leichter. Tippe auf eine Karte, um zur Station zurückzuspringen.</p>
       <ul class="feature-grid">
-        <li><a class="feature" href="#station-spielwand" data-jump="spielwand"><svg class="icon" aria-hidden="true"><use href="#i-spielwand"/></svg><h3 class="serif">Spielwand</h3><p>Kreide, Magnete und Klappfach auf Kinderhöhe.</p><span class="more">Zur Station <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
-        <li><a class="feature" href="#station-tablet" data-jump="tablet"><svg class="icon" aria-hidden="true"><use href="#i-tablet"/></svg><h3 class="serif">Tablet-Halterung</h3><p>Fährt aus der Arbeitsplatte und verschwindet bündig.</p><span class="more">Zur Station <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
-        <li><a class="feature" href="#station-couch" data-jump="couch"><svg class="icon" aria-hidden="true"><use href="#i-couch"/></svg><h3 class="serif">Ausziehcouch</h3><p>Sitzbank neben der Zeile, ausziehbar zur Couch.</p><span class="more">Zur Station <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
-        <li><a class="feature" href="#station-staubsauger" data-jump="staubsauger"><svg class="icon" aria-hidden="true"><use href="#i-staubsauger"/></svg><h3 class="serif">Sockel-Garage</h3><p>Der Saugroboter parkt unsichtbar in der Insel.</p><span class="more">Zur Station <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
-        <li><a class="feature" href="#station-licht" data-jump="licht"><svg class="icon" aria-hidden="true"><use href="#i-licht"/></svg><h3 class="serif">Lichtstimmungen</h3><p>Morgen, Kochen, Abend – Licht, das mitgeht.</p><span class="more">Zur Station <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+        <li><a class="feature" href="#station-schubladen" data-jump="schubladen"><svg class="icon" aria-hidden="true"><use href="#i-schubladen"/></svg><h3 class="serif">Leise Schubladen</h3><p>Schubladen, die sanft und lautlos schließen.</p><span class="more">Zur Station <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+        <li><a class="feature" href="#station-heisswasser" data-jump="heisswasser"><svg class="icon" aria-hidden="true"><use href="#i-heisswasser"/></svg><h3 class="serif">Heißes Wasser</h3><p>Kochend heißes Wasser direkt aus dem Hahn.</p><span class="more">Zur Station <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+        <li><a class="feature" href="#station-ofen" data-jump="ofen"><svg class="icon" aria-hidden="true"><use href="#i-ofen"/></svg><h3 class="serif">Backofen</h3><p>Pizza, Brot und Braten auf bequemer Arbeitshöhe.</p><span class="more">Zur Station <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+        <li><a class="feature" href="#station-licht" data-jump="licht"><svg class="icon" aria-hidden="true"><use href="#i-licht"/></svg><h3 class="serif">Bunte Lichter</h3><p>LED-Bänder tauchen die Koje in jede Farbe.</p><span class="more">Zur Station <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+        <li><a class="feature" href="#station-futternapf" data-jump="futternapf"><svg class="icon" aria-hidden="true"><use href="#i-futternapf"/></svg><h3 class="serif">Futternapf</h3><p>Im Sockel wartet der Napf für den Hund.</p><span class="more">Zur Station <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+        <li><a class="feature" href="#station-spielwand" data-jump="spielwand"><svg class="icon" aria-hidden="true"><use href="#i-spielwand"/></svg><h3 class="serif">Spielwand</h3><p>Die Inselseite wird zur Spielfläche für Kinder.</p><span class="more">Zur Station <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+        <li><a class="feature" href="#station-zapfhahn" data-jump="zapfhahn"><svg class="icon" aria-hidden="true"><use href="#i-zapfhahn"/></svg><h3 class="serif">Zapfhahn</h3><p>Frisch gezapft – direkt aus der Arbeitsplatte.</p><span class="more">Zur Station <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+        <li><a class="feature" href="#station-staubsauger" data-jump="staubsauger"><svg class="icon" aria-hidden="true"><use href="#i-staubsauger"/></svg><h3 class="serif">Saugroboter</h3><p>Der Saugroboter parkt unsichtbar im Sockel.</p><span class="more">Zur Station <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+        <li><a class="feature" href="#station-couch" data-jump="couch"><svg class="icon" aria-hidden="true"><use href="#i-couch"/></svg><h3 class="serif">Ausfahrbare Couch</h3><p>Aus der Insel fährt eine Couch heraus.</p><span class="more">Zur Station <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
       </ul>
     </div>
   </section>
@@ -199,13 +267,44 @@
 <nav class="progress-nav" aria-label="Stationen der Koje">
   <div class="progress-track" aria-hidden="true"><span></span></div>
   <ol>
+    <li><button type="button" data-jump="schubladen"><span class="label">Leise Schubladen</span><span class="dot"></span></button></li>
+    <li><button type="button" data-jump="heisswasser"><span class="label">Heißes Wasser</span><span class="dot"></span></button></li>
+    <li><button type="button" data-jump="ofen"><span class="label">Backofen</span><span class="dot"></span></button></li>
+    <li><button type="button" data-jump="licht"><span class="label">Bunte Lichter</span><span class="dot"></span></button></li>
+    <li><button type="button" data-jump="futternapf"><span class="label">Futternapf</span><span class="dot"></span></button></li>
     <li><button type="button" data-jump="spielwand"><span class="label">Spielwand</span><span class="dot"></span></button></li>
-    <li><button type="button" data-jump="tablet"><span class="label">Tablet-Halterung</span><span class="dot"></span></button></li>
-    <li><button type="button" data-jump="couch"><span class="label">Ausziehcouch</span><span class="dot"></span></button></li>
-    <li><button type="button" data-jump="staubsauger"><span class="label">Sockel-Garage</span><span class="dot"></span></button></li>
-    <li><button type="button" data-jump="licht"><span class="label">Licht</span><span class="dot"></span></button></li>
+    <li><button type="button" data-jump="zapfhahn"><span class="label">Zapfhahn</span><span class="dot"></span></button></li>
+    <li><button type="button" data-jump="staubsauger"><span class="label">Saugroboter</span><span class="dot"></span></button></li>
+    <li><button type="button" data-jump="couch"><span class="label">Ausfahrbare Couch</span><span class="dot"></span></button></li>
   </ol>
 </nav>
+
+<div class="panel" id="panel" aria-hidden="true">
+  <div class="panel-backdrop" data-close></div>
+  <aside class="panel-sheet" role="dialog" aria-modal="true" aria-labelledby="panel-title" tabindex="-1">
+    <button type="button" class="panel-close" data-close aria-label="Panel schließen">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16"/></svg>
+    </button>
+    <div class="panel-media">
+      <button type="button" class="panel-play" aria-label="Video mit Ton abspielen">
+        <img alt="" />
+        <span class="panel-play-icon"><svg aria-hidden="true"><use href="#i-play"/></svg></span>
+        <span class="panel-play-label">Video ansehen · mit Ton</span>
+      </button>
+    </div>
+    <div class="panel-body">
+      <p class="station-num"></p>
+      <h2 id="panel-title" class="serif"></h2>
+      <p class="panel-text"></p>
+      <ul class="tags"></ul>
+      <p class="placeholder"></p>
+      <div class="panel-actions">
+        <a class="btn" href="https://www.musterhauskuechen.de/terminvereinbarung">Termin vereinbaren</a>
+        <button type="button" class="panel-back" data-close>Weiter scrollen</button>
+      </div>
+    </div>
+  </aside>
+</div>
 
 <script type="module" src="js/main.js"></script>
 </body>

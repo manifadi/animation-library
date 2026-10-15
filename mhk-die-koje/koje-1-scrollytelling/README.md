@@ -1,6 +1,12 @@
 # Die Koje · Version 1 – Scrollytelling (Klickdummy)
 
-Proof of Concept einer Landing Page für „Die Koje“ von musterhaus küchen. Beim Scrollen fährt eine virtuelle Kamera wie auf einer Apple-Produktseite um die Küche und hält an fünf Feature-Stationen. Die Küche bleibt dabei als Ganzes stehen, nur die Kamera bewegt sich.
+Proof of Concept einer Landing Page für „Die Koje“ von musterhaus küchen. Beim Scrollen fährt eine virtuelle Kamera wie auf einer Apple-Produktseite um die Küche und hält an neun Feature-Stationen – denselben Features wie im Werbespot. Die Küche bleibt dabei als Ganzes stehen, nur die Kamera bewegt sich.
+
+**Interaktion:** Beim Scrollen erscheint an jeder Station nur ein großer Hotspot mit „+“ und einem Text-Hinweis; die Kurzbeschreibung zeigt sich als Tooltip bei Hover/Fokus. Ein Klick öffnet rechts ein Seitenpanel mit Titel, Beschreibung, „Termin vereinbaren“ und dem passenden Video-Snippet aus dem Spot (abspielbar mit Ton). Während das Panel offen ist, steht der Scroll; beim Schließen (×, „Weiter scrollen“, Esc oder Klick daneben) geht es an genau derselben Stelle weiter.
+
+**Hinweis zur späteren Umsetzung:** Der Klickdummy rendert die Szene live mit Three.js. In der echten Umsetzung werden die Kamerafahrten vorgerendert und als Video bzw. Bildsequenz (Einzelframes) per Scroll-Trigger abgespielt – Pfad und Timing aus `js/camera-path.js` dienen dafür als Vorlage.
+
+Stationen: Leise Schubladen · Heißes Wasser · Backofen · Bunte Lichter · Futternapf · Spielwand · Zapfhahn · Saugroboter · Ausfahrbare Couch. Die Video-Snippets liegen in `assets/video/` (geschnitten aus `../assets/MHK v2 (1).mp4`, oben 28 px beschnitten wegen des eingebrannten Timecodes).
 
 ## Starten
 
@@ -60,7 +66,7 @@ Bewusst ergänzt, weil Figma dafür keine Vorlage hat: 3D-Bühne, Glas-Panel (we
 Jeder Keyframe hängt an einem **benannten Anker** (Empty-Objekt). Kamera-Position und Blickpunkt sind **Offsets relativ zum Anker**:
 
 ```js
-{ id: "tablet", anchor: "anchor_tablet", offset: [1.15, 0.68, 1.15], look: [0, -0.02, 0], fov: 40, hold: [0.28, 0.36], drift: 0.05 }
+{ id: "ofen", anchor: "anchor_ofen", offset: [-0.55, 0.12, 1.6], look: [0, -0.05, 0], fov: 44, hold: [0.28, 0.33], drift: 0.05 }
 ```
 
 - `offset`: Kamera = Ankerposition + offset (Meter, x rechts, y oben, z zum Betrachter)
@@ -75,9 +81,9 @@ Die Positionen werden über eine CatmullRom-Kurve (centripetal) interpoliert. Di
 Weitere Stellschrauben in derselben Datei:
 
 - `SCROLL_LENGTH_VH`: Gesamtlänge der Fahrt (aktuell 760 vh)
-- `STATIONS`: Sichtbarkeitsbereich der Textpanels, Sprungziel der Navigation, Position des Pulsierpunkts
-- `FEATURE_ANIMS`: Scroll-Bereiche für Klappe, Tablet-Auszug, Couch-Auszug und Roboter
-- `LIGHT_KEYS` / `LIGHT_MOODS`: Lichtstimmungen (Tag, Morgen, Kochen, Abend) und ihre Werte
+- `STATIONS`: Sichtbarkeitsbereich des Hotspots, Sprungziel der Navigation, Position des Hotspots
+- `FEATURE_ANIMS`: Scroll-Bereiche für Schublade, Heißwasser, Ofen, RGB-Licht, Napf, Klappe, Zapfhahn, Roboter und Couch
+- `LIGHT_KEYS` / `LIGHT_MOODS`: Lichtstimmungen (Tag, Party für die bunten Lichter, Abend am Ende) und ihre Werte
 
 Tipp zum Tunen: Die Seite mit `?static` öffnen. Dort rendert die Szene von jeder Station ein Standbild, und man sieht alle Perspektiven untereinander.
 
@@ -85,8 +91,8 @@ Tipp zum Tunen: Die Seite mit `?static` öffnen. Dort rendert die Szene von jede
 
 1. Das GLB nach `assets/` legen, z. B. `assets/koje.glb`.
 2. Die Seite mit `?model=assets/koje.glb` aufrufen oder `MODEL_URL` in `js/main.js` fest setzen.
-3. Im Modell **Empties mit den Anker-Namen** anlegen: `anchor_overview`, `anchor_spielwand`, `anchor_tablet`, `anchor_couch`, `anchor_staubsauger`, `anchor_licht`. Fehlt ein Anker, wird die Standardposition aus `ANCHOR_DEFAULTS` genommen.
-4. Optional: Animation-Clips mit den Namen `klappe`, `tablet`, `couch`, `roboter` werden automatisch per Scroll gescrubbt.
+3. Im Modell **Empties mit den Anker-Namen** anlegen: `anchor_overview`, `anchor_schubladen`, `anchor_heisswasser`, `anchor_ofen`, `anchor_licht`, `anchor_futternapf`, `anchor_spielwand`, `anchor_zapfhahn`, `anchor_staubsauger`, `anchor_couch`. Fehlt ein Anker, wird die Standardposition aus `ANCHOR_DEFAULTS` genommen.
+4. Optional: Animation-Clips mit den Namen aus `FEATURE_ANIMS` (z. B. `schublade`, `napf`, `klappe`, `zapfhahn`, `roboter`, `couch`) werden automatisch per Scroll gescrubbt.
 5. Kann das Modell nicht geladen werden, fällt die Seite auf die Blockout-Küche zurück (Warnung in der Konsole).
 
 Der Kamerapfad muss dabei nicht umgeschrieben werden, solange die Anker an den richtigen Stellen sitzen. Nur die Offsets werden eventuell an die echten Proportionen angepasst.
@@ -95,7 +101,7 @@ Hinweis: Die Lichtstimmungen steuern beim GLB nur Sonne, Himmel, Umgebung und Hi
 
 ## Barrierefreiheit & Fallbacks
 
-- `prefers-reduced-motion` oder `?static`: keine Kamerafahrt. Die Stationen erscheinen als normale Abschnitte mit je einem gerenderten Standbild, „Licht“ mit drei Bildern (Morgen, Kochen, Abend).
+- `prefers-reduced-motion` oder `?static`: keine Kamerafahrt. Die Stationen erscheinen als normale Abschnitte mit je einem gerenderten Standbild.
 - Kein WebGL oder CDN nicht erreichbar: statischer Modus ohne Bilder. Ein Sicherheitsnetz im `<head>` schaltet nach 12 s um.
 - Alle Texte stehen im DOM in Lesereihenfolge (Screenreader). Canvas und Hotspot sind `aria-hidden`.
 - Tastatur: Skip-Link, fokussierbare Navigation mit `aria-current="step"`, sichtbarer Fokusrahmen. Ein Sprung setzt den Fokus auf die Station.
@@ -108,7 +114,7 @@ Playwright mit Chrome bei 390 × 844, 768 × 1024 und 1440 × 900, jeweils alle 
 ## Bewusst vereinfacht
 
 - Die Küche ist ein prozeduraler Blockout. Proportionen sind grob realistisch, aber **keine Produktdaten**.
-- Feature-Bewegungen (Klappe, Tablet-Auszug, Couch-Auszug, Roboter) sind nur angedeutet, die echte Mechanik ist unbekannt.
+- Feature-Bewegungen (Schublade, Wasser, Napf, Zapfhahn, Klappe, Couch, Roboter usw.) sind nur angedeutet, die echte Mechanik ist unbekannt.
 - Alle Maße, Mechaniken und Steuerungen sind als `[Platzhalter]` bzw. `[Maß folgt]` gekennzeichnet.
 - Keine Umwelt- oder Nachhaltigkeitsaussagen (EmpCo-Richtlinie). Garantie- oder Preisangaben wurden ebenfalls bewusst weggelassen.
 - Der Bildsequenz-Fallback wurde nicht gebaut. Stattdessen gibt es Standbilder pro Station aus der Live-Szene.
