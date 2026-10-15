@@ -11,8 +11,8 @@
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { RectAreaLightUniformsLib } from "three/addons/lights/RectAreaLightUniformsLib.js";
-import { ANCHOR_DEFAULTS } from "./camera-path.js";
-import { woodTexture, plankTexture, chalkTexture } from "./textures.js";
+import { ANCHOR_DEFAULTS } from "./camera-path.js?v=20261015";
+import { woodTexture, plankTexture, chalkTexture } from "./textures.js?v=20261015";
 
 const lerp = (a, b, t) => a + (b - a) * t;
 const clamp01 = (v) => Math.min(1, Math.max(0, v));

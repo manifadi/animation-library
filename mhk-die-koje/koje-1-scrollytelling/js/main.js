@@ -14,8 +14,8 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import {
   SCROLL_LENGTH_VH, ANCHOR_DEFAULTS, KEYFRAMES, STATIONS, FEATURE_ANIMS, LIGHT_KEYS, LIGHT_MOODS,
-} from "./camera-path.js";
-import { buildKitchen } from "./kitchen.js";
+} from "./camera-path.js?v=20261015";
+import { buildKitchen } from "./kitchen.js?v=20261015";
 
 gsap.registerPlugin(ScrollTrigger);
 

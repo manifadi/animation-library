@@ -10,7 +10,9 @@
 <!-- Figma: „Dashiell Bright Black" (Adobe Fonts) – Fraunces 900 als frei verfügbarer Ersatz -->
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,800;9..144,900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
 <link rel="icon" href="assets/mhk-logo.png" />
-<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/style.css?v=20261015" />
+<!-- Polyfill für Import Maps (Safari < 16.4, Firefox < 108); in neuen Browsern ohne Wirkung -->
+<script async src="https://cdn.jsdelivr.net/npm/es-module-shims@1.10.0/dist/es-module-shims.js" crossorigin="anonymous"></script>
 <script type="importmap">
 {
   "imports": {
@@ -306,6 +308,6 @@
   </aside>
 </div>
 
-<script type="module" src="js/main.js"></script>
+<script type="module" src="js/main.js?v=20261015"></script>
 </body>
 </html>

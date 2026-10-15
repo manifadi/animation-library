@@ -372,8 +372,8 @@
 
 <main class="stage">
   <section class="tile" id="tile" aria-live="polite">
-    <video class="tile-video" id="tileVideo" src="assets/MHK%20v2%20(1).mp4" poster="assets/koje-bild.jpg"
-           autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+    <video class="tile-video" id="tileVideo" src="assets/koje-loop.mp4" poster="assets/koje-bild.jpg"
+           autoplay muted loop playsinline preload="auto" disablepictureinpicture aria-hidden="true"></video>
 
     <div class="panel is-active" data-panel="intro">
       <span class="eyebrow">Landing Page · 3 Versionen</span>
@@ -392,7 +392,7 @@
   </aside>
 </main>
 
-<script src="versions.js"></script>
+<script src="versions.js?v=20261015"></script>
 <script>
   (function () {
     var versions = window.KOJE_VERSIONS || [];
@@ -515,10 +515,27 @@
     tile.addEventListener("mouseenter", function () { if (current >= 0) clearTimeout(leaveTimer); });
     tile.addEventListener("mouseleave", scheduleReset);
 
-    // Video bei reduzierter Bewegung anhalten
+    // Hintergrundvideo zuverlässig starten. Manche Browser (Safari im Stromsparmodus,
+    // iOS, Edge mit strengen Einstellungen) blockieren Autoplay – dann beim ersten
+    // Tippen, Klicken oder Scrollen erneut versuchen. Bei reduzierter Bewegung: Standbild.
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       video.removeAttribute("autoplay");
       video.pause();
+    } else {
+      video.muted = true;
+      video.defaultMuted = true;
+      var tryPlay = function () {
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});
+      };
+      var kick = function () {
+        tryPlay();
+        ["pointerdown", "touchstart", "scroll", "keydown"].forEach(function (ev) { window.removeEventListener(ev, kick); });
+      };
+      ["pointerdown", "touchstart", "scroll", "keydown"].forEach(function (ev) { window.addEventListener(ev, kick, { passive: true }); });
+      if (video.readyState >= 2) tryPlay();
+      else video.addEventListener("canplay", tryPlay, { once: true });
+      document.addEventListener("visibilitychange", function () { if (!document.hidden) tryPlay(); });
     }
   })();
 </script>

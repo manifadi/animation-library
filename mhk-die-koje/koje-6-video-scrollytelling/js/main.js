@@ -21,6 +21,22 @@
   });
 
   var lastFeature = Object.keys(videos).pop();
+
+  // Autoplay kann blockiert sein (Safari-Stromsparmodus, iOS, strenge Browser-
+  // einstellungen). Dann wird beim ersten Tippen/Klicken/Scrollen erneut gestartet.
+  var blocked = false;
+  function play(v) {
+    v.muted = true;
+    v.defaultMuted = true;
+    var p = v.play();
+    if (p && p.catch) p.catch(function () { blocked = true; });
+  }
+  function retry() {
+    if (!blocked || !currentVideo || reduced) return;
+    blocked = false;
+    play(currentVideo);
+  }
+  ["pointerdown", "touchstart", "keydown"].forEach(function (ev) { window.addEventListener(ev, retry, { passive: true }); });
   var currentVideo = null;
   var current = null;
 
@@ -32,8 +48,7 @@
     v.classList.add("is-active");
     if (!reduced) {
       try { v.currentTime = 0; } catch (e) {}
-      var p = v.play();
-      if (p && p.catch) p.catch(function () {});
+      play(v);
     }
     if (prev) {
       prev.classList.remove("is-active");
@@ -74,6 +89,7 @@
     body.classList.toggle("is-scrolled", window.scrollY > 40);
   }
   function onScroll() {
+    retry();
     if (!ticking) { ticking = true; requestAnimationFrame(update); }
   }
 
@@ -89,6 +105,6 @@
   document.addEventListener("visibilitychange", function () {
     if (!currentVideo || reduced) return;
     if (document.hidden) currentVideo.pause();
-    else { var p = currentVideo.play(); if (p && p.catch) p.catch(function () {}); }
+    else play(currentVideo);
   });
 })();
