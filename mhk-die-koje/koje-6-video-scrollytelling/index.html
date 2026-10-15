@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Die Koje · Scrollytelling mit Hintergrund-Videos – musterhaus küchen</title>
+<meta name="description" content="Klickdummy: Rundgang durch die Koje von musterhaus küchen. Pro Feature läuft ein Video-Snippet im Hintergrund." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- Figma: „Dashiell Bright Black" (Adobe Fonts) – Fraunces 900 als frei verfügbarer Ersatz -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,800;9..144,900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+<link rel="icon" href="assets/mhk-logo.png" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <a class="logo" href="../" aria-label="Zur Versionsübersicht „Die Koje“">
+    <img src="assets/mhk-logo.png" alt="musterhaus küchen – Gehören zum Leben." width="285" height="296" />
+  </a>
+  <nav class="header-nav" aria-label="Seitennavigation">
+    <a class="header-link" href="../">Alle Versionen</a>
+    <a class="btn btn--small" href="https://www.musterhauskuechen.de/terminvereinbarung">Beratungstermin</a>
+  </nav>
+</header>
+
+<!-- Fixierte Video-Ebene: pro Abschnitt ein Snippet, das aktive wird eingeblendet -->
+<div class="backdrop" aria-hidden="true">
+  <video class="bg-video" data-for="hero"         src="assets/video/00-hero.mp4"         poster="assets/video/00-hero.jpg"         muted loop playsinline preload="auto"></video>
+  <video class="bg-video" data-for="schubladen"   src="assets/video/01-schubladen.mp4"   poster="assets/video/01-schubladen.jpg"   muted loop playsinline preload="metadata"></video>
+  <video class="bg-video" data-for="heisswasser"  src="assets/video/02-heisswasser.mp4"  poster="assets/video/02-heisswasser.jpg"  muted loop playsinline preload="metadata"></video>
+  <video class="bg-video" data-for="ofen"         src="assets/video/03-ofen.mp4"         poster="assets/video/03-ofen.jpg"         muted loop playsinline preload="metadata"></video>
+  <video class="bg-video" data-for="licht"        src="assets/video/04-licht.mp4"        poster="assets/video/04-licht.jpg"        muted loop playsinline preload="metadata"></video>
+  <video class="bg-video" data-for="futternapf"   src="assets/video/05-futternapf.mp4"   poster="assets/video/05-futternapf.jpg"   muted loop playsinline preload="metadata"></video>
+  <video class="bg-video" data-for="spielwand"    src="assets/video/06-spielwand.mp4"    poster="assets/video/06-spielwand.jpg"    muted loop playsinline preload="metadata"></video>
+  <video class="bg-video" data-for="zapfhahn"     src="assets/video/07-zapfhahn.mp4"     poster="assets/video/07-zapfhahn.jpg"     muted loop playsinline preload="metadata"></video>
+  <video class="bg-video" data-for="saugroboter"  src="assets/video/08-saugroboter.mp4"  poster="assets/video/08-saugroboter.jpg"  muted loop playsinline preload="metadata"></video>
+  <video class="bg-video" data-for="couch"        src="assets/video/09-couch.mp4"        poster="assets/video/09-couch.jpg"        muted loop playsinline preload="metadata"></video>
+  <div class="backdrop-veil"></div>
+</div>
+
+<!-- Fortschritt: Punkte rechts (Desktop) bzw. Balken oben (Mobil) -->
+<nav class="rail" aria-label="Features">
+  <ol id="rail"></ol>
+</nav>
+<div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+<main>
+  <section class="scene scene--hero" data-scene="hero" aria-labelledby="hero-title">
+    <div class="copy">
+      <p class="eyebrow">musterhaus küchen präsentiert</p>
+      <h1 id="hero-title" class="serif">Die Koje.</h1>
+      <p class="lede">Eine Küche, in der mehr steckt, als man auf den ersten Blick sieht. Scroll dich durch – wir zeigen dir jedes Feature.</p>
+      <a class="btn" href="#schubladen">Rundgang starten</a>
+    </div>
+    <div class="scroll-hint" aria-hidden="true"><span>Scrollen</span><i></i></div>
+  </section>
+
+  <section class="scene" id="schubladen" data-scene="schubladen" data-label="Schubladen">
+    <div class="copy card">
+      <p class="num">01 <span>/ 09</span></p>
+      <h2 class="serif">Zu. Ganz <span class="accent">ohne Knall.</span></h2>
+      <p>Alle Schubladen und Auszüge schließen sanft und gedämpft. Ein leichter Stoß genügt, den Rest erledigt die Dämpfung – kein Klappern, auch wenn die Kinder schon schlafen.</p>
+      <ul class="tags"><li>Soft-Close</li><li>Vollauszug</li></ul>
+      <a class="btn" href="https://www.musterhauskuechen.de/terminvereinbarung">Termin vereinbaren</a>
+    </div>
+  </section>
+
+  <section class="scene" id="heisswasser" data-scene="heisswasser" data-label="Heißes Wasser">
+    <div class="copy card">
+      <p class="num">02 <span>/ 09</span></p>
+      <h2 class="serif">Kochend heiß. <span class="accent">Auf Knopfdruck.</span></h2>
+      <p>Die Armatur liefert heißes Wasser direkt aus dem Hahn. Für Tee, Pasta oder zum Blanchieren – ohne Wasserkocher und ohne Warten.</p>
+      <ul class="tags"><li>Heißwasser-Armatur</li><li>Sofort verfügbar</li></ul>
+      <a class="btn" href="https://www.musterhauskuechen.de/terminvereinbarung">Termin vereinbaren</a>
+    </div>
+  </section>
+
+  <section class="scene" id="ofen" data-scene="ofen" data-label="Backofen">
+    <div class="copy card">
+      <p class="num">03 <span>/ 09</span></p>
+      <h2 class="serif">Knusprig wie <span class="accent">beim Italiener.</span></h2>
+      <p>Der Backofen sitzt auf bequemer Arbeitshöhe und bringt Pizza, Brot und Braten auf den Punkt. Rein, warten, staunen.</p>
+      <ul class="tags"><li>Auf Arbeitshöhe</li><li>Pizza-tauglich</li></ul>
+      <p class="placeholder">[Platzhalter: Gerätedetails folgen]</p>
+      <a class="btn" href="https://www.musterhauskuechen.de/terminvereinbarung">Termin vereinbaren</a>
+    </div>
+  </section>
+
+  <section class="scene" id="licht" data-scene="licht" data-label="Bunte Lichter">
+    <div class="copy card">
+      <p class="num">04 <span>/ 09</span></p>
+      <h2 class="serif">Licht in <span class="accent">jeder Farbe.</span></h2>
+      <p>LED-Bänder in Sockel und Fronten tauchen die Koje in genau die Stimmung, die gerade passt: warmweiß zum Kochen, bunt für die Party.</p>
+      <ul class="tags"><li>RGB-LED</li><li>Stimmungen per Knopfdruck</li></ul>
+      <a class="btn" href="https://www.musterhauskuechen.de/terminvereinbarung">Termin vereinbaren</a>
+    </div>
+  </section>
+
+  <section class="scene" id="futternapf" data-scene="futternapf" data-label="Futternapf">
+    <div class="copy card">
+      <p class="num">05 <span>/ 09</span></p>
+      <h2 class="serif">Auch der Hund <span class="accent">hat seinen Platz.</span></h2>
+      <p>Im Sockel versteckt sich eine Schublade mit Futter- und Wassernapf. Ausziehen, füttern, zuschieben – kein Napf mehr im Weg, keine Stolperfalle.</p>
+      <ul class="tags"><li>Sockelschublade</li><li>Zwei Näpfe</li></ul>
+      <a class="btn" href="https://www.musterhauskuechen.de/terminvereinbarung">Termin vereinbaren</a>
+    </div>
+  </section>
+
+  <section class="scene" id="spielwand" data-scene="spielwand" data-label="Spielwand">
+    <div class="copy card">
+      <p class="num">06 <span>/ 09</span></p>
+      <h2 class="serif">Eine Wand, <span class="accent">die mitspielt.</span></h2>
+      <p>Die Steckwand an der Insel wird zur Leinwand für kleine Künstler: Einhorn, Rakete, Melone – genau auf Kinderhöhe und direkt neben dir, während du kochst.</p>
+      <ul class="tags"><li>Steckwand</li><li>Auf Kinderhöhe</li></ul>
+      <a class="btn" href="https://www.musterhauskuechen.de/terminvereinbarung">Termin vereinbaren</a>
+    </div>
+  </section>
+
+  <section class="scene" id="zapfhahn" data-scene="zapfhahn" data-label="Zapfhahn">
+    <div class="copy card">
+      <p class="num">07 <span>/ 09</span></p>
+      <h2 class="serif">Frisch gezapft. <span class="accent">Zuhause.</span></h2>
+      <p>Der Zapfhahn in der Arbeitsplatte macht die Küche zur Lieblingsbar – für das Feierabendbier oder die nächste Party.</p>
+      <ul class="tags"><li>Integrierter Zapfhahn</li></ul>
+      <p class="placeholder">[Platzhalter: Technik &amp; Kühlung folgen]</p>
+      <a class="btn" href="https://www.musterhauskuechen.de/terminvereinbarung">Termin vereinbaren</a>
+    </div>
+  </section>
+
+  <section class="scene" id="saugroboter" data-scene="saugroboter" data-label="Saugroboter">
+    <div class="copy card">
+      <p class="num">08 <span>/ 09</span></p>
+      <h2 class="serif">Der Sauger <span class="accent">wohnt im Sockel.</span></h2>
+      <p>Im Sockel der Insel parkt der Saugroboter. Er fährt raus, wenn es nötig ist, und verschwindet danach wieder. Krümel unter der Insel? Erledigt, bevor du abgewaschen hast.</p>
+      <ul class="tags"><li>Sockel-Garage</li><li>Unsichtbar geparkt</li></ul>
+      <a class="btn" href="https://www.musterhauskuechen.de/terminvereinbarung">Termin vereinbaren</a>
+    </div>
+  </section>
+
+  <section class="scene" id="couch" data-scene="couch" data-label="Couch">
+    <div class="copy card">
+      <p class="num">09 <span>/ 09</span></p>
+      <h2 class="serif">Sitzen, wo <span class="accent">gekocht wird.</span></h2>
+      <p>Aus der Insel fährt eine Couch heraus. Für den Kaffee zwischendurch, die Hausaufgaben oder Gäste, die beim Kochen dabei sein wollen.</p>
+      <ul class="tags"><li>Ausfahrbar</li><li>Direkt an der Insel</li></ul>
+      <a class="btn" href="https://www.musterhauskuechen.de/terminvereinbarung">Termin vereinbaren</a>
+    </div>
+  </section>
+
+  <section class="cta" data-scene="cta" aria-labelledby="cta-title">
+    <div class="cta-inner">
+      <h2 id="cta-title" class="serif">Lust auf deine Koje?</h2>
+      <p>Alle neun Features in einer Küche – und jedes lässt sich auf dich zuschneiden. Wir zeigen sie dir gern live in unserem Studio.</p>
+      <div class="cta-buttons">
+        <a class="btn btn--dark" href="https://www.musterhauskuechen.de/terminvereinbarung">Beratungstermin vereinbaren</a>
+        <a class="btn btn--ghost" href="#top" data-top>Rundgang nochmal</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <span>musterhaus küchen · Die Koje · Klickdummy</span>
+  <a href="../">← Zur Versionsübersicht</a>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
