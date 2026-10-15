@@ -18,14 +18,22 @@ export function projectPoint(point, yaw, pitch, scale, perspective) {
 }
 
 // One continuous, reversible path for the camera, scene layers and feature action.
+// Kamerafahrt: kurzes Ausholen (leichter Zoom zurück), dann ein Bogen mit
+// Neigung in der Kurve (roll) und ein Dolly-Effekt über die Perspektive.
+// Roll und Ausholen sind am Ziel exakt null, damit der Fokuspunkt sitzt.
 export function cameraPose(feature, progress, geometry) {
   const p = clamp(progress);
   const { width, height, stageWidth, stageHeight, top, mobile } = geometry;
   const [endYaw, endPitch, endScale, depth] = feature.view;
-  const yaw = endYaw * p * (mobile ? .65 : 1);
-  const pitch = endPitch * p + Math.sin(Math.PI * p) * 1.4;
-  const scale = 1 + ((mobile ? 1.55 : endScale) - 1) * p;
-  const perspective = Math.max(1200, width * 1.4);
+  const dir = Math.sign(endYaw) || 1;
+  const arc = Math.sin(Math.PI * p);
+  const settle = (p + smootherstep(p)) / 2; // etwas weicher an den Enden
+  const yaw = endYaw * settle * (mobile ? .65 : 1) + arc * dir * 3;
+  const pitch = endPitch * settle + arc * 2.4;
+  const roll = arc * -dir * (mobile ? 1.2 : 2.2) * (1 - p);
+  const windup = .07 * Math.sin(Math.PI * clamp(p / .4)) * (1 - p);
+  const scale = 1 + ((mobile ? 1.55 : endScale) - 1) * settle - windup;
+  const perspective = Math.max(900, width * (1.6 - .4 * settle));
   const unit = width / 1200;
   const point = {
     x: (feature.focus[0] / 100 - .5) * width,
@@ -35,15 +43,14 @@ export function cameraPose(feature, progress, geometry) {
   const projected = projectPoint(point, yaw, pitch, scale, perspective);
   const center = { x: stageWidth / 2, y: top + height / 2 };
   const target = { x: stageWidth * (mobile ? .5 : .35), y: stageHeight * (mobile ? .32 : .52) };
-  const arc = Math.sin(Math.PI * p);
   const desired = {
-    x: center.x + point.x + (target.x - center.x - point.x) * p + arc * width * .025 * Math.sign(endYaw),
-    y: center.y + point.y + (target.y - center.y - point.y) * p - arc * height * .025,
+    x: center.x + point.x + (target.x - center.x - point.x) * settle + arc * width * .05 * dir,
+    y: center.y + point.y + (target.y - center.y - point.y) * settle - arc * height * .04,
   };
   return {
     x: desired.x - center.x - projected.x,
     y: desired.y - center.y - projected.y,
-    yaw, pitch, scale, perspective, unit,
+    yaw, pitch, roll, scale, perspective, unit,
     action: smootherstep((p - .25) / .75),
     secondary: smootherstep((p - .55) / .45),
   };

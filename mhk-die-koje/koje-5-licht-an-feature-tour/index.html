@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,800;9..144,900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=20261015" />
 </head>
 <body>
   <a class="skip-link" href="#kitchen-stage">Direkt zur interaktiven Küche</a>
@@ -52,18 +52,20 @@
           </div>
 
           <div class="hotspots" data-hotspots aria-label="Küchenfeatures">
-            <button class="hotspot" style="--x:53%;--y:67%" data-feature="zapfhahn" aria-label="Bierzapfhahn entdecken"><span></span><b>01</b></button>
-            <button class="hotspot" style="--x:17%;--y:73%" data-feature="couch" aria-label="Ausziehcouch entdecken"><span></span><b>02</b></button>
-            <button class="hotspot" style="--x:64%;--y:58%" data-feature="tablet" aria-label="Tablet-Halterung entdecken"><span></span><b>03</b></button>
-            <button class="hotspot" style="--x:39%;--y:79%" data-feature="schublade" aria-label="Schublade entdecken"><span></span><b>04</b></button>
-            <button class="hotspot" style="--x:60%;--y:82%" data-feature="spielwand" aria-label="Spielwand entdecken"><span></span><b>05</b></button>
-            <button class="hotspot" style="--x:55%;--y:93%" data-feature="roboter" aria-label="Saugroboter-Garage entdecken"><span></span><b>06</b></button>
-            <button class="hotspot" style="--x:72%;--y:37%" data-feature="licht" aria-label="Lichtstimmung entdecken"><span></span><b>07</b></button>
+            <button class="hotspot" style="--x:39%;--y:79%" data-feature="schublade" aria-label="Leise Schubladen entdecken"><span></span><b>01</b></button>
+            <button class="hotspot" style="--x:52%;--y:53%" data-feature="heisswasser" aria-label="Heißes Wasser entdecken"><span></span><b>02</b></button>
+            <button class="hotspot" style="--x:92%;--y:45%" data-feature="ofen" aria-label="Backofen entdecken"><span></span><b>03</b></button>
+            <button class="hotspot" style="--x:72%;--y:37%" data-feature="licht" aria-label="Bunte Lichter entdecken"><span></span><b>04</b></button>
+            <button class="hotspot" style="--x:92%;--y:87%" data-feature="futternapf" aria-label="Futternapf entdecken"><span></span><b>05</b></button>
+            <button class="hotspot" style="--x:60%;--y:82%" data-feature="spielwand" aria-label="Spielwand entdecken"><span></span><b>06</b></button>
+            <button class="hotspot" style="--x:53%;--y:67%" data-feature="zapfhahn" aria-label="Bierzapfhahn entdecken"><span></span><b>07</b></button>
+            <button class="hotspot" style="--x:55%;--y:93%" data-feature="roboter" aria-label="Saugroboter-Garage entdecken"><span></span><b>08</b></button>
+            <button class="hotspot" style="--x:17%;--y:73%" data-feature="couch" aria-label="Ausziehcouch entdecken"><span></span><b>09</b></button>
           </div>
 
           <div class="feature-card" data-feature-card role="dialog" aria-modal="false" aria-labelledby="feature-title" hidden>
             <button class="close-button" type="button" data-close aria-label="Feature schließen"><span aria-hidden="true">×</span></button>
-            <p class="feature-count"><span data-feature-number>01</span><span> / 07</span><i>Feature entdecken</i></p>
+            <p class="feature-count"><span data-feature-number>01</span><span> / 09</span><i>Feature entdecken</i></p>
             <h3 class="serif" id="feature-title" data-title></h3>
             <p class="feature-description" data-description></p>
             <a class="button feature-cta" href="https://www.musterhauskuechen.de/studio-suche">Im Studio erleben <span aria-hidden="true">→</span></a>
@@ -84,8 +86,8 @@
         <p>Das Werbevideo zeigt die Küche und ihre Funktionen im Film. Danach kannst du oben einzelne Ideen selbst ansteuern.</p>
       </div>
       <figure class="film-frame">
-        <video controls playsinline preload="metadata" aria-label="Werbevideo zur Küche">
-          <source src="../assets/MHK%20v2%20(1).mp4" type="video/mp4" />
+        <video controls playsinline preload="metadata" poster="../assets/koje-loop.jpg" aria-label="Werbevideo zur Küche">
+          <source src="../assets/koje-spot.mp4" type="video/mp4" />
           Dein Browser unterstützt die Videowiedergabe nicht.
         </video>
         <figcaption><span>musterhaus küchen</span><span>Werbevideo · mit Ton</span></figcaption>
@@ -101,6 +103,6 @@
     </section>
   </main>
 
-  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/main.js?v=20261015"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
-import { sceneMarkup } from "../../koje-3-live-ausprobieren/js/scene.js";
-import { cameraPose, clamp, smootherstep } from "./motion.js";
+import { sceneMarkup } from "../../koje-3-live-ausprobieren/js/scene.js?v=20261015";
+import { cameraPose, clamp, smootherstep } from "./motion.js?v=20261015";
 
 const experience = document.querySelector(".experience");
 const stage = document.querySelector("[data-stage]");
@@ -39,6 +39,14 @@ const layers = [
   svg.setAttribute("aria-hidden", "true");
   svg.append(source.querySelector("defs").cloneNode(true), source.querySelector(`#${id}`).cloneNode(true));
   svg.append(source.querySelector(`.lights[data-depth="${lights}"]`).cloneNode(true));
+  // Wand großzügig verlängern: Auf hohen Handy-Screens und bei schrägen
+  // Kamerawinkeln sonst sichtbare Kante oberhalb bzw. seitlich der Küche.
+  svg.querySelectorAll(".sc-wall").forEach((wall) => {
+    wall.setAttribute("x", "-4000");
+    wall.setAttribute("width", "9200");
+    wall.setAttribute("y", "-4000");
+    wall.setAttribute("height", "4700");
+  });
   const ids = new Map();
   svg.querySelectorAll("[id]").forEach((node) => {
     ids.set(node.id, `${id}-${node.id}`);
@@ -62,51 +70,66 @@ featureCard.inert = true;
 hotspots.inert = true;
 
 const features = {
-  zapfhahn: {
-    number: "01", title: "Ein Zapfhahn. Mitten in der Küche.",
-    description: "Ein Handgriff, ein frisch gezapftes Getränk. Der Zapfhahn fährt sanft aus der Arbeitsfläche – für den Feierabend und für Gäste, die gerne noch bleiben.",
-    focus: [53, 67], effect: "effect-beer", label: "Zapfhahn · fährt aus",
-    view: [-18, 6, 1.75, 100],
-  },
-  couch: {
-    number: "02", title: "Noch ein Platz am Küchentisch.",
-    description: "Aus der ruhigen Nische wird im Handumdrehen ein gemütlicher Sitzplatz. Die Kamera fährt zur Wohnseite und zeigt, wie die Sitzfläche herauskommt.",
-    focus: [17, 73], effect: "effect-couch", label: "Sitzplatz · fährt aus",
-    view: [21, 4, 1.65, 0],
-  },
-  tablet: {
-    number: "03", title: "Das Rezept fährt mit.",
-    description: "Die Halterung hebt sich aus der Arbeitsplatte und bringt Tablet oder Smartphone genau dorthin, wo du sie beim Kochen brauchst.",
-    focus: [64, 58], effect: "effect-tablet", label: "Tablet-Halterung · fährt hoch",
-    view: [-19, -4, 1.8, 0],
-  },
   schublade: {
-    number: "04", title: "Alles griffbereit. Und wieder weg.",
-    description: "Ein kurzer Blick in die Schublade zeigt: Auch in der Insel steckt mehr Stauraum, als man von außen vermutet.",
-    focus: [39, 79], effect: "effect-drawer", label: "Stauraum · öffnet sich",
-    view: [17, 9, 1.8, 0],
+    number: "01", title: "Leise zu. Ganz ohne Knall.",
+    description: "Alle Schubladen schließen sanft und gedämpft. Ein leichter Stoß genügt, den Rest erledigt die Dämpfung – kein Klappern, auch wenn die Kinder schon schlafen.",
+    focus: [39, 79], effect: "effect-drawer", label: "Schublade · gleitet leise zu",
+    view: [18, 8, 1.8, 0],
+  },
+  heisswasser: {
+    number: "02", title: "Kochend heiß. Auf Knopfdruck.",
+    description: "Die Armatur liefert heißes Wasser direkt aus dem Hahn. Für Tee, Pasta oder zum Blanchieren – ohne Wasserkocher und ohne Warten.",
+    focus: [52, 53], effect: "effect-water", label: "Armatur · heißes Wasser",
+    view: [-16, 7, 2.05, 0],
+  },
+  ofen: {
+    number: "03", title: "Knusprig wie beim Italiener.",
+    description: "Der Backofen sitzt auf bequemer Arbeitshöhe und bringt Pizza, Brot und Braten auf den Punkt. Rein, warten, staunen.",
+    focus: [92, 45], effect: "effect-oven", label: "Backofen · heizt auf",
+    view: [-24, -3, 1.85, 0],
+  },
+  licht: {
+    number: "04", title: "Licht in jeder Farbe.",
+    description: "LED-Bänder tauchen die Küche in genau die Stimmung, die gerade passt: warmweiß zum Kochen, bunt für die Party.",
+    focus: [72, 37], effect: "effect-light", label: "LED-Licht · wechselt die Farbe",
+    view: [14, -7, 1.3, 0],
+  },
+  futternapf: {
+    number: "05", title: "Auch der Hund hat seinen Platz.",
+    description: "Im Sockel versteckt sich eine Schublade mit Futter- und Wassernapf. Ausziehen, füttern, zuschieben – kein Napf mehr im Weg, keine Stolperfalle.",
+    focus: [92, 87], effect: "effect-napf", label: "Sockel · Napf fährt aus",
+    view: [-22, 11, 1.95, 0],
   },
   spielwand: {
-    number: "05", title: "Hier darf die Küche mitspielen.",
+    number: "06", title: "Hier darf die Küche mitspielen.",
     description: "Die Wohnseite der Insel wird zur Fläche für kleine Ideen. Klappe auf, Stifte raus – und schon wird aus Warten gemeinsame Zeit.",
     focus: [60, 82], effect: "effect-play", label: "Spielwand · klappt auf",
     view: [-20, 4, 1.7, 100],
   },
+  zapfhahn: {
+    number: "07", title: "Ein Zapfhahn. Mitten in der Küche.",
+    description: "Ein Handgriff, ein frisch gezapftes Getränk. Der Zapfhahn sitzt direkt in der Arbeitsfläche – für den Feierabend und für Gäste, die gerne noch bleiben.",
+    focus: [53, 67], effect: "effect-beer", label: "Zapfhahn · frisch gezapft",
+    view: [-18, 6, 1.75, 100],
+  },
   roboter: {
-    number: "06", title: "Der Saugroboter wohnt im Sockel.",
+    number: "08", title: "Der Saugroboter wohnt im Sockel.",
     description: "Unsichtbar verstaut und schnell wieder unterwegs: Die Garage im Küchensockel lässt den Roboter direkt unter der Insel hervorkommen.",
     focus: [55, 93], effect: "effect-robot", label: "Sockel-Garage · Roboter fährt los",
     view: [-17, -6, 1.85, 100],
   },
-  licht: {
-    number: "07", title: "Licht, das die Stimmung wechselt.",
-    description: "Arbeitslicht am Morgen, ein warmer Akzent am Abend. Ein Fingertipp verändert die ganze Atmosphäre der Küche.",
-    focus: [72, 37], effect: "effect-light", label: "Lichtstimmung · wird warm",
-    view: [-21, -8, 1.6, 100],
+  couch: {
+    number: "09", title: "Sitzen, wo gekocht wird.",
+    description: "Aus der ruhigen Nische fährt im Handumdrehen eine Couch heraus. Für den Kaffee zwischendurch, die Hausaufgaben oder Gäste, die beim Kochen dabei sein wollen.",
+    focus: [17, 73], effect: "effect-couch", label: "Couch · fährt aus",
+    view: [21, 4, 1.65, 0],
   },
 };
 
+let illuminated = false;
 function illuminate() {
+  if (illuminated) return;
+  illuminated = true;
   const cover = document.querySelector("[data-loading-cover]");
   window.setTimeout(() => experience.classList.add("is-lit"), motionPreference.matches ? 0 : 400);
   window.setTimeout(() => cover.classList.add("is-off"), motionPreference.matches ? 0 : 800);
@@ -134,7 +157,7 @@ function renderCamera() {
   if (!activeKey) return;
   const feature = features[activeKey];
   const pose = cameraPose(feature, progress, geometry);
-  scenePlane.style.transform = `translateX(-50%) translate3d(${pose.x}px, ${pose.y}px, 0) perspective(${pose.perspective}px) rotateX(${pose.pitch}deg) rotateY(${pose.yaw}deg) scale(${pose.scale})`;
+  scenePlane.style.transform = `translateX(-50%) translate3d(${pose.x}px, ${pose.y}px, 0) perspective(${pose.perspective}px) rotateX(${pose.pitch}deg) rotateY(${pose.yaw}deg) rotateZ(${pose.roll}deg) scale(${pose.scale})`;
   for (const layer of layers) {
     layer.element.style.transform = `translateZ(${layer.depth * pose.unit * progress}px)`;
   }
@@ -244,4 +267,6 @@ motionPreference.addEventListener("change", () => {
 });
 if (document.readyState === "complete") illuminate();
 else window.addEventListener("load", illuminate, { once: true });
+// Sicherheitsnetz: Hängt ein Asset (z. B. Webfont über langsames Netz), geht das Licht trotzdem an.
+window.setTimeout(illuminate, 3500);
 dismissIntro();
