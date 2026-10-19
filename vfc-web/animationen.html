@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Animationen | vorauerfriends</title>
+<meta name="description" content="Alle Animationen der vfc-Website mit Beschreibung und KI-Prompt für die Umsetzung in WordPress." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500&display=swap" />
+<script>
+  (function () {
+    var root = document.documentElement;
+    root.classList.add("vfm-js");
+    // Über einen Link mit Vorhang hierher gekommen: Seite startet verdeckt. Sonst: Ladeanimation.
+    try { if (sessionStorage.getItem("vfc-pt")) root.classList.add("pt-cover"); } catch (e) {}
+    if (!root.classList.contains("pt-cover") && !matchMedia("(prefers-reduced-motion: reduce)").matches) root.classList.add("is-intro");
+    // Sicherheitsnetz, falls main.js nicht läuft: nie dauerhaft verdeckt
+    setTimeout(function () { root.classList.remove("is-intro", "pt-cover"); }, 6000);
+  })();
+</script>
+<link rel="stylesheet" href="assets/style.css" />
+<link rel="stylesheet" href="assets/vf-motion.css" />
+<script src="assets/vf-motion.js" defer></script>
+</head>
+<body>
+
+<!-- Pixel-Grafiken, als Symbole wiederverwendbar (Farbe = currentColor) -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <g id="band-hero-rects">
+      <rect x="0" y="792" width="653.43" height="43.5" />
+      <rect x="695.46" y="792" width="43.03" height="43.5" />
+      <rect x="872.57" y="792" width="43.03" height="43.5" />
+      <rect x="959.63" y="792" width="43.03" height="43.5" />
+      <rect x="1088.72" y="792" width="43.03" height="43.5" />
+      <rect x="1174.77" y="792" width="43.03" height="43.5" />
+      <rect x="1260.83" y="792" width="87.06" height="43.5" />
+      <rect x="1434.94" y="792" width="43.03" height="43.5" />
+      <rect x="653.43" y="835.5" width="43.03" height="44.5" />
+      <rect x="739.49" y="835.5" width="133.09" height="44.5" />
+      <rect x="916.6" y="835.5" width="43.03" height="44.5" />
+      <rect x="1001.66" y="835.5" width="87.06" height="44.5" />
+      <rect x="1131.74" y="835.5" width="43.03" height="44.5" />
+      <rect x="1217.8" y="835.5" width="43.03" height="44.5" />
+      <rect x="1347.89" y="835.5" width="87.06" height="44.5" />
+      <rect x="1477.97" y="835.5" width="43.03" height="44.5" />
+    </g>
+    <g id="band-culture-rects">
+      <rect x="0" y="5794" width="387" height="42" />
+      <rect x="473" y="5794" width="590" height="42" />
+      <rect x="1147" y="5794" width="42" height="42" />
+      <rect x="1271" y="5794" width="83" height="42" />
+      <rect x="1395" y="5794" width="42" height="42" />
+      <rect x="1478" y="5794" width="42" height="42" />
+      <rect x="387" y="5836" width="86" height="42" />
+      <rect x="1063" y="5836" width="42" height="42" />
+      <rect x="1188" y="5836" width="83" height="42" />
+      <rect x="1353" y="5836" width="42" height="42" />
+      <rect x="1437" y="5836" width="42" height="42" />
+    </g>
+    <symbol id="px-smiley" viewBox="0 0 5 4"><path d="M1 0h1v1H1zM3 0h1v1H3zM0 2h1v1H0zM4 2h1v1H4zM1 3h3v1H1z" /></symbol>
+    <symbol id="px-heart" viewBox="0 0 5 4"><path d="M1 0h1v1H1zM3 0h1v1H3zM0 1h1v1H0zM2 1h1v1H2zM4 1h1v1H4zM1 2h1v1H1zM3 2h1v1H3zM2 3h1v1H2z" /></symbol>
+    <symbol id="px-arrow" viewBox="0 0 5 5"><path d="M2 0h1v1H2zM3 1h1v1H3zM0 2h3v1H0zM4 2h1v1H4zM3 3h1v1H3zM2 4h1v1H2z" /></symbol>
+    <symbol id="px-wave" viewBox="0 0 7 2"><path d="M1 0h2v1H1zM4 0h2v1H4zM0 1h1v1H0zM3 1h1v1H3zM6 1h1v1H6z" /></symbol>
+  </defs>
+</svg>
+
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+<!-- Seitenwechsel: drei Balken ziehen von links rein und nach rechts wieder raus -->
+<div class="pt" aria-hidden="true"><span></span><span></span><span></span></div>
+
+<!-- Ladeanimation: Logo geht zum Smiley zusammen, der zwinkert, dann ziehen die Balken ab -->
+<div class="intro" aria-hidden="true">
+  <span class="intro__mark"><span class="intro__logo logo"></span></span>
+  <svg class="intro__smiley" viewBox="0 0 5 4">
+    <rect class="intro__px" x="1" y="3" width="3" height="1" />
+    <rect class="intro__px" x="0" y="2" width="1" height="1" />
+    <rect class="intro__px" x="4" y="2" width="1" height="1" />
+    <rect class="intro__px" x="1" y="0" width="1" height="1" />
+    <rect class="intro__px intro__px--wink" x="3" y="0" width="1" height="1" />
+  </svg>
+</div>
+
+<!-- ============ Seitenleiste (Desktop) / Topbar (Mobile) ============ -->
+<header class="bar" id="bar">
+  <a class="bar__logo" href="index.html" aria-label="vorauerfriends – zur Startseite">
+    <span class="logo" aria-hidden="true"></span>
+  </a>
+  <button class="bar__toggle" id="nav-toggle" type="button" aria-controls="nav" aria-expanded="false" aria-label="Menü öffnen">
+    <span class="burger" aria-hidden="true"><span></span><span></span><span></span></span>
+  </button>
+</header>
+
+<!-- ============ Navigation (Burger-Menü) ============ -->
+<nav class="nav" id="nav" aria-label="Hauptnavigation" data-lenis-prevent hidden>
+  <div class="nav__inner">
+    <ul class="nav__main">
+      <li class="nav__group">
+        <a class="nav__link" href="index.html#leistungen">Leistungen</a>
+        <ul class="nav__chips nav__chips--cols">
+          <li><a class="chip chip--lg" style="--c: var(--lime)" href="index.html#leistungen">Brand Strategy</a></li>
+          <li><a class="chip chip--lg" style="--c: var(--green)" href="#">Campaigning</a></li>
+          <li><a class="chip chip--lg" style="--c: var(--orange-nav)" href="#">Corporate Design</a></li>
+          <li><a class="chip chip--lg" style="--c: var(--lila)" href="#">Digital Experience</a></li>
+          <li><a class="chip chip--lg" style="--c: var(--yellow-nav)" href="#">Social Media</a></li>
+          <li><a class="chip chip--lg" style="--c: var(--turquoise)" href="#">Content Creation</a></li>
+          <li><a class="chip chip--lg" style="--c: var(--red)" href="#">Lead Generierung</a></li>
+          <li><a class="chip chip--lg" style="--c: var(--pink)" href="#">Employer Branding</a></li>
+        </ul>
+      </li>
+      <li class="nav__group"><a class="nav__link" href="index.html#projekte">Projekte</a></li>
+      <li class="nav__group"><a class="nav__link" href="index.html#culture">Über uns</a></li>
+      <li class="nav__group">
+        <a class="nav__link" href="#">Karriere</a>
+        <ul class="nav__chips">
+          <li><a class="chip chip--lg" style="--c: #fff" href="#">Stellenangebote</a></li>
+          <li><a class="chip chip--lg" style="--c: #fff" href="#">Initiativbewerbung</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="nav__mid">
+      <div class="nav__viewed">
+        <p class="eyebrow eyebrow--nav">Most viewed projects</p>
+        <ul class="nav__chips nav__chips--row">
+          <li><a class="chip chip--lg chip--outline" href="projekt-egger.html">Egger Bier</a></li>
+          <li><a class="chip chip--lg chip--outline" href="projekt-transgourmet.html">Hannes kann es</a></li>
+          <li><a class="chip chip--lg chip--outline" href="projekt-ski-austria.html">Ski Austria</a></li>
+          <li><a class="chip chip--lg chip--outline" href="projekt-rosenbauer.html">Rosenbauer</a></li>
+          <li><a class="chip chip--lg chip--outline" href="projekt-schrack-seconet.html">Schrack Seconet</a></li>
+          <li><a class="chip chip--lg chip--outline" href="projekt-landesgartenschau.html">Landesgartenschau</a></li>
+        </ul>
+      </div>
+      <a class="cta cta--light" href="animationen.html">
+        <span class="cta__face" aria-hidden="true"><svg><use href="#px-smiley" /></svg></span>
+        <span class="cta__label">Animationen</span>
+        <span class="cta__label cta__label--alt" aria-hidden="true">Animationen</span>
+      </a>
+    </div>
+
+    <div class="nav__foot">
+      <div class="addresses addresses--nav"></div>
+    </div>
+  </div>
+</nav>
+
+<main id="main" class="anim-page">
+
+  <!-- ============ Kopf ============ -->
+  <section class="projects anim-hero" aria-labelledby="anim-title">
+    <div class="projects__intro">
+      <h1 class="projects__title" id="anim-title">Animationen<svg class="px px--heart" aria-hidden="true"><use href="#px-heart" /></svg></h1>
+      <p class="projects__lede" data-fill>Alle Effekte der vfc-Website an einem Ort: was sie tun, mit welchen Werten – und pro Effekt ein fertiger Prompt, den du deinem KI-Agenten für die Umsetzung in WordPress gibst.</p>
+      <div class="anim-hero__actions"><button class="btn btn--ink wave-swap" type="button" data-copy-all data-label="Alle Prompts kopieren">Alle Prompts kopieren</button></div>
+    </div>
+    <nav class="anim-index" aria-label="Effekte"><ul><li><a class="anim-index__link" href="#guidelines" data-roll>Grundregeln</a></li><li><a class="anim-index__link" href="#intro" data-roll>Ladeanimation</a></li><li><a class="anim-index__link" href="#vorhang" data-roll>Seitenwechsel-Vorhang</a></li><li><a class="anim-index__link" href="#softscroll" data-roll>Softscroll</a></li><li><a class="anim-index__link" href="#menue" data-roll>Menü öffnen</a></li><li><a class="anim-index__link" href="#roll" data-roll>Buchstaben-Roll</a></li><li><a class="anim-index__link" href="#text-reveal" data-roll>Text-Reveal &amp; Unreveal</a></li><li><a class="anim-index__link" href="#text-fill" data-roll>Zeichen-Füllung</a></li><li><a class="anim-index__link" href="#zahlen" data-roll>Kennzahlen &amp; Linien</a></li><li><a class="anim-index__link" href="#curtain" data-roll>Bild-Reveal (Curtain)</a></li><li><a class="anim-index__link" href="#liste-rein" data-roll>Projektliste reinscrollen</a></li><li><a class="anim-index__link" href="#liste-hover" data-roll>Projektliste Hover</a></li><li><a class="anim-index__link" href="#faecher" data-roll>Fächer „View All Projects“</a></li><li><a class="anim-index__link" href="#smiley-button" data-roll>Start-a-project-Button</a></li><li><a class="anim-index__link" href="#wave-button" data-roll>Wave-Button</a></li><li><a class="anim-index__link" href="#filter" data-roll>Filter-Pills</a></li><li><a class="anim-index__link" href="#cursor" data-roll>Cursor-Follower</a></li><li><a class="anim-index__link" href="#stack" data-roll>Sticky-Stack Leistungen</a></li><li><a class="anim-index__link" href="#footer" data-roll>Footer-Reveal</a></li></ul></nav>
+  </section>
+
+  <section class="anim-item" id="guidelines" aria-labelledby="guidelines-title">
+    <div class="case-label"><h2 id="guidelines-title"><span class="anim-num">00</span>Grundregeln</h2><span>Für alle Effekte</span></div>
+    <div class="anim-item__body">
+      <div class="anim-item__text">
+        <p class="anim-item__desc">Bevor einzelne Effekte gebaut werden: so bewegt sich die vfc-Website. Masken statt Fades, Scroll erzählt und Hover antwortet, ein Bewegungs-Fokus pro Bildschirm, kein Bounce. Dieser Prompt gehört an den Anfang jeder Session mit dem KI-Agenten.</p>
+        <dl class="anim-specs"><div><dt>Ankommen</dt><dd>cubic-bezier(0.16, 1, 0.3, 1) – Expo-Out</dd></div><div><dt>Abgang</dt><dd>cubic-bezier(0.7, 0, 0.84, 0) – gespiegelt</dd></div><div><dt>Durchfahrt</dt><dd>cubic-bezier(0.76, 0, 0.24, 1) – Vorhang</dd></div><div><dt>Hover</dt><dd>0,35–0,6 s · Reveal 1,1 s · Seite 650 ms</dd></div></dl>
+        <div class="anim-item__actions"><button class="btn btn--ink wave-swap" type="button" data-copy="prompt-guidelines" data-label="Prompt kopieren">Prompt kopieren</button></div>
+        <details class="anim-prompt"><summary>Prompt ansehen</summary><pre id="prompt-guidelines" data-lenis-prevent>Kontext: Du arbeitest an der WordPress-Website von vorauerfriends (vfc). Setze den folgenden Effekt im (Child-)Theme um – mit Vanilla JS und CSS, eingebunden über wp_enqueue_script (Strategie defer) und wp_enqueue_style. Keine zusätzlichen Libraries, außer sie werden unten ausdrücklich genannt. Übernimm alle Werte exakt. Bewege nur transform und opacity, wo nichts anderes steht. Bei prefers-reduced-motion: reduce erscheint alles sofort im Endzustand, ohne Bewegung. Fokus per Tastatur zeigt denselben Zustand wie Hover.
+
+Motion-Grundregeln für die vfc-Website (gelten für alle Effekte, die ich dir gebe):
+
+1. Masken statt Fades: Inhalte erscheinen, indem sie aus einer Kante gleiten (Wörter aus ihrer Zeile, Bilder hinter einem Vorhang, Balken über die Seite). Opacity nur unterstützend. Kein Blur, kein Aufzoomen, kein Wackeln.
+2. Scroll erzählt, Hover antwortet: Alles, was eine Szene verändert (Reveals, Fächer, Füllungen, Bilder, Footer), hängt am Scroll und läuft beim Zurückscrollen rückwärts. Hover nur für Text, Buttons, Links und den Cursor – nie für ganze Sections.
+3. Ein Fokus pro Bildschirm: pro Viewport bewegt sich eine Sache deutlich; es läuft nie mehr als ein Video gleichzeitig.
+4. Kein Bounce, kein Spring, kein Elastic. Bewegungen laufen weich aus und stehen.
+5. Easing-Tokens (als CSS-Variablen anlegen):
+   --ease-out: cubic-bezier(0.16, 1, 0.3, 1)   → alles, was ankommt (Reveals, Roll, Wave, Pixel)
+   --ease-in: cubic-bezier(0.7, 0, 0.84, 0)    → Abgänge; exakt gespiegelte Version von --ease-out
+   --ease-curtain: cubic-bezier(0.76, 0, 0.24, 1) → alles, was durchfährt (Vorhang-Balken, Logo schließen)
+   --ease: cubic-bezier(0.65, 0, 0.35, 1)      → Farbwechsel, physisches Rollen
+6. Dauern: Hover 0,35–0,6 s (Versatz 16 ms pro Buchstabe) · Text-Reveal 1,1 s rein und 1,1 s raus (Versatz 35 ms pro Wort, max. 0,6 s) · Seitenebene 650 ms pro Balken, 90 ms Versatz · Intro ≤ 1,8 s bis die Seite aufgeht.
+7. Reihenfolge immer in Leserichtung: oben vor unten, links vor rechts. Rein von unten.
+8. Farbe: Hover invertiert Schwarz (#12121a) ↔ Weiß. Rot (#ff002e) ist Akzent (Cursor, Smiley, Fokus), keine Fläche.
+9. Performance: nur transform und opacity animieren; Scroll-Effekte erst messen, dann schreiben (ein Layout pro Frame); Layout-Änderungen nur, wo ausdrücklich gewollt; Ziel 60 fps auf der ganzen Seite.
+10. Barrierefreiheit: prefers-reduced-motion: reduce → kein Intro, kein Softscroll, keine Reveals, Endzustände sofort. Zerlegter Text bleibt für Screenreader lesbar (sr-only-Text, aria-hidden auf visuellen Kopien). :focus-visible zeigt den Hover-Zustand.</pre></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="anim-item" id="intro" aria-labelledby="intro-title">
+    <div class="case-label"><h2 id="intro-title"><span class="anim-num">01</span>Ladeanimation</h2><span>Laden · Seite</span></div>
+    <div class="anim-item__body">
+      <div class="anim-item__text">
+        <p class="anim-item__desc">Beim ersten Laden gleitet das vorauerfriends-Logo aus einer Maske hoch, steht kurz und schließt sich von beiden Seiten zur Mitte. Daraus ploppt der Pixel-Smiley auf und zwinkert – dann ziehen drei weiße Balken nach rechts ab und die Seite ist da.</p>
+        <dl class="anim-specs"><div><dt>Auslöser</dt><dd>Seitenaufruf (nicht nach Seitenwechsel)</dd></div><div><dt>Dauer</dt><dd>≈ 1,8 s bis zum Aufdecken</dd></div><div><dt>Kurven</dt><dd>Expo-Out · Vorhang-Kurve · ease-in-out</dd></div><div><dt>Wo</dt><dd>jede Seite, erster Aufruf</dd></div></dl>
+        <div class="anim-item__actions"><button class="btn btn--ink wave-swap" type="button" data-copy="prompt-intro" data-label="Prompt kopieren">Prompt kopieren</button></div>
+        <details class="anim-prompt"><summary>Prompt ansehen</summary><pre id="prompt-intro" data-lenis-prevent>Kontext: Du arbeitest an der WordPress-Website von vorauerfriends (vfc). Setze den folgenden Effekt im (Child-)Theme um – mit Vanilla JS und CSS, eingebunden über wp_enqueue_script (Strategie defer) und wp_enqueue_style. Keine zusätzlichen Libraries, außer sie werden unten ausdrücklich genannt. Übernimm alle Werte exakt. Bewege nur transform und opacity, wo nichts anderes steht. Bei prefers-reduced-motion: reduce erscheint alles sofort im Endzustand, ohne Bewegung. Fokus per Tastatur zeigt denselben Zustand wie Hover.
+
+Effekt: Ladeanimation (Intro) für die vfc-Website.
+
+Markup (direkt nach &lt;body&gt;):
+- .pt: Vorhang mit drei weißen Balken (siehe Effekt „Seitenwechsel-Vorhang“), position fixed, inset 0, z-index unter Header/Seitenleiste.
+- .intro: position fixed, inset 0 (rechts bis zur Seitenleiste), z-index direkt über .pt, display grid, place-items center, pointer-events none; Kinder liegen in derselben Grid-Zelle (grid-area 1 / 1).
+  - .intro__mark (overflow hidden) &gt; .intro__logo: das vorauerfriends-Logo als SVG-Maske (background currentColor, mask url(logo.svg) 100% 100%), Farbe #12121a, Breite clamp(200px, 30vw, 440px), Seitenverhältnis 155.179 / 12.3154. Wichtig: SVG verwenden, kein PNG.
+  - .intro__smiley: &lt;svg viewBox=&quot;0 0 5 4&quot;&gt; mit fünf &lt;rect&gt;: Mund x1 y3 w3 h1, Mundwinkel x0 y2 und x4 y2 (je 1×1), Augen x1 y0 und x3 y0 (je 1×1; rechtes Auge bekommt Klasse --wink). Farbe #ff002e, shape-rendering crispEdges, Breite clamp(56px, 5.5vw, 84px). Jedes rect: transform-box fill-box, transform-origin center, Startzustand scale(0).
+
+Auslöser:
+- Inline-Script ganz oben im &lt;head&gt; (wp_head, Priorität 1): setzt &lt;html class=&quot;is-intro&quot;&gt;, außer die Seite wurde über den Seitenwechsel-Vorhang betreten (sessionStorage-Flag) oder prefers-reduced-motion ist aktiv. Zusätzlich Sicherheitsnetz: nach 6 s is-intro immer entfernen.
+- CSS: html.is-intro .intro { display: grid } und html.is-intro .pt span { transform: none } (Balken decken ab dem ersten Paint).
+- Achtung: Die Zustandsklasse darf nicht genauso heißen wie das Element (.intro), sonst wird &lt;html&gt; selbst ausgeblendet.
+
+Zeitachse (Web Animations API, fill forwards):
+1. 0–420 ms: Logo translateY(105%) → 0, Expo-Out cubic-bezier(0.16, 1, 0.3, 1).
+2. bis 650 ms stehen lassen.
+3. 650–1050 ms: Logo clip-path inset(0 0% 0 0%) → inset(0 50% 0 50%), Kurve cubic-bezier(0.76, 0, 0.24, 1) – es schließt sich von beiden Seiten zur Mitte, ohne zu stauchen.
+4. ab 850 ms: Smiley-Pixel scale(0) → scale(1), je 360 ms Expo-Out, Versatz 35 ms in der Reihenfolge Mund, Mundwinkel links, rechts, Auge links, rechts.
+5. 1450–1710 ms: rechtes Auge zwinkert: scaleY 1 → 0.15 (bei 40 %) → 1, ease-in-out.
+6. 120 ms Pause, dann gleichzeitig: Smiley opacity 1 → 0 und scale 1 → 0.85 (220 ms, cubic-bezier(0.7, 0, 0.84, 0)) und die Vorhang-Balken fahren nach rechts raus (0 → translateX(101%), 650 ms, 90 ms Versatz, oben zuerst).
+7. Danach is-intro entfernen, Animationen der Balken aufräumen.
+
+Weiteres:
+- Während des Intros nicht scrollbar (Softscroll stoppen) und Klicks über .pt blockieren (pointer-events auto).
+- Text-Reveals der Seite erst starten, wenn die Balken abziehen – sonst laufen sie unsichtbar ab.
+- Akzeptanz: kein Aufblitzen der Seite vor dem Intro, Logo scharf in jeder Größe, gesamte Wartezeit bis zur Seite ≈ 1,8 s.</pre></details>
+      </div>
+      <div class="anim-demo"><button class="btn btn--line wave-swap" type="button" data-label="Intro abspielen" data-replay-intro>Intro abspielen</button></div>
+    </div>
+  </section>
+
+  <section class="anim-item" id="vorhang" aria-labelledby="vorhang-title">
+    <div class="case-label"><h2 id="vorhang-title"><span class="anim-num">02</span>Seitenwechsel-Vorhang</h2><span>Klick · Seite</span></div>
+    <div class="anim-item__body">
+      <div class="anim-item__text">
+        <p class="anim-item__desc">Klick auf einen internen Link: drei weiße Balken fahren von links herein – oben zuerst, dann Mitte, dann unten – und decken alles außer der Seitenleiste ab. Ist die neue Seite geladen, ziehen sie im selben Takt nach rechts wieder ab.</p>
+        <dl class="anim-specs"><div><dt>Auslöser</dt><dd>Klick auf internen Link</dd></div><div><dt>Dauer</dt><dd>650 ms je Balken, 90 ms Versatz</dd></div><div><dt>Kurve</dt><dd>cubic-bezier(0.76, 0, 0.24, 1)</dd></div><div><dt>Wo</dt><dd>alle Seiten</dd></div></dl>
+        <div class="anim-item__actions"><button class="btn btn--ink wave-swap" type="button" data-copy="prompt-vorhang" data-label="Prompt kopieren">Prompt kopieren</button></div>
+        <details class="anim-prompt"><summary>Prompt ansehen</summary><pre id="prompt-vorhang" data-lenis-prevent>Kontext: Du arbeitest an der WordPress-Website von vorauerfriends (vfc). Setze den folgenden Effekt im (Child-)Theme um – mit Vanilla JS und CSS, eingebunden über wp_enqueue_script (Strategie defer) und wp_enqueue_style. Keine zusätzlichen Libraries, außer sie werden unten ausdrücklich genannt. Übernimm alle Werte exakt. Bewege nur transform und opacity, wo nichts anderes steht. Bei prefers-reduced-motion: reduce erscheint alles sofort im Endzustand, ohne Bewegung. Fokus per Tastatur zeigt denselben Zustand wie Hover.
+
+Effekt: Seitenwechsel-Vorhang aus drei Balken.
+
+Markup (direkt nach &lt;body&gt;): &lt;div class=&quot;pt&quot; aria-hidden=&quot;true&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;
+CSS:
+- .pt { position: fixed; inset: 0; z-index: 45 (unter Header/Seitenleiste, über dem Menü-Overlay); display: grid; grid-template-rows: repeat(3, 1fr); pointer-events: none }
+- .pt.is-active { pointer-events: auto } (blockt Klicks, solange der Vorhang läuft)
+- .pt span { background: #fff; box-shadow: 0 1px 0 #fff (keine Haarlinien); transform: translateX(-101%) }
+- html.pt-cover .pt span { transform: none } (Seite startet verdeckt)
+
+Bewegung (Web Animations API, fill forwards), Balken i = 0, 1, 2 (oben zuerst):
+- Zudecken: translateX(-101%) → translateX(0), 650 ms, Delay i × 90 ms, cubic-bezier(0.76, 0, 0.24, 1).
+- Aufdecken: translateX(0) → translateX(101%), gleiche Werte. Danach Animationen canceln (CSS-Ruhezustand -101%) und pt-cover entfernen.
+
+Klick-Logik (ein click-Listener auf document):
+- Nur interne Links: gleiche Origin, kein target=_blank, kein download, keine Modifier-Taste (Cmd/Ctrl/Shift/Alt), kein mailto:/tel:, nicht der Skip-Link.
+- Anderer Pfad: preventDefault → zudecken → sessionStorage.setItem(&#x27;vfc-pt&#x27;, &#x27;1&#x27;) → location.href = Ziel.
+- Neue Seite: Inline-Script im &lt;head&gt; sieht das Flag und setzt html.pt-cover; nach window.load + 150 ms aufdecken, Flag löschen.
+- Anker auf derselben Seite (#…): zudecken → offenes Menü ohne Animation schließen → sofort zum Ziel springen (beim Softscroll immediate) → 120 ms warten → aufdecken.
+- Läuft der Vorhang schon, weitere Klicks verwerfen.
+- Zurück-Button (bfcache): bei pageshow mit persisted die Balken aufdecken.
+- Reduced Motion: kein Vorhang, normale Navigation.</pre></details>
+      </div>
+      <div class="anim-demo"><a class="btn btn--line wave-swap" href="#" data-label="Vorhang abspielen">Vorhang abspielen</a></div>
+    </div>
+  </section>
+
+  <section class="anim-item" id="softscroll" aria-labelledby="softscroll-title">
+    <div class="case-label"><h2 id="softscroll-title"><span class="anim-num">03</span>Softscroll</h2><span>Scroll · Seite</span></div>
+    <div class="anim-item__body">
+      <div class="anim-item__text">
+        <p class="anim-item__desc">Die ganze Seite scrollt weich nachgezogen. Alle scroll-gekoppelten Effekte laufen im selben Frame wie der Scroll, bei offenem Menü steht die Seite still.</p>
+        <dl class="anim-specs"><div><dt>Bibliothek</dt><dd>Lenis 1.3.x (MIT), lokal eingebunden</dd></div><div><dt>Lerp</dt><dd>0.085</dd></div><div><dt>Besonderes</dt><dd>Menü stoppt Scroll, eigener Anker-Handler</dd></div><div><dt>Wo</dt><dd>alle Seiten</dd></div></dl>
+        <div class="anim-item__actions"><button class="btn btn--ink wave-swap" type="button" data-copy="prompt-softscroll" data-label="Prompt kopieren">Prompt kopieren</button><span class="anim-note">Läuft auf dieser Seite</span></div>
+        <details class="anim-prompt"><summary>Prompt ansehen</summary><pre id="prompt-softscroll" data-lenis-prevent>Kontext: Du arbeitest an der WordPress-Website von vorauerfriends (vfc). Setze den folgenden Effekt im (Child-)Theme um – mit Vanilla JS und CSS, eingebunden über wp_enqueue_script (Strategie defer) und wp_enqueue_style. Keine zusätzlichen Libraries, außer sie werden unten ausdrücklich genannt. Übernimm alle Werte exakt. Bewege nur transform und opacity, wo nichts anderes steht. Bei prefers-reduced-motion: reduce erscheint alles sofort im Endzustand, ohne Bewegung. Fokus per Tastatur zeigt denselben Zustand wie Hover.
+
+Effekt: Softscroll mit Lenis (einzige erlaubte Zusatz-Library, Version 1.3.x, MIT-Lizenz – Datei lokal im Theme ablegen, nicht von einem CDN).
+
+Setup:
+- new Lenis({ lerp: 0.085, autoRaf: true, stopInertiaOnNavigate: true }) – nicht starten bei prefers-reduced-motion: reduce.
+- CSS aus lenis.css übernehmen, plus: html.lenis { scroll-behavior: auto; overflow-anchor: none }. Ein bestehendes html { scroll-behavior: smooth } darf nicht mit Lenis kollidieren.
+- Menü-Overlay bekommt data-lenis-prevent (scrollt nativ). Menü öffnen → lenis.stop(); schließen → lenis.start().
+- Anker-Links nicht über Lenis&#x27; anchors-Option, sondern über den Seitenwechsel-Vorhang bzw. lenis.scrollTo(ziel, { offset: −Höhe der Mobile-Topbar, immediate: true, force: true }).
+
+Scroll-gekoppelte Effekte:
+- Ein gemeinsamer Takt: lenis.on(&#x27;scroll&#x27;, runJobs). Jeder Job misst zuerst (getBoundingClientRect) und gibt eine Schreib-Funktion zurück; erst nach allen Messungen werden alle Schreib-Funktionen ausgeführt (genau ein Layout pro Frame).
+- Ohne Lenis (Reduced Motion): window &#x27;scroll&#x27; (passive) + requestAnimationFrame.
+- Akzeptanz: 60 fps beim Scrollen (Frame-Abstand per Skript messen), keine Ruckler an Sticky-Elementen.</pre></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="anim-item" id="menue" aria-labelledby="menue-title">
+    <div class="case-label"><h2 id="menue-title"><span class="anim-num">04</span>Menü öffnen</h2><span>Klick · Navigation</span></div>
+    <div class="anim-item__body">
+      <div class="anim-item__text">
+        <p class="anim-item__desc">Das schwarze Mega-Menü wischt von rechts herein, die Inhalte kommen gestaffelt von unten. Der Burger wird zum X und die Seitenleiste rot. Auf dem Handy kommt das Menü von oben.</p>
+        <dl class="anim-specs"><div><dt>Auslöser</dt><dd>Klick auf Burger</dd></div><div><dt>Dauer</dt><dd>Wisch 0,6 s · Inhalte 0,5–0,6 s</dd></div><div><dt>Versatz</dt><dd>0,12 / 0,17 / 0,22 / 0,27 / 0,32 / 0,37 s</dd></div><div><dt>Wo</dt><dd>Navigation</dd></div></dl>
+        <div class="anim-item__actions"><button class="btn btn--ink wave-swap" type="button" data-copy="prompt-menue" data-label="Prompt kopieren">Prompt kopieren</button></div>
+        <details class="anim-prompt"><summary>Prompt ansehen</summary><pre id="prompt-menue" data-lenis-prevent>Kontext: Du arbeitest an der WordPress-Website von vorauerfriends (vfc). Setze den folgenden Effekt im (Child-)Theme um – mit Vanilla JS und CSS, eingebunden über wp_enqueue_script (Strategie defer) und wp_enqueue_style. Keine zusätzlichen Libraries, außer sie werden unten ausdrücklich genannt. Übernimm alle Werte exakt. Bewege nur transform und opacity, wo nichts anderes steht. Bei prefers-reduced-motion: reduce erscheint alles sofort im Endzustand, ohne Bewegung. Fokus per Tastatur zeigt denselben Zustand wie Hover.
+
+Effekt: Mega-Menü öffnen/schließen.
+
+Aufbau: &lt;nav class=&quot;nav&quot; hidden&gt; als position fixed über die Seite (Desktop: links bis zur 80 px breiten Seitenleiste rechts; Mobil: unter der 60 px Topbar), Hintergrund #000, Text weiß, overflow-y auto, overscroll-behavior contain, data-lenis-prevent.
+
+Zustände:
+- zu: opacity 0; clip-path: inset(0 0 0 100%) (Desktop: wischt von rechts) bzw. inset(0 0 100% 0) (Mobil: von oben).
+- offen (.is-open): opacity 1; clip-path: inset(0 0 0 0).
+- Transition: opacity 0.35s, clip-path 0.6s, Kurve cubic-bezier(0.65, 0, 0.35, 1).
+- Inhalte (Linkgruppen, mittlere Leiste, Fußbereich): opacity 0 + translateY(24px) → sichtbar; opacity 0.5s, transform 0.6s, gleiche Kurve; Delays beim Öffnen 0.12 s, 0.17 s, 0.22 s, 0.27 s (Gruppen), 0.32 s (Mitte), 0.37 s (Fuß).
+- Burger (3 Striche à 1.5 px, Abstand 7.25 px, Breite 35 px): oberer und unterer → top 7.25px und rotate(±45deg) scaleX(1.06), mittlerer → scaleX(0) + opacity 0; transform/top 0.45s, opacity 0.25s.
+- Seitenleiste bei offenem Menü: Hintergrund #ff002e, Inhalt weiß (0.4s).
+
+Logik:
+- Öffnen: hidden entfernen, Reflow erzwingen, .is-open setzen, body.nav-open (overflow hidden), Softscroll stoppen, aria-expanded true, Fokus auf den ersten Link.
+- Schließen: .is-open entfernen, aria-expanded false, Fokus zurück auf den Burger, hidden erst nach 600 ms setzen.
+- Escape schließt; Tab bleibt im Menü (Fokusfalle Burger ↔ Menü-Links).
+- Klick auf Anker im Menü: Menü hinter dem Seitenwechsel-Vorhang ohne Animation schließen.</pre></details>
+      </div>
+      <div class="anim-demo"><button class="btn btn--line wave-swap" type="button" data-label="Menü öffnen" data-open-menu>Menü öffnen</button></div>
+    </div>
+  </section>
+
+  <section class="anim-item" id="roll" aria-labelledby="roll-title">
+    <div class="case-label"><h2 id="roll-title"><span class="anim-num">05</span>Buchstaben-Roll</h2><span>Hover · Text</span></div>
+    <div class="anim-item__body">
+      <div class="anim-item__text">
+        <p class="anim-item__desc">Jeder Buchstabe rollt einzeln nach oben weg, eine Kopie kommt von unten nach. Beim Verlassen rollt alles zurück nach unten – von links nach rechts versetzt. Im Menü, bei Telefon, E-Mail und Social sowie bei den Filter-Pills.</p>
+        <dl class="anim-specs"><div><dt>Auslöser</dt><dd>Hover / Tastatur-Fokus</dd></div><div><dt>Dauer</dt><dd>0,6 s + 16 ms pro Buchstabe</dd></div><div><dt>Kurve</dt><dd>Expo-Out</dd></div><div><dt>Wo</dt><dd>Menü, Footer-Links, Filter</dd></div></dl>
+        <div class="anim-item__actions"><button class="btn btn--ink wave-swap" type="button" data-copy="prompt-roll" data-label="Prompt kopieren">Prompt kopieren</button></div>
+        <details class="anim-prompt"><summary>Prompt ansehen</summary><pre id="prompt-roll" data-lenis-prevent>Kontext: Du arbeitest an der WordPress-Website von vorauerfriends (vfc). Setze den folgenden Effekt im (Child-)Theme um – mit Vanilla JS und CSS, eingebunden über wp_enqueue_script (Strategie defer) und wp_enqueue_style. Keine zusätzlichen Libraries, außer sie werden unten ausdrücklich genannt. Übernimm alle Werte exakt. Bewege nur transform und opacity, wo nichts anderes steht. Bei prefers-reduced-motion: reduce erscheint alles sofort im Endzustand, ohne Bewegung. Fokus per Tastatur zeigt denselben Zustand wie Hover.
+
+Effekt: Buchstaben-Roll beim Hover (Text rollt nach oben weg, Kopie kommt von unten).
+
+Umsetzung per JS beim Laden (nur ohne Reduced Motion), für: Hauptlinks und Pills im Menü, Telefon/E-Mail/Social in Menü und Footer, Beschriftungen der Projekt-Filter.
+1. Text des Links lesen. Inhalt ersetzen durch:
+   &lt;span class=&quot;sr-only&quot;&gt;Originaltext&lt;/span&gt;&lt;span class=&quot;roll&quot; aria-hidden=&quot;true&quot;&gt; … &lt;/span&gt;
+2. Für jeden Buchstaben i: &lt;span class=&quot;roll__c&quot; style=&quot;--i: i&quot;&gt;&lt;span class=&quot;roll__in&quot; data-c=&quot;X&quot;&gt;X&lt;/span&gt;&lt;/span&gt;; Leerzeichen als \u00a0.
+
+CSS:
+- .roll { display: inline-block; white-space: nowrap }
+- .roll__c { display: inline-block; vertical-align: top; overflow: hidden; padding: 0.14em 0.06em; margin: -0.14em -0.06em } (Maske etwas größer, damit Umlaute, Unterlängen und Überhänge nicht abgeschnitten werden – ohne das Layout zu verschieben)
+- .roll__in { display: block; position: relative; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i) * 16ms) }
+- .roll__in::after { content: attr(data-c); position: absolute; left: 0; top: 125% }
+- @media (hover: hover) { a:hover .roll__in, button:hover .roll__in { transform: translateY(-125%) } }
+- a:focus-visible .roll__in, button:focus-visible .roll__in { transform: translateY(-125%) }
+
+Ergebnis: Hover rollt nach oben (Kopie kommt von unten), Verlassen rollt nach unten zurück; beides von links nach rechts versetzt. Wird der Link außerdem per Text-Reveal eingeblendet, den ganzen .roll als ein „Wort“ behandeln.</pre></details>
+      </div>
+      <div class="anim-demo anim-demo--dark anim-demo--stack"><button class="anim-roll" type="button" data-roll>Leistungen</button><button class="anim-roll" type="button" data-roll>Projekte</button><button class="anim-roll" type="button" data-roll>Über uns</button></div>
+    </div>
+  </section>
+
+  <section class="anim-item" id="text-reveal" aria-labelledby="text-reveal-title">
+    <div class="case-label"><h2 id="text-reveal-title"><span class="anim-num">06</span>Text-Reveal &amp; Unreveal</h2><span>Scroll · Text</span></div>
+    <div class="anim-item__body">
+      <div class="anim-item__text">
+        <p class="anim-item__desc">Wörter gleiten Zeile für Zeile aus einer unsichtbaren Maske nach oben, sobald sie ins Bild kommen. Verlassen sie das Bild, läuft exakt dieselbe Bewegung rückwärts: zurück nach unten in die Maske, vom letzten Wort zum ersten.</p>
+        <dl class="anim-specs"><div><dt>Auslöser</dt><dd>Scroll (Band 6 % oben / 8 % unten)</dd></div><div><dt>Dauer</dt><dd>1,1 s rein · 1,1 s raus</dd></div><div><dt>Kurve</dt><dd>Expo-Out rein · gespiegelt raus</dd></div><div><dt>Versatz</dt><dd>35 ms pro Wort, max. 0,6 s</dd></div></dl>
+        <div class="anim-item__actions"><button class="btn btn--ink wave-swap" type="button" data-copy="prompt-text-reveal" data-label="Prompt kopieren">Prompt kopieren</button></div>
+        <details class="anim-prompt"><summary>Prompt ansehen</summary><pre id="prompt-text-reveal" data-lenis-prevent>Kontext: Du arbeitest an der WordPress-Website von vorauerfriends (vfc). Setze den folgenden Effekt im (Child-)Theme um – mit Vanilla JS und CSS, eingebunden über wp_enqueue_script (Strategie defer) und wp_enqueue_style. Keine zusätzlichen Libraries, außer sie werden unten ausdrücklich genannt. Übernimm alle Werte exakt. Bewege nur transform und opacity, wo nichts anderes steht. Bei prefers-reduced-motion: reduce erscheint alles sofort im Endzustand, ohne Bewegung. Fokus per Tastatur zeigt denselben Zustand wie Hover.
+
+Effekt: Text-Reveal und Unreveal beim Scrollen. Die Unreveal-Bewegung ist exakt die Reveal-Bewegung rückwärts.
+
+Zerlegen (JS, nur ohne Reduced Motion) – für Headlines, Eyebrows, Fließtexte der Kacheln und Projektseiten, Footer-Adressen (nicht für Buttons):
+- Nur Textknoten ersetzen; &lt;br&gt;, &lt;svg&gt;, Links und andere Elemente bleiben erhalten (in Links weiter zerlegen). An normalen Leerzeichen trennen, &amp;nbsp; nicht (hält Wörter zusammen).
+- Jedes Wort: &lt;span class=&quot;w&quot;&gt;&lt;span class=&quot;w__i&quot;&gt;Wort&lt;/span&gt;&lt;/span&gt;, Leerzeichen dazwischen als Textknoten.
+- Erst danach body.has-reveal setzen (ohne JS bleibt Text sichtbar).
+
+CSS:
+- .w { display: inline-block; vertical-align: top; overflow: hidden; padding: 0.14em 0.06em 0.2em; margin: -0.14em -0.06em -0.2em; text-indent: 0 } (Maske größer als die Zeile, Layout bleibt gleich; text-indent: 0 verhindert eingerückte Wörter in eingerückten Absätzen)
+- .w__i { display: inline-block }
+- .has-reveal .w__i { transform: translateY(125%); transition: transform 1.1s cubic-bezier(0.7, 0, 0.84, 0) var(--d, 0s) }  ← Raus: gespiegelte Kurve
+- .has-reveal .w.is-in .w__i { transform: none; transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s) }  ← Rein
+
+Steuerung (ein IntersectionObserver für alle .w, rootMargin &quot;-6% 0px -8% 0px&quot;, threshold 0):
+- Pro Callback nur Wörter nehmen, deren Zustand sich ändert; nach Leserichtung sortieren (boundingClientRect.top, dann left).
+- Rein-Gruppe: Wort n bekommt --d = min(n × 0.035, 0.6) s und .is-in.
+- Raus-Gruppe: dieselbe Rechnung, aber in umgekehrter Reihenfolge (letztes Wort zuerst), .is-in entfernen.
+- So ist das Verlassen des Bildes oben wie unten exakt die rückwärts abgespielte Rein-Animation.
+- Beobachtung erst starten, wenn Intro bzw. Seitenwechsel-Vorhang aufdecken.</pre></details>
+      </div>
+      <div class="anim-demo anim-demo--text"><p class="case-text">Scroll diesen Absatz langsam aus dem Bild und wieder zurück: Beim Reinkommen gleiten die Wörter Zeile für Zeile aus ihrer Maske nach oben, beim Rausscrollen läuft exakt dieselbe Bewegung rückwärts – vom letzten Wort zum ersten zurück nach unten.</p></div>
+    </div>
+  </section>
+
+  <section class="anim-item" id="text-fill" aria-labelledby="text-fill-title">
+    <div class="case-label"><h2 id="text-fill-title"><span class="anim-num">07</span>Zeichen-Füllung</h2><span>Scroll · Text</span></div>
+    <div class="anim-item__body">
+      <div class="anim-item__text">
+        <p class="anim-item__desc">Große Absätze füllen sich beim Scrollen Zeichen für Zeichen von hellgrau zu schwarz, mit einer weichen Kante über etwa 14 Zeichen. Beim Hochscrollen läuft die Füllung zurück.</p>
+        <dl class="anim-specs"><div><dt>Auslöser</dt><dd>Scroll, direkt gekoppelt</dd></div><div><dt>Start / Ende</dt><dd>Oberkante 90 % · Unterkante 55 %</dd></div><div><dt>Deckkraft</dt><dd>0,22 → 1</dd></div><div><dt>Wo</dt><dd>Projects-Intro, Challenge</dd></div></dl>
+        <div class="anim-item__actions"><button class="btn btn--ink wave-swap" type="button" data-copy="prompt-text-fill" data-label="Prompt kopieren">Prompt kopieren</button></div>
+        <details class="anim-prompt"><summary>Prompt ansehen</summary><pre id="prompt-text-fill" data-lenis-prevent>Kontext: Du arbeitest an der WordPress-Website von vorauerfriends (vfc). Setze den folgenden Effekt im (Child-)Theme um – mit Vanilla JS und CSS, eingebunden über wp_enqueue_script (Strategie defer) und wp_enqueue_style. Keine zusätzlichen Libraries, außer sie werden unten ausdrücklich genannt. Übernimm alle Werte exakt. Bewege nur transform und opacity, wo nichts anderes steht. Bei prefers-reduced-motion: reduce erscheint alles sofort im Endzustand, ohne Bewegung. Fokus per Tastatur zeigt denselben Zustand wie Hover.
+
+Effekt: Zeichen-Füllung großer Absätze (grau → schwarz, an den Scroll gekoppelt).
+
+- Absätze mit data-fill werden zusätzlich zum Wort-Reveal in Zeichen zerlegt: innerhalb von .w__i jedes Zeichen als &lt;span class=&quot;c&quot;&gt;.
+- Pro Scroll-Frame (gemeinsamer Takt, erst messen, dann schreiben):
+  r = Absatz.getBoundingClientRect(); vh = innerHeight
+  start = 0.9 × vh (Oberkante bei 90 % Höhe), end = 0.55 × vh − r.height (Unterkante bei 55 % Höhe)
+  p = clamp((start − r.top) / (start − end), 0, 1)
+  head = p × (Anzahl Zeichen + 14)
+  Zeichen i: f = clamp((head − i) / 14, 0, 1); opacity = 0.22 + 0.78 × f
+- f auf 0.01 runden und nur geänderte Werte schreiben (Performance).
+- Keine Transition – die Bewegung kommt direkt vom Scroll (auch rückwärts).</pre></details>
+      </div>
+      <div class="anim-demo anim-demo--text"><p class="case-lede" data-fill>Strategen und Markenanalyse-Profis. Wunderbare Kreative, Storyteller- und Storyseller. Content Queens und Kings und noch so viele mehr!</p></div>
+    </div>
+  </section>
+
+  <section class="anim-item" id="zahlen" aria-labelledby="zahlen-title">
+    <div class="case-label"><h2 id="zahlen-title"><span class="anim-num">08</span>Kennzahlen &amp; Linien</h2><span>Scroll · Projektseiten</span></div>
+    <div class="anim-item__body">
+      <div class="anim-item__text">
+        <p class="anim-item__desc">Die Zahlen im Outcome zählen beim Reinscrollen hoch und bremsen weich ab. Die Trennlinien der Abschnitte zeichnen sich von links ein.</p>
+        <dl class="anim-specs"><div><dt>Auslöser</dt><dd>60 % sichtbar (Zahlen) · 20 % (Linien)</dd></div><div><dt>Dauer</dt><dd>1,6 s · Linien 1,4 s</dd></div><div><dt>Kurve</dt><dd>Expo-Out</dd></div><div><dt>Format</dt><dd>de-DE: 1.404 · 2,4</dd></div></dl>
+        <div class="anim-item__actions"><button class="btn btn--ink wave-swap" type="button" data-copy="prompt-zahlen" data-label="Prompt kopieren">Prompt kopieren</button></div>
+        <details class="anim-prompt"><summary>Prompt ansehen</summary><pre id="prompt-zahlen" data-lenis-prevent>Kontext: Du arbeitest an der WordPress-Website von vorauerfriends (vfc). Setze den folgenden Effekt im (Child-)Theme um – mit Vanilla JS und CSS, eingebunden über wp_enqueue_script (Strategie defer) und wp_enqueue_style. Keine zusätzlichen Libraries, außer sie werden unten ausdrücklich genannt. Übernimm alle Werte exakt. Bewege nur transform und opacity, wo nichts anderes steht. Bei prefers-reduced-motion: reduce erscheint alles sofort im Endzustand, ohne Bewegung. Fokus per Tastatur zeigt denselben Zustand wie Hover.
+
+Effekt: Kennzahlen zählen hoch + Abschnittslinien zeichnen sich.
+
+Kennzahlen:
+- Markup: &lt;span class=&quot;kpi__num&quot;&gt;&lt;span data-count=&quot;1404&quot; data-decimals=&quot;0&quot; data-prefix=&quot;&quot; data-suffix=&quot;+&quot;&gt;1.404+&lt;/span&gt;&lt;span class=&quot;kpi__unit&quot;&gt;Mio.&lt;/span&gt;&lt;/span&gt; – Wort-Einheiten („Mio.“) als kleines Span (font-size 0.32em), Zeichen wie „+“, „×“, „%“ bleiben in der Zahl.
+- Ohne JS steht der Endwert im HTML. Mit JS: Text auf 0 setzen, IntersectionObserver threshold 0.6, einmalig.
+- Animation 1600 ms: Wert = Ziel × (1 − 2^(−10 × p)), p = vergangene Zeit / 1600; am Ende exakt der Zielwert.
+- Format: toLocaleString(&#x27;de-DE&#x27;, { minimumFractionDigits: d, maximumFractionDigits: d }) + Präfix/Suffix.
+- CSS: font-variant-numeric: tabular-nums (Breite springt nicht beim Zählen).
+
+Linien der Abschnittszeilen (z. B. „Challenge … / Kürzel“):
+- Ohne JS normale border-top/-bottom. Mit JS: Rahmen transparent, stattdessen ::before (oben, top -1px) und ::after (unten, bottom -1px), je 1 px in #8a8a8f, transform scaleX(0), transform-origin left.
+- Bei 20 % Sichtbarkeit (einmalig) .is-in: scaleX(1), 1.4s cubic-bezier(0.16, 1, 0.3, 1); untere Linie 0.15 s später.</pre></details>
+      </div>
+      <div class="anim-demo anim-demo--kpi"><div class="kpi"><span class="kpi__num"><span data-count="1404" data-decimals="0" data-prefix="" data-suffix="">1.404</span></span><span class="kpi__label">Sitzungen</span></div><div class="kpi"><span class="kpi__num"><span data-count="2.4" data-decimals="1" data-prefix="" data-suffix="">2,4</span><span class="kpi__unit">Mio.</span></span><span class="kpi__label">Social Impressions</span></div></div>
+    </div>
+  </section>
+
+  <section class="anim-item" id="curtain" aria-labelledby="curtain-title">
+    <div class="case-label"><h2 id="curtain-title"><span class="anim-num">09</span>Bild-Reveal (Curtain)</h2><span>Scroll · Bild</span></div>
+    <div class="anim-item__body anim-item__body--wide">
+      <div class="anim-item__text">
+        <p class="anim-item__desc">Eine schwarze Fläche wischt von oben über das Bild und gibt es nach unten frei. Dabei gleitet das Bild aus leichtem Zoom in Position. Läuft einmal, sobald das Bild zu 35 % sichtbar ist.</p>
+        <dl class="anim-specs"><div><dt>Auslöser</dt><dd>35 % sichtbar, einmalig</dd></div><div><dt>Dauer</dt><dd>1,6 s Fläche · 1,8 s Bild</dd></div><div><dt>Kurve</dt><dd>cubic-bezier(.77, 0, .18, 1)</dd></div><div><dt>Wo</dt><dd>Projektbilder, Projektseiten</dd></div></dl>
+        <div class="anim-item__actions"><button class="btn btn--ink wave-swap" type="button" data-copy="prompt-curtain" data-label="Prompt kopieren">Prompt kopieren</button></div>
+        <details class="anim-prompt"><summary>Prompt ansehen</summary><pre id="prompt-curtain" data-lenis-prevent>Kontext: Du arbeitest an der WordPress-Website von vorauerfriends (vfc). Setze den folgenden Effekt im (Child-)Theme um – mit Vanilla JS und CSS, eingebunden über wp_enqueue_script (Strategie defer) und wp_enqueue_style. Keine zusätzlichen Libraries, außer sie werden unten ausdrücklich genannt. Übernimm alle Werte exakt. Bewege nur transform und opacity, wo nichts anderes steht. Bei prefers-reduced-motion: reduce erscheint alles sofort im Endzustand, ohne Bewegung. Fokus per Tastatur zeigt denselben Zustand wie Hover.
+
+Effekt: Bild-Reveal „Curtain“ (vf-motion-Bibliothek – falls vorhanden, die Dateien vf-motion.css/.js verwenden und nur data-motion=&quot;curtain&quot; setzen; sonst so nachbauen).
+
+- Container mit data-motion=&quot;curtain&quot;; Bild/Video ist DIREKTES Kind. Container: position relative, overflow hidden, isolation isolate.
+- Inline-Script früh im &lt;head&gt;: document.documentElement.classList.add(&#x27;vfm-js&#x27;) (verhindert Aufblitzen).
+- ::after des Containers: inset 0, background #000, z-index 5, Ruhe transform scaleY(0) origin top.
+- Medium vor dem Reveal: opacity 0; transform: scale(1.08) translateY(-3%).
+- IntersectionObserver (thresholds 0, .1, .2, .35, .5): ab intersectionRatio ≥ 0.35 Klasse .vfm-in, einmalig.
+- .vfm-in::after: Keyframe-Animation 1.6s cubic-bezier(.77, 0, .18, 1) both:
+  0 %: scaleY(0), origin center top · 45 %: scaleY(1), origin top · 55 %: scaleY(1), origin bottom · 100 %: scaleY(0), origin bottom
+- .vfm-in &gt; Medium: opacity 1 (ohne Transition, verzögert um 45 % der Dauer = 0.72 s) und transform none über 1.8s cubic-bezier(.16, 1, .3, 1), ebenfalls 0.72 s verzögert.
+- Zusätzliche Elemente im Container (z. B. eine Video-Vorschau) nicht als direktes Kind einsetzen, sonst greifen die Regeln auch dort.
+- Reduced Motion: ::after aus, Medium sofort sichtbar.</pre></details>
+      </div>
+      <div class="anim-demo anim-demo--media"><figure class="case-media" data-motion="curtain"><img src="https://www.vorauerfriends.com/wp-content/uploads/2026/08/vfc_egger_5.jpg" alt="Großfläche „Aufs echte Leben“" width="1920" height="1080" loading="lazy" /></figure></div>
+    </div>
+  </section>
+
+  <section class="anim-item" id="liste-rein" aria-labelledby="liste-rein-title">
+    <div class="case-label"><h2 id="liste-rein-title"><span class="anim-num">10</span>Projektliste reinscrollen</h2><span>Scroll · Liste</span></div>
+    <div class="anim-item__body">
+      <div class="anim-item__text">
+        <p class="anim-item__desc">Jede Projektzeile kommt beim Scrollen ins Bild: Die Trennlinie zeichnet sich von links ein, das Bild kommt per Curtain, der Text per Wort-Reveal und die farbigen Tags gestaffelt von unten.</p>
+        <dl class="anim-specs"><div><dt>Auslöser</dt><dd>20 % sichtbar, einmalig</dd></div><div><dt>Linie</dt><dd>1,4 s Expo-Out, +0,1 s</dd></div><div><dt>Tags</dt><dd>ab 0,5 s, 70 ms Versatz</dd></div><div><dt>Wo</dt><dd>Projektliste, Related Projects</dd></div></dl>
+        <div class="anim-item__actions"><button class="btn btn--ink wave-swap" type="button" data-copy="prompt-liste-rein" data-label="Prompt kopieren">Prompt kopieren</button><a class="btn btn--line wave-swap" href="index.html#projekte" data-label="Live ansehen">Live ansehen</a></div>
+        <details class="anim-prompt"><summary>Prompt ansehen</summary><pre id="prompt-liste-rein" data-lenis-prevent>Kontext: Du arbeitest an der WordPress-Website von vorauerfriends (vfc). Setze den folgenden Effekt im (Child-)Theme um – mit Vanilla JS und CSS, eingebunden über wp_enqueue_script (Strategie defer) und wp_enqueue_style. Keine zusätzlichen Libraries, außer sie werden unten ausdrücklich genannt. Übernimm alle Werte exakt. Bewege nur transform und opacity, wo nichts anderes steht. Bei prefers-reduced-motion: reduce erscheint alles sofort im Endzustand, ohne Bewegung. Fokus per Tastatur zeigt denselben Zustand wie Hover.
+
+Effekt: Projektliste fährt beim Scrollen rein.
+
+Pro Zeile &lt;li class=&quot;project&quot;&gt; (Bild links per Curtain-Effekt, Text per Wort-Reveal – siehe dort), zusätzlich:
+- IntersectionObserver threshold 0.2, einmalig → .is-in (Beobachtung erst nach Intro/Vorhang starten).
+- Linie: .project hat border-bottom 1px #8a8a8f; mit JS wird sie transparent und stattdessen gezeichnet: ::after { position absolute; left 0; right 0; bottom -1px; height 1px; background #8a8a8f; transform scaleX(0); transform-origin left; transition transform 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s } → .is-in: transform none.
+- Tags (Pills) in der Zeile: Index i als --ci setzen. Ruhe: opacity 0, translateY(14px), transition opacity 0.6s cubic-bezier(0.65, 0, 0.35, 1) und transform 0.9s cubic-bezier(0.16, 1, 0.3, 1). .is-in: opacity 1, transform none, transition-delay calc(0.5s + var(--ci) × 70ms).
+- Gefilterte (hidden) Zeilen werden erst beim Einblenden animiert.</pre></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="anim-item" id="liste-hover" aria-labelledby="liste-hover-title">
+    <div class="case-label"><h2 id="liste-hover-title"><span class="anim-num">11</span>Projektliste Hover</h2><span>Hover · Liste</span></div>
+    <div class="anim-item__body anim-item__body--wide">
+      <div class="anim-item__text">
+        <p class="anim-item__desc">Eine dunkle Fläche fährt von der Kante herein, über die die Maus kommt, und verlässt die Zeile in Richtung der Maus. Im Bild startet eine Video-Vorschau des Projekts, der Pixel-Pfeil kommt rein und der Cursor wird zur Pill „View Project“.</p>
+        <dl class="anim-specs"><div><dt>Auslöser</dt><dd>Maus über Zeile (nur Desktop)</dd></div><div><dt>Dauer</dt><dd>0,7 s Fläche · 0,45 s Vorschau</dd></div><div><dt>Kurve</dt><dd>Expo-Out</dd></div><div><dt>Wo</dt><dd>Projektliste, Related Projects</dd></div></dl>
+        <div class="anim-item__actions"><button class="btn btn--ink wave-swap" type="button" data-copy="prompt-liste-hover" data-label="Prompt kopieren">Prompt kopieren</button></div>
+        <details class="anim-prompt"><summary>Prompt ansehen</summary><pre id="prompt-liste-hover" data-lenis-prevent>Kontext: Du arbeitest an der WordPress-Website von vorauerfriends (vfc). Setze den folgenden Effekt im (Child-)Theme um – mit Vanilla JS und CSS, eingebunden über wp_enqueue_script (Strategie defer) und wp_enqueue_style. Keine zusätzlichen Libraries, außer sie werden unten ausdrücklich genannt. Übernimm alle Werte exakt. Bewege nur transform und opacity, wo nichts anderes steht. Bei prefers-reduced-motion: reduce erscheint alles sofort im Endzustand, ohne Bewegung. Fokus per Tastatur zeigt denselben Zustand wie Hover.
+
+Effekt: Richtungsabhängiger Hover der Projektzeilen mit Video-Vorschau.
+
+Fläche:
+- Link der Zeile: position relative; isolation isolate; overflow hidden; color transition 0.3s cubic-bezier(0.65, 0, 0.35, 1) 0.08s.
+- ::before { content &quot;&quot;; position absolute; inset 0; z-index -1; background #12121a; transform translateY(var(--from, -101%)); transition transform var(--wipe-t, 0.7s) cubic-bezier(0.16, 1, 0.3, 1) }
+- .is-hover / :focus-visible: ::before transform none, Text weiß, Pixel-Pfeil rechts: opacity 0 → 1 und translate(-30%, -50%) → translate(0, -50%).
+- JS (nur Maus: pointerType &#x27;mouse&#x27; und (hover: hover) and (pointer: fine)):
+  pointerenter: Kante = clientY &lt; Zeilenmitte ? &#x27;-101%&#x27; (oben) : &#x27;101%&#x27; (unten). --wipe-t auf 0s setzen, --from = Kante, Reflow (offsetWidth), --wipe-t entfernen, .is-hover setzen → Fläche fährt von dieser Kante herein.
+  pointerleave: --from = Austrittskante (gleiche Rechnung), .is-hover entfernen → Fläche fährt in Mausrichtung hinaus.
+Video-Vorschau:
+- Im Bild-Container ein &lt;span class=&quot;project__preview&quot; aria-hidden=&quot;true&quot;&gt;&lt;video muted loop playsinline preload=&quot;none&quot; src=&quot;…hero.mp4&quot;&gt;&lt;/video&gt;&lt;/span&gt; – absolut über dem Bild, opacity 0 (transition 0.45s). NICHT als direktes Kind (sonst greift der Curtain-Effekt).
+- pointerenter: video.play(); erst wenn play() erfüllt ist, .is-preview → opacity 1. pointerleave: pause(), ausblenden.
+- Solange die Vorschau läuft, alle anderen Hintergrundvideos pausieren (nie zwei Videos gleichzeitig).
+Cursor: data-cursor-label=&quot;View Project&quot; data-cursor-pill (siehe Cursor-Follower).</pre></details>
+      </div>
+      <div class="anim-demo anim-demo--row"><ul class="project-list">
+        <li class="project" data-tags="campaigning digital-experience social-media">
+          <a class="project__link" href="projekt-egger.html" data-cursor-label="View Project" data-cursor-pill>
+            <div class="project__media" data-motion="curtain"><img class="project__img" src="https://www.vorauerfriends.com/wp-content/uploads/2026/08/vfc_egger_13-1024x576.jpg" alt="Marko Arnautović mit Fans und Egger-Dosen im Stadion" width="1024" height="576" loading="lazy" /><span class="project__preview" aria-hidden="true"><video src="https://www.vorauerfriends.com/wp-content/uploads/2026/08/vfc_egger_hero_1.mp4" muted loop playsinline preload="none"></video></span></div>
+            <div class="project__text">
+              <p class="eyebrow">Egger Bier</p>
+              <h3 class="project__title">Aufs echte<br />Leben</h3>
+              <ul class="tags">
+                <li class="chip" style="--c: var(--green)">Campaigning</li>
+                <li class="chip" style="--c: var(--lila)">Digital Experience</li>
+                <li class="chip" style="--c: var(--yellow-nav)">Social Media</li>
+              </ul>
+            </div>
+            <svg class="px px--arrow project__arrow" aria-hidden="true"><use href="#px-arrow" /></svg>
+          </a>
+        </li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="anim-item" id="faecher" aria-labelledby="faecher-title">
+    <div class="case-label"><h2 id="faecher-title"><span class="anim-num">12</span>Fächer „View All Projects“</h2><span>Scroll · Typo</span></div>
+    <div class="anim-item__body anim-item__body--wide">
+      <div class="anim-item__text">
+        <p class="anim-item__desc">Sechs Ebenen desselben Schriftzugs stehen als Fächer übereinander. Beim Scrollen wandert jede Ebene nach oben und wird schmaler, unten rückt eine neue nach. Kommt die nächste Section ins Bild, verschmelzen alle zu einem statischen Schriftzug und die Box gibt Höhe ab – rückwärts beim Hochscrollen.</p>
+        <dl class="anim-specs"><div><dt>Auslöser</dt><dd>Scroll, direkt gekoppelt (kein Hover)</dd></div><div><dt>Tempo</dt><dd>70 px Scroll pro Ebene</dd></div><div><dt>Verschmelzen</dt><dd>nächste Section 100 % → 55 % Höhe</dd></div><div><dt>Wo</dt><dd>Projekte, Related Projects</dd></div></dl>
+        <div class="anim-item__actions"><button class="btn btn--ink wave-swap" type="button" data-copy="prompt-faecher" data-label="Prompt kopieren">Prompt kopieren</button></div>
+        <details class="anim-prompt"><summary>Prompt ansehen</summary><pre id="prompt-faecher" data-lenis-prevent>Kontext: Du arbeitest an der WordPress-Website von vorauerfriends (vfc). Setze den folgenden Effekt im (Child-)Theme um – mit Vanilla JS und CSS, eingebunden über wp_enqueue_script (Strategie defer) und wp_enqueue_style. Keine zusätzlichen Libraries, außer sie werden unten ausdrücklich genannt. Übernimm alle Werte exakt. Bewege nur transform und opacity, wo nichts anderes steht. Bei prefers-reduced-motion: reduce erscheint alles sofort im Endzustand, ohne Bewegung. Fokus per Tastatur zeigt denselben Zustand wie Hover.
+
+Effekt: Fächer „View All Projects“ als Endlos-Band mit Verschmelzen. Nur Scroll, kein Hover-Effekt (beim Hover zeigt nur der Cursor die Pill „View All Projects“, der Text bleibt schwarz).
+
+Einheiten: alles in „Einheiten“ einer 1436er-Breite; 1 Einheit = 100cqw / 1436 (Link .echo hat container-type: inline-size).
+Markup: &lt;a class=&quot;echo&quot; href=&quot;…&quot; aria-label=&quot;View All Projects&quot;&gt;&lt;span class=&quot;echo__stack&quot; aria-hidden=&quot;true&quot;&gt; 8 × &lt;span class=&quot;echo__slice&quot; style=&quot;--i: 0…7&quot;&gt;&lt;span class=&quot;echo__in&quot;&gt;&lt;span&gt;View All Projects&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; &lt;/span&gt;&lt;/a&gt;
+CSS:
+- .echo__stack { position relative; height calc(100cqw × var(--stack-h, 509) / 1436); overflow hidden }
+- .echo__slice { position absolute; left 0; right 0; top 0; height = 202 Einheiten; overflow hidden; z-index var(--i); transform translateY((--y + --h − 202) Einheiten); will-change transform }
+- .echo__in { position absolute; inset 0; background #fff; transform translateY((202 − --h) Einheiten); will-change transform }  → Maske nur über transform: sichtbar ist der Bereich [y, y + h], kein clip-path pro Frame.
+- Text: position absolute; left 22 Einheiten; top (23 − 44) Einheiten; font-size 188 Einheiten; font-weight 400; line-height 1.2; letter-spacing -0.005em; white-space nowrap.
+
+Geometrie je Position (Index = Position + 1):
+TOP = [499, 307, 201, 124, 66, 22, −12, −38, −58]
+HEIGHT = [202, 202, 116, 87, 68, 54, 44, 36, 30]
+(Index 0 wartet unterhalb, 1 = voller Schriftzug unten, 2–6 darüber, 7–8 schon oben raus; es gilt TOP[k] = TOP[k+1] + HEIGHT[k+1] − 10.)
+
+Pro Scroll-Frame:
+- r = echo.getBoundingClientRect(); offset = (innerHeight − r.top) / 70; frac = offset − floor(offset)
+- Ebene d (0 = oberste im DOM): x = 7 − d + frac; y = lineare Interpolation TOP bei x, h = HEIGHT bei x.
+- Verschmelzen: nextTop = r.top + 509 × (r.width / 1436) + margin-bottom der .echo; merge = clamp((innerHeight − nextTop) / (0.45 × innerHeight), 0, 1); m = merge² × (3 − 2 × merge)
+- y = y + (307 − y) × m − 260 × m; h = h + (202 − h) × m; --stack-h = 509 − 260 × m (nur setzen, wenn sich der Wert ändert – verschiebt alles darunter).
+- --y / --h auf jede Ebene schreiben (erst messen, dann schreiben).
+- html { overflow-anchor: none }, damit der Browser beim Schrumpfen nicht gegensteuert.
+- Reduced Motion: statisch (frac = 0, merge = 0).</pre></details>
+      </div>
+      <div class="anim-demo anim-demo--fan">
+    <a class="echo" href="index.html#projekte" aria-label="View All Projects" data-cursor-label="View All Projects" data-cursor-pill>
+      <span class="echo__stack" aria-hidden="true">
+        <span class="echo__slice" style="--i:0"><span class="echo__in"><span>View All Projects</span></span></span>
+        <span class="echo__slice" style="--i:1"><span class="echo__in"><span>View All Projects</span></span></span>
+        <span class="echo__slice" style="--i:2"><span class="echo__in"><span>View All Projects</span></span></span>
+        <span class="echo__slice" style="--i:3"><span class="echo__in"><span>View All Projects</span></span></span>
+        <span class="echo__slice" style="--i:4"><span class="echo__in"><span>View All Projects</span></span></span>
+        <span class="echo__slice" style="--i:5"><span class="echo__in"><span>View All Projects</span></span></span>
+        <span class="echo__slice" style="--i:6"><span class="echo__in"><span>View All Projects</span></span></span>
+        <span class="echo__slice" style="--i:7"><span class="echo__in"><span>View All Projects</span></span></span>
+      </span>
+    </a>
+    </div>
+    </div>
+  </section>
+
+  <section class="anim-item" id="smiley-button" aria-labelledby="smiley-button-title">
+    <div class="case-label"><h2 id="smiley-button-title"><span class="anim-num">13</span>Start-a-project-Button</h2><span>Hover · Button</span></div>
+    <div class="anim-item__body">
+      <div class="anim-item__text">
+        <p class="anim-item__desc">Beim Hover rollt der Smiley mit einer vollen Umdrehung nach rechts, die Pill invertiert und das Label taucht links hinter dem rollenden Smiley auf. Beim Verlassen rollt alles zurück.</p>
+        <dl class="anim-specs"><div><dt>Auslöser</dt><dd>Hover / Fokus</dd></div><div><dt>Dauer</dt><dd>0,6 s Rollen · 0,35 s Farbe</dd></div><div><dt>Kurve</dt><dd>cubic-bezier(0.65, 0, 0.35, 1)</dd></div><div><dt>Wo</dt><dd>Footer, Menü</dd></div></dl>
+        <div class="anim-item__actions"><button class="btn btn--ink wave-swap" type="button" data-copy="prompt-smiley-button" data-label="Prompt kopieren">Prompt kopieren</button></div>
+        <details class="anim-prompt"><summary>Prompt ansehen</summary><pre id="prompt-smiley-button" data-lenis-prevent>Kontext: Du arbeitest an der WordPress-Website von vorauerfriends (vfc). Setze den folgenden Effekt im (Child-)Theme um – mit Vanilla JS und CSS, eingebunden über wp_enqueue_script (Strategie defer) und wp_enqueue_style. Keine zusätzlichen Libraries, außer sie werden unten ausdrücklich genannt. Übernimm alle Werte exakt. Bewege nur transform und opacity, wo nichts anderes steht. Bei prefers-reduced-motion: reduce erscheint alles sofort im Endzustand, ohne Bewegung. Fokus per Tastatur zeigt denselben Zustand wie Hover.
+
+Effekt: Pill-Button mit rollendem Smiley.
+
+Markup: &lt;a class=&quot;cta&quot; href=&quot;…&quot;&gt;&lt;span class=&quot;cta__face&quot; aria-hidden=&quot;true&quot;&gt;&lt;svg&gt;Pixel-Smiley&lt;/svg&gt;&lt;/span&gt;&lt;span class=&quot;cta__label&quot;&gt;Start a project&lt;/span&gt;&lt;span class=&quot;cta__label cta__label--alt&quot; aria-hidden=&quot;true&quot;&gt;Start a project&lt;/span&gt;&lt;/a&gt;
+CSS (auf dunklem Grund):
+- .cta { --roll: 0.6s cubic-bezier(0.65, 0, 0.35, 1); position relative; display inline-flex; width 322px; height 92px; padding 0; border-radius 999px; box-shadow inset 0 0 0 1px currentColor; color #fff; font-size 29px; letter-spacing -0.02em; white-space nowrap; container-type inline-size (100cqw = Breite der Pill); transition background-color 0.35s, color 0.35s }
+- .cta__face { position absolute; left 6px; top 6px; z-index 1; 80 × 80 px; Kreis; Hintergrund #fff; Smiley #12121a (45 × 36 px); transition transform var(--roll), background-color 0.35s, color 0.35s }
+- .cta__label { position absolute; inset 0; display flex; align-items center; padding-left 108px; clip-path inset(0 0 0 6px); transition clip-path var(--roll) }
+- .cta__label--alt { padding-left 32px; clip-path inset(0 calc(100cqw − 6px) 0 0) }
+Hover und :focus-visible:
+- .cta: Hintergrund #fff, Text #12121a
+- .cta__face: Hintergrund #12121a, Smiley weiß, transform translateX(calc(100cqw − 92px)) rotate(360deg)
+- .cta__label: clip-path inset(0 0 0 calc(100cqw − 86px))
+- .cta__label--alt: clip-path inset(0 86px 0 0)
+Weil alle drei Transitions dieselbe Dauer und Kurve haben, läuft die Schnittkante beider Labels exakt an der linken Kante des Smileys mit: rechts verschwindet der Text unter dem Smiley, links taucht er hinter ihm auf.
+Mobil (≤ 360 px): width 100%, max-width 322px, font-size 25px; Label padding-left 100px bzw. 24px.</pre></details>
+      </div>
+      <div class="anim-demo anim-demo--dark"><button class="cta" type="button"><span class="cta__face" aria-hidden="true"><svg><use href="#px-smiley" /></svg></span><span class="cta__label">Start a project</span><span class="cta__label cta__label--alt" aria-hidden="true">Start a project</span></button></div>
+    </div>
+  </section>
+
+  <section class="anim-item" id="wave-button" aria-labelledby="wave-button-title">
+    <div class="case-label"><h2 id="wave-button-title"><span class="anim-num">14</span>Wave-Button</h2><span>Hover · Button</span></div>
+    <div class="anim-item__body">
+      <div class="anim-item__text">
+        <p class="anim-item__desc">Von rechts schiebt sich eine dunkle Fläche mit animierter Wellenkante über den Button und invertiert ihn. Beim Verlassen zieht sie sich nach rechts zurück – ohne Nachwippen, reines CSS.</p>
+        <dl class="anim-specs"><div><dt>Auslöser</dt><dd>Hover / Fokus</dd></div><div><dt>Dauer</dt><dd>1 s rein · 0,8 s raus</dd></div><div><dt>Kurve</dt><dd>Expo-Out</dd></div><div><dt>Wo</dt><dd>„Our Culture“, Prompt-Buttons</dd></div></dl>
+        <div class="anim-item__actions"><button class="btn btn--ink wave-swap" type="button" data-copy="prompt-wave-button" data-label="Prompt kopieren">Prompt kopieren</button></div>
+        <details class="anim-prompt"><summary>Prompt ansehen</summary><pre id="prompt-wave-button" data-lenis-prevent>Kontext: Du arbeitest an der WordPress-Website von vorauerfriends (vfc). Setze den folgenden Effekt im (Child-)Theme um – mit Vanilla JS und CSS, eingebunden über wp_enqueue_script (Strategie defer) und wp_enqueue_style. Keine zusätzlichen Libraries, außer sie werden unten ausdrücklich genannt. Übernimm alle Werte exakt. Bewege nur transform und opacity, wo nichts anderes steht. Bei prefers-reduced-motion: reduce erscheint alles sofort im Endzustand, ohne Bewegung. Fokus per Tastatur zeigt denselben Zustand wie Hover.
+
+Effekt: Wave-Hover für Buttons (wie bei Manzenreiter, browsersicher ohne mix-blend-mode, reines CSS).
+
+Markup: &lt;a class=&quot;btn wave-swap&quot; href=&quot;…&quot; data-label=&quot;Our Culture&quot;&gt;Our Culture&lt;/a&gt; – data-label = sichtbarer Text.
+CSS:
+.wave-swap { position: relative; isolation: isolate; }
+.wave-swap::after {
+  content: attr(data-label);
+  content: attr(data-label) / &quot;&quot;;   /* Screenreader lesen nicht doppelt */
+  position: absolute; inset: 0; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: inherit; background: var(--swap-bg); color: var(--swap-fg);
+  white-space: nowrap; pointer-events: none;
+  -webkit-mask-image: url(&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; viewBox=&#x27;0 0 28 44&#x27; preserveAspectRatio=&#x27;none&#x27;%3E%3Cpath d=&#x27;M28 0H14C2 5.5 2 16.5 14 22C26 27.5 26 38.5 14 44H28Z&#x27;/%3E%3C/svg%3E&quot;), linear-gradient(#000, #000);
+          mask-image: (gleich wie oben);
+  -webkit-mask-size: 28px 44px, 200% 100%;       mask-size: 28px 44px, 200% 100%;
+  -webkit-mask-repeat: repeat-y, no-repeat;      mask-repeat: repeat-y, no-repeat;
+  -webkit-mask-position: calc(100% + 28px) 0, calc(-100% + 27px) 0;   mask-position: (gleich);
+  transition: -webkit-mask-position .8s cubic-bezier(.16, 1, .3, 1), mask-position .8s cubic-bezier(.16, 1, .3, 1);
+}
+.wave-swap:hover::after, .wave-swap:focus-visible::after {
+  -webkit-mask-position: -28px 0, -1px 0;  mask-position: -28px 0, -1px 0;  transition-duration: 1s;
+}
+Weißer Button → dunkel: .btn.wave-swap { --swap-bg: #12121a; --swap-fg: #fff; clip-path: inset(0 round 999px); } .btn.wave-swap::after { inset: -2px; } (Ebene ragt 2 px über, clip-path schneidet einmal sauber → kein weißer Saum)
+Einen eventuell vorhandenen eigenen Hover-Hintergrund des Buttons für .wave-swap deaktivieren. Reduced Motion: transition none.</pre></details>
+      </div>
+      <div class="anim-demo anim-demo--dark"><button class="btn wave-swap" type="button" data-label="Our Culture">Our Culture</button></div>
+    </div>
+  </section>
+
+  <section class="anim-item" id="filter" aria-labelledby="filter-title">
+    <div class="case-label"><h2 id="filter-title"><span class="anim-num">15</span>Filter-Pills</h2><span>Hover + Klick · Filter</span></div>
+    <div class="anim-item__body">
+      <div class="anim-item__text">
+        <p class="anim-item__desc">Hover: Das Label rollt, der farbige Zähl-Punkt wächst ein Stück. Klick: Die Farbe des Punkts breitet sich als Kreis über den ganzen Button aus, der Punkt wird weiß und hält die Zahl. Der vorige Filter zieht seine Farbe gleichzeitig zurück.</p>
+        <dl class="anim-specs"><div><dt>Auslöser</dt><dd>Hover · Klick</dd></div><div><dt>Dauer</dt><dd>0,9 s Ausbreiten · 0,5 s Zurückziehen</dd></div><div><dt>Kurve</dt><dd>Expo-Out / gespiegelt</dd></div><div><dt>Wo</dt><dd>Projektfilter</dd></div></dl>
+        <div class="anim-item__actions"><button class="btn btn--ink wave-swap" type="button" data-copy="prompt-filter" data-label="Prompt kopieren">Prompt kopieren</button></div>
+        <details class="anim-prompt"><summary>Prompt ansehen</summary><pre id="prompt-filter" data-lenis-prevent>Kontext: Du arbeitest an der WordPress-Website von vorauerfriends (vfc). Setze den folgenden Effekt im (Child-)Theme um – mit Vanilla JS und CSS, eingebunden über wp_enqueue_script (Strategie defer) und wp_enqueue_style. Keine zusätzlichen Libraries, außer sie werden unten ausdrücklich genannt. Übernimm alle Werte exakt. Bewege nur transform und opacity, wo nichts anderes steht. Bei prefers-reduced-motion: reduce erscheint alles sofort im Endzustand, ohne Bewegung. Fokus per Tastatur zeigt denselben Zustand wie Hover.
+
+Effekt: Filter-Pills mit Farb-Ausbreitung.
+
+Markup: &lt;button class=&quot;filter&quot; type=&quot;button&quot; data-filter=&quot;campaigning&quot; aria-pressed=&quot;false&quot; style=&quot;--c: &lt;Farbe der Leistung&gt;&quot;&gt;&lt;span class=&quot;filter__count&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;filter__label&quot;&gt;Campaigning&lt;/span&gt;&lt;/button&gt;; „Latest“ ohne Zahl, --c: #12121a.
+CSS:
+- .filter { --dot: max(calc(42 × u), 32px); --inset: max(calc(7 × u), 5px); --ox: calc(var(--inset) + var(--dot) / 2); position relative; isolation isolate; overflow hidden; display inline-flex; align-items center; gap 10px; height max(calc(56 × u), 44px); padding 0 max(calc(20 × u), 16px) 0 var(--inset); border-radius 999px; box-shadow inset 0 0 0 1px #12121a; transition color 0.45s } (u = 1/1520 der Inhaltsbreite)
+- Latest: --ox: 50%.
+- .filter__count { Kreis var(--dot); background var(--c); color #12121a; transition scale 0.5s cubic-bezier(0.16,1,0.3,1), background-color 0.45s, color 0.45s }
+- Füllung: .filter::before { content &quot;&quot;; position absolute; z-index -1; left var(--ox); top 50%; width calc(200% − 2 × var(--ox) + 4px); aspect-ratio 1; border-radius 50%; background var(--c); translate -50% -50%; scale 0; transition scale 0.5s cubic-bezier(0.7, 0, 0.84, 0) }  (Kreis genau so groß, dass er das entfernte Ende der Pill erreicht → Ausbreitung über die ganze Dauer sichtbar)
+- .filter.is-active::before { scale: 1; transition: scale 0.9s cubic-bezier(0.16, 1, 0.3, 1) }
+- .filter.is-active .filter__count { background #fff; color #12121a; transition-delay 0.1s }
+- Latest aktiv: Text weiß.
+- Hover (nur hover: hover): .filter__count scale 1.18; Label per Buchstaben-Roll.
+- Desktop: alle Pills sichtbar, flex-wrap wrap, gap 6px. Mobil: eine wischbare Reihe (nowrap, overflow-x auto, Scrollbar ausgeblendet).
+Logik: Klick setzt .is-active + aria-pressed nur beim geklickten Button; Projekte ohne passendes Tag bekommen hidden; Hinweis „noch kein Projekt“, wenn keines sichtbar ist.</pre></details>
+      </div>
+      <div class="anim-demo"><div class="anim-filters"><button class="filter is-active" aria-pressed="true" type="button" data-filter="all" style="--c: var(--ink)"><span class="filter__label">Latest</span></button><button class="filter" aria-pressed="false" type="button" data-filter="campaigning" style="--c: var(--green)"><span class="filter__count">5</span><span class="filter__label">Campaigning</span></button><button class="filter" aria-pressed="false" type="button" data-filter="digital-experience" style="--c: var(--lila)"><span class="filter__count">5</span><span class="filter__label">Digital Experience</span></button></div></div>
+    </div>
+  </section>
+
+  <section class="anim-item" id="cursor" aria-labelledby="cursor-title">
+    <div class="case-label"><h2 id="cursor-title"><span class="anim-num">16</span>Cursor-Follower</h2><span>Maus · global</span></div>
+    <div class="anim-item__body">
+      <div class="anim-item__text">
+        <p class="anim-item__desc">Ein roter Punkt folgt der Maus mit weichem Nachzug. Über Links wird er zum Ring, über Projekten zur Pill mit Label. Auf roten Flächen wird er dunkel. Der normale Mauszeiger bleibt sichtbar.</p>
+        <dl class="anim-specs"><div><dt>Auslöser</dt><dd>Mausbewegung (nur Desktop)</dd></div><div><dt>Nachzug</dt><dd>1 − e^(−14·dt) pro Frame</dd></div><div><dt>Formen</dt><dd>Punkt 12 px · Ring 48 px · Pill</dd></div><div><dt>Wo</dt><dd>alle Seiten</dd></div></dl>
+        <div class="anim-item__actions"><button class="btn btn--ink wave-swap" type="button" data-copy="prompt-cursor" data-label="Prompt kopieren">Prompt kopieren</button><span class="anim-note">Läuft auf dieser Seite</span></div>
+        <details class="anim-prompt"><summary>Prompt ansehen</summary><pre id="prompt-cursor" data-lenis-prevent>Kontext: Du arbeitest an der WordPress-Website von vorauerfriends (vfc). Setze den folgenden Effekt im (Child-)Theme um – mit Vanilla JS und CSS, eingebunden über wp_enqueue_script (Strategie defer) und wp_enqueue_style. Keine zusätzlichen Libraries, außer sie werden unten ausdrücklich genannt. Übernimm alle Werte exakt. Bewege nur transform und opacity, wo nichts anderes steht. Bei prefers-reduced-motion: reduce erscheint alles sofort im Endzustand, ohne Bewegung. Fokus per Tastatur zeigt denselben Zustand wie Hover.
+
+Effekt: Cursor-Follower (nur Desktop mit Maus; nicht bei Touch oder Reduced Motion).
+
+- Element per JS anlegen: &lt;div class=&quot;cursor&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;cursor__dot&quot;&gt;&lt;span class=&quot;cursor__label&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt; ans Ende von &lt;body&gt;. Der System-Mauszeiger bleibt sichtbar (kein cursor: none).
+- .cursor { position fixed; left 0; top 0; z-index 200 (über allem); pointer-events none; color var(--cursor-c, #ff002e); opacity 0 → .is-visible 1 (0.3s) }
+- .cursor__dot { position absolute; translate -50% -50%; display grid; place-items center; 12 × 12 px; border-radius 999px; background currentColor; box-shadow inset 0 0 0 1.5px currentColor; transition width/height/border-radius 0.5s cubic-bezier(0.16,1,0.3,1), background-color 0.3s, scale 0.3s }
+- Nachzug: pointermove setzt das Ziel; rAF-Schleife x += (Ziel − x) × (1 − e^(−14 × dt)), dt in s (max. 0.05); transform translate3d(x, y, 0); Schleife schläft, wenn die Differenz &lt; 0.1 px ist. Erste Bewegung: sofort an die Mausposition springen.
+- Form per pointerover (nicht bei jeder Bewegung):
+  · Element mit data-cursor-label + data-cursor-pill → Zustand „pill“: Label-Text setzen, Breite messen, --pill-w = Labelbreite + 48px; Pill 50 px hoch, Label 13px, 500, uppercase, letter-spacing 0.04em, weiß (opacity 0 → 1, scale 0.6 → 1, 0.08 s verzögert).
+  · a, button, label, [role=button] → Zustand „link“: 48 × 48 px Ring, background transparent.
+  · sonst Punkt (auch über Text – bewusst nur der Punkt).
+- Farbe: data-cursor-color am Bereich (z. B. #12121a auf roten Flächen); auf der roten Seitenleiste bei offenem Menü weiß.
+- pointerdown: scale 0.82, pointerup zurück. Verlässt die Maus das Fenster (pointerleave auf &lt;html&gt;): ausblenden.</pre></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="anim-item" id="stack" aria-labelledby="stack-title">
+    <div class="case-label"><h2 id="stack-title"><span class="anim-num">17</span>Sticky-Stack Leistungen</h2><span>Scroll · Layout</span></div>
+    <div class="anim-item__body">
+      <div class="anim-item__text">
+        <p class="anim-item__desc">Die acht Leistungskacheln bleiben oben stehen, die nächste schiebt sich darüber. Jede Kachel hat ein Hintergrundvideo; verdeckte Kacheln pausieren.</p>
+        <dl class="anim-specs"><div><dt>Auslöser</dt><dd>Scroll</dd></div><div><dt>Höhe</dt><dd>100svh, min. 640 px</dd></div><div><dt>Mobil</dt><dd>normal untereinander</dd></div><div><dt>Wo</dt><dd>Leistungen + Culture</dd></div></dl>
+        <div class="anim-item__actions"><button class="btn btn--ink wave-swap" type="button" data-copy="prompt-stack" data-label="Prompt kopieren">Prompt kopieren</button><a class="btn btn--line wave-swap" href="index.html#leistungen" data-label="Live ansehen">Live ansehen</a></div>
+        <details class="anim-prompt"><summary>Prompt ansehen</summary><pre id="prompt-stack" data-lenis-prevent>Kontext: Du arbeitest an der WordPress-Website von vorauerfriends (vfc). Setze den folgenden Effekt im (Child-)Theme um – mit Vanilla JS und CSS, eingebunden über wp_enqueue_script (Strategie defer) und wp_enqueue_style. Keine zusätzlichen Libraries, außer sie werden unten ausdrücklich genannt. Übernimm alle Werte exakt. Bewege nur transform und opacity, wo nichts anderes steht. Bei prefers-reduced-motion: reduce erscheint alles sofort im Endzustand, ohne Bewegung. Fokus per Tastatur zeigt denselben Zustand wie Hover.
+
+Effekt: Sticky-Stack der Leistungskacheln.
+
+- Section .stack, jede Kachel (und der Culture-Block am Ende) direktes Kind: position sticky; top 0; height 100vh / 100svh; min-height 640px; max-height calc(1100 × u + 200px); overflow hidden. Spätere Kacheln liegen im DOM weiter unten und schieben sich deshalb über die vorige.
+- Kachel: Grid 1fr / 1fr (Text links in der Leistungsfarbe, Video rechts), Pixel-Band in der Kachelfarbe unten über die ganze Breite.
+- Videos ohne Ton, loop, playsinline, poster, preload none; per Scroll-Job nur das Video mit der größten sichtbaren Fläche abspielen – eine Kachel gilt als verdeckt, sobald die nächste Kachel darüberliegt (Unterkante der Sichtfläche = Oberkante der nächsten Kachel).
+- Mobil (&lt; 1024 px): kein Sticky, Kacheln untereinander, Video unter dem Text (Seitenverhältnis 375 / 300).</pre></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="anim-item" id="footer" aria-labelledby="footer-title">
+    <div class="case-label"><h2 id="footer-title"><span class="anim-num">18</span>Footer-Reveal</h2><span>Scroll · Layout</span></div>
+    <div class="anim-item__body">
+      <div class="anim-item__text">
+        <p class="anim-item__desc">Der Footer steht schon fest unten, die Seite darüber schiebt sich nach oben weg. Das Erste, was man sieht, ist das angeschnittene „vorauerfriends“. Scroll auf dieser Seite ganz nach unten.</p>
+        <dl class="anim-specs"><div><dt>Auslöser</dt><dd>Scroll</dd></div><div><dt>Technik</dt><dd>position: sticky; bottom: 0</dd></div><div><dt>Bedingung</dt><dd>Footer passt ins Fenster</dd></div><div><dt>Wo</dt><dd>alle Seiten</dd></div></dl>
+        <div class="anim-item__actions"><button class="btn btn--ink wave-swap" type="button" data-copy="prompt-footer" data-label="Prompt kopieren">Prompt kopieren</button><span class="anim-note">Läuft auf dieser Seite</span></div>
+        <details class="anim-prompt"><summary>Prompt ansehen</summary><pre id="prompt-footer" data-lenis-prevent>Kontext: Du arbeitest an der WordPress-Website von vorauerfriends (vfc). Setze den folgenden Effekt im (Child-)Theme um – mit Vanilla JS und CSS, eingebunden über wp_enqueue_script (Strategie defer) und wp_enqueue_style. Keine zusätzlichen Libraries, außer sie werden unten ausdrücklich genannt. Übernimm alle Werte exakt. Bewege nur transform und opacity, wo nichts anderes steht. Bei prefers-reduced-motion: reduce erscheint alles sofort im Endzustand, ohne Bewegung. Fokus per Tastatur zeigt denselben Zustand wie Hover.
+
+Effekt: Footer-Reveal (die Seite schiebt sich über einem stehenden Footer weg).
+
+- &lt;main&gt; { position: relative; z-index: 1; background: #fff } – liegt über dem Footer.
+- Footer: Klasse .footer-reveal am &lt;body&gt; → .footer-reveal .footer { position: sticky; bottom: 0; z-index: 0 }. Der Footer klebt am unteren Fensterrand hinter main; scrollt main nach oben weg, wird er von unten nach oben freigelegt (zuerst das angeschnittene Wordmark).
+- Die Klasse nur setzen, wenn footer.offsetHeight ≤ innerHeight (bei resize neu prüfen) – sonst wäre der obere Teil des Footers nie sichtbar.
+- Mit Softscroll: html { overflow-anchor: none }.</pre></details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ Footer ============ -->
+<footer class="footer">
+  <div class="addresses" id="addresses">
+    <address class="addresses__col">
+      Vorauerfriends<br />Communications GmbH<br />Traunufer-Arkade 1<br />4600 Thalheim bei Wels
+    </address>
+    <address class="addresses__col">
+      Vorauerfriends<br />Communications GmbH<br />Favoritenstraße 44/9<br />1040 Wien
+    </address>
+    <p class="addresses__col addresses__col--contact">
+      <a href="tel:+43724265896">+43 7242 65 896</a><br />
+      <a href="mailto:office@vorauerfriends.com">office@vorauerfriends.com</a><br />
+      <a href="mailto:jobs@vorauerfriends.com">jobs@vorauerfriends.com</a>
+    </p>
+    <ul class="addresses__col addresses__col--social">
+      <li><a href="#">Instagram</a></li>
+      <li><a href="#">YouTube</a></li>
+      <li><a href="#">Facebook</a></li>
+      <li><a href="#">LinkedIn</a></li>
+    </ul>
+  </div>
+  <div class="footer__cta">
+    <a class="cta cta--light" href="mailto:office@vorauerfriends.com">
+      <span class="cta__face" aria-hidden="true"><svg><use href="#px-smiley" /></svg></span>
+      <span class="cta__label">Start a project</span>
+      <span class="cta__label cta__label--alt" aria-hidden="true">Start a project</span>
+    </a>
+  </div>
+  <div class="footer__wordmark" aria-hidden="true"><span></span></div>
+</footer>
+
+<script src="assets/vendor/lenis.min.js"></script>
+<script src="assets/main.js"></script>
+</body>
+</html>

@@ -18,7 +18,7 @@ Sammlung von Animations- und Website-Experimenten. Jeder Ordner im Repo-Root ist
    }
    ```
 
-   Alle Felder sind optional. Ohne `meta.json` wird der Titel aus dem Ordnernamen abgeleitet und als Thumbnail automatisch das erste Bild im Ordner verwendet (alphabetisch).
+   Alle Felder sind optional. Mit `"hidden": true` wird das Projekt zwar deployt und ist über seinen Link erreichbar (`https://<user>.github.io/<repo>/<ordner>/`), erscheint aber nicht in der Übersicht. Ohne `meta.json` wird der Titel aus dem Ordnernamen abgeleitet und als Thumbnail automatisch das erste Bild im Ordner verwendet (alphabetisch).
 4. Committen und auf `main` pushen — fertig. Der GitHub-Actions-Workflow generiert die Übersicht neu und deployt automatisch.
 
 Ordner, die mit `.` oder `_` beginnen, sowie `assets/`, `scripts/`, `.github/` und `node_modules/` werden nie als Projekte gelistet.

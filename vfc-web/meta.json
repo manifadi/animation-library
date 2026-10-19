@@ -1,0 +1,13 @@
+{
+  "title": "vfc web",
+  "description": "Website-Prototyp für vorauerfriends (vfc) nach Figma: Startseite, sieben Projekt-Detailseiten und eine Animationsseite mit KI-Prompts für die Umsetzung in WordPress.",
+  "tags": [
+    "vfc",
+    "figma",
+    "responsive",
+    "website"
+  ],
+  "date": "2026-10-16",
+  "thumbnail": "assets/thumb.jpg",
+  "hidden": true
+}

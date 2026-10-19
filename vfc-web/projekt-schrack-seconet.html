@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Schrack Seconet – For the people who… | vorauerfriends</title>
+<meta name="description" content="Sicherheitstechnik ist ein Job mit Verantwortung – und mit Zukunft. Schrack Seconet wollte genau die Menschen erreichen, die mehr suchen als einen Arbeitsp" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500&display=swap" />
+<script>
+  (function () {
+    var root = document.documentElement;
+    root.classList.add("vfm-js");
+    // Über einen Link mit Vorhang hierher gekommen: Seite startet verdeckt. Sonst: Ladeanimation.
+    try { if (sessionStorage.getItem("vfc-pt")) root.classList.add("pt-cover"); } catch (e) {}
+    if (!root.classList.contains("pt-cover") && !matchMedia("(prefers-reduced-motion: reduce)").matches) root.classList.add("is-intro");
+    // Sicherheitsnetz, falls main.js nicht läuft: nie dauerhaft verdeckt
+    setTimeout(function () { root.classList.remove("is-intro", "pt-cover"); }, 6000);
+  })();
+</script>
+<link rel="stylesheet" href="assets/style.css" />
+<link rel="stylesheet" href="assets/vf-motion.css" />
+<script src="assets/vf-motion.js" defer></script>
+</head>
+<body>
+
+<!-- Pixel-Grafiken, als Symbole wiederverwendbar (Farbe = currentColor) -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <g id="band-hero-rects">
+      <rect x="0" y="792" width="653.43" height="43.5" />
+      <rect x="695.46" y="792" width="43.03" height="43.5" />
+      <rect x="872.57" y="792" width="43.03" height="43.5" />
+      <rect x="959.63" y="792" width="43.03" height="43.5" />
+      <rect x="1088.72" y="792" width="43.03" height="43.5" />
+      <rect x="1174.77" y="792" width="43.03" height="43.5" />
+      <rect x="1260.83" y="792" width="87.06" height="43.5" />
+      <rect x="1434.94" y="792" width="43.03" height="43.5" />
+      <rect x="653.43" y="835.5" width="43.03" height="44.5" />
+      <rect x="739.49" y="835.5" width="133.09" height="44.5" />
+      <rect x="916.6" y="835.5" width="43.03" height="44.5" />
+      <rect x="1001.66" y="835.5" width="87.06" height="44.5" />
+      <rect x="1131.74" y="835.5" width="43.03" height="44.5" />
+      <rect x="1217.8" y="835.5" width="43.03" height="44.5" />
+      <rect x="1347.89" y="835.5" width="87.06" height="44.5" />
+      <rect x="1477.97" y="835.5" width="43.03" height="44.5" />
+    </g>
+    <g id="band-culture-rects">
+      <rect x="0" y="5794" width="387" height="42" />
+      <rect x="473" y="5794" width="590" height="42" />
+      <rect x="1147" y="5794" width="42" height="42" />
+      <rect x="1271" y="5794" width="83" height="42" />
+      <rect x="1395" y="5794" width="42" height="42" />
+      <rect x="1478" y="5794" width="42" height="42" />
+      <rect x="387" y="5836" width="86" height="42" />
+      <rect x="1063" y="5836" width="42" height="42" />
+      <rect x="1188" y="5836" width="83" height="42" />
+      <rect x="1353" y="5836" width="42" height="42" />
+      <rect x="1437" y="5836" width="42" height="42" />
+    </g>
+    <symbol id="px-smiley" viewBox="0 0 5 4"><path d="M1 0h1v1H1zM3 0h1v1H3zM0 2h1v1H0zM4 2h1v1H4zM1 3h3v1H1z" /></symbol>
+    <symbol id="px-heart" viewBox="0 0 5 4"><path d="M1 0h1v1H1zM3 0h1v1H3zM0 1h1v1H0zM2 1h1v1H2zM4 1h1v1H4zM1 2h1v1H1zM3 2h1v1H3zM2 3h1v1H2z" /></symbol>
+    <symbol id="px-arrow" viewBox="0 0 5 5"><path d="M2 0h1v1H2zM3 1h1v1H3zM0 2h3v1H0zM4 2h1v1H4zM3 3h1v1H3zM2 4h1v1H2z" /></symbol>
+    <symbol id="px-wave" viewBox="0 0 7 2"><path d="M1 0h2v1H1zM4 0h2v1H4zM0 1h1v1H0zM3 1h1v1H3zM6 1h1v1H6z" /></symbol>
+  </defs>
+</svg>
+
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+<!-- Seitenwechsel: drei Balken ziehen von links rein und nach rechts wieder raus -->
+<div class="pt" aria-hidden="true"><span></span><span></span><span></span></div>
+
+<!-- Ladeanimation: Logo geht zum Smiley zusammen, der zwinkert, dann ziehen die Balken ab -->
+<div class="intro" aria-hidden="true">
+  <span class="intro__mark"><span class="intro__logo logo"></span></span>
+  <svg class="intro__smiley" viewBox="0 0 5 4">
+    <rect class="intro__px" x="1" y="3" width="3" height="1" />
+    <rect class="intro__px" x="0" y="2" width="1" height="1" />
+    <rect class="intro__px" x="4" y="2" width="1" height="1" />
+    <rect class="intro__px" x="1" y="0" width="1" height="1" />
+    <rect class="intro__px intro__px--wink" x="3" y="0" width="1" height="1" />
+  </svg>
+</div>
+
+<!-- ============ Seitenleiste (Desktop) / Topbar (Mobile) ============ -->
+<header class="bar" id="bar">
+  <a class="bar__logo" href="index.html" aria-label="vorauerfriends – zur Startseite">
+    <span class="logo" aria-hidden="true"></span>
+  </a>
+  <button class="bar__toggle" id="nav-toggle" type="button" aria-controls="nav" aria-expanded="false" aria-label="Menü öffnen">
+    <span class="burger" aria-hidden="true"><span></span><span></span><span></span></span>
+  </button>
+</header>
+
+<!-- ============ Navigation (Burger-Menü) ============ -->
+<nav class="nav" id="nav" aria-label="Hauptnavigation" data-lenis-prevent hidden>
+  <div class="nav__inner">
+    <ul class="nav__main">
+      <li class="nav__group">
+        <a class="nav__link" href="index.html#leistungen">Leistungen</a>
+        <ul class="nav__chips nav__chips--cols">
+          <li><a class="chip chip--lg" style="--c: var(--lime)" href="index.html#leistungen">Brand Strategy</a></li>
+          <li><a class="chip chip--lg" style="--c: var(--green)" href="#">Campaigning</a></li>
+          <li><a class="chip chip--lg" style="--c: var(--orange-nav)" href="#">Corporate Design</a></li>
+          <li><a class="chip chip--lg" style="--c: var(--lila)" href="#">Digital Experience</a></li>
+          <li><a class="chip chip--lg" style="--c: var(--yellow-nav)" href="#">Social Media</a></li>
+          <li><a class="chip chip--lg" style="--c: var(--turquoise)" href="#">Content Creation</a></li>
+          <li><a class="chip chip--lg" style="--c: var(--red)" href="#">Lead Generierung</a></li>
+          <li><a class="chip chip--lg" style="--c: var(--pink)" href="#">Employer Branding</a></li>
+        </ul>
+      </li>
+      <li class="nav__group"><a class="nav__link" href="index.html#projekte">Projekte</a></li>
+      <li class="nav__group"><a class="nav__link" href="index.html#culture">Über uns</a></li>
+      <li class="nav__group">
+        <a class="nav__link" href="#">Karriere</a>
+        <ul class="nav__chips">
+          <li><a class="chip chip--lg" style="--c: #fff" href="#">Stellenangebote</a></li>
+          <li><a class="chip chip--lg" style="--c: #fff" href="#">Initiativbewerbung</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="nav__mid">
+      <div class="nav__viewed">
+        <p class="eyebrow eyebrow--nav">Most viewed projects</p>
+        <ul class="nav__chips nav__chips--row">
+          <li><a class="chip chip--lg chip--outline" href="projekt-egger.html">Egger Bier</a></li>
+          <li><a class="chip chip--lg chip--outline" href="projekt-transgourmet.html">Hannes kann es</a></li>
+          <li><a class="chip chip--lg chip--outline" href="projekt-ski-austria.html">Ski Austria</a></li>
+          <li><a class="chip chip--lg chip--outline" href="projekt-rosenbauer.html">Rosenbauer</a></li>
+          <li><a class="chip chip--lg chip--outline" href="projekt-schrack-seconet.html">Schrack Seconet</a></li>
+          <li><a class="chip chip--lg chip--outline" href="projekt-landesgartenschau.html">Landesgartenschau</a></li>
+        </ul>
+      </div>
+      <a class="cta cta--light" href="animationen.html">
+        <span class="cta__face" aria-hidden="true"><svg><use href="#px-smiley" /></svg></span>
+        <span class="cta__label">Animationen</span>
+        <span class="cta__label cta__label--alt" aria-hidden="true">Animationen</span>
+      </a>
+    </div>
+
+    <div class="nav__foot">
+      <div class="addresses addresses--nav"></div>
+    </div>
+  </div>
+</nav>
+
+<main id="main" class="case">
+
+  <!-- ============ Hero ============ -->
+  <section class="case-hero" id="top" style="--frame: var(--lime)">
+    <video class="case-hero__media bg-video" src="https://www.vorauerfriends.com/wp-content/uploads/2023/12/vfgc_schrack_employer_LOOP_v1.mp4" poster="https://www.vorauerfriends.com/wp-content/uploads/2023/12/vfc_schrack_employerbranding_0.jpg" muted loop playsinline preload="auto" aria-hidden="true"></video>
+    <div class="frame" aria-hidden="true">
+      <span class="frame__col"></span>
+      <svg class="frame__band frame__band--d" viewBox="0 792 1521 88" preserveAspectRatio="xMaxYMax meet"><use href="#band-hero-rects" /></svg>
+      <svg class="frame__band frame__band--m" viewBox="513 792 1008 88" preserveAspectRatio="xMaxYMax meet"><use href="#band-hero-rects" /></svg>
+    </div>
+    <div class="case-hero__content">
+      <p class="eyebrow">Schrack Seconet</p>
+      <h1 class="case-hero__title">For the<br />people who…</h1>
+      <ul class="tags">
+        <li class="chip" style="--c: var(--green)">Campaigning</li>
+        <li class="chip" style="--c: var(--pink)">Employer Branding</li>
+        <li class="chip" style="--c: var(--red)">Leadgenerierung</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ Challenge ============ -->
+  <section class="case-section" aria-labelledby="challenge">
+    <div class="case-label"><h2 id="challenge">Challenge</h2><span>/ Schrck Scnt</span></div>
+    <p class="case-lede" data-fill>Sicherheitstechnik ist ein Job mit Verantwortung – und mit Zukunft. Schrack Seconet wollte genau die Menschen erreichen, die mehr suchen als einen Arbeitsplatz: Talente, die Verantwortung übernehmen und Zukunft gestalten.</p>
+  </section>
+
+  <!-- ============ Approach ============ -->
+  <section class="case-section" aria-labelledby="approach">
+    <div class="case-label"><h2 id="approach">Approach</h2><span>/ Schrck Scnt</span></div>
+    <div class="case-flow">
+        <p class="case-text">Für optimales Employer Branding muss nicht nur der Inhalt matchen, sondern auch die Art und Weise, wie er kommuniziert wird. Und wir haben sie gefunden: Die perfekte Mischung aus klarem, aber emotionalem Wording und einem modernen, zielgruppenorientierten Auftritt.</p>
+        <figure class="case-media" data-motion="curtain"><img src="https://www.vorauerfriends.com/wp-content/uploads/2023/12/vfc_schrack_employerbranding_2.jpg" alt="Großfläche „Who want to shape tomorrow“ bei Nacht" width="1920" height="1080" loading="lazy" /></figure>
+        <p class="case-text">Daraus entstand die Idee „For the people who…“: starke Statements, die echte Mitarbeiter:innen vervollständigen – who want to shape tomorrow, who want to make a difference, who want to take responsibility. Inszeniert in markantem Rot-Blau-Licht, ausgerollt von der Großfläche bis zur Karriere-Website.</p>
+        <div class="case-pair">
+          <figure class="case-media" data-motion="curtain"><img src="https://www.vorauerfriends.com/wp-content/uploads/2023/12/vfc_schrack_employerbranding_4-1024x576.jpg" alt="Plakatserie in der U-Bahn" width="1024" height="576" loading="lazy" /></figure>
+          <figure class="case-media" data-motion="curtain"><img src="https://www.vorauerfriends.com/wp-content/uploads/2023/12/vfc_schrack_employerbranding_3-1024x576.jpg" alt="Weitere Sujets der Plakatserie" width="1024" height="576" loading="lazy" /></figure>
+        </div>
+        <figure class="case-media" data-motion="curtain"><img src="https://www.vorauerfriends.com/wp-content/uploads/2023/12/vfc_schrack_employerbranding_8.jpg" alt="Karriere-Website und Ads der Kampagne" width="1920" height="1080" loading="lazy" /></figure>
+        <p class="case-text">Denn sind wir mal ehrlich: Was lässt einen näher zusammenrücken als der Blick in die (gemeinsame) Zukunft?</p>
+    </div>
+  </section>
+
+  <!-- ============ Outcome ============ -->
+  <section class="case-section" aria-labelledby="outcome">
+    <div class="case-label"><h2 id="outcome">Outcome</h2><span>/ Schrck Scnt</span></div>
+    <div class="case-outcome">
+      <blockquote class="case-quote"><p>„Wir wollten klassische Werte neu verpacken. Mit starken Statements, die den Nagel auf den Kopf treffen. Und mit denen sich sowohl potentielle als auch bestehende Mitarbeiter:innen sofort identifizieren können.“</p><cite>Johanna, Account Director @ vfc</cite></blockquote>
+      <div class="kpi"><span class="kpi__num"><span data-count="5" data-decimals="0" data-prefix="" data-suffix="">5</span></span><span class="kpi__label">Statements, ein Versprechen</span></div>
+      <div class="kpi"><span class="kpi__num"><span data-count="12" data-decimals="0" data-prefix="" data-suffix="">12</span></span><span class="kpi__label">Mitarbeiter:innen vor der Kamera</span></div>
+      <span class="case-outcome__rule" aria-hidden="true"></span>
+      <div class="kpi"><span class="kpi__num"><span data-count="48" data-decimals="0" data-prefix="" data-suffix="">48</span></span><span class="kpi__label">Citylights in Wien</span></div>
+      <div class="kpi"><span class="kpi__num"><span data-count="2.1" data-decimals="1" data-prefix="" data-suffix="×">2,1×</span></span><span class="kpi__label">mehr Bewerbungen</span></div>
+      <div class="kpi"><span class="kpi__num"><span data-count="1" data-decimals="0" data-prefix="" data-suffix="">1</span></span><span class="kpi__label">neue Karriere-Website</span></div>
+    </div>
+  </section>
+
+  <!-- ============ Related Projects ============ -->
+  <section class="projects related" aria-label="Related Projects">
+    <a class="echo" href="index.html#projekte" aria-label="Related Projects" data-cursor-label="All Projects" data-cursor-pill>
+      <span class="echo__stack" aria-hidden="true">
+        <span class="echo__slice" style="--i:0"><span class="echo__in"><span>Related Projects</span></span></span>
+        <span class="echo__slice" style="--i:1"><span class="echo__in"><span>Related Projects</span></span></span>
+        <span class="echo__slice" style="--i:2"><span class="echo__in"><span>Related Projects</span></span></span>
+        <span class="echo__slice" style="--i:3"><span class="echo__in"><span>Related Projects</span></span></span>
+        <span class="echo__slice" style="--i:4"><span class="echo__in"><span>Related Projects</span></span></span>
+        <span class="echo__slice" style="--i:5"><span class="echo__in"><span>Related Projects</span></span></span>
+        <span class="echo__slice" style="--i:6"><span class="echo__in"><span>Related Projects</span></span></span>
+        <span class="echo__slice" style="--i:7"><span class="echo__in"><span>Related Projects</span></span></span>
+      </span>
+    </a>
+    <ul class="project-list">
+      <li class="project" data-tags="digital-experience employer-branding leadgenerierung social-media">
+        <a class="project__link" href="projekt-transgourmet.html" data-cursor-label="View Project" data-cursor-pill>
+          <div class="project__media" data-motion="curtain"><img class="project__img" src="https://www.vorauerfriends.com/wp-content/uploads/2023/04/vfc_transgourmet_hannes_thumb-1024x576.jpg" alt="Hannes lächelt in die Kamera" width="1024" height="576" loading="lazy" /><span class="project__preview" aria-hidden="true"><video src="https://www.vorauerfriends.com/wp-content/uploads/2023/04/vfc_transgouremt_hannes_hero_1.mp4" muted loop playsinline preload="none"></video></span></div>
+          <div class="project__text">
+            <p class="eyebrow">Transgourmet</p>
+            <h3 class="project__title">Hannes kann es!<br />Und Du?</h3>
+            <ul class="tags">
+              <li class="chip" style="--c: var(--lila)">Digital Experience</li>
+              <li class="chip" style="--c: var(--pink)">Employer Branding</li>
+              <li class="chip" style="--c: var(--red)">Leadgenerierung</li>
+              <li class="chip" style="--c: var(--yellow-nav)">Social Media</li>
+            </ul>
+          </div>
+          <svg class="px px--arrow project__arrow" aria-hidden="true"><use href="#px-arrow" /></svg>
+        </a>
+      </li>
+      <li class="project" data-tags="digital-experience">
+        <a class="project__link" href="projekt-ski-austria.html" data-cursor-label="View Project" data-cursor-pill>
+          <div class="project__media" data-motion="curtain"><img class="project__img" src="https://www.vorauerfriends.com/wp-content/uploads/2023/06/vfc_skiaustria_web_hero-1024x576.jpg" alt="Seiten der neuen Ski-Austria-Plattform in der Perspektive" width="1024" height="576" loading="lazy" /><span class="project__preview" aria-hidden="true"><video src="https://www.vorauerfriends.com/wp-content/uploads/2023/08/vfc_skiaustia_hero_v3.mp4" muted loop playsinline preload="none"></video></span></div>
+          <div class="project__text">
+            <p class="eyebrow">Ski Austria</p>
+            <h3 class="project__title">Mit Schuss zum<br />neuen Auftritt</h3>
+            <ul class="tags">
+              <li class="chip" style="--c: var(--lila)">Digital Experience</li>
+            </ul>
+          </div>
+          <svg class="px px--arrow project__arrow" aria-hidden="true"><use href="#px-arrow" /></svg>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <section class="stack" aria-label="Kultur">
+    <article class="culture" id="culture">
+      <video class="culture__video bg-video" src="assets/video/culture.mp4" poster="assets/video/culture.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+      <div class="frame frame--culture" aria-hidden="true" style="--frame: #fff">
+        <span class="frame__col"></span>
+        <svg class="frame__band frame__band--d" viewBox="0 5794 1520 84" preserveAspectRatio="xMaxYMax meet"><use href="#band-culture-rects" /></svg>
+        <svg class="frame__band frame__band--m" viewBox="512 5794 1008 84" preserveAspectRatio="xMaxYMax meet"><use href="#band-culture-rects" /></svg>
+      </div>
+      <div class="culture__content">
+        <p class="eyebrow">We are VFC</p>
+        <h2 class="culture__title">We are dedicated to build Brand Experience.</h2>
+        <a class="btn wave-swap" href="#" data-label="Our Culture">Our Culture</a>
+      </div>
+    </article>
+  </section>
+</main>
+
+<!-- ============ Footer ============ -->
+<footer class="footer">
+  <div class="addresses" id="addresses">
+    <address class="addresses__col">
+      Vorauerfriends<br />Communications GmbH<br />Traunufer-Arkade 1<br />4600 Thalheim bei Wels
+    </address>
+    <address class="addresses__col">
+      Vorauerfriends<br />Communications GmbH<br />Favoritenstraße 44/9<br />1040 Wien
+    </address>
+    <p class="addresses__col addresses__col--contact">
+      <a href="tel:+43724265896">+43 7242 65 896</a><br />
+      <a href="mailto:office@vorauerfriends.com">office@vorauerfriends.com</a><br />
+      <a href="mailto:jobs@vorauerfriends.com">jobs@vorauerfriends.com</a>
+    </p>
+    <ul class="addresses__col addresses__col--social">
+      <li><a href="#">Instagram</a></li>
+      <li><a href="#">YouTube</a></li>
+      <li><a href="#">Facebook</a></li>
+      <li><a href="#">LinkedIn</a></li>
+    </ul>
+  </div>
+  <div class="footer__cta">
+    <a class="cta cta--light" href="mailto:office@vorauerfriends.com">
+      <span class="cta__face" aria-hidden="true"><svg><use href="#px-smiley" /></svg></span>
+      <span class="cta__label">Start a project</span>
+      <span class="cta__label cta__label--alt" aria-hidden="true">Start a project</span>
+    </a>
+  </div>
+  <div class="footer__wordmark" aria-hidden="true"><span></span></div>
+</footer>
+
+<script src="assets/vendor/lenis.min.js"></script>
+<script src="assets/main.js"></script>
+</body>
+</html>

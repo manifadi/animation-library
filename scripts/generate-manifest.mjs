@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Scans the repo root for project folders and writes projects.json.
 // A folder counts as a project if it contains an index.html at its top level.
-// Optional <folder>/meta.json can override title, description, tags, date, thumbnail.
+// Optional <folder>/meta.json can override title, description, tags, date, thumbnail;
+// "hidden": true keeps the project deployed (reachable by URL) but out of the gallery.
 
 import { readdir, stat, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -43,6 +44,8 @@ async function buildProject(slug) {
   if (!hasIndex) return null;
 
   const meta = await readMeta(dir);
+  // Hidden projects are still deployed (reachable by URL) but not listed in the gallery.
+  if (meta.hidden) return null;
   const thumbnail = meta.thumbnail ?? (await findThumbnail(dir));
 
   return {
