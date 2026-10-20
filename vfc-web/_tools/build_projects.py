@@ -40,7 +40,7 @@ def thumb(path):
 # Inhalte. Flow-Einträge: ("text", "…") · ("full", medium) · ("show", stil, [medium, …])
 # Medium: (pfad, alt) – .mp4 wird als Video eingebunden. Alles läuft in voller Breite:
 # „show“ ist eine Galerie, die main.js aus den Bildern zu einem Bewegtbild macht (keine Videos).
-# Stile (GALLERIES in main.js): lamellen · zwinkern · raster · laufband · duo (ab drei Bildern).
+# Stile (GALLERIES in main.js): lamellen · zwinkern · wechsel (Slide, harter Schnitt, halbes Bild – zufällig).
 # Pro Projekt höchstens fünf große Medien (Bild, Video, Galerie) und zwei Texte, je rund drei
 # Zeilen (≈ 340–390 Zeichen).
 # ---------------------------------------------------------------------------------------------
@@ -74,15 +74,15 @@ CASES = [
                      "Mit der Bieröffner-Challenge, Real-Time-Postings zu den Matchdays und Formaten wie „May the "
                      "Fourth“ bleibt Egger im Feed präsent – mit Schmäh statt Werbesprech und mit "
                      "Wiedererkennungswert."),
-            ("show", "raster", [("2026/08/vfc_egger_5.jpg", "Großfläche „Aufs echte Leben“ an der Straße"),
-                                ("2026/08/vfc_egger_6.jpg", "Gebrandete Straßenbahn in Wien"),
-                                ("2026/08/vfc_egger_8.jpg", "Plakat „Aufs echte Leben“ am Zaun"),
-                                ("2026/08/vfc_egger_11.jpg", "Citylight am Bahnsteig"),
-                                ("2026/08/vfc_egger_10.jpg", "Bierdeckel mit Sprüchen der Kampagne")]),
+            ("show", "wechsel", [("2026/08/vfc_egger_5.jpg", "Großfläche „Aufs echte Leben“ an der Straße"),
+                                 ("2026/08/vfc_egger_6.jpg", "Gebrandete Straßenbahn in Wien"),
+                                 ("2026/08/vfc_egger_8.jpg", "Plakat „Aufs echte Leben“ am Zaun"),
+                                 ("2026/08/vfc_egger_11.jpg", "Citylight am Bahnsteig"),
+                                 ("2026/08/vfc_egger_10.jpg", "Bierdeckel mit Sprüchen der Kampagne")]),
             ("full", ("2026/08/vfc_egger_snippet_2.mp4", "Social-Clip der Kampagne")),
-            ("show", "laufband", [("2026/08/vfc_egger_2.jpg", "Social Post zur Bieröffner-Challenge"),
-                                  ("2026/08/vfc_egger_3.jpg", "Social Post „May the Fourth be with you“"),
-                                  ("2026/08/vfc_egger_4.gif", "Mitarbeiter im Egger-Lager zeigt das Peace-Zeichen")]),
+            ("show", "wechsel", [("2026/08/vfc_egger_2.jpg", "Social Post zur Bieröffner-Challenge"),
+                                 ("2026/08/vfc_egger_3.jpg", "Social Post „May the Fourth be with you“"),
+                                 ("2026/08/vfc_egger_4.gif", "Mitarbeiter im Egger-Lager zeigt das Peace-Zeichen")]),
         ],
         "quote": "Uns war wichtig, Marko nicht in eine Werberolle zu stecken, sondern ihn so zu zeigen, wie "
                  "man ihn kennt: direkt, authentisch und mit Schmäh. So entsteht eine Kampagne mit Charakter.",
@@ -146,9 +146,9 @@ CASES = [
                      "Grohe, Hansa, MeinHOLTERBad und Laufen in einer WKZ-Kampagne vereint. Drei Phasen, drei "
                      "Claims, drei Ansätze: Markenvielfalt zeigen, Nachhaltigkeit pushen, Termine generieren – von "
                      "Awareness über Traffic bis Conversion, jede Phase mit eigenem Design-Treatment."),
-            ("show", "duo", [("2025/05/vfc_holter_nachhaltigkiet_social_2.jpg", "Social Ads „Holter dir die Natur ins Haus“"),
-                             ("2025/05/vfc_holter_nachhaltigkiet_social_3.jpg", "Ad-Formate für alle vier Marken"),
-                             ("2025/05/vfc_holter_nachhaltigkiet_social_1.jpg", "Story-Formate für Hansa und Holter")]),
+            ("show", "wechsel", [("2025/05/vfc_holter_nachhaltigkiet_social_2.jpg", "Social Ads „Holter dir die Natur ins Haus“"),
+                                 ("2025/05/vfc_holter_nachhaltigkiet_social_3.jpg", "Ad-Formate für alle vier Marken"),
+                                 ("2025/05/vfc_holter_nachhaltigkiet_social_1.jpg", "Story-Formate für Hansa und Holter")]),
             ("text", "„Holter dir die Natur ins Haus“ bringt das Thema Nachhaltigkeit direkt ins Badezimmer, "
                      "Bewegtbild und Social Ads tragen die Botschaft in den Feed. Creative Concept, Digital Ads und "
                      "OOH greifen dabei perfekt ineinander, und jede Marke bekommt ihre eigene Bühne, ohne dass das "
@@ -191,8 +191,8 @@ CASES = [
                      "Massen. Überall gilt dieselbe Bildsprache: Tradition trifft Zukunft – so wird aus einem "
                      "Branchenthema eine Geschichte, die man auf LinkedIn, Facebook & Co. gerne liest, teilt und "
                      "weitererzählt."),
-            ("show", "raster", [("2024/08/vfc_rosenbauer_electric_inserat.jpg", "Inserat „Jede Technik hat ihre Zeit“"),
-                                ("2024/08/vfc_rosenbauer_electric_web.jpg", "Microsite zur Kampagne")]),
+            ("show", "wechsel", [("2024/08/vfc_rosenbauer_electric_inserat.jpg", "Inserat „Jede Technik hat ihre Zeit“"),
+                                 ("2024/08/vfc_rosenbauer_electric_web.jpg", "Microsite zur Kampagne")]),
         ],
         "quote": "Rosenbauer ist Marktführer – und eine treibende Kraft für mehr Nachhaltigkeit in der Branche. "
                  "Unsere Informationskampagne baut genau darauf auf. Das Ziel? So viele Interessierte auf "
@@ -259,9 +259,9 @@ CASES = [
                      "Für diese HR-Kampagne servieren wir ein ganzes Kreativ-Menü an Touchpoints und gemeinsam mit "
                      "Forafilm einen Kreativspot – und zeigen allen da draußen: Der Hannes, der kann es."),
             ("full", ("2023/04/vfc_transgouremt_hannes_gif_3.mp4", "Hannes als Loop")),
-            ("show", "duo", [("2023/04/vfc_transgourmet_hannes_1.jpg", "Hannes im Transgourmet-Markt"),
-                             ("2023/04/vfc_transgourmet_hannes_3.jpg", "Hannes in Nahaufnahme"),
-                             ("2023/04/vfc_transgourmet_hannes_4.jpg", "Landingpage im Retro-Gaming-Look auf drei Smartphones")]),
+            ("show", "wechsel", [("2023/04/vfc_transgourmet_hannes_1.jpg", "Hannes im Transgourmet-Markt"),
+                                 ("2023/04/vfc_transgourmet_hannes_3.jpg", "Hannes in Nahaufnahme"),
+                                 ("2023/04/vfc_transgourmet_hannes_4.jpg", "Landingpage im Retro-Gaming-Look auf drei Smartphones")]),
             ("text", "Pixel-Typo, knallige Farben und ein Held mit Schnauzbart: Landingpage, Social Ads und "
                      "animierte Sticker spielen mit Retro-Gaming-Ästhetik und machen die Bewerbung so einfach wie "
                      "ein Level-up. So wird aus einer klassischen IT-Stellenausschreibung eine Kampagne, die im "
@@ -298,12 +298,12 @@ CASES = [
                      "zugeschnitten und im reduzierten Swiss Design gehalten: großformatige Bilder, klare Typo und "
                      "das markante Rot als Leitsystem. Animierte Balken und Slider bringen Bewegung ins Interface."),
             ("full", ("2023/06/vfc_skiaustria_web_slider_animation_single.mp4", "Animierter Slider")),
-            ("show", "laufband", [("2023/06/vfc_skiaustria_web_1.jpg", "Athletenseite Andrea Limbacher"),
-                                  ("2023/06/vfc_skiaustria_web_2.jpg", "Profil von Simon Eder"),
-                                  ("2023/06/vfc_skiaustria_web_5.jpg", "Event-Seite IBU Cup Biathlon"),
-                                  ("2023/06/vfc_skiaustria_web_7.jpg", "Snowboard-Bereich"),
-                                  ("2023/06/vfc_skiaustria_web_8.jpg", "News-Artikel zum Trainingsauftakt"),
-                                  ("2023/06/vfc_skiaustria_web_6.jpg", "Übersicht der Seitentemplates")]),
+            ("show", "wechsel", [("2023/06/vfc_skiaustria_web_1.jpg", "Athletenseite Andrea Limbacher"),
+                                 ("2023/06/vfc_skiaustria_web_2.jpg", "Profil von Simon Eder"),
+                                 ("2023/06/vfc_skiaustria_web_5.jpg", "Event-Seite IBU Cup Biathlon"),
+                                 ("2023/06/vfc_skiaustria_web_7.jpg", "Snowboard-Bereich"),
+                                 ("2023/06/vfc_skiaustria_web_8.jpg", "News-Artikel zum Trainingsauftakt"),
+                                 ("2023/06/vfc_skiaustria_web_6.jpg", "Übersicht der Seitentemplates")]),
             ("full", ("2023/06/vfc_skiaustria_web_balken_animation.mp4", "Animation der roten Balken")),
             ("text", "Gemeinsam mit unserem Partner Mindspace entstand so eine langfristige digitale Infrastruktur – "
                      "vom Athletenprofil über den Event-Kalender bis zum News-Hub, auch für die Second-Screen-Nutzung "
@@ -370,7 +370,7 @@ def media(item):
             f'width="1920" height="1080" loading="lazy" /></figure>')
 
 
-GALLERY_STYLES = {"lamellen": 2, "zwinkern": 2, "raster": 2, "laufband": 2, "duo": 3}  # Stil: Mindestanzahl Bilder
+GALLERY_STYLES = {"lamellen": 2, "zwinkern": 2, "wechsel": 2}  # Stil: Mindestanzahl Bilder
 
 
 def show(style, items):

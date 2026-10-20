@@ -665,7 +665,7 @@
   // Größe k; 1 = füllt den Rahmen). Bewegt wird nur transform: das Fenster verschiebt und
   // skaliert sich, das Bild darin gegenläufig, damit es nie verzerrt. Die Gegenbewegung ist nicht
   // linear, darum wird sie als dichte Keyframe-Folge vorberechnet.
-  // Jede Galerie hat einen von fünf Schnitt-Stilen (data-gallery, siehe GALLERIES).
+  // Jede Galerie hat einen von drei Schnitt-Stilen (data-gallery, siehe GALLERIES).
   // Gesteuert wird eine Galerie wie ein Video (siehe unten): sie läuft nur, solange sie die
   // größte bewegte Fläche im Bild ist.
   const inOut = (t) => (t < 0.5 ? 8 * t ** 4 : 1 - (-2 * t + 2) ** 4 / 2); // Quart-In-Out ≈ Curtain
@@ -786,113 +786,61 @@
       };
     },
 
-    // Raster: das Vollbild zoomt heraus zu einem Kontaktbogen mit allen Bildern, dann wächst das
-    // nächste wieder auf den ganzen Rahmen – Überblick und Detail im Wechsel
-    raster(tiles) {
-      const n = tiles.length;
-      const cols = n > 4 ? 3 : 2;
-      const rows = Math.ceil(n / cols);
-      const PAD = 0.05;
-      const GAP = 0.014;
-      const w = (1 - 2 * PAD - GAP * (cols - 1)) / cols; // Zellen bleiben 16:9, also gleich hoch wie breit (in Anteilen)
-      const gy = GAP * 16 / 9;
-      const top = (1 - rows * w - (rows - 1) * gy) / 2;
-      const cells = tiles.map((_, j) => {
-        const row = Math.floor(j / cols);
-        const inRow = Math.min(cols, n - row * cols); // angefangene Reihe mittig
-        const left = (1 - inRow * w - (inRow - 1) * GAP) / 2;
-        return st([left + (j % cols) * (w + GAP), top + row * (w + gy), w, w]);
-      });
-      let i = 0;
-      let overview = false;
-      return {
-        hold: 1600,
-        async step() {
-          if (!overview) {
-            const moves = [glide(tiles[i], FULL, cells[i], { z: 2 })];
-            tiles.forEach((tile, j) => {
-              if (j === i) return;
-              const [x, y, cw, ch] = cells[j].r;
-              const order = (j - i + n) % n;
-              moves.push(glide(tile, st([x, y + ch, cw, 0]), cells[j],
-                { duration: 700, ease: easeOut, delay: 250 + order * 70, z: 1 }));
-            });
-            await Promise.all(moves);
-            overview = true;
-            return 1900;
-          }
-          const j = (i + 1) % n;
-          await glide(tiles[j], cells[j], FULL, { z: 3 });
-          tiles.forEach((tile, m) => { if (m !== j) hide(tile); });
-          i = j;
-          overview = false;
-          return 1600;
+    // Wechsel: Vollbilder, die zufällig auf drei Arten wechseln – Slide nach links, harter Schnitt
+    // ohne Animation, oder ein Bild fällt von oben in eine Hälfte und liegt halb über dem
+    // Vollbild. Nie zweimal derselbe Wechsel hintereinander, nach einer Hälfte wieder Vollbild.
+    wechsel(tiles, track) {
+      // Bei zwei Bildern je eine Kopie, sonst fehlt nach einer Hälfte ein freies Bild
+      const pool = tiles.map((tile, src) => ({ tile, src, state: FULL }));
+      if (tiles.length < 3) tiles.forEach((tile, src) => pool.push({ tile: extra(track, tile.firstElementChild.src), src, state: FULL }));
+      let visible = [pool[0]]; // von unten nach oben
+      let last = "";
+      // Zufällig ein Bild, das gerade nicht zu sehen ist
+      const pick = () => {
+        const shown = visible.map((p) => p.src);
+        const free = pool.filter((p) => !visible.includes(p));
+        const fresh = free.filter((p) => !shown.includes(p.src));
+        const options = fresh.length ? fresh : free.filter((p) => p.src !== shown[shown.length - 1]);
+        return options[Math.floor(Math.random() * options.length)];
+      };
+      const shift = ({ r: [x, y, w, h], c: [cx, cy], k }, dx) => st([x + dx, y, w, h], [cx + dx, cy], k);
+      const MOVES = {
+        // alles schiebt sich nach links hinaus, das neue Vollbild kommt von rechts
+        async slide(b) {
+          await Promise.all([
+            ...visible.map((p) => glide(p.tile, p.state, shift(p.state, -1), { duration: 750 })),
+            glide(b.tile, shift(FULL, 1), FULL, { duration: 750 }),
+          ]);
+          visible.forEach((p) => hide(p.tile));
+          b.state = FULL;
+          visible = [b];
+          return 1500;
+        },
+        // das neue Bild liegt sofort obenauf
+        cut(b) {
+          place(b.tile, FULL, 9);
+          visible.forEach((p) => hide(p.tile));
+          b.state = FULL;
+          visible = [b];
+          return 1100;
+        },
+        // das neue Bild fällt von oben in die linke oder rechte Hälfte
+        async half(b) {
+          const x = Math.random() < 0.5 ? 0 : 0.5;
+          b.state = st([x, 0, 0.5, 1]);
+          await glide(b.tile, st([x, -1, 0.5, 1]), b.state, { duration: 800, ease: easeOut, z: 9 });
+          visible = [...visible, b];
+          return 1400;
         },
       };
-    },
-
-    // Laufband: die Bilder stehen als Filmstreifen nebeneinander, das mittlere groß, die Nachbarn
-    // angeschnitten am Rand; im Takt schnappt der Streifen ein Bild weiter
-    laufband(tiles, track) {
-      // Ring aus mindestens fünf Karten, sonst stünde dasselbe Bild links und rechts zugleich
-      const ring = [...tiles];
-      while (ring.length < 5) tiles.forEach((tile) => ring.push(extra(track, tile.firstElementChild.src)));
-      const L = ring.length;
-      const BIG = 0.62;
-      const SMALL = 0.46;
-      const GAP = 0.025;
-      const bx = (1 - BIG) / 2;
-      const slot = (s) => {
-        if (s === 0) return st([bx, bx, BIG, BIG]);
-        const x = s < 0 ? bx - (GAP + SMALL) * -s : bx + BIG + GAP + (s - 1) * (SMALL + GAP);
-        return st([x, (1 - SMALL) / 2, SMALL, SMALL]);
-      };
-      let center = 0;
-      const rel = (m) => ((m - center + L + Math.floor(L / 2)) % L) - Math.floor(L / 2);
-      ring.forEach((tile, m) => {
-        if (Math.abs(rel(m)) <= 1) place(tile, slot(rel(m)), 1);
-        else hide(tile);
-      });
       return {
         hold: 1500,
         async step() {
-          await Promise.all(ring.map((tile, m) => {
-            const s = rel(m);
-            return s >= -1 && s <= 2 ? glide(tile, slot(s), slot(s - 1), { duration: 900, ease: easeOut, z: 1 }) : null;
-          }));
-          center = (center + 1) % L;
-          ring.forEach((tile, m) => { if (rel(m) < -1) hide(tile); });
-          return 1500;
-        },
-      };
-    },
-
-    // Duo: zwei Bilder nebeneinander, im Takt wechselt eine Hälfte – links schiebt sich das neue
-    // Bild von unten durch, rechts von oben; die Bilder laufen mit halbem Tempo der Kante
-    duo(tiles) {
-      const n = tiles.length;
-      const HALF = 0.494;
-      const xs = [0, 1 - HALF];
-      const half = (x) => st([x, 0, HALF, 1]);
-      const edge = (x, y) => st([x, y, HALF, 0], [x + HALF / 2, y], 1); // Fenster ohne Höhe an der Kante
-      const shown = [0, 1];
-      let upcoming = 2 % n;
-      let side = 0;
-      shown.forEach((m, s) => place(tiles[m], half(xs[s]), 1));
-      return {
-        hold: 1300,
-        async step() {
-          const x = xs[side];
-          const from = side === 0 ? 1 : 0; // links kommt das neue von unten, rechts von oben
-          await Promise.all([
-            glide(tiles[shown[side]], half(x), edge(x, 1 - from), { duration: 750 }),
-            glide(tiles[upcoming], edge(x, from), half(x), { duration: 750, z: 1 }),
-          ]);
-          hide(tiles[shown[side]]);
-          shown[side] = upcoming;
-          do upcoming = (upcoming + 1) % n; while (shown.includes(upcoming));
-          side = 1 - side;
-          return 1300;
+          const moves = Object.keys(MOVES).filter((m) => m !== last && !(m === "half" && visible.length > 1));
+          last = moves[Math.floor(Math.random() * moves.length)];
+          const hold = await MOVES[last](pick());
+          visible.forEach((p, n) => { p.tile.style.zIndex = n + 1; });
+          return hold;
         },
       };
     },
