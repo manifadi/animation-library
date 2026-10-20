@@ -5,6 +5,7 @@ Aufruf (im Ordner vfc-web):  python3 _tools/build_projects.py
 
 Medien werden direkt von vorauerfriends.com eingebunden (Videos zuerst, dann GIFs, dann Bilder).
 Kennzahlen: Rosenbauer stammt aus dem Figma, alle anderen sind Platzhalter zum Ersetzen.
+Outcome (Zitat + Kennzahlen) ist fürs neue Konzept ausgeblendet (SHOW_OUTCOME), die Werte bleiben in CASES.
 """
 import html
 import re
@@ -26,6 +27,9 @@ SERVICES = [
 ]
 SERVICE = {k: (name, color) for k, name, color in SERVICES}
 
+# Outcome-Section mit Zitat und Kennzahlen (zählen hoch) – ausgeblendet
+SHOW_OUTCOME = False
+
 
 def thumb(path):
     """1024er-Variante, die WordPress zu jedem JPG erzeugt (GIFs bleiben Original, sonst ohne Animation)."""
@@ -33,8 +37,12 @@ def thumb(path):
 
 
 # ---------------------------------------------------------------------------------------------
-# Inhalte. Flow-Einträge: ("text", "…") · ("full", medium) · ("pair", medium, medium)
-# Medium: (pfad, alt) – .mp4 wird als Video eingebunden.
+# Inhalte. Flow-Einträge: ("text", "…") · ("full", medium) · ("show", stil, [medium, …])
+# Medium: (pfad, alt) – .mp4 wird als Video eingebunden. Alles läuft in voller Breite:
+# „show“ ist eine Galerie, die main.js aus den Bildern zu einem Bewegtbild macht (keine Videos).
+# Stile (GALLERIES in main.js): lamellen · zwinkern · raster · laufband · duo (ab drei Bildern).
+# Pro Projekt höchstens fünf große Medien (Bild, Video, Galerie) und zwei Texte, je rund drei
+# Zeilen (≈ 340–390 Zeichen).
 # ---------------------------------------------------------------------------------------------
 
 CASES = [
@@ -55,29 +63,26 @@ CASES = [
         "flow": [
             ("full", ("2026/08/vfc_egger_snippet_1.mp4", "Spot-Ausschnitt mit Marko Arnautović")),
             ("text", "Wenn ganz Österreich im Fußballfieber ist, spielt Egger Bier ganz vorne mit. Rund um die "
-                     "WM26 entwickeln wir eine aufmerksamkeitsstarke Testimonialkampagne mit Marko Arnautović "
-                     "als Gesicht. Ein starkes Creative Concept verbindet die Marke und Fußball über alle "
-                     "Touchpoints hinweg: von der eigens gestalteten Dose über OOH und TV bis zu Social Media, "
-                     "Digital und Print Ads."),
-            ("pair", ("2026/08/vfc_egger_1.jpg", "Key Visual mit Marko Arnautović und Egger-Trikot"),
-                     ("2026/08/vfc_egger_12.gif", "Animierte Arnautović-Dose")),
-            ("text", "Herzstück ist die limitierte Arnautović-Dose: Sie trägt die Kampagne vom Regal bis ins "
-                     "Stadion. Großflächen, Citylights und eine gebrandete Straßenbahn holen den Claim „Aufs "
-                     "echte Leben“ dorthin, wo Fußball tatsächlich gelebt wird – auf den Bahnsteig, an den "
-                     "Zaun, in die Stammkneipe."),
-            ("full", ("2026/08/vfc_egger_5.jpg", "Großfläche „Aufs echte Leben“ an der Straße")),
-            ("pair", ("2026/08/vfc_egger_6.jpg", "Gebrandete Straßenbahn in Wien"),
-                     ("2026/08/vfc_egger_8.jpg", "Plakat „Aufs echte Leben“ am Zaun")),
-            ("pair", ("2026/08/vfc_egger_11.jpg", "Citylight am Bahnsteig"),
-                     ("2026/08/vfc_egger_10.jpg", "Bierdeckel mit Sprüchen der Kampagne")),
+                     "WM26 entwickeln wir eine Testimonialkampagne mit Marko Arnautović als Gesicht. Herzstück ist "
+                     "die limitierte Arnautović-Dose: Ein starkes Creative Concept trägt sie vom Regal bis ins "
+                     "Stadion und verbindet Marke und Fußball über alle Touchpoints – von OOH und TV bis zu Social, "
+                     "Digital und Print."),
+            ("show", "zwinkern", [("2026/08/vfc_egger_1.jpg", "Key Visual mit Marko Arnautović und Egger-Trikot"),
+                                  ("2026/08/vfc_egger_12.gif", "Animierte Arnautović-Dose")]),
+            ("text", "Der Claim „Aufs echte Leben“ holt die Kampagne dorthin, wo Fußball tatsächlich gelebt wird – "
+                     "auf den Bahnsteig, an den Zaun, in die Stammkneipe. Auf Social Media wird daraus ein Spiel: "
+                     "Mit der Bieröffner-Challenge, Real-Time-Postings zu den Matchdays und Formaten wie „May the "
+                     "Fourth“ bleibt Egger im Feed präsent – mit Schmäh statt Werbesprech und mit "
+                     "Wiedererkennungswert."),
+            ("show", "raster", [("2026/08/vfc_egger_5.jpg", "Großfläche „Aufs echte Leben“ an der Straße"),
+                                ("2026/08/vfc_egger_6.jpg", "Gebrandete Straßenbahn in Wien"),
+                                ("2026/08/vfc_egger_8.jpg", "Plakat „Aufs echte Leben“ am Zaun"),
+                                ("2026/08/vfc_egger_11.jpg", "Citylight am Bahnsteig"),
+                                ("2026/08/vfc_egger_10.jpg", "Bierdeckel mit Sprüchen der Kampagne")]),
             ("full", ("2026/08/vfc_egger_snippet_2.mp4", "Social-Clip der Kampagne")),
-            ("text", "Auf Social Media wird aus der Kampagne ein Spiel: Mit der Bieröffner-Challenge, "
-                     "Real-Time-Postings zu den Matchdays und Formaten wie „May the Fourth“ bleibt Egger im "
-                     "Feed präsent – mit Schmäh statt Werbesprech. So wird aus Fußballfieber ein Markenauftritt "
-                     "mit Wiedererkennungswert."),
-            ("pair", ("2026/08/vfc_egger_2.jpg", "Social Post zur Bieröffner-Challenge"),
-                     ("2026/08/vfc_egger_3.jpg", "Social Post „May the Fourth be with you“")),
-            ("full", ("2026/08/vfc_egger_4.gif", "Mitarbeiter im Egger-Lager zeigt das Peace-Zeichen")),
+            ("show", "laufband", [("2026/08/vfc_egger_2.jpg", "Social Post zur Bieröffner-Challenge"),
+                                  ("2026/08/vfc_egger_3.jpg", "Social Post „May the Fourth be with you“"),
+                                  ("2026/08/vfc_egger_4.gif", "Mitarbeiter im Egger-Lager zeigt das Peace-Zeichen")]),
         ],
         "quote": "Uns war wichtig, Marko nicht in eine Werberolle zu stecken, sondern ihn so zu zeigen, wie "
                  "man ihn kennt: direkt, authentisch und mit Schmäh. So entsteht eine Kampagne mit Charakter.",
@@ -101,19 +106,17 @@ CASES = [
                      "sollte aber schon jetzt sprießen. Gesucht war ein Auftritt, der aus einer Zukunftsvision "
                      "ein Stadtgespräch macht.",
         "flow": [
-            ("text", "2027 wird Wels zur „Stadt der Gärten“. Wir sorgen schon heute dafür, dass man davon "
-                     "spricht. Mit einer aufmerksamkeitsstarken Imagekampagne übersetzen wir die Markenidee in "
-                     "einen Auftritt, der hängen bleibt: vom Key Visual über Digital- und Print-Ads bis zur "
-                     "Mediaplanung."),
+            ("text", "2027 wird Wels zur „Stadt der Gärten“ – und wir sorgen schon heute dafür, dass man davon "
+                     "spricht. Mit einer aufmerksamkeitsstarken Imagekampagne übersetzen wir die Markenidee in einen "
+                     "Auftritt, der hängen bleibt: vom Key Visual über Digital- und Print-Ads bis zur Mediaplanung. "
+                     "So wächst die Vorfreude auf die OÖ Landesgartenschau mit jedem Kontaktpunkt ein Stück weiter."),
             ("full", ("2026/08/vfc_langesgatenschau_sujet_3.jpg", "Plakat „Stadt der Gärten“ an einem Geländer")),
             ("text", "Das Key Visual setzt auf einen charmanten Bruch: Menschen mit Blütenköpfen flanieren durch "
-                     "die Welser Innenstadt – vertraut und doch so, dass man zweimal hinschaut. Fotografiert vor "
-                     "Ort, inszeniert mit viel Liebe zum Detail und konsequent auf Plakat, Inserat und Digital "
-                     "ausgerollt."),
-            ("pair", ("2026/08/vfc_langesgatenschau_sujet_4.jpg", "Inserate und Drucksorten der Kampagne"),
-                     ("2026/08/vfc_langesgatenschau_sujet_5.gif", "Fotoshooting in der Welser Innenstadt")),
-            ("text", "So wächst die Vorfreude auf die OÖ Landesgartenschau mit jedem Kontaktpunkt ein Stück "
-                     "weiter. Und aus einer Zukunftsvision wird schon jetzt ein echtes Stadtgespräch."),
+                     "die Welser Innenstadt – vertraut und doch so, dass man zweimal hinschaut. Fotografiert direkt "
+                     "vor Ort, mit viel Liebe zum Detail inszeniert und konsequent auf Plakat, Inserat und Digital "
+                     "ausgerollt, wird aus einer Zukunftsvision schon jetzt ein echtes Stadtgespräch in ganz Wels."),
+            ("show", "lamellen", [("2026/08/vfc_langesgatenschau_sujet_4.jpg", "Inserate und Drucksorten der Kampagne"),
+                                  ("2026/08/vfc_langesgatenschau_sujet_5.gif", "Fotoshooting in der Welser Innenstadt")]),
         ],
         "quote": "Mein Lieblingsmoment bei der Kampagne ist eigentlich ganz simpel: wenn man merkt, dass jemand "
                  "zweimal hinschaut. Genau dafür haben wir das Key Visual gemacht. Auffallen, hängen bleiben "
@@ -141,16 +144,16 @@ CASES = [
             ("full", ("2025/05/vfc_holter_nachhaltigkiet_video2.mp4", "Bewegtbild-Ad der Kampagne")),
             ("text", "Wenn vier Premiummarken aufeinandertreffen, muss die Kampagne sitzen! Für Holter haben wir "
                      "Grohe, Hansa, MeinHOLTERBad und Laufen in einer WKZ-Kampagne vereint. Drei Phasen, drei "
-                     "Claims, drei Ansätze: Markenvielfalt zeigen, Nachhaltigkeit pushen, Termine generieren."),
-            ("pair", ("2025/05/vfc_holter_nachhaltigkiet_social_2.jpg", "Social Ads „Holter dir die Natur ins Haus“"),
-                     ("2025/05/vfc_holter_nachhaltigkiet_social_3.jpg", "Ad-Formate für alle vier Marken")),
-            ("text", "Von Awareness über Traffic bis Conversion – jede Phase bekam ihr eigenes Design-Treatment "
-                     "und ihren maßgeschneiderten Claim. „Holter dir die Natur ins Haus“ bringt Nachhaltigkeit "
-                     "ins Badezimmer, Bewegtbild und Social Ads tragen die Botschaft in den Feed."),
+                     "Claims, drei Ansätze: Markenvielfalt zeigen, Nachhaltigkeit pushen, Termine generieren – von "
+                     "Awareness über Traffic bis Conversion, jede Phase mit eigenem Design-Treatment."),
+            ("show", "duo", [("2025/05/vfc_holter_nachhaltigkiet_social_2.jpg", "Social Ads „Holter dir die Natur ins Haus“"),
+                             ("2025/05/vfc_holter_nachhaltigkiet_social_3.jpg", "Ad-Formate für alle vier Marken"),
+                             ("2025/05/vfc_holter_nachhaltigkiet_social_1.jpg", "Story-Formate für Hansa und Holter")]),
+            ("text", "„Holter dir die Natur ins Haus“ bringt das Thema Nachhaltigkeit direkt ins Badezimmer, "
+                     "Bewegtbild und Social Ads tragen die Botschaft in den Feed. Creative Concept, Digital Ads und "
+                     "OOH greifen dabei perfekt ineinander, und jede Marke bekommt ihre eigene Bühne, ohne dass das "
+                     "große Ganze verloren geht. Das Ergebnis: vier Marken, eine Kampagne und maximaler Impact!"),
             ("full", ("2025/05/vfc_holter_nachhaltigkiet_video3.mp4", "Animierte Social Ad")),
-            ("full", ("2025/05/vfc_holter_nachhaltigkiet_social_1.jpg", "Story-Formate für Hansa und Holter")),
-            ("text", "Creative Concept, Digital Ads und OOH griffen perfekt ineinander. Vier Marken, eine "
-                     "Kampagne, maximaler Impact!"),
         ],
         "quote": "Das Spannende bei dieser Holter-Kampagne war die Balance zwischen vier starken Marken und drei "
                  "verschiedenen Kampagnenzielen. Jede Phase brauchte ihr eigenes Design, ohne das große Ganze "
@@ -178,16 +181,18 @@ CASES = [
                      "Technik hängen.",
         "flow": [
             ("text", "Zeiten ändern sich, ebenso wie die Herausforderungen, denen man sich stellen muss. Auch bei "
-                     "Rosenbauer rückt Nachhaltigkeit somit in den Fokus, denn eins ist klar: "
-                     "#TheAnswerIsElectric."),
+                     "Rosenbauer rückt Nachhaltigkeit in den Fokus, denn eins ist klar: #TheAnswerIsElectric. Das "
+                     "Key Visual schlägt die Brücke – eine Pferdekutsche als Feuerwehrfahrzeug, mitten in einer "
+                     "elektrifizierten Stadt der Zukunft. Jede Technik hat ihre Zeit, und die des Elektroantriebs "
+                     "ist jetzt."),
             ("full", ("2024/08/vfc_rosenbauer_electric_social.mp4", "Social Video #TheAnswerIsElectric")),
-            ("text", "Das Key Visual schlägt die Brücke: eine Pferdekutsche als Feuerwehrfahrzeug, mitten in einer "
-                     "elektrifizierten Stadt der Zukunft. Jede Technik hat ihre Zeit – und die des "
-                     "Elektroantriebs ist jetzt."),
-            ("pair", ("2024/08/vfc_rosenbauer_electric_inserat.jpg", "Inserat „Jede Technik hat ihre Zeit“"),
-                     ("2024/08/vfc_rosenbauer_electric_web.jpg", "Microsite zur Kampagne")),
-            ("text", "Mit Social-Media- sowie Paid-Social-Kampagnen, Sondernewsletter und Microsite bringen wir "
-                     "nun Rosenbauers elektrifizierte Vision der Zukunft an die Massen."),
+            ("text", "Mit Social-Media- sowie Paid-Social-Kampagnen, Sondernewsletter, Inseraten und einer eigenen "
+                     "Microsite zur Kampagne bringen wir Rosenbauers elektrifizierte Vision der Zukunft an die "
+                     "Massen. Überall gilt dieselbe Bildsprache: Tradition trifft Zukunft – so wird aus einem "
+                     "Branchenthema eine Geschichte, die man auf LinkedIn, Facebook & Co. gerne liest, teilt und "
+                     "weitererzählt."),
+            ("show", "raster", [("2024/08/vfc_rosenbauer_electric_inserat.jpg", "Inserat „Jede Technik hat ihre Zeit“"),
+                                ("2024/08/vfc_rosenbauer_electric_web.jpg", "Microsite zur Kampagne")]),
         ],
         "quote": "Rosenbauer ist Marktführer – und eine treibende Kraft für mehr Nachhaltigkeit in der Branche. "
                  "Unsere Informationskampagne baut genau darauf auf. Das Ziel? So viele Interessierte auf "
@@ -214,18 +219,18 @@ CASES = [
                      "Verantwortung übernehmen und Zukunft gestalten.",
         "flow": [
             ("text", "Für optimales Employer Branding muss nicht nur der Inhalt matchen, sondern auch die Art und "
-                     "Weise, wie er kommuniziert wird. Und wir haben sie gefunden: Die perfekte Mischung aus "
-                     "klarem, aber emotionalem Wording und einem modernen, zielgruppenorientierten Auftritt."),
+                     "Weise, wie er kommuniziert wird. Und wir haben sie gefunden: die perfekte Mischung aus klarem, "
+                     "aber emotionalem Wording und einem modernen, zielgruppenorientierten Auftritt. Daraus entstand "
+                     "die Idee „For the people who…“ – starke Statements, die echte Mitarbeiter:innen "
+                     "vervollständigen."),
             ("full", ("2023/12/vfc_schrack_employerbranding_2.jpg", "Großfläche „Who want to shape tomorrow“ bei Nacht")),
-            ("text", "Daraus entstand die Idee „For the people who…“: starke Statements, die echte Mitarbeiter:innen "
-                     "vervollständigen – who want to shape tomorrow, who want to make a difference, who want to "
-                     "take responsibility. Inszeniert in markantem Rot-Blau-Licht, ausgerollt von der Großfläche "
-                     "bis zur Karriere-Website."),
-            ("pair", ("2023/12/vfc_schrack_employerbranding_4.jpg", "Plakatserie in der U-Bahn"),
-                     ("2023/12/vfc_schrack_employerbranding_3.jpg", "Weitere Sujets der Plakatserie")),
+            ("show", "zwinkern", [("2023/12/vfc_schrack_employerbranding_4.jpg", "Plakatserie in der U-Bahn"),
+                                  ("2023/12/vfc_schrack_employerbranding_3.jpg", "Weitere Sujets der Plakatserie")]),
+            ("text", "Who want to shape tomorrow, who want to make a difference, who want to take responsibility: "
+                     "Inszeniert in markantem Rot-Blau-Licht, rollen wir die Statements über alle Kanäle aus – von "
+                     "der Großfläche über die U-Bahn bis zur Karriere-Website. Denn sind wir mal ehrlich: Was lässt "
+                     "einen näher zusammenrücken als der Blick in die (gemeinsame) Zukunft?"),
             ("full", ("2023/12/vfc_schrack_employerbranding_8.jpg", "Karriere-Website und Ads der Kampagne")),
-            ("text", "Denn sind wir mal ehrlich: Was lässt einen näher zusammenrücken als der Blick in die "
-                     "(gemeinsame) Zukunft?"),
         ],
         "quote": "Wir wollten klassische Werte neu verpacken. Mit starken Statements, die den Nagel auf den Kopf "
                  "treffen. Und mit denen sich sowohl potentielle als auch bestehende Mitarbeiter:innen sofort "
@@ -250,21 +255,20 @@ CASES = [
                      "für das IT-Team und brauchte eine Kampagne, die im Recruiting-Einheitsbrei nicht untergeht.",
         "flow": [
             ("text", "Was ist die IT, wenn nicht das Herzstück des Unternehmens? Zumindest wenn es nach Hannes "
-                     "geht. Und um ihn dreht sich alles. Schließlich sucht sein Team bei Transgourmet "
-                     "Verstärkung."),
+                     "geht. Und um ihn dreht sich alles, schließlich sucht sein Team bei Transgourmet Verstärkung. "
+                     "Für diese HR-Kampagne servieren wir ein ganzes Kreativ-Menü an Touchpoints und gemeinsam mit "
+                     "Forafilm einen Kreativspot – und zeigen allen da draußen: Der Hannes, der kann es."),
             ("full", ("2023/04/vfc_transgouremt_hannes_gif_3.mp4", "Hannes als Loop")),
-            ("pair", ("2023/04/vfc_transgourmet_hannes_1.jpg", "Hannes im Transgourmet-Markt"),
-                     ("2023/04/vfc_transgourmet_hannes_3.jpg", "Hannes in Nahaufnahme")),
-            ("text", "Woher wir das wissen? Weil wir natürlich auch für diese HR-Kampagne ein Kreativ-Menü an "
-                     "Touchpoints und gemeinsam mit Forafilm einen Kreativspot servierten – und zeigen: Der "
-                     "Hannes, der kann es."),
-            ("full", ("2023/04/vfc_transgourmet_hannes_4.jpg", "Landingpage im Retro-Gaming-Look auf drei Smartphones")),
-            ("pair", ("2023/04/vfc_transgourmet_hannes_social_5.jpg", "Social Ads „Jetzt bewerben“"),
-                     ("2023/04/vfc_transgouremt_hannes_gif_4.mp4", "Hannes-Loop für Social")),
-            ("full", ("2023/04/vfc_transgourmet_hannes_sticker_6.gif", "Animierte Hannes-Sticker")),
+            ("show", "duo", [("2023/04/vfc_transgourmet_hannes_1.jpg", "Hannes im Transgourmet-Markt"),
+                             ("2023/04/vfc_transgourmet_hannes_3.jpg", "Hannes in Nahaufnahme"),
+                             ("2023/04/vfc_transgourmet_hannes_4.jpg", "Landingpage im Retro-Gaming-Look auf drei Smartphones")]),
             ("text", "Pixel-Typo, knallige Farben und ein Held mit Schnauzbart: Landingpage, Social Ads und "
-                     "animierte Sticker spielen mit Retro-Gaming-Ästhetik und machen die Bewerbung so einfach "
-                     "wie ein Level-up."),
+                     "animierte Sticker spielen mit Retro-Gaming-Ästhetik und machen die Bewerbung so einfach wie "
+                     "ein Level-up. So wird aus einer klassischen IT-Stellenausschreibung eine Kampagne, die im "
+                     "Recruiting-Einheitsbrei nicht untergeht – sondern Lust auf das nächste Level macht."),
+            ("show", "lamellen", [("2023/04/vfc_transgourmet_hannes_social_5.jpg", "Social Ads „Jetzt bewerben“"),
+                                  ("2023/04/vfc_transgourmet_hannes_sticker_6.gif", "Animierte Hannes-Sticker")]),
+            ("full", ("2023/04/vfc_transgouremt_hannes_gif_4.mp4", "Hannes-Loop für Social")),
         ],
         "quote": "Eine IT-Stelle ausschreiben kann jeder. Aber Bewerberinnen und Bewerber eiskalt auf den Job "
                  "heiß zu machen, verlangt dann doch einen echten Profi. Einen Hannes eben.",
@@ -290,23 +294,21 @@ CASES = [
         "flow": [
             ("full", ("2023/06/vfc_skiaustria_animation_4.mp4", "Animation der Startseite")),
             ("text", "Wir sind nicht nur auf der Piste standfest unterwegs, sondern auch digital stark aufgestellt. "
-                     "Wer etwas anderes behauptet, hat noch nicht unsere Informationsplattform für Ski Austria "
-                     "gesehen. Auf die unterschiedlichsten Usergruppen zugeschnitten und im reduzierten Swiss "
-                     "Design gehalten, ist sie nun der stetige Begleiter rund um den Ski- und Snowboardsport."),
-            ("pair", ("2023/06/vfc_skiaustria_web_1.jpg", "Athletenseite Andrea Limbacher"),
-                     ("2023/06/vfc_skiaustria_web_2.jpg", "Profil von Simon Eder")),
+                     "Unsere Informationsplattform für Ski Austria ist auf die unterschiedlichsten Usergruppen "
+                     "zugeschnitten und im reduzierten Swiss Design gehalten: großformatige Bilder, klare Typo und "
+                     "das markante Rot als Leitsystem. Animierte Balken und Slider bringen Bewegung ins Interface."),
             ("full", ("2023/06/vfc_skiaustria_web_slider_animation_single.mp4", "Animierter Slider")),
-            ("text", "Das reduzierte Swiss Design gibt den Athlet:innen die Bühne: großformatige Bilder, klare Typo "
-                     "und das markante Rot als Leitsystem. Animierte Balken und Slider bringen Bewegung ins "
-                     "Interface, ohne vom Content abzulenken."),
-            ("pair", ("2023/06/vfc_skiaustria_web_5.jpg", "Event-Seite IBU Cup Biathlon"),
-                     ("2023/06/vfc_skiaustria_web_7.jpg", "Snowboard-Bereich")),
+            ("show", "laufband", [("2023/06/vfc_skiaustria_web_1.jpg", "Athletenseite Andrea Limbacher"),
+                                  ("2023/06/vfc_skiaustria_web_2.jpg", "Profil von Simon Eder"),
+                                  ("2023/06/vfc_skiaustria_web_5.jpg", "Event-Seite IBU Cup Biathlon"),
+                                  ("2023/06/vfc_skiaustria_web_7.jpg", "Snowboard-Bereich"),
+                                  ("2023/06/vfc_skiaustria_web_8.jpg", "News-Artikel zum Trainingsauftakt"),
+                                  ("2023/06/vfc_skiaustria_web_6.jpg", "Übersicht der Seitentemplates")]),
             ("full", ("2023/06/vfc_skiaustria_web_balken_animation.mp4", "Animation der roten Balken")),
-            ("text", "Gemeinsam mit unserem Partner Mindspace entstand eine langfristige digitale Infrastruktur – "
-                     "vom Athletenprofil über Event-Kalender bis zum News-Hub, auch für die Second-Screen-Nutzung "
-                     "während spannender Weltcupveranstaltungen."),
-            ("pair", ("2023/06/vfc_skiaustria_web_8.jpg", "News-Artikel zum Trainingsauftakt"),
-                     ("2023/06/vfc_skiaustria_web_6.jpg", "Übersicht der Seitentemplates")),
+            ("text", "Gemeinsam mit unserem Partner Mindspace entstand so eine langfristige digitale Infrastruktur – "
+                     "vom Athletenprofil über den Event-Kalender bis zum News-Hub, auch für die Second-Screen-Nutzung "
+                     "während spannender Weltcupveranstaltungen. Damit ist die Plattform für Fans, Vereine und "
+                     "Medien der stetige Begleiter rund um den Ski- und Snowboardsport."),
             ("full", ("2023/06/vfc_skiaustria_animation_5.mp4", "Animation der Event-Übersicht")),
         ],
         "quote": "Von Anfang an war klar: Für Ski Austrias Markenpositionierung braucht es keine einfache Website, "
@@ -358,28 +360,40 @@ def project_row(case, indent=6):
     )
 
 
-def media(item, *, full):
+def media(item):
     path, alt = item
-    src = UP + (path if full or not path.endswith(".jpg") else thumb(path))
     if path.endswith(".mp4"):
         # Videos laufen über main.js (immer nur das größte sichtbare) – ohne Ton, als Loop
-        return (f'<figure class="case-media" data-motion="curtain"><video class="bg-video" src="{src}" muted loop '
+        return (f'<figure class="case-media" data-motion="curtain"><video class="bg-video" src="{UP}{path}" muted loop '
                 f'playsinline preload="metadata" aria-label="{e(alt)}"></video></figure>')
-    return (f'<figure class="case-media" data-motion="curtain"><img src="{src}" alt="{e(alt)}" '
-            f'width="{1920 if full else 1024}" height="{1080 if full else 576}" loading="lazy" /></figure>')
+    return (f'<figure class="case-media" data-motion="curtain"><img src="{UP}{path}" alt="{e(alt)}" '
+            f'width="1920" height="1080" loading="lazy" /></figure>')
+
+
+GALLERY_STYLES = {"lamellen": 2, "zwinkern": 2, "raster": 2, "laufband": 2, "duo": 3}  # Stil: Mindestanzahl Bilder
+
+
+def show(style, items):
+    """Galerie: die Bilder liegen übereinander, main.js schneidet sie im gewählten Stil."""
+    assert len(items) >= GALLERY_STYLES[style] and not any(path.endswith(".mp4") for path, _ in items)
+    slides = "".join(f'<div class="case-show__slide{" is-on" if i == 0 else ""}"><img src="{UP}{path}" '
+                     f'alt="{e(alt)}" width="1920" height="1080" loading="lazy" /></div>'
+                     for i, (path, alt) in enumerate(items))
+    return (f'<figure class="case-media case-show" data-gallery="{style}" data-motion="curtain">'
+            f'<div class="case-show__track vfm-media">{slides}</div></figure>')
 
 
 def flow_html(case):
+    kinds = [kind for kind, *_ in case["flow"]]
+    assert kinds.count("text") <= 2 and len(kinds) - kinds.count("text") <= 5, case["slug"]
     out = []
-    for entry in case["flow"]:
-        kind = entry[0]
+    for kind, *content in case["flow"]:
         if kind == "text":
-            out.append(f'        <p class="case-text">{e(entry[1])}</p>')
+            out.append(f'        <p class="case-text">{e(content[0])}</p>')
         elif kind == "full":
-            out.append("        " + media(entry[1], full=True))
+            out.append("        " + media(content[0]))
         else:
-            out.append(f'        <div class="case-pair">\n          {media(entry[1], full=False)}\n'
-                       f'          {media(entry[2], full=False)}\n        </div>')
+            out.append("        " + show(*content))
     return "\n".join(out) + "\n"
 
 
@@ -449,6 +463,17 @@ def detail_page(i, case):
     title = "<br />".join(e(line) for line in case["title"])
     abbr = f"/ {e(case['abbr'])}"
     k = [kpi_html(x) for x in case["kpis"]]
+    outcome = (
+        f'  <!-- ============ Outcome ============ -->\n'
+        f'  <section class="case-section" aria-labelledby="outcome">\n'
+        f'    <div class="case-label"><h2 id="outcome">Outcome</h2><span>{abbr}</span></div>\n'
+        f'    <div class="case-outcome">\n'
+        f'      <blockquote class="case-quote"><p>„{e(case["quote"])}“</p><cite>{e(case["quote_by"])}</cite></blockquote>\n'
+        f'      {k[0]}\n      {k[1]}\n'
+        f'      <span class="case-outcome__rule" aria-hidden="true"></span>\n'
+        f'      {k[2]}\n      {k[3]}\n      {k[4]}\n'
+        f'    </div>\n'
+        f'  </section>\n\n') if SHOW_OUTCOME else ""
     page_head = (head
                  .replace(re.search(r"<title>.*?</title>", head).group(0),
                           f"<title>{e(case['page_title'])} | vorauerfriends</title>")
@@ -477,16 +502,7 @@ def detail_page(i, case):
         f'    <div class="case-label"><h2 id="approach">Approach</h2><span>{abbr}</span></div>\n'
         f'    <div class="case-flow">\n{flow_html(case)}    </div>\n'
         f'  </section>\n\n'
-        f'  <!-- ============ Outcome ============ -->\n'
-        f'  <section class="case-section" aria-labelledby="outcome">\n'
-        f'    <div class="case-label"><h2 id="outcome">Outcome</h2><span>{abbr}</span></div>\n'
-        f'    <div class="case-outcome">\n'
-        f'      <blockquote class="case-quote"><p>„{e(case["quote"])}“</p><cite>{e(case["quote_by"])}</cite></blockquote>\n'
-        f'      {k[0]}\n      {k[1]}\n'
-        f'      <span class="case-outcome__rule" aria-hidden="true"></span>\n'
-        f'      {k[2]}\n      {k[3]}\n      {k[4]}\n'
-        f'    </div>\n'
-        f'  </section>\n\n'
+        f'{outcome}'
         f'  <!-- ============ Related Projects ============ -->\n'
         f'  <section class="projects related" aria-label="Related Projects">\n'
         f'{echo}'

@@ -658,20 +658,280 @@
     window.addEventListener("resize", fitFooter);
   }
 
+  /* ---------- Galerien: aus statischen Bildern wird ein Bewegtbild ---------- */
+
+  // Jedes Bild ist ein Fenster über den ganzen Rahmen. Ein Zustand sagt, wo das Fenster liegt
+  // (r = [x, y, Breite, Höhe] als Anteil des Rahmens) und wo das Bild darin sitzt (Mitte c,
+  // Größe k; 1 = füllt den Rahmen). Bewegt wird nur transform: das Fenster verschiebt und
+  // skaliert sich, das Bild darin gegenläufig, damit es nie verzerrt. Die Gegenbewegung ist nicht
+  // linear, darum wird sie als dichte Keyframe-Folge vorberechnet.
+  // Jede Galerie hat einen von fünf Schnitt-Stilen (data-gallery, siehe GALLERIES).
+  // Gesteuert wird eine Galerie wie ein Video (siehe unten): sie läuft nur, solange sie die
+  // größte bewegte Fläche im Bild ist.
+  const inOut = (t) => (t < 0.5 ? 8 * t ** 4 : 1 - (-2 * t + 2) ** 4 / 2); // Quart-In-Out ≈ Curtain
+  const easeOut = (t) => (t === 1 ? 1 : 1 - 2 ** (-10 * t)); // Expo-Out ≈ --ease-out
+  // Zustand: Fenster r, Bildmitte c, Bildgröße k. Ohne c/k füllt das Bild sein Fenster (wie object-fit: cover).
+  const st = (r, c = [r[0] + r[2] / 2, r[1] + r[3] / 2], k = Math.max(r[2], r[3])) => ({ r, c, k });
+  const FULL = st([0, 0, 1, 1]);
+  const num = (v) => (Math.abs(v) < 1e-6 ? 0 : +v.toPrecision(6)); // ohne Exponent-Schreibweise
+  const pct = (v) => `${num(v * 100)}%`;
+  const transforms = ({ r: [x, y, w, h], c: [cx, cy], k }) => {
+    w = Math.max(w, 0.001);
+    h = Math.max(h, 0.001);
+    return [
+      `translate(${pct(x)}, ${pct(y)}) scale(${num(w)}, ${num(h)})`,
+      `translate(${pct((cx - k / 2 - x) / w)}, ${pct((cy - k / 2 - y) / h)}) scale(${num(k / w)}, ${num(k / h)})`,
+    ];
+  };
+  const place = (tile, state, z = tile.style.zIndex) => {
+    [tile.style.transform, tile.firstElementChild.style.transform] = transforms(state);
+    tile.style.zIndex = z;
+    tile.classList.add("is-on");
+  };
+  const hide = (tile) => tile.classList.remove("is-on");
+  const glide = (tile, from, to, { duration = 900, ease = inOut, delay = 0, z } = {}) => {
+    const frames = Array.from({ length: 41 }, (_, i) => {
+      const e = ease(i / 40);
+      const mix = (a, b) => a + (b - a) * e;
+      return transforms(st(from.r.map((v, j) => mix(v, to.r[j])), from.c.map((v, j) => mix(v, to.c[j])), mix(from.k, to.k)));
+    });
+    place(tile, to, z); // Endzustand bleibt stehen, die Animation läuft darüber
+    const timing = { duration, delay, easing: "linear", fill: "backwards" };
+    return Promise.all([tile, tile.firstElementChild].map((el, n) =>
+      el.animate(frames.map((f) => ({ transform: f[n] })), timing).finished));
+  };
+  // Einfache Bewegung zwischen zwei transform-Werten (Lider)
+  const run = (el, from, to, timing) => {
+    el.style.transform = to;
+    return el.animate([{ transform: from }, { transform: to }], timing).finished;
+  };
+  // Zusätzliche Fenster für Streifen und Kopien (nur Deko, nicht für Screenreader)
+  const extra = (track, src = "") => {
+    const tile = document.createElement("div");
+    const img = document.createElement("img");
+    tile.className = "case-show__slide case-show__extra";
+    tile.setAttribute("aria-hidden", "true");
+    img.alt = "";
+    img.loading = "lazy";
+    if (src) img.src = src;
+    tile.append(img);
+    track.append(tile);
+    return tile;
+  };
+
+  // Jeder Stil bekommt die Bild-Fenster und gibt { hold, step } zurück: step() spielt einen
+  // Schnitt und liefert, wie lange danach stehen bleibt (ms).
+  const GALLERIES = {
+    // Lamellen: das nächste Bild fällt in sieben senkrechten Streifen ein, abwechselnd von oben und
+    // unten, gestaffelt quer durchs Bild; die Laufrichtung wechselt bei jedem Schnitt
+    lamellen(tiles, track) {
+      const N = 7;
+      const slats = Array.from({ length: N }, () => extra(track));
+      // Streifen zeigen schon vorab das nächste Bild, damit es beim Schnitt geladen ist
+      const prime = (tile) => slats.forEach((slat) => { slat.firstElementChild.src = tile.firstElementChild.src; });
+      let i = 0;
+      let flip = false;
+      prime(tiles[1]);
+      return {
+        hold: 1700,
+        async step() {
+          const a = tiles[i];
+          const b = tiles[(i + 1) % tiles.length];
+          a.style.zIndex = 1;
+          await Promise.all(slats.map((slat, n) => {
+            const x = n / N;
+            const w = 1 / N + (n < N - 1 ? 0.002 : 0); // leicht überlappen, sonst bleibt eine Haarlinie
+            const y = n % 2 ? 0 : 1;
+            return glide(slat, st([x, y, w, 0], [0.5, 0.5], 1.06), st([x, 0, w, 1], [0.5, 0.5], 1),
+              { duration: 750, ease: easeOut, delay: (flip ? N - 1 - n : n) * 45, z: 3 });
+          }));
+          place(b, FULL, 2);
+          slats.forEach(hide);
+          hide(a);
+          i = (i + 1) % tiles.length;
+          flip = !flip;
+          prime(tiles[(i + 1) % tiles.length]);
+          return 1700;
+        },
+      };
+    },
+
+    // Zwinkern: zwei dunkle Lider schließen sich kurz wie beim Smiley-Zwinkern, dahinter wird
+    // geschnitten. Jedes Bild driftet währenddessen leicht nach (wie eine Kamerafahrt), der Takt
+    // wechselt zwischen lang und kurz.
+    zwinkern(tiles, track) {
+      const lids = ["top", "bottom"].map((side) => {
+        const lid = document.createElement("span");
+        lid.className = `case-show__lid case-show__lid--${side}`;
+        track.append(lid);
+        return lid;
+      });
+      const DRIFT = [[0.47, 0.52], [0.53, 0.48], [0.5, 0.53], [0.52, 0.5]];
+      let i = 0;
+      let cut = 0;
+      return {
+        hold: 1600,
+        async step() {
+          const a = tiles[i];
+          const b = tiles[(i + 1) % tiles.length];
+          await Promise.all(lids.map((lid) => run(lid, "scaleY(0)", "scaleY(1)",
+            { duration: 220, easing: "cubic-bezier(0.7, 0, 0.84, 0)" })));
+          hide(a);
+          glide(b, st([0, 0, 1, 1], DRIFT[cut % DRIFT.length], 1.07), FULL, { duration: 2600, ease: easeOut, z: 1 });
+          await Promise.all(lids.map((lid) => run(lid, "scaleY(1)", "scaleY(0)",
+            { duration: 450, easing: "cubic-bezier(0.16, 1, 0.3, 1)" })));
+          i = (i + 1) % tiles.length;
+          return ++cut % 2 ? 1000 : 1600;
+        },
+      };
+    },
+
+    // Raster: das Vollbild zoomt heraus zu einem Kontaktbogen mit allen Bildern, dann wächst das
+    // nächste wieder auf den ganzen Rahmen – Überblick und Detail im Wechsel
+    raster(tiles) {
+      const n = tiles.length;
+      const cols = n > 4 ? 3 : 2;
+      const rows = Math.ceil(n / cols);
+      const PAD = 0.05;
+      const GAP = 0.014;
+      const w = (1 - 2 * PAD - GAP * (cols - 1)) / cols; // Zellen bleiben 16:9, also gleich hoch wie breit (in Anteilen)
+      const gy = GAP * 16 / 9;
+      const top = (1 - rows * w - (rows - 1) * gy) / 2;
+      const cells = tiles.map((_, j) => {
+        const row = Math.floor(j / cols);
+        const inRow = Math.min(cols, n - row * cols); // angefangene Reihe mittig
+        const left = (1 - inRow * w - (inRow - 1) * GAP) / 2;
+        return st([left + (j % cols) * (w + GAP), top + row * (w + gy), w, w]);
+      });
+      let i = 0;
+      let overview = false;
+      return {
+        hold: 1600,
+        async step() {
+          if (!overview) {
+            const moves = [glide(tiles[i], FULL, cells[i], { z: 2 })];
+            tiles.forEach((tile, j) => {
+              if (j === i) return;
+              const [x, y, cw, ch] = cells[j].r;
+              const order = (j - i + n) % n;
+              moves.push(glide(tile, st([x, y + ch, cw, 0]), cells[j],
+                { duration: 700, ease: easeOut, delay: 250 + order * 70, z: 1 }));
+            });
+            await Promise.all(moves);
+            overview = true;
+            return 1900;
+          }
+          const j = (i + 1) % n;
+          await glide(tiles[j], cells[j], FULL, { z: 3 });
+          tiles.forEach((tile, m) => { if (m !== j) hide(tile); });
+          i = j;
+          overview = false;
+          return 1600;
+        },
+      };
+    },
+
+    // Laufband: die Bilder stehen als Filmstreifen nebeneinander, das mittlere groß, die Nachbarn
+    // angeschnitten am Rand; im Takt schnappt der Streifen ein Bild weiter
+    laufband(tiles, track) {
+      // Ring aus mindestens fünf Karten, sonst stünde dasselbe Bild links und rechts zugleich
+      const ring = [...tiles];
+      while (ring.length < 5) tiles.forEach((tile) => ring.push(extra(track, tile.firstElementChild.src)));
+      const L = ring.length;
+      const BIG = 0.62;
+      const SMALL = 0.46;
+      const GAP = 0.025;
+      const bx = (1 - BIG) / 2;
+      const slot = (s) => {
+        if (s === 0) return st([bx, bx, BIG, BIG]);
+        const x = s < 0 ? bx - (GAP + SMALL) * -s : bx + BIG + GAP + (s - 1) * (SMALL + GAP);
+        return st([x, (1 - SMALL) / 2, SMALL, SMALL]);
+      };
+      let center = 0;
+      const rel = (m) => ((m - center + L + Math.floor(L / 2)) % L) - Math.floor(L / 2);
+      ring.forEach((tile, m) => {
+        if (Math.abs(rel(m)) <= 1) place(tile, slot(rel(m)), 1);
+        else hide(tile);
+      });
+      return {
+        hold: 1500,
+        async step() {
+          await Promise.all(ring.map((tile, m) => {
+            const s = rel(m);
+            return s >= -1 && s <= 2 ? glide(tile, slot(s), slot(s - 1), { duration: 900, ease: easeOut, z: 1 }) : null;
+          }));
+          center = (center + 1) % L;
+          ring.forEach((tile, m) => { if (rel(m) < -1) hide(tile); });
+          return 1500;
+        },
+      };
+    },
+
+    // Duo: zwei Bilder nebeneinander, im Takt wechselt eine Hälfte – links schiebt sich das neue
+    // Bild von unten durch, rechts von oben; die Bilder laufen mit halbem Tempo der Kante
+    duo(tiles) {
+      const n = tiles.length;
+      const HALF = 0.494;
+      const xs = [0, 1 - HALF];
+      const half = (x) => st([x, 0, HALF, 1]);
+      const edge = (x, y) => st([x, y, HALF, 0], [x + HALF / 2, y], 1); // Fenster ohne Höhe an der Kante
+      const shown = [0, 1];
+      let upcoming = 2 % n;
+      let side = 0;
+      shown.forEach((m, s) => place(tiles[m], half(xs[s]), 1));
+      return {
+        hold: 1300,
+        async step() {
+          const x = xs[side];
+          const from = side === 0 ? 1 : 0; // links kommt das neue von unten, rechts von oben
+          await Promise.all([
+            glide(tiles[shown[side]], half(x), edge(x, 1 - from), { duration: 750 }),
+            glide(tiles[upcoming], edge(x, from), half(x), { duration: 750, z: 1 }),
+          ]);
+          hide(tiles[shown[side]]);
+          shown[side] = upcoming;
+          do upcoming = (upcoming + 1) % n; while (shown.includes(upcoming));
+          side = 1 - side;
+          return 1300;
+        },
+      };
+    },
+  };
+
+  const shows = !motion ? [] : [...document.querySelectorAll(".case-show")].map((el) => {
+    const tiles = [...el.querySelectorAll(".case-show__slide")];
+    const gallery = (GALLERIES[el.dataset.gallery] || GALLERIES.lamellen)(tiles, el.firstElementChild);
+    const show = { el, paused: true };
+    let hold = gallery.hold;
+    let timer = 0;
+    let moving = false;
+    const next = async () => {
+      moving = true;
+      hold = await gallery.step();
+      moving = false;
+      if (!show.paused) timer = setTimeout(next, hold);
+    };
+    // Pausieren lässt einen laufenden Schnitt noch zu Ende laufen
+    show.play = () => { show.paused = false; if (!moving) timer = setTimeout(next, hold); };
+    show.pause = () => { show.paused = true; clearTimeout(timer); };
+    return show;
+  });
+
   /* ---------- Hintergrundvideos: nur abspielen, was gerade sichtbar ist ---------- */
 
-  const videos = [...document.querySelectorAll(".bg-video")];
+  const videos = [...document.querySelectorAll(".bg-video"), ...shows];
   if (videos.length) {
-    // Es läuft immer nur das Video, das gerade am meisten Fläche einnimmt: zwei gleichzeitig
-    // laufende Videos drücken Chrome auf 30 fps. Die hereinschiebende Karte zeigt ihr Standbild,
-    // bis sie übernimmt.
+    // Es läuft immer nur das Video (oder die Galerie), das gerade am meisten Fläche einnimmt:
+    // zwei gleichzeitig laufende Videos drücken Chrome auf 30 fps. Die hereinschiebende Karte
+    // zeigt ihr Standbild, bis sie übernimmt.
     onScrollFrame(() => {
       const vh = window.innerHeight;
       const states = videos.map((v) => {
-        const r = v.getBoundingClientRect();
+        const box = v.el || v;
+        const r = box.getBoundingClientRect();
         let bottom = Math.min(r.bottom, vh);
         // Im Sticky-Stack schiebt sich die nächste Karte über die aktuelle
-        const next = v.closest(".stack > *")?.nextElementSibling;
+        const next = box.closest(".stack > *")?.nextElementSibling;
         if (next) bottom = Math.min(bottom, next.getBoundingClientRect().top);
         return { near: r.top < vh * 2, area: Math.max(0, bottom - Math.max(r.top, 0)) * r.width };
       });
@@ -680,7 +940,7 @@
         // Nächste Videos schon vorladen, damit beim Reinscrollen kein Poster-Flackern entsteht
         if (v.preload === "none" && states[i].near) v.preload = "auto";
         const play = i === lead && !reduceMotion.matches;
-        if (play && v.paused) v.play().catch(() => {});
+        if (play && v.paused) v.play()?.catch(() => {});
         else if (!play && !v.paused) v.pause();
       });
     });

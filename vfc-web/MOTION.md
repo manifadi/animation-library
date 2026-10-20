@@ -56,7 +56,8 @@ Reihenfolge immer in Leserichtung: oben vor unten, links vor rechts. Rein von un
 | Cursor: Punkt · Ring (Link) · Pill mit Label | Maus | `[data-cursor-label][data-cursor-pill]` |
 
 | Projektliste Hover: Fläche aus Mausrichtung + Video-Vorschau | Hover | `.project__link.is-hover` |
-| Kennzahlen zählen hoch, Abschnittslinien zeichnen sich | Scroll, einmalig | `[data-count]`, `.case-label` |
+| Kennzahlen zählen hoch (Outcome derzeit ausgeblendet, `SHOW_OUTCOME`), Abschnittslinien zeichnen sich | Scroll, einmalig | `[data-count]`, `.case-label` |
+| Galerie, je Projekt ein Stil (`data-gallery`): **Lamellen** (7 Streifen fallen abwechselnd von oben/unten ein) · **Zwinkern** (dunkle Lider schließen kurz, Schnitt, Bild driftet nach) · **Raster** (Vollbild ↔ Kontaktbogen aller Bilder) · **Laufband** (Filmstreifen, Mitte groß, schnappt weiter) · **Duo** (zwei Hälften, abwechselnd schiebt sich eine durch). Fenster und Bild bewegen sich gegenläufig (nur `transform`), Schnitte 0,65–1 s, Standzeit 1–1,9 s – läuft wie ein Video nur als größte Fläche im Bild | Zeit, solange im Fokus | `.case-show` |
 | Filter: Label-Roll, Farbe breitet sich aus | Hover + Klick | `.filter` |
 
 Ausführliche Beschreibungen und kopierbare KI-Prompts je Effekt: **animationen.html** (Inhalte in `_tools/animations.py`).

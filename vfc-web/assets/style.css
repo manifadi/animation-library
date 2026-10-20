@@ -866,7 +866,7 @@ main { position: relative; z-index: 1; background: var(--white); }
   text-indent: 2.15em;
 }
 
-/* Approach: Medien und Text im Wechsel, Anzahl je Projekt */
+/* Approach: Medien in voller Breite und höchstens zwei Texte, Anzahl je Projekt */
 .case-flow {
   display: grid;
   gap: calc(50 * var(--u));
@@ -874,7 +874,32 @@ main { position: relative; z-index: 1; background: var(--white); }
 }
 .case-media { position: relative; margin: 0; aspect-ratio: 16 / 9; background: #e9e9ec; }
 .case-media > img, .case-media > video { display: block; width: 100%; height: 100%; object-fit: cover; }
-.case-pair { display: grid; grid-template-columns: 1fr 1fr; gap: calc(24 * var(--u)); }
+/* Galerie: mehrere Bilder als ein Bewegtbild. Jedes Bild ist ein Fenster über den ganzen Rahmen,
+   main.js verschiebt und skaliert Fenster und Bild gegenläufig. Fünf Stile (data-gallery):
+   Lamellen, Zwinkern, Raster, Laufband, Duo */
+.case-show { background: var(--white); }  /* Fugen und Ränder bei Raster, Laufband und Duo */
+.case-show__track { position: absolute; inset: 0; }
+.case-show__slide { position: absolute; inset: 0; overflow: hidden; visibility: hidden; transform-origin: 0 0; }
+.case-show__slide.is-on { visibility: visible; }
+.case-show__slide > img { display: block; width: 100%; height: 100%; object-fit: cover; transform-origin: 0 0; }
+/* Zwinkern: zwei Lider schließen sich zur Mitte, dahinter wird geschnitten */
+.case-show__lid {
+  position: absolute; left: 0; right: 0; z-index: 4;
+  height: 50.5%;
+  background: var(--ink);
+  transform: scaleY(0);
+  pointer-events: none;
+}
+.case-show__lid--top { top: 0; transform-origin: center top; }
+.case-show__lid--bottom { bottom: 0; transform-origin: center bottom; }
+/* Ohne Bewegung stehen die Bilder einfach untereinander */
+@media (prefers-reduced-motion: reduce) {
+  .case-show { aspect-ratio: auto; background: none; }
+  .case-show__track { position: static; display: grid; gap: calc(24 * var(--u) + 8px); }
+  .case-show__slide { position: relative; aspect-ratio: 16 / 9; visibility: visible; background: #e9e9ec; }
+  .case-show__slide, .case-show__slide > img { transform: none !important; }
+  .case-show__extra, .case-show__lid { display: none; }
+}
 .case-text {
   padding: calc(10 * var(--u)) calc(2 * var(--u));
   font-size: clamp(15px, calc(20 * var(--u)), 23px);
@@ -884,7 +909,7 @@ main { position: relative; z-index: 1; background: var(--white); }
   text-align: justify;
 }
 
-/* Outcome: Zitat + fünf Kennzahlen (zählen beim Reinscrollen hoch) */
+/* Outcome: Zitat + fünf Kennzahlen (zählen beim Reinscrollen hoch) – derzeit ausgeblendet (SHOW_OUTCOME) */
 .case-outcome {
   display: grid;
   grid-template-columns: 514fr 441fr 405fr;
@@ -933,7 +958,6 @@ main { position: relative; z-index: 1; background: var(--white); }
   .case-label { min-height: 64px; padding: 0 20px; font-size: 18px; }
   .case-lede { padding: 28px 20px 52px; font-size: clamp(22px, 5.8vw, 34px); text-indent: 0.6em; }
   .case-flow { gap: 28px; padding: 32px 20px 56px; }
-  .case-pair { grid-template-columns: 1fr; gap: 12px; }
   .case-text { padding: 0; font-size: 16px; text-indent: 0; text-align: left; }
   .case-outcome { grid-template-columns: 1fr 1fr; gap: 36px 20px; padding: 36px 20px 56px; }
   .case-quote { grid-column: 1 / -1; padding-right: 0; }
