@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Nur Klickdummy: nicht ins WordPress-Theme übernehmen -->
+<meta name="robots" content="noindex, nofollow">
+<title>Styleguide | Helmut Schmidinger</title>
+<meta name="description" content="Styleguide">
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<!-- WP-Template: – (nur Referenz, keine WP-Seite) -->
+<body class="page-styleguide">
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+<!-- ============ HEADER  (WP: header.php · Menü: wp_nav_menu "hauptmenue") ============ -->
+<header class="site-header">
+  <nav class="c-lang" aria-label="Sprache"><a class="c-lang__link is-active" href="index.html" aria-current="true" lang="de">DE</a><span class="c-lang__sep" aria-hidden="true">|</span><a class="c-lang__link is-disabled" href="#" lang="en" title="Englische Version – optional, später via Polylang">EN</a></nav>
+  <a class="site-header__brand" href="index.html" aria-label="Startseite">Helmut <span>Schmidinger</span></a>
+  <div class="site-header__right">
+    <nav class="c-nav" aria-label="Hauptnavigation">
+      <ul class="c-nav__list"><li><a class="c-nav__link" href="aktuelles.html">Aktuelles</a></li><li><a class="c-nav__link" href="zur-person.html">Zur Person</a></li><li><a class="c-nav__link" href="werk.html">Zum Werk</a></li><li><a class="c-nav__link" href="lehre.html">Lehre</a></li><li><a class="c-nav__link" href="kontakt.html">Kontakt</a></li></ul>
+    </nav>
+    <button class="c-icon-btn" type="button" data-search-open aria-label="Suche öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg></button>
+    <button class="c-icon-btn c-burger" type="button" data-menu-open aria-expanded="false" aria-controls="mobile-nav" aria-label="Menü öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
+  </div>
+</header>
+
+<!-- Mobile-Menü (Overlay) -->
+<div class="c-mobile-nav" id="mobile-nav" data-mobile-nav role="dialog" aria-modal="true" aria-label="Menü">
+  <div class="c-mobile-nav__top">
+    <nav class="c-lang" aria-label="Sprache"><a class="c-lang__link is-active" href="index.html" aria-current="true" lang="de">DE</a><span class="c-lang__sep" aria-hidden="true">|</span><a class="c-lang__link is-disabled" href="#" lang="en" title="Englische Version – optional, später via Polylang">EN</a></nav>
+    <button class="c-icon-btn" type="button" data-menu-close aria-label="Menü schließen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg></button>
+  </div>
+  <ul class="c-mobile-nav__list"><li><a class="c-mobile-nav__link" href="aktuelles.html">Aktuelles<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li><li><a class="c-mobile-nav__link" href="zur-person.html">Zur Person<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li><li><a class="c-mobile-nav__link" href="werk.html">Zum Werk<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li><li><a class="c-mobile-nav__link" href="lehre.html">Lehre<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li><li><a class="c-mobile-nav__link" href="kontakt.html">Kontakt<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li></ul>
+  <div class="c-mobile-nav__meta">
+    <p><a href="mailto:schmidinger@litmus.at">schmidinger@litmus.at</a><br>+43 7242 910 771</p>
+    <button class="c-btn c-btn--light c-btn--small" type="button" data-search-open>Suche <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg></button>
+  </div>
+</div>
+
+<!-- Suche (Overlay)  WP: searchform.php → search.php -->
+<div class="c-search" data-search role="dialog" aria-modal="true" aria-label="Suche">
+  <button class="c-icon-btn c-search__close" type="button" data-search-close aria-label="Suche schließen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg></button>
+  <form class="c-search__form" action="suche.html" role="search">
+    <label class="c-eyebrow c-search__label" for="s">Suche</label>
+    <div class="c-search__row">
+      <input class="c-search__input" id="s" name="s" type="search" placeholder="Werk, Ort, Thema …" autocomplete="off">
+      <button class="c-icon-btn" type="submit" aria-label="Suchen"><svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></button>
+    </div>
+    <p class="c-search__hint">Durchsucht Werke, Aufführungen und Seiten.</p>
+  </form>
+</div>
+
+<main id="main">
+<div class="l-container" style="padding-top:calc(var(--header-h) + var(--s-5))">
+<header class="c-page-head"><p class="c-eyebrow">Design-System</p><h1 class="c-page-head__title">Styleguide</h1><div class="c-page-head__intro"><p>Alle Design-Tokens und UI-Komponenten auf einer Seite – Referenz für Figma (html.to.design) und die WordPress-Entwicklung. Klassen: <code>l-</code> Layout · <code>c-</code> Komponente · <code>p-</code> Seite · <code>u-</code> Utility · <code>is-</code> Zustand.</p></div></header>
+
+<section class="p-sg-section"><h2>Farben</h2><div class="p-sg-swatches"><div class="p-sg-swatch"><div class="p-sg-swatch__color" style="background:#141a33"></div><div class="p-sg-swatch__meta"><strong>Nachtblau</strong><br><code>--c-ink · #141a33</code></div></div><div class="p-sg-swatch"><div class="p-sg-swatch__color" style="background:#6b7224"></div><div class="p-sg-swatch__meta"><strong>Oliv / Akzent</strong><br><code>--c-olive · #6b7224</code></div></div><div class="p-sg-swatch"><div class="p-sg-swatch__color" style="background:#50561a"></div><div class="p-sg-swatch__meta"><strong>Oliv Hover</strong><br><code>--c-olive-dark · #50561a</code></div></div><div class="p-sg-swatch"><div class="p-sg-swatch__color" style="background:#cfd1a3"></div><div class="p-sg-swatch__meta"><strong>Oliv hell</strong><br><code>--c-olive-soft · #cfd1a3</code></div></div><div class="p-sg-swatch"><div class="p-sg-swatch__color" style="background:#eceddc"></div><div class="p-sg-swatch__meta"><strong>Oliv Tint</strong><br><code>--c-olive-tint · #eceddc</code></div></div><div class="p-sg-swatch"><div class="p-sg-swatch__color" style="background:#f7f6f2"></div><div class="p-sg-swatch__meta"><strong>Papier</strong><br><code>--c-paper · #f7f6f2</code></div></div><div class="p-sg-swatch"><div class="p-sg-swatch__color" style="background:#efede7"></div><div class="p-sg-swatch__meta"><strong>Fläche</strong><br><code>--c-surface · #efede7</code></div></div><div class="p-sg-swatch"><div class="p-sg-swatch__color" style="background:#ffffff"></div><div class="p-sg-swatch__meta"><strong>Weiß</strong><br><code>--c-white · #ffffff</code></div></div><div class="p-sg-swatch"><div class="p-sg-swatch__color" style="background:#2a2c33"></div><div class="p-sg-swatch__meta"><strong>Text</strong><br><code>--c-text · #2a2c33</code></div></div><div class="p-sg-swatch"><div class="p-sg-swatch__color" style="background:#6b6d74"></div><div class="p-sg-swatch__meta"><strong>Text sekundär</strong><br><code>--c-muted · #6b6d74</code></div></div><div class="p-sg-swatch"><div class="p-sg-swatch__color" style="background:#dcd9cf"></div><div class="p-sg-swatch__meta"><strong>Linien</strong><br><code>--c-line · #dcd9cf</code></div></div><div class="p-sg-swatch"><div class="p-sg-swatch__color" style="background:#9b2c2c"></div><div class="p-sg-swatch__meta"><strong>Fehler</strong><br><code>--c-error · #9b2c2c</code></div></div></div></section>
+
+<section class="p-sg-section p-sg-type"><h2>Typografie</h2>
+  <p class="p-sg-label">Display · Playfair Display 400 · clamp(52–120px)</p>
+  <p class="c-brand c-brand--display"><span class="c-brand__first">Helmut</span> <span class="c-brand__last">Schmidinger</span></p>
+  <p class="p-sg-label">H1 · Playfair 400</p><h1 class="u-mb-0">Aktuelles</h1>
+  <p class="p-sg-label">H2</p><h2 class="u-mb-0">Zwischen Tradition und Gegenwart</h2>
+  <p class="p-sg-label">H3</p><h3 class="u-mb-0">Nächste Aufführungen</h3>
+  <p class="p-sg-label">Lead · Jost 400</p><p class="lead">Hier finden Sie eine Auswahl bekannter Aufführungen meiner Werke.</p>
+  <p class="p-sg-label">Body · Jost 400 · 17px / 1.6</p><p>Komponist sein ist für mich weniger eine Berufsbezeichnung als viel mehr eine Wertehaltung, die das Verbindende über das Trennende stellt.</p>
+  <p class="p-sg-label">Label / Eyebrow · Jost 500 · 12px · Versal · Laufweite 0.2em</p><p class="c-eyebrow">Aktuelles</p>
+  <p class="p-sg-label">Rollen</p><p class="c-roles">Komponist<span>|</span>Musiker<span>|</span>Professor</p>
+  <p class="p-sg-label">Zitat · Playfair Italic</p>
+  <blockquote class="c-quote"><p class="c-quote__text">„Auf meinem Rade tummle ich mich lustig herum – es ist der einzige Sport (außer componiren) den ich hier treibe!“</p><cite class="c-quote__author">Gustav Mahler</cite></blockquote>
+  <p class="p-sg-label">Zitat boxed</p>
+  <blockquote class="c-quote c-quote--boxed"><p class="c-quote__text">„Komponieren ist ein Handwerksberuf.“</p><cite class="c-quote__author">OÖN, 13.11.2004</cite></blockquote>
+  <p class="p-sg-label">Ornament Notenlinie</p><svg class="c-staff" viewBox="0 0 560 130" fill="none" aria-hidden="true">
+  <g class="c-staff__lines" stroke-width="1"><path d="M0 52h560M0 62h560M0 72h560M0 82h560M0 92h560"/></g>
+  <g class="c-staff__stem" stroke-width="1.2">
+    <path d="M175 50v46M210 66v62M282 60v38M308 44v40M338 40v62M352 36v70M378 26v62M396 32v52M444 2v82M466 24v42"/>
+  </g>
+  <circle class="c-staff__note c-staff__note--ink" cx="192" cy="78" r="3.5"/>
+  <circle class="c-staff__note" cx="210" cy="66" r="5.5"/>
+  <circle class="c-staff__note" cx="336" cy="48" r="4.5"/>
+  <circle class="c-staff__note c-staff__note--ink" cx="353" cy="36" r="4.5"/>
+  <circle class="c-staff__note" cx="396" cy="32" r="5.5"/>
+  <rect class="c-staff__note c-staff__note--ink" x="441.5" y="0" width="5" height="12"/>
+  <circle class="c-staff__note" cx="501" cy="70" r="3"/>
+</svg>
+</section>
+
+<section class="p-sg-section"><h2>Buttons</h2>
+  <p class="p-sg-label">Default · Hover · Focus · Disabled · Loading</p>
+  <div class="p-sg-row"><a class="c-btn" href="#">Button <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a><a class="c-btn is-hover" href="#">Hover <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a><a class="c-btn is-focus" href="#">Focus</a><button class="c-btn" disabled>Disabled</button><button class="c-btn is-loading">Senden</button></div>
+  <p class="p-sg-label">Primary</p>
+  <div class="p-sg-row"><a class="c-btn c-btn--primary" href="#">Anfragen <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a><a class="c-btn c-btn--primary is-hover" href="#">Hover <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a><a class="c-btn c-btn--primary c-btn--small" href="#">Small</a></div>
+  <p class="p-sg-label">Outline</p>
+  <div class="p-sg-row"><a class="c-btn c-btn--outline" href="#">Alle Aufführungen <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a><a class="c-btn c-btn--outline is-hover" href="#">Hover <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></div>
+  <p class="p-sg-label">Light (auf dunkel)</p>
+  <div class="p-sg-row p-sg-dark"><a class="c-btn c-btn--light" href="#">Mehr <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a><a class="c-btn c-btn--light is-hover" href="#">Hover <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a><a class="c-link-arrow c-link-arrow--light" href="#">Zur Lehre <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></div>
+  <p class="p-sg-label">Text-Links mit Pfeil</p>
+  <div class="p-sg-row"><a class="c-link-arrow" href="#">Zu den Aufführungen <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a><a class="c-link-arrow is-hover" href="#">Hover <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a><a class="c-link-arrow c-link-arrow--ink" href="#">Mehr zum Werk <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a><a class="c-link-arrow c-link-arrow--back" href="#"><svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg> Zurück</a></div>
+</section>
+
+<section class="p-sg-section"><h2>Navigation</h2>
+  <p class="p-sg-label">Hauptmenü · Default / Hover / Aktiv</p>
+  <div class="p-sg-row"><a class="c-nav__link" href="#">Zur Person</a><a class="c-nav__link is-hover" href="#">Zum Werk</a><a class="c-nav__link is-active" href="#">Aktuelles</a></div>
+  <p class="p-sg-label">Sprachumschalter</p><nav class="c-lang" aria-label="Sprache"><a class="c-lang__link is-active" href="index.html" aria-current="true" lang="de">DE</a><span class="c-lang__sep" aria-hidden="true">|</span><a class="c-lang__link is-disabled" href="#" lang="en" title="Englische Version – optional, später via Polylang">EN</a></nav>
+  <p class="p-sg-label">Subnavigation</p><nav class="c-subnav" aria-label="Unterbereiche"><a class="c-subnav__link is-active" href="werk.html" aria-current="page">Werke</a><a class="c-subnav__link" href="diskographie.html">Diskographie</a><a class="c-subnav__link" href="bibliographie.html">Bibliographie</a><a class="c-subnav__link" href="kontexte.html">Kontexte</a></nav>
+  <p class="p-sg-label">Breadcrumb</p><ol class="c-breadcrumb"><li><a href="#">Zum Werk</a></li><li><a href="#">Orchesterwerke</a></li><li>Werk</li></ol>
+</section>
+
+<section class="p-sg-section"><h2>Filter &amp; Formular</h2>
+  <div class="c-filter"><div class="c-filter__field"><label class="c-filter__label" for="sg-s">Jahr</label><select class="c-select" id="sg-s"><option>2026</option></select></div>
+  <div class="c-filter__field"><label class="c-filter__label" for="sg-s2">Werk</label><select class="c-select c-select--wide is-focus" id="sg-s2"><option>Alle Werke</option></select></div>
+  <label class="c-toggle"><input type="checkbox" checked><span class="c-toggle__track"></span>Toggle aktiv</label>
+  <label class="c-toggle"><input type="checkbox"><span class="c-toggle__track"></span>Toggle inaktiv</label></div>
+  <div class="c-chips"><button class="c-chip is-active" type="button">Aktiv <span class="c-chip__count">3</span></button><button class="c-chip" type="button">Chip <span class="c-chip__count">1</span></button></div>
+  <div class="c-form">
+    <div class="c-form__row">
+      <div class="c-field"><label class="c-field__label" for="sg-1">Default</label><input class="c-input" id="sg-1" placeholder="Platzhalter"></div>
+      <div class="c-field"><label class="c-field__label" for="sg-2">Focus</label><input class="c-input is-focus" id="sg-2" value="Eingabe"></div>
+    </div>
+    <div class="c-form__row">
+      <div class="c-field is-invalid"><label class="c-field__label" for="sg-3">Fehler <abbr>*</abbr></label><input class="c-input" id="sg-3"><span class="c-field__error">Bitte ausfüllen.</span></div>
+      <div class="c-field"><label class="c-field__label" for="sg-4">Readonly</label><input class="c-input" id="sg-4" value="Werktitel" readonly><span class="c-field__hint">Wird automatisch übernommen.</span></div>
+    </div>
+    <label class="c-check"><input type="checkbox" checked> <span>Checkbox aktiv</span></label>
+    <div class="c-alert">Erfolgsmeldung – Nachricht wurde gesendet.</div>
+    <div class="c-alert c-alert--error">Fehlermeldung – bitte Pflichtfelder prüfen.</div>
+  </div>
+</section>
+
+<section class="p-sg-section"><h2>Badges</h2>
+  <div class="p-sg-row"><span class="c-badge c-badge--olive">Uraufführung</span><span class="c-badge">Österreichische Erstaufführung</span><span class="c-badge c-badge--soft"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/></svg> Für Schulen geeignet</span><span class="c-badge c-badge--outline">Orchesterwerke</span></div>
+</section>
+
+<section class="p-sg-section"><h2>Karten &amp; Teaser</h2>
+  <div class="l-grid l-grid--4">
+    <article class="c-teaser c-teaser--plain"><p class="c-eyebrow">Plain</p><h3 class="c-teaser__title">Musik im Dialog</h3><div class="c-teaser__foot"><a class="c-link-arrow" href="#">Link <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></div></article>
+    <article class="c-teaser"><p class="c-eyebrow">White</p><h3 class="c-teaser__title">Vorträge</h3><div class="c-teaser__foot"><a class="c-link-arrow" href="#">Link <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></div></article>
+    <article class="c-teaser c-teaser--grey"><p class="c-eyebrow">Grey</p><h3 class="c-teaser__title">Werk</h3><div class="c-teaser__foot"><hr class="c-rule"><a class="c-link-arrow c-link-arrow--ink" href="#">Link <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></div></article>
+    <article class="c-teaser c-teaser--dark"><p class="c-eyebrow c-eyebrow--light">Dark</p><h3 class="c-teaser__title">Lehre</h3><div class="c-teaser__foot"><hr class="c-rule"><a class="c-link-arrow c-link-arrow--light" href="#">Link <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></div></article>
+  </div>
+  <p class="p-sg-label">Kategorie-Karte · Default / Hover</p>
+  <div class="l-grid l-grid--4"><a class="c-cat-card" href="#"><span class="c-cat-card__count">Werke für Orchester</span><h3 class="c-cat-card__title">Orchesterwerke</h3><span class="c-cat-card__foot"><span class="c-link-arrow">Werke ansehen</span><svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></span></a><a class="c-cat-card is-hover" href="#"><span class="c-cat-card__count">bis zu 9 Instrumente</span><h3 class="c-cat-card__title">Kammermusik</h3><span class="c-cat-card__foot"><span class="c-link-arrow">Werke ansehen</span><svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></span></a></div>
+</section>
+
+<section class="p-sg-section"><h2>Listen</h2>
+  <p class="p-sg-label">Aufführung (c-event) mit Monatsbalken</p>
+  <div class="c-events" data-event-list>
+<h2 class="c-events__month">November 2026</h2>
+<article class="c-event" data-year="2026" data-month="11" data-work="22-kreuzer">
+  <p class="c-event__date u-mb-0" data-acf="datum">2026-11-10</p>
+  <p class="c-event__place u-mb-0" data-acf="ort">Wels – Stadttheater</p>
+  <div class="c-event__work">
+    <a class="c-event__title c-event__link" href="werk-22-kreuzer.html" data-acf="werk">„22 Kreuzer für haidn und mich chokolade“</a>
+    <span class="c-event__venue">Wels – Stadttheater</span>
+    <p class="c-event__performers" data-acf="interpreten">Württembergische Philharmonie Reutlingen | Georg Köhler, Leitung</p>
+    <span class="c-badge " data-acf="hinweis">Österreichische Erstaufführung</span>
+  </div>
+  <span class="c-event__arrow" aria-hidden="true"><svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></span>
+</article>
+<article class="c-event" data-year="2026" data-month="11" data-work="22-kreuzer">
+  <p class="c-event__date u-mb-0" data-acf="datum">2026-11-09</p>
+  <p class="c-event__place u-mb-0" data-acf="ort">Reutlingen (D) – Stadthalle</p>
+  <div class="c-event__work">
+    <a class="c-event__title c-event__link" href="werk-22-kreuzer.html" data-acf="werk">„22 Kreuzer für haidn und mich chokolade“</a>
+    <span class="c-event__venue">Reutlingen (D) – Stadthalle</span>
+    <p class="c-event__performers" data-acf="interpreten">Württembergische Philharmonie Reutlingen | Georg Köhler, Leitung</p>
+    <span class="c-badge c-badge--olive" data-acf="hinweis">Uraufführung</span>
+  </div>
+  <span class="c-event__arrow" aria-hidden="true"><svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></span>
+</article>
+</div>
+  <p class="p-sg-label">Werkzeile (c-work-row)</p>
+  <div class="c-works"><article class="c-work-row" data-year="0" data-title="Als Fridolin Flöte flöten ging" data-school="1" data-context="">
+  <div class="c-work-row__main">
+    <h3 class="c-work-row__title"><a class="c-event__link" href="werk-als-fridolin-floete-floeten-ging.html">Als Fridolin Flöte flöten ging</a></h3>
+    <p class="c-work-row__sub">Blockflötengeschichte zum Mitspielen für Blockflötenquartett und Publikum</p><div class="c-work-row__badges"><span class="c-badge c-badge--soft"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/></svg> Für Schulen geeignet</span></div>
+  </div>
+  <p class="c-work-row__meta u-mb-0"><small>Jahr</small>—</p>
+  <p class="c-work-row__meta u-mb-0"><small>Dauer</small>—</p>
+  <span class="c-work-row__arrow" aria-hidden="true"><svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></span>
+</article></div>
+  <p class="p-sg-label">Eintrag (c-entry)</p>
+  <ul class="c-entries"><li class="c-entry"><span class="c-entry__date">2015</span><div><p class="c-entry__title">Deutscher Musikeditionspreis – Best Edition</p><p class="c-entry__text">für LISTENING LAB</p></div></li></ul>
+  <p class="p-sg-label">Werk-Fakten (c-facts)</p>
+  <dl class="c-facts"><dt>Entstehung</dt><dd>2023</dd><dt>Dauer</dt><dd>5’</dd></dl>
+  <p class="p-sg-label">Leerer Zustand</p>
+  <div class="c-empty"><p class="c-empty__title">Keine Aufführungen gefunden</p><p class="u-muted u-mb-0">Für diese Auswahl sind keine Termine eingetragen.</p></div>
+</section>
+
+<section class="p-sg-section"><h2>Akkordeon, Downloads, Medien</h2>
+  <div class="c-accordion" data-accordion><div class="c-accordion__item is-open"><button class="c-accordion__trigger" type="button" aria-expanded="true">Geöffnet<span class="c-accordion__icon"></span></button><div class="c-accordion__panel"><div class="c-accordion__inner"><div class="c-accordion__content"><p>Inhalt des Akkordeons.</p></div></div></div></div><div class="c-accordion__item"><button class="c-accordion__trigger" type="button" aria-expanded="false">Geschlossen<span class="c-accordion__icon"></span></button><div class="c-accordion__panel"><div class="c-accordion__inner"><div class="c-accordion__content"><p>Inhalt.</p></div></div></div></div></div>
+  <div class="u-mt-5"><div class="c-downloads">
+  <a class="c-download" href="#"><span class="c-download__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg></span><span><span class="c-download__title">Werkverzeichnis Helmut Schmidinger</span><span class="c-download__meta">PDF</span></span></a>
+  <a class="c-download" href="#"><span class="c-download__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg></span><span><span class="c-download__title">Druckfehler – Korrekturliste zu den Ausgaben</span><span class="c-download__meta">PDF</span></span></a>
+</div></div>
+  <div class="l-grid l-grid--2 u-mt-5">
+    <div class="c-video" data-video="5fchG7ET9gk" role="button" tabindex="0"><img src="assets/img/placeholder-portrait.jpg" alt=""><div class="c-video__play"><span class="c-video__btn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4l14 8-14 8z"/></svg></span><span class="c-video__note">Video (2-Klick)</span></div></div>
+    <figure class="c-media"><div class="c-placeholder" style="--ratio:16/9">Bild-Platzhalter 16:9</div><figcaption class="c-media__caption">Bildunterschrift</figcaption></figure>
+  </div>
+</section>
+</div>
+</main>
+
+<!-- ============ FOOTER  (WP: footer.php · Daten aus Theme-Optionen) ============ -->
+<footer class="site-footer">
+  <div class="l-container site-footer__top">
+    <div>
+      <p class="site-footer__brand">Helmut <span>Schmidinger</span></p>
+      <p>Komponist · Musiker · Professor</p>
+    </div>
+    <div>
+      <p class="site-footer__title">Kontakt</p>
+      <address>Lannerstraße 27<br>4600 Wels, Österreich<br>
+      <a href="tel:+437242910771">+43 7242 910 771</a><br>
+      <a href="mailto:schmidinger@litmus.at">schmidinger@litmus.at</a></address>
+    </div>
+    <div>
+      <p class="site-footer__title">Navigation</p>
+      <ul class="site-footer__list"><li><a href="aktuelles.html">Aktuelles</a></li><li><a href="zur-person.html">Zur Person</a></li><li><a href="werk.html">Zum Werk</a></li><li><a href="lehre.html">Lehre</a></li><li><a href="kontakt.html">Kontakt</a></li></ul>
+    </div>
+    <div>
+      <p class="site-footer__title">Downloads</p>
+      <ul class="site-footer__list">
+        <li><a href="#">Werkverzeichnis (PDF)</a></li>
+        <li><a href="#">Druckfehler (PDF)</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="l-container site-footer__bottom">
+    <p class="u-mb-0">© 2026 Helmut Schmidinger</p>
+    <nav class="site-footer__legal" aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="styleguide.html">Styleguide</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

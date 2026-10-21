@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Nur Klickdummy: nicht ins WordPress-Theme übernehmen -->
+<meta name="robots" content="noindex, nofollow">
+<title>Version D · Kombination | Helmut Schmidinger</title>
+<meta name="description" content="Startseiten-Version D – Hero aus A mit Pills aus C, Klaviatur wie auf der Original-Website, Termine/Wortwolke/Footer aus C">
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/klaviatur.css">
+<link rel="stylesheet" href="assets/css/v-d.css">
+</head>
+<!-- Version D „Kombination“ · Hero aus A + Pills aus C · Klaviatur wie Original-Website (Klick) · Termine, Wortwolke, Footer aus C · Schrift Inter Tight wie A -->
+<body class="vd">
+
+<header class="vd-header">
+  <a class="vd-brand" href="start-d.html">H. Schmidinger</a>
+  <nav class="vd-lang" aria-label="Sprache"><a href="start-d.html" aria-current="true">DE</a> / <a href="#" class="is-off">EN</a></nav>
+  <nav class="vd-nav" aria-label="Hauptnavigation"><a href="aktuelles.html">Aktuelles</a><a href="zur-person.html">Zur Person</a><a href="werk.html">Zum Werk</a><a href="kontakt.html">Kontakt</a><a href="suche.html">Suche</a></nav>
+  <button class="vd-burger" type="button" data-v-menu aria-expanded="false">Menü</button>
+</header>
+
+<main>
+  <!-- HERO  (WP: Startseite → Hero-Bild, Zitat, Zitat-Autor · Facetten = Inhaltstyp „Facette“) -->
+  <section class="vd-hero">
+    <div class="vd-hero__photo">
+      <img src="assets/img/placeholder-portrait.jpg" alt="Helmut Schmidinger mit Rennrad" width="530" height="765">
+      <blockquote class="vd-quote">
+        <p>Auf meinem Rade tummle ich mich lustig herum – es ist der einzige Sport (außer componiren) den ich hier treibe!“</p>
+        <cite class="vd-mono">Gustav Mahler</cite>
+      </blockquote>
+    </div>
+
+    <div class="vd-hero__col">
+
+      <h1 class="vd-hero__name"><span>Helmut</span><span>Schmidinger</span></h1>
+
+      <div class="vd-hero__facets">
+        <div class="vd-tags" data-kv-tags></div>
+        <div class="vd-hero__facet" data-kv-panel></div>
+      </div>
+
+      <div class="vd-keys">
+        <p class="vd-keys__hint vd-mono"><span class="vd-keys__dot"></span>Taste anklicken – sechs Facetten</p>
+        <div class="kv vd-kv" data-kv data-octaves="4" data-octaves-mobile="3" data-black-width="0.62"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TERMINE (Aufbau C) -->
+  <section class="vd-split">
+    <div class="vd-split__head">
+      <p class="vd-mono">(01)_Termine</p>
+      <h2 class="vd-h2">Nächste<br>Aufführungen</h2>
+      <a class="vd-mono vd-more" href="aktuelles.html">Alle Aufführungen →</a>
+    </div>
+    <div class="vd-events">
+      <a class="vd-event" href="werk-22-kreuzer.html"><span class="vd-mono">09.11.2026</span><span class="vd-event__title">22 Kreuzer für haidn und mich chokolade</span><span class="vd-mono vd-event__place">Reutlingen (D) · UA</span><span class="vd-event__arrow" aria-hidden="true">→</span></a>
+      <a class="vd-event" href="werk-22-kreuzer.html"><span class="vd-mono">10.11.2026</span><span class="vd-event__title">22 Kreuzer für haidn und mich chokolade</span><span class="vd-mono vd-event__place">Wels · ÖEA</span><span class="vd-event__arrow" aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <!-- KONTEXTE / WORTWOLKE (Aufbau C, Wording A) -->
+  <section class="vd-split">
+    <div class="vd-split__head">
+      <p class="vd-mono">(02)_Kontexte</p>
+      <h2 class="vd-h2">Worum es in<br>den Werken geht.</h2>
+      <a class="vd-mono vd-more" href="kontexte.html">Alle Kontexte →</a>
+    </div>
+    <ul class="vd-cloud" data-cloud></ul>
+  </section>
+</main>
+
+<!-- FOOTER (Aufbau C) -->
+<footer class="vd-footer">
+  <div class="vd-footer__top">
+    <div><p class="vd-footer__claim">Schaffen wir Großes.</p><a class="vd-footer__mail" href="mailto:schmidinger@litmus.at">schmidinger@litmus.at</a></div>
+    <div class="vd-mono"><p>Lannerstraße 27<br>4600 Wels</p><p><a href="tel:+437242910771">+43 7242 910 771</a></p></div>
+    <div class="vd-footer__pills"><a href="#">Werkverzeichnis PDF</a><a href="#">Publikationen PDF</a><a href="https://www.welserabonnementkonzerte.at/">Welser Abokonzerte</a></div>
+    <div class="vd-mono"><p><a href="impressum.html">Impressum</a><br><a href="datenschutz.html">Datenschutz</a></p><p>© 2026</p></div>
+  </div>
+  <p class="vd-footer__mark" aria-hidden="true">Schmidinger</p>
+</footer>
+
+<nav class="v-switch" aria-label="Versionen"><a href="index.html">Original</a><a href="start-a.html">A</a><a href="start-b.html">B</a><a href="start-c.html">C</a><a href="start-d.html" aria-current="page">D</a><a href="versionen.html">Übersicht</a></nav>
+<script src="assets/js/klaviatur.js"></script>
+</body>
+</html>

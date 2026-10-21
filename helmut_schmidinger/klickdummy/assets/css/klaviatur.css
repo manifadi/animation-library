@@ -1,0 +1,91 @@
+/* ==========================================================================
+   Klaviatur – Basis für alle Startseiten-Versionen (Farben/Größen je Version
+   über die Variablen --kv-*)
+   ========================================================================== */
+.kv {
+  --kv-h: 9rem;                 /* Höhe der Tasten */
+  --kv-key: #16171f;            /* normale Taste */
+  --kv-accent: #a9c23f;         /* Facetten-Taste (Lindgrün vom Briefpapier) */
+  --kv-active: #a9c23f;         /* aktive Facette */
+  --kv-white-line: rgba(0,0,0,.12);
+  --kv-label: currentColor;
+  --kv-radius: 0;
+  position: relative;
+  padding-bottom: 2.6rem;       /* Platz für Nummer + Name unter der Taste */
+}
+.kv__keys { position: relative; height: var(--kv-h); }
+.kv__white { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--kv-white-line); }
+.kv__key {
+  position: absolute; top: 0; height: 100%;
+  background: var(--kv-key);
+  border-radius: 0 0 var(--kv-radius) var(--kv-radius);
+  transform-origin: top;
+  transition: transform .7s cubic-bezier(.2,.7,.2,1) calc(var(--i) * 25ms), background-color .25s, height .3s cubic-bezier(.2,.7,.2,1);
+}
+.kv:not(.is-ready) .kv__key { transform: scaleY(0); }
+
+/* Facetten-Tasten */
+.kv__key--facet {
+  border: 0; padding: 0; cursor: pointer; font: inherit; color: inherit;
+  background: var(--kv-accent);
+}
+.kv__key--facet::before {         /* größere Klickfläche (mobil) */
+  content: ""; position: absolute; inset: 0 -0.9rem -2.6rem;
+}
+.kv__key--facet:hover, .kv__key--facet:focus-visible { height: calc(100% + .9rem); }
+.kv__key--facet.is-active { background: var(--kv-active); height: calc(100% + 1.4rem); }
+.kv__key--facet:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.kv__num, .kv__name {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  white-space: nowrap; pointer-events: none; color: var(--kv-label);
+}
+.kv__num  { top: calc(100% + .5rem); font-size: .7rem; letter-spacing: .04em; opacity: .7; font-variant-numeric: tabular-nums; }
+.kv__name { top: calc(100% + 1.45rem); font-size: .78rem; opacity: 0; transition: opacity .25s; }
+.kv__key--facet.is-active .kv__name, .kv__key--facet:hover .kv__name { opacity: 1; }
+.kv__key--facet.is-active .kv__num { opacity: 1; }
+
+/* Detail-Panel */
+.kv-panel__links, .fl__links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; }
+.kv-panel__links a, .fl__links a { display: inline-flex; align-items: center; gap: .5rem; }
+.kv-panel__links svg { width: 1.1rem; height: auto; flex: none; }
+.fl__links svg { width: .8rem; height: auto; flex: none; }
+.kv-panel__links a svg[viewBox="0 0 14 14"], .fl__links a svg[viewBox="0 0 14 14"] { width: .65rem; }
+[data-kv-panel] { opacity: 0; transform: translateY(6px); }
+[data-kv-panel].is-in { opacity: 1; transform: none; transition: opacity .35s, transform .35s cubic-bezier(.2,.7,.2,1); }
+.is-placeholder { opacity: .55; font-style: italic; }
+
+/* Liste */
+[data-kv-list] { list-style: none; margin: 0; padding: 0; }
+
+/* Wortwolke */
+[data-cloud] { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: .2em .7em; }
+.cloud__w { display: inline-block; line-height: 1; transition: color .2s, opacity .2s; }
+.cloud__w sup { font-size: .35em; margin-left: .15em; opacity: .5; vertical-align: super; }
+.cloud__w--1 { font-size: 1.1rem; opacity: .55; }
+.cloud__w--2 { font-size: 1.5rem; opacity: .7; }
+.cloud__w--3 { font-size: 2.1rem; }
+.cloud__w--4 { font-size: 2.9rem; }
+.cloud__w--5 { font-size: 3.8rem; }
+@media (max-width: 40em) {
+  .cloud__w--3 { font-size: 1.7rem; } .cloud__w--4 { font-size: 2.2rem; } .cloud__w--5 { font-size: 2.7rem; }
+}
+
+/* Versionen-Umschalter (nur Klickdummy) */
+.v-switch {
+  position: fixed; z-index: 99; left: 50%; bottom: 1rem; transform: translateX(-50%);
+  display: flex; gap: .25rem; padding: .3rem; border-radius: 99px;
+  background: rgba(20,20,24,.88); backdrop-filter: blur(8px);
+  font: 500 .75rem/1 system-ui, sans-serif; box-shadow: 0 6px 24px rgba(0,0,0,.2);
+}
+.v-switch a { color: #fff; padding: .55rem .8rem; border-radius: 99px; text-decoration: none; white-space: nowrap; }
+.v-switch a[aria-current] { background: #a9c23f; color: #111; }
+.v-switch a:hover { background: rgba(255,255,255,.15); }
+
+@media (prefers-reduced-motion: reduce) {
+  .kv__key, [data-kv-panel].is-in { transition: none; }
+  .kv:not(.is-ready) .kv__key { transform: none; }
+}
+
+/* Beschriftung der äußeren Tasten nicht über den Rand hinaus */
+.kv__key--facet[data-facet="0"] .kv__num, .kv__key--facet[data-facet="0"] .kv__name { left: 0; transform: none; }
+.kv__key--facet[data-facet="5"] .kv__num, .kv__key--facet[data-facet="5"] .kv__name { left: auto; right: 0; transform: none; }

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Nur Klickdummy: nicht ins WordPress-Theme übernehmen -->
+<meta name="robots" content="noindex, nofollow">
+<title>Version A · Kontrast | Helmut Schmidinger</title>
+<meta name="description" content="Startseiten-Version A – inspiriert von „Amosov“: große Grotesk, Schwarz-Weiß, geteiltes Bild">
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/klaviatur.css">
+<link rel="stylesheet" href="assets/css/v-a.css">
+</head>
+<!-- Version A „Kontrast“ · Inspiration: Amosov (Schwarz-Weiß, riesige Grotesk, geteiltes Hero) -->
+<body class="va">
+
+<header class="va-header">
+  <a class="va-header__brand" href="start-a.html">H. Schmidinger</a>
+  <nav class="va-lang" aria-label="Sprache"><a href="start-a.html" aria-current="true">DE</a> | <a href="#" class="is-off">EN</a></nav>
+  <nav class="va-nav" aria-label="Hauptnavigation">
+    <a href="aktuelles.html">Aktuelles</a><a href="zur-person.html">Zur Person</a><a href="werk.html">Zum Werk</a><a href="kontakt.html">Kontakt</a><a href="suche.html">Suche</a>
+  </nav>
+  <button class="va-burger" type="button" data-v-menu aria-expanded="false">menü</button>
+</header>
+
+<main>
+  <!-- HERO: Name über geteiltem Bild + Klaviatur als Facetten-Navigation -->
+  <section class="va-hero">
+    <div class="va-hero__photo"><img src="assets/img/placeholder-portrait.jpg" alt="Helmut Schmidinger mit Rennrad" width="530" height="765"></div>
+    <div class="va-hero__col">
+      <p class="va-hero__roles">Komponist<br>Intendant · Pädagoge<br>Forscher · Vermittler<br>Notengrafiker</p>
+      <h1 class="va-hero__name"><span>Helmut</span><span>Schmidinger</span></h1>
+      <div class="va-hero__facet" data-kv-panel></div>
+      <div class="kv va-kv" data-kv data-octaves="3" data-octaves-mobile="2"></div>
+    </div>
+    <p class="va-hero__years"><span>Wels</span><span class="va-hero__dash"></span><span>Graz</span></p>
+  </section>
+
+  <!-- TERMINE -->
+  <section class="va-section va-section--line">
+    <div class="va-section__head">
+      <p class="va-label">(Termine)</p>
+      <h2 class="va-h2">Nächste Aufführungen</h2>
+      <a class="va-link" href="aktuelles.html">Alle Aufführungen →</a>
+    </div>
+    <div class="va-events">
+      <a class="va-event" href="werk-22-kreuzer.html">
+        <span class="va-event__date">09.11.<br>2026</span>
+        <span class="va-event__title">„22 Kreuzer für haidn und mich chokolade“</span>
+        <span class="va-event__meta">Reutlingen (D) – Stadthalle<br>Württembergische Philharmonie Reutlingen | Georg Köhler, Leitung</span>
+        <span class="va-event__tag">Uraufführung</span>
+      </a>
+      <a class="va-event" href="werk-22-kreuzer.html">
+        <span class="va-event__date">10.11.<br>2026</span>
+        <span class="va-event__title">„22 Kreuzer für haidn und mich chokolade“</span>
+        <span class="va-event__meta">Wels – Stadttheater<br>Württembergische Philharmonie Reutlingen | Georg Köhler, Leitung</span>
+        <span class="va-event__tag">Österr. Erstaufführung</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- KONTEXTE Wortwolke -->
+  <section class="va-section va-section--line">
+    <div class="va-section__head">
+      <p class="va-label">(Kontexte)</p>
+      <h2 class="va-h2">Worum es in<br>den Werken geht.</h2>
+      <a class="va-link" href="kontexte.html">Alle Kontexte →</a>
+    </div>
+    <ul class="va-cloud" data-cloud></ul>
+  </section>
+</main>
+
+<footer class="va-footer">
+  <div class="va-footer__grid">
+    <p>Lannerstraße 27<br>4600 Wels, Österreich</p>
+    <p><a href="tel:+437242910771">+43 7242 910 771</a><br><a href="mailto:schmidinger@litmus.at">schmidinger@litmus.at</a></p>
+    <p><a href="#">Werkverzeichnis (PDF)</a><br><a href="#">Publikationen (PDF)</a></p>
+    <p><a href="impressum.html">Impressum</a><br><a href="datenschutz.html">Datenschutz</a></p>
+  </div>
+  <p class="va-footer__mark" aria-hidden="true">Schmidinger</p>
+</footer>
+
+<nav class="v-switch" aria-label="Versionen"><a href="index.html">Original</a><a href="start-a.html" aria-current="page">A</a><a href="start-b.html">B</a><a href="start-c.html">C</a><a href="start-d.html">D</a><a href="versionen.html">Übersicht</a></nav>
+<script src="assets/js/klaviatur.js"></script>
+</body>
+</html>

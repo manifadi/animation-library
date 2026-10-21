@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Nur Klickdummy: nicht ins WordPress-Theme übernehmen -->
+<meta name="robots" content="noindex, nofollow">
+<title>Startseiten-Versionen | Helmut Schmidinger</title>
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/klaviatur.css">
+<style>
+  :root { --ink: #121212; --muted: #6d6d6a; --line: #dddcd6; --paper: #f4f3ef; --accent: #a9c23f; --g: clamp(1rem, .5rem + 2vw, 2.5rem); }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 400 1rem/1.55 "Geist", system-ui, sans-serif; }
+  a { color: inherit; }
+  .wrap { max-width: 78rem; margin: 0 auto; padding: clamp(2.5rem, 6vw, 5rem) var(--g) 6rem; }
+  h1 { margin: 0 0 1rem; font: 700 clamp(2.4rem, 1.4rem + 4vw, 4.6rem)/.92 "Bricolage Grotesque", sans-serif; letter-spacing: -.05em; }
+  .lead { max-width: 44rem; color: var(--muted); font-size: 1.05rem; margin: 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); gap: 1.4rem; margin-top: 3rem; }
+  .card { display: flex; flex-direction: column; background: #fff; border-radius: 14px; overflow: hidden; text-decoration: none; transition: transform .25s, box-shadow .25s; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,.1); }
+  .card img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-bottom: 1px solid var(--line); }
+  .card__body { padding: 1.2rem 1.3rem 1.4rem; display: grid; gap: .5rem; }
+  .card__kicker { font: 500 .72rem "Geist Mono", monospace; text-transform: uppercase; color: var(--muted); }
+  .card h2 { margin: 0; font: 700 1.6rem/1 "Bricolage Grotesque", sans-serif; letter-spacing: -.04em; }
+  .card p { margin: 0; font-size: .9rem; color: #3b3b39; }
+  .card dl { display: grid; grid-template-columns: 4.5rem 1fr; gap: .2rem .6rem; margin: .4rem 0 0; font-size: .8rem; }
+  .card dt { color: var(--muted); }
+  .card dd { margin: 0; }
+  .sw { display: inline-block; width: .8rem; height: .8rem; border-radius: 50%; vertical-align: -1px; margin-right: .15rem; border: 1px solid rgba(0,0,0,.15); }
+  .notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 2rem var(--g); margin-top: 4.5rem; padding-top: 2.5rem; border-top: 1px solid var(--line); }
+  .notes h3 { margin: 0 0 .6rem; font: 700 1.3rem "Bricolage Grotesque", sans-serif; letter-spacing: -.03em; }
+  .notes ul { margin: 0; padding-left: 1.1rem; font-size: .9rem; }
+  .notes li { margin-bottom: .35rem; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>Startseite –<br>4 Richtungen</h1>
+  <p class="lead">Alle Versionen nutzen die <strong>Klaviatur vom Briefpapier</strong> als Navigation: Jede hervorgehobene Taste ist eine Facette (Komponist, Intendant, Pädagoge, Forscher, Musikvermittler, Notengrafiker). Darüberfahren oder Antippen zeigt Text und Links. Unten am Bildschirm lässt sich jederzeit zwischen den Versionen wechseln.</p>
+
+  <div class="grid">
+    <a class="card" href="start-a.html">
+      <img src="assets/img/versionen/start-a.jpg" alt="Vorschau Version A" loading="lazy">
+      <div class="card__body">
+        <span class="card__kicker">Version A · Inspiration Amosov</span>
+        <h2>Kontrast</h2>
+        <p>Weiß und Schwarz, riesiger Name über geteiltem Bild, der sich über dem Foto invertiert. Sehr reduziert, sehr porträthaft.</p>
+        <dl><dt>Schrift</dt><dd>Inter Tight</dd><dt>Farben</dt><dd><span class="sw" style="background:#fff"></span><span class="sw" style="background:#0d0d0f"></span><span class="sw" style="background:#a9c23f"></span> Weiß · Schwarz · Lindgrün</dd></dl>
+      </div>
+    </a>
+    <a class="card" href="start-b.html">
+      <img src="assets/img/versionen/start-b.jpg" alt="Vorschau Version B" loading="lazy">
+      <div class="card__body">
+        <span class="card__kicker">Version B · Inspiration The Encore</span>
+        <h2>Bühne</h2>
+        <p>Dunkle „Bühne“ und Sand im Wechsel, große Versal-Serif, nummerierter Index (01)–(06). Am nächsten an Konzerthaus und Festival.</p>
+        <dl><dt>Schrift</dt><dd>Newsreader + Geist</dd><dt>Farben</dt><dd><span class="sw" style="background:#151412"></span><span class="sw" style="background:#dcd6c8"></span><span class="sw" style="background:#b9cc4c"></span> Anthrazit · Sand · Lindgrün</dd></dl>
+      </div>
+    </a>
+    <a class="card" href="start-c.html">
+      <img src="assets/img/versionen/start-c.jpg" alt="Vorschau Version C" loading="lazy">
+      <div class="card__body">
+        <span class="card__kicker">Version C · Inspiration Northtime</span>
+        <h2>Plakat</h2>
+        <p>Extra-schmale fette Grotesk, Handschrift-Akzent, schwarze Bänder, Mono-Labels. Facetten zusätzlich als Tags und mit Pfeilen durchblätterbar.</p>
+        <dl><dt>Schrift</dt><dd>Archivo Condensed + Geist Mono, Herr Von Muellerhoff</dd><dt>Farben</dt><dd><span class="sw" style="background:#efeee9"></span><span class="sw" style="background:#0f0f0f"></span><span class="sw" style="background:#b2c843"></span> Papier · Schwarz · Lindgrün</dd></dl>
+      </div>
+    </a>
+    <a class="card" href="start-d.html">
+      <img src="assets/img/versionen/start-d.jpg" alt="Vorschau Version D" loading="lazy">
+      <div class="card__body">
+        <span class="card__kicker">Version D · Kombination (Favorit)</span>
+        <h2>A + C</h2>
+        <p>Hero aus A mit Mahler-Zitat im Bild und Facetten-Pills aus C. Die Klaviatur ist an die Original-Website angelehnt und reagiert auf Klick. Termine, Wortwolke und Footer kommen aus C.</p>
+        <dl><dt>Schrift</dt><dd>Inter Tight (wie A)</dd><dt>Farben</dt><dd><span class="sw" style="background:#f2f1ed"></span><span class="sw" style="background:#24253f"></span><span class="sw" style="background:#a9c23f"></span> Papier · Nachtblau · Lindgrün</dd></dl>
+      </div>
+    </a>
+    <a class="card" href="index.html">
+      <img src="assets/img/versionen/index.jpg" alt="Vorschau Original" loading="lazy">
+      <div class="card__body">
+        <span class="card__kicker">Bisheriger Klickdummy (alle Unterseiten)</span>
+        <h2>Original, neue Schriften</h2>
+        <p>Layout unverändert. Statt Playfair Display + Jost jetzt Instrument Serif + Geist, dadurch zeitgemäßer und weniger „Template“.</p>
+        <dl><dt>Schrift</dt><dd>Instrument Serif + Geist</dd><dt>Farben</dt><dd><span class="sw" style="background:#f7f6f2"></span><span class="sw" style="background:#141a33"></span><span class="sw" style="background:#6b7224"></span> wie bisher</dd></dl>
+      </div>
+    </a>
+  </div>
+
+  <section class="notes">
+    <div>
+      <h3>Konzeptänderungen (Meeting)</h3>
+      <ul>
+        <li>„Lehre“ nicht mehr im Menü. Ersatz: Facette „Pädagoge“ mit Links zur KUG.</li>
+        <li>Facetten: Titel, 2–3 Zeilen Text, 0–2 externe Links, Bild optional.</li>
+        <li>„Bibliographie“ entfällt, stattdessen PDF „Publikationen“ bei „Forscher“.</li>
+        <li>Kontexte: Feld pro Werk und Wortwolke (Größe = Anzahl Werke).</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Hinweise</h3>
+      <ul>
+        <li>Fotos sind Platzhalter. Das Querformat-Foto stammt aus der alten Website und ist niedrig aufgelöst. Für den Livegang brauchen wir die Originale vom Fotografen.</li>
+        <li>Facetten-Texte für Pädagoge, Forscher und Musikvermittler folgen vom Kunden.</li>
+        <li>Wörter in der Wortwolke sind Beispiele.</li>
+        <li>Alle Schriften sind gratis (Open Font License) und lokal eingebunden, ohne Google-Server.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+<nav class="v-switch" aria-label="Versionen"><a href="index.html">Original</a><a href="start-a.html">A</a><a href="start-b.html">B</a><a href="start-c.html">C</a><a href="start-d.html">D</a><a href="versionen.html" aria-current="page">Übersicht</a></nav>
+</body>
+</html>

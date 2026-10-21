@@ -1,3 +1,5 @@
 .DS_Store
 node_modules/
 projects.json
+helmut_schmidinger/wordpress-website/
+helmut_schmidinger/*.zip

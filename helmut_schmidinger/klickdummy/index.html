@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Nur Klickdummy: nicht ins WordPress-Theme übernehmen -->
+<meta name="robots" content="noindex, nofollow">
+<title>Startseite | Helmut Schmidinger</title>
+<meta name="description" content="Helmut Schmidinger – Komponist, Musiker, Professor">
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/klaviatur.css"><!-- Versionen-Umschalter + Wortwolke -->
+</head>
+<!-- WP-Template: front-page.php -->
+<body class="page-index">
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+<!-- ============ HEADER  (WP: header.php · Menü: wp_nav_menu "hauptmenue") ============ -->
+<header class="site-header">
+  <nav class="c-lang" aria-label="Sprache"><a class="c-lang__link is-active" href="index.html" aria-current="true" lang="de">DE</a><span class="c-lang__sep" aria-hidden="true">|</span><a class="c-lang__link is-disabled" href="#" lang="en" title="Englische Version – optional, später via Polylang">EN</a></nav>
+  <a class="site-header__brand" href="index.html" aria-label="Startseite">Helmut <span>Schmidinger</span></a>
+  <div class="site-header__right">
+    <nav class="c-nav" aria-label="Hauptnavigation">
+      <ul class="c-nav__list"><li><a class="c-nav__link" href="aktuelles.html">Aktuelles</a></li><li><a class="c-nav__link" href="zur-person.html">Zur Person</a></li><li><a class="c-nav__link" href="werk.html">Zum Werk</a></li><li><a class="c-nav__link" href="lehre.html">Lehre</a></li><li><a class="c-nav__link" href="kontakt.html">Kontakt</a></li></ul>
+    </nav>
+    <button class="c-icon-btn" type="button" data-search-open aria-label="Suche öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg></button>
+    <button class="c-icon-btn c-burger" type="button" data-menu-open aria-expanded="false" aria-controls="mobile-nav" aria-label="Menü öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
+  </div>
+</header>
+
+<!-- Mobile-Menü (Overlay) -->
+<div class="c-mobile-nav" id="mobile-nav" data-mobile-nav role="dialog" aria-modal="true" aria-label="Menü">
+  <div class="c-mobile-nav__top">
+    <nav class="c-lang" aria-label="Sprache"><a class="c-lang__link is-active" href="index.html" aria-current="true" lang="de">DE</a><span class="c-lang__sep" aria-hidden="true">|</span><a class="c-lang__link is-disabled" href="#" lang="en" title="Englische Version – optional, später via Polylang">EN</a></nav>
+    <button class="c-icon-btn" type="button" data-menu-close aria-label="Menü schließen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg></button>
+  </div>
+  <ul class="c-mobile-nav__list"><li><a class="c-mobile-nav__link" href="aktuelles.html">Aktuelles<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li><li><a class="c-mobile-nav__link" href="zur-person.html">Zur Person<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li><li><a class="c-mobile-nav__link" href="werk.html">Zum Werk<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li><li><a class="c-mobile-nav__link" href="lehre.html">Lehre<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li><li><a class="c-mobile-nav__link" href="kontakt.html">Kontakt<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li></ul>
+  <div class="c-mobile-nav__meta">
+    <p><a href="mailto:schmidinger@litmus.at">schmidinger@litmus.at</a><br>+43 7242 910 771</p>
+    <button class="c-btn c-btn--light c-btn--small" type="button" data-search-open>Suche <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg></button>
+  </div>
+</div>
+
+<!-- Suche (Overlay)  WP: searchform.php → search.php -->
+<div class="c-search" data-search role="dialog" aria-modal="true" aria-label="Suche">
+  <button class="c-icon-btn c-search__close" type="button" data-search-close aria-label="Suche schließen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg></button>
+  <form class="c-search__form" action="suche.html" role="search">
+    <label class="c-eyebrow c-search__label" for="s">Suche</label>
+    <div class="c-search__row">
+      <input class="c-search__input" id="s" name="s" type="search" placeholder="Werk, Ort, Thema …" autocomplete="off">
+      <button class="c-icon-btn" type="submit" aria-label="Suchen"><svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></button>
+    </div>
+    <p class="c-search__hint">Durchsucht Werke, Aufführungen und Seiten.</p>
+  </form>
+</div>
+
+<main id="main">
+<!-- HERO  (ACF Startseite: hero_bild, zitat, zitat_autor) -->
+<section class="p-home-hero">
+  <div class="p-home-hero__media"><img src="assets/img/placeholder-portrait.jpg" alt="Helmut Schmidinger mit Rennrad vor historischer Fassade" width="530" height="765"></div>
+  <p class="c-motto" aria-hidden="true">Musik denkt in anderen Zeiten.</p>
+  <div class="l-container p-home-hero__inner">
+    <div class="p-home-hero__content">
+      <h1 class="c-brand c-brand--display"><span class="c-brand__first">Helmut</span> <span class="c-brand__last">Schmidinger</span></h1>
+      <p class="c-roles">Komponist<span>|</span>Musiker<span>|</span>Professor</p>
+      <hr class="c-rule">
+      <blockquote class="c-quote">
+        <p class="c-quote__text">„Auf meinem Rade tummle ich mich lustig herum – es ist der einzige Sport (außer componiren) den ich hier treibe!“</p>
+        <cite class="c-quote__author">Gustav Mahler</cite>
+      </blockquote>
+    </div>
+  </div>
+  <svg class="c-staff" viewBox="0 0 560 130" fill="none" aria-hidden="true">
+  <g class="c-staff__lines" stroke-width="1"><path d="M0 52h560M0 62h560M0 72h560M0 82h560M0 92h560"/></g>
+  <g class="c-staff__stem" stroke-width="1.2">
+    <path d="M175 50v46M210 66v62M282 60v38M308 44v40M338 40v62M352 36v70M378 26v62M396 32v52M444 2v82M466 24v42"/>
+  </g>
+  <circle class="c-staff__note c-staff__note--ink" cx="192" cy="78" r="3.5"/>
+  <circle class="c-staff__note" cx="210" cy="66" r="5.5"/>
+  <circle class="c-staff__note" cx="336" cy="48" r="4.5"/>
+  <circle class="c-staff__note c-staff__note--ink" cx="353" cy="36" r="4.5"/>
+  <circle class="c-staff__note" cx="396" cy="32" r="5.5"/>
+  <rect class="c-staff__note c-staff__note--ink" x="441.5" y="0" width="5" height="12"/>
+  <circle class="c-staff__note" cx="501" cy="70" r="3"/>
+</svg>
+</section>
+
+<!-- NÄCHSTE AUFFÜHRUNGEN  (automatisch: CPT auffuehrung, Datum >= heute, max. 3) -->
+<section class="l-section l-section--surface">
+  <div class="l-container p-home-events">
+    <div>
+      <p class="c-eyebrow">Termine</p>
+      <h2>Nächste Aufführungen</h2>
+      <p class="u-muted">Eine Auswahl bekannter Aufführungen meiner Werke.</p>
+      <a class="c-btn c-btn--outline u-mt-3" href="aktuelles.html">Alle Aufführungen <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a>
+    </div>
+    <div class="c-events c-events--compact" data-event-list>
+<article class="c-event" data-year="2026" data-month="11" data-work="22-kreuzer">
+  <p class="c-event__date u-mb-0" data-acf="datum">2026-11-09</p>
+  <p class="c-event__place u-mb-0" data-acf="ort">Reutlingen (D) – Stadthalle</p>
+  <div class="c-event__work">
+    <a class="c-event__title c-event__link" href="werk-22-kreuzer.html" data-acf="werk">„22 Kreuzer für haidn und mich chokolade“</a>
+    <span class="c-event__venue">Reutlingen (D) – Stadthalle</span>
+    <p class="c-event__performers" data-acf="interpreten">Württembergische Philharmonie Reutlingen | Georg Köhler, Leitung</p>
+    <span class="c-badge c-badge--olive" data-acf="hinweis">Uraufführung</span>
+  </div>
+  <span class="c-event__arrow" aria-hidden="true"><svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></span>
+</article>
+<article class="c-event" data-year="2026" data-month="11" data-work="22-kreuzer">
+  <p class="c-event__date u-mb-0" data-acf="datum">2026-11-10</p>
+  <p class="c-event__place u-mb-0" data-acf="ort">Wels – Stadttheater</p>
+  <div class="c-event__work">
+    <a class="c-event__title c-event__link" href="werk-22-kreuzer.html" data-acf="werk">„22 Kreuzer für haidn und mich chokolade“</a>
+    <span class="c-event__venue">Wels – Stadttheater</span>
+    <p class="c-event__performers" data-acf="interpreten">Württembergische Philharmonie Reutlingen | Georg Köhler, Leitung</p>
+    <span class="c-badge " data-acf="hinweis">Österreichische Erstaufführung</span>
+  </div>
+  <span class="c-event__arrow" aria-hidden="true"><svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></span>
+</article>
+</div>
+  </div>
+</section>
+
+<!-- KONTEXTE als Wortwolke  (WP: Taxonomie „kontext“, Größe = Anzahl Werke) -->
+<section class="l-section">
+  <div class="l-container p-home-events">
+    <div>
+      <p class="c-eyebrow">Kontexte</p>
+      <h2>Worum es in den Werken geht</h2>
+      <p class="u-muted">Die Themen, Orte und Personen hinter den Werken.</p>
+      <a class="c-btn c-btn--outline u-mt-3" href="kontexte.html">Alle Kontexte <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a>
+    </div>
+    <ul class="p-home-cloud" data-cloud></ul>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER  (WP: footer.php · Daten aus Theme-Optionen) ============ -->
+<footer class="site-footer">
+  <div class="l-container site-footer__top">
+    <div>
+      <p class="site-footer__brand">Helmut <span>Schmidinger</span></p>
+      <p>Komponist · Musiker · Professor</p>
+    </div>
+    <div>
+      <p class="site-footer__title">Kontakt</p>
+      <address>Lannerstraße 27<br>4600 Wels, Österreich<br>
+      <a href="tel:+437242910771">+43 7242 910 771</a><br>
+      <a href="mailto:schmidinger@litmus.at">schmidinger@litmus.at</a></address>
+    </div>
+    <div>
+      <p class="site-footer__title">Navigation</p>
+      <ul class="site-footer__list"><li><a href="aktuelles.html">Aktuelles</a></li><li><a href="zur-person.html">Zur Person</a></li><li><a href="werk.html">Zum Werk</a></li><li><a href="lehre.html">Lehre</a></li><li><a href="kontakt.html">Kontakt</a></li></ul>
+    </div>
+    <div>
+      <p class="site-footer__title">Downloads</p>
+      <ul class="site-footer__list">
+        <li><a href="#">Werkverzeichnis (PDF)</a></li>
+        <li><a href="#">Druckfehler (PDF)</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="l-container site-footer__bottom">
+    <p class="u-mb-0">© 2026 Helmut Schmidinger</p>
+    <nav class="site-footer__legal" aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="styleguide.html">Styleguide</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script src="assets/js/klaviatur.js"></script>
+<nav class="v-switch" aria-label="Versionen"><a href="index.html" aria-current="page">Original</a><a href="start-a.html">A</a><a href="start-b.html">B</a><a href="start-c.html">C</a><a href="start-d.html">D</a><a href="versionen.html">Übersicht</a></nav>
+</body>
+</html>

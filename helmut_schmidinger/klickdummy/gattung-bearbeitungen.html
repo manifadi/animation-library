@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Nur Klickdummy: nicht ins WordPress-Theme übernehmen -->
+<meta name="robots" content="noindex, nofollow">
+<title>Bearbeitungen | Helmut Schmidinger</title>
+<meta name="description" content="Bearbeitungen">
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<!-- WP-Template: taxonomy-gattung.php -->
+<body class="page-gattung-bearbeitungen">
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+<!-- ============ HEADER  (WP: header.php · Menü: wp_nav_menu "hauptmenue") ============ -->
+<header class="site-header">
+  <nav class="c-lang" aria-label="Sprache"><a class="c-lang__link is-active" href="index.html" aria-current="true" lang="de">DE</a><span class="c-lang__sep" aria-hidden="true">|</span><a class="c-lang__link is-disabled" href="#" lang="en" title="Englische Version – optional, später via Polylang">EN</a></nav>
+  <a class="site-header__brand" href="index.html" aria-label="Startseite">Helmut <span>Schmidinger</span></a>
+  <div class="site-header__right">
+    <nav class="c-nav" aria-label="Hauptnavigation">
+      <ul class="c-nav__list"><li><a class="c-nav__link" href="aktuelles.html">Aktuelles</a></li><li><a class="c-nav__link" href="zur-person.html">Zur Person</a></li><li><a class="c-nav__link is-active" href="werk.html" aria-current="page">Zum Werk</a></li><li><a class="c-nav__link" href="lehre.html">Lehre</a></li><li><a class="c-nav__link" href="kontakt.html">Kontakt</a></li></ul>
+    </nav>
+    <button class="c-icon-btn" type="button" data-search-open aria-label="Suche öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg></button>
+    <button class="c-icon-btn c-burger" type="button" data-menu-open aria-expanded="false" aria-controls="mobile-nav" aria-label="Menü öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
+  </div>
+</header>
+
+<!-- Mobile-Menü (Overlay) -->
+<div class="c-mobile-nav" id="mobile-nav" data-mobile-nav role="dialog" aria-modal="true" aria-label="Menü">
+  <div class="c-mobile-nav__top">
+    <nav class="c-lang" aria-label="Sprache"><a class="c-lang__link is-active" href="index.html" aria-current="true" lang="de">DE</a><span class="c-lang__sep" aria-hidden="true">|</span><a class="c-lang__link is-disabled" href="#" lang="en" title="Englische Version – optional, später via Polylang">EN</a></nav>
+    <button class="c-icon-btn" type="button" data-menu-close aria-label="Menü schließen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg></button>
+  </div>
+  <ul class="c-mobile-nav__list"><li><a class="c-mobile-nav__link" href="aktuelles.html">Aktuelles<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li><li><a class="c-mobile-nav__link" href="zur-person.html">Zur Person<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li><li><a class="c-mobile-nav__link is-active" href="werk.html">Zum Werk<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li><li><a class="c-mobile-nav__link" href="lehre.html">Lehre<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li><li><a class="c-mobile-nav__link" href="kontakt.html">Kontakt<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li></ul>
+  <div class="c-mobile-nav__meta">
+    <p><a href="mailto:schmidinger@litmus.at">schmidinger@litmus.at</a><br>+43 7242 910 771</p>
+    <button class="c-btn c-btn--light c-btn--small" type="button" data-search-open>Suche <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg></button>
+  </div>
+</div>
+
+<!-- Suche (Overlay)  WP: searchform.php → search.php -->
+<div class="c-search" data-search role="dialog" aria-modal="true" aria-label="Suche">
+  <button class="c-icon-btn c-search__close" type="button" data-search-close aria-label="Suche schließen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg></button>
+  <form class="c-search__form" action="suche.html" role="search">
+    <label class="c-eyebrow c-search__label" for="s">Suche</label>
+    <div class="c-search__row">
+      <input class="c-search__input" id="s" name="s" type="search" placeholder="Werk, Ort, Thema …" autocomplete="off">
+      <button class="c-icon-btn" type="submit" aria-label="Suchen"><svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></button>
+    </div>
+    <p class="c-search__hint">Durchsucht Werke, Aufführungen und Seiten.</p>
+  </form>
+</div>
+
+<div class="l-split">
+  <!-- Marken-Panel  (WP: template-parts/aside.php · Motto = ACF "seitenmotto", Bild = Beitragsbild) -->
+  <aside class="l-split__aside c-aside">
+    <div class="c-aside__brand">
+      <a href="index.html" aria-label="Startseite"><p class="c-brand c-brand--aside"><span class="c-brand__first">Helmut</span> <span class="c-brand__last">Schmidinger</span></p></a>
+      <p class="c-roles">Komponist<span>|</span>Musiker<span>|</span>Professor</p>
+      <hr class="c-rule">
+    </div>
+    <blockquote class="c-quote c-aside__quote">
+      <p class="c-quote__text">„Der Bleistift als Werkzeug.“</p>
+      
+    </blockquote>
+    <div class="c-aside__image"><img src="assets/img/placeholder-score.jpg" alt="" width="720" height="480"></div>
+  </aside>
+
+  <main id="main" class="l-split__main">
+    <p class="c-motto" aria-hidden="true">Musik denkt in anderen Zeiten.</p>
+    <div class="l-split__main-inner">
+<nav class="c-subnav" aria-label="Unterbereiche"><a class="c-subnav__link is-active" href="werk.html" aria-current="page">Werke</a><a class="c-subnav__link" href="diskographie.html">Diskographie</a><a class="c-subnav__link" href="bibliographie.html">Bibliographie</a><a class="c-subnav__link" href="kontexte.html">Kontexte</a></nav>
+<ol class="c-breadcrumb"><li><a href="werk.html">Zum Werk</a></li><li>Bearbeitungen</li></ol>
+<header class="c-page-head"><h1 class="c-page-head__title">Bearbeitungen</h1><div class="c-page-head__intro"><p>Werke anderer Komponisten. Klicken Sie auf ein Werk für alle Details, Aufführungen und Aufführungsmaterial.</p></div></header>
+<div class="l-with-sidebar">
+  <nav class="c-sidenav" aria-label="Gattungen">
+    <p class="c-eyebrow c-sidenav__title">Gattungen</p>
+    <ul class="c-sidenav__list"><li><a class="c-sidenav__link" href="gattung-musiktheater.html">Musiktheater<span>0</span></a></li><li><a class="c-sidenav__link" href="gattung-orchesterwerke.html">Orchesterwerke<span>3</span></a></li><li><a class="c-sidenav__link" href="gattung-soloinstrumente-mit-orchester.html">Soloinstrumente mit Orchester<span>1</span></a></li><li><a class="c-sidenav__link" href="gattung-ensemble.html">Ensemble mit und ohne Solisten<span>0</span></a></li><li><a class="c-sidenav__link" href="gattung-solowerke.html">Solowerke<span>2</span></a></li><li><a class="c-sidenav__link" href="gattung-kammermusik.html">Kammermusik<span>4</span></a></li><li><a class="c-sidenav__link" href="gattung-vokalwerke.html">Vokalwerke<span>2</span></a></li><li><a class="c-sidenav__link is-active" href="gattung-bearbeitungen.html">Bearbeitungen<span>1</span></a></li><li><a class="c-sidenav__link" href="gattung-schulen.html">Für Schulen geeignet<span>3</span></a></li></ul>
+  </nav>
+  <div>
+    <form class="c-filter" data-work-filter onsubmit="return false">
+      <label class="c-toggle"><input type="checkbox" name="schulen"><span class="c-toggle__track"></span>Nur für Schulen geeignete</label>
+      <div class="c-filter__field"><label class="c-filter__label" for="f-sort">Sortierung</label>
+        <select class="c-select" id="f-sort" name="sort"><option value="neu">Neueste zuerst</option><option value="alt">Älteste zuerst</option><option value="titel">Titel A–Z</option></select></div>
+      <span class="c-filter__count" data-work-count></span>
+    </form>
+    <!-- CPT "werk" gefiltert nach Taxonomie "gattung" -->
+    <div class="c-works" data-work-list>
+<article class="c-work-row" data-year="1998" data-title="Serge Prokofieff: Peter und der Wolf" data-school="1" data-context="komponisten">
+  <div class="c-work-row__main">
+    <h3 class="c-work-row__title"><a class="c-event__link" href="werk-peter-und-der-wolf.html">Serge Prokofieff: Peter und der Wolf</a></h3>
+    <p class="c-work-row__sub">ein musikalisches Märchen für Erzähler und Kammerensemble (Bearbeitung)</p><div class="c-work-row__badges"><span class="c-badge c-badge--soft"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/></svg> Für Schulen geeignet</span><span class="c-badge c-badge--outline">Komponisten und einzelne Werke</span></div>
+  </div>
+  <p class="c-work-row__meta u-mb-0"><small>Jahr</small>1936/1998</p>
+  <p class="c-work-row__meta u-mb-0"><small>Dauer</small>—</p>
+  <span class="c-work-row__arrow" aria-hidden="true"><svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></span>
+</article>
+    </div>
+    <div class="c-empty" data-work-empty hidden><p class="c-empty__title">Keine Werke in dieser Auswahl</p><p class="u-muted u-mb-0">Schalten Sie den Filter „Nur für Schulen geeignete“ aus, um alle Werke zu sehen.</p></div>
+  </div>
+</div>
+    </div>
+  </main>
+</div>
+
+<!-- ============ FOOTER  (WP: footer.php · Daten aus Theme-Optionen) ============ -->
+<footer class="site-footer">
+  <div class="l-container site-footer__top">
+    <div>
+      <p class="site-footer__brand">Helmut <span>Schmidinger</span></p>
+      <p>Komponist · Musiker · Professor</p>
+    </div>
+    <div>
+      <p class="site-footer__title">Kontakt</p>
+      <address>Lannerstraße 27<br>4600 Wels, Österreich<br>
+      <a href="tel:+437242910771">+43 7242 910 771</a><br>
+      <a href="mailto:schmidinger@litmus.at">schmidinger@litmus.at</a></address>
+    </div>
+    <div>
+      <p class="site-footer__title">Navigation</p>
+      <ul class="site-footer__list"><li><a href="aktuelles.html">Aktuelles</a></li><li><a href="zur-person.html">Zur Person</a></li><li><a href="werk.html">Zum Werk</a></li><li><a href="lehre.html">Lehre</a></li><li><a href="kontakt.html">Kontakt</a></li></ul>
+    </div>
+    <div>
+      <p class="site-footer__title">Downloads</p>
+      <ul class="site-footer__list">
+        <li><a href="#">Werkverzeichnis (PDF)</a></li>
+        <li><a href="#">Druckfehler (PDF)</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="l-container site-footer__bottom">
+    <p class="u-mb-0">© 2026 Helmut Schmidinger</p>
+    <nav class="site-footer__legal" aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="styleguide.html">Styleguide</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
