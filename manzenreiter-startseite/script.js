@@ -1,24 +1,24 @@
 // Manzenreiter – Startseite
 
 /* ---------- Preloader ----------
-   Der Loader ist selbst der schwarze Vorhang, darauf zeichnet sich das weiße M.
-   Wartet, bis das M mindestens 1,7 s stand UND window "load" gefeuert hat,
-   dann 150 ms Pause – danach fällt der Vorhang samt M nach unten weg (0,8 s)
-   und wird entfernt. */
+   Wartet, bis das M mindestens 1,05 s stand UND window "load" gefeuert hat,
+   dann 50 ms Pause und Curtain (1 s). Bei 50 % – Fläche deckt alles ab –
+   verschwindet der weiße Loader, danach werden beide Layer entfernt. */
 (function () {
   var root = document.documentElement;
   if (!root.classList.contains('is-loading')) return;
 
   var loader = document.querySelector('.preloader');
+  var curtain = document.querySelector('.preloader-curtain');
 
   // Seite beginnt immer oben beim Hero-Video (außer ein Anker wie #… ist gewünscht)
   if (!location.hash) window.scrollTo(0, 0);
   // script.js läuft erst nach geladenem CSS, also ab Start der M-Animation
   var start = performance.now();
 
-  var MIN_VISIBLE = 1700;
-  var PAUSE = 150;
-  var FALL = 800;
+  var MIN_VISIBLE = 1050;
+  var PAUSE = 50;
+  var CURTAIN = 1000;
 
   var minTime = new Promise(function (resolve) {
     setTimeout(resolve, Math.max(0, MIN_VISIBLE - (performance.now() - start)));
@@ -57,6 +57,7 @@
     done = true;
     root.classList.remove('is-loading', 'is-revealing');
     if (loader) loader.remove();
+    if (curtain) curtain.remove();
     startReveals();
   }
 
@@ -65,15 +66,13 @@
       // falls der Browser doch eine alte Scrollposition wiederhergestellt hat: zurück nach oben,
       // solange der Loader die Seite noch verdeckt
       if (!location.hash && window.scrollY !== 0) window.scrollTo(0, 0);
-      // noch deckt der Vorhang alles ab
-      armReveals();
       root.classList.add('is-revealing');
-      if (loader) loader.addEventListener('animationend', function end(e) {
-        if (e.target !== loader) return;   // Animationen des M steigen bis hierher auf
-        loader.removeEventListener('animationend', end);
-        finish();
-      });
-      setTimeout(finish, FALL + 100);   // Absicherung, falls animationend ausbleibt
+      setTimeout(function () {
+        if (loader) loader.classList.add('is-hidden');
+        armReveals();
+      }, CURTAIN / 2);
+      if (curtain) curtain.addEventListener('animationend', finish, { once: true });
+      setTimeout(finish, CURTAIN + 100);   // Absicherung, falls animationend ausbleibt
     }, PAUSE);
   });
 })();
