@@ -1,15 +1,15 @@
 // Manzenreiter – Startseite
 
 /* ---------- Preloader ----------
+   Der Loader ist selbst der schwarze Vorhang, darauf zeichnet sich das weiße M.
    Wartet, bis das M mindestens 1,7 s stand UND window "load" gefeuert hat,
-   dann 150 ms Pause und Curtain (1,5 s). Bei 50 % – Fläche deckt alles ab –
-   verschwindet der weiße Loader, danach werden beide Layer entfernt. */
+   dann 150 ms Pause – danach fällt der Vorhang samt M nach unten weg (0,8 s)
+   und wird entfernt. */
 (function () {
   var root = document.documentElement;
   if (!root.classList.contains('is-loading')) return;
 
   var loader = document.querySelector('.preloader');
-  var curtain = document.querySelector('.preloader-curtain');
 
   // Seite beginnt immer oben beim Hero-Video (außer ein Anker wie #… ist gewünscht)
   if (!location.hash) window.scrollTo(0, 0);
@@ -18,7 +18,7 @@
 
   var MIN_VISIBLE = 1700;
   var PAUSE = 150;
-  var CURTAIN = 1500;
+  var FALL = 800;
 
   var minTime = new Promise(function (resolve) {
     setTimeout(resolve, Math.max(0, MIN_VISIBLE - (performance.now() - start)));
@@ -57,7 +57,6 @@
     done = true;
     root.classList.remove('is-loading', 'is-revealing');
     if (loader) loader.remove();
-    if (curtain) curtain.remove();
     startReveals();
   }
 
@@ -66,13 +65,15 @@
       // falls der Browser doch eine alte Scrollposition wiederhergestellt hat: zurück nach oben,
       // solange der Loader die Seite noch verdeckt
       if (!location.hash && window.scrollY !== 0) window.scrollTo(0, 0);
+      // noch deckt der Vorhang alles ab
+      armReveals();
       root.classList.add('is-revealing');
-      setTimeout(function () {
-        if (loader) loader.classList.add('is-hidden');
-        armReveals();
-      }, CURTAIN / 2);
-      if (curtain) curtain.addEventListener('animationend', finish, { once: true });
-      setTimeout(finish, CURTAIN + 100);   // Absicherung, falls animationend ausbleibt
+      if (loader) loader.addEventListener('animationend', function end(e) {
+        if (e.target !== loader) return;   // Animationen des M steigen bis hierher auf
+        loader.removeEventListener('animationend', end);
+        finish();
+      });
+      setTimeout(finish, FALL + 100);   // Absicherung, falls animationend ausbleibt
     }, PAUSE);
   });
 })();
@@ -267,22 +268,35 @@
    seitlich hinaus und das nächste kommt von der anderen Seite herein (Carousel),
    die Nummer 01–05 wandert mit. Die Gallery-Arrows (vf-gallery-arrows.js) lösen
    genau diese Original-Pfeile aus.
-   Derzeit gibt es nur ein Showroom-Bild – jede Slide zeigt deshalb dasselbe Bild.
-   Mit echten Bildern: in SLIDES eintragen. */
+   Ein Klick auf eine Nummer springt in einem einzigen Wechsel direkt zu diesem Bild,
+   ohne die Bilder dazwischen – höhere Nummer von rechts, niedrigere von links. */
 (function () {
   var slider = document.querySelector('.slider');
   if (!slider) return;
   var stage = slider.querySelector('.slider__stage');
   var current = slider.querySelector('.slider__image');
-  var numbers = Array.prototype.slice.call(slider.querySelectorAll('.slider__pager span'));
+  var numbers = Array.prototype.slice.call(slider.querySelectorAll('.slider__pager button'));
   var prev = slider.querySelector('.slider__btn--prev');
   var next = slider.querySelector('.slider__btn--next');
   if (!stage || !current || !numbers.length || !prev || !next) return;
 
-  var SLIDES = numbers.map(function () { return current.getAttribute('src'); });
+  var SLIDES = [
+    current.getAttribute('src'),
+    'assets/showroom-2.jpg',
+    'assets/showroom-3.jpg',
+    'assets/showroom-4.jpg',
+    'assets/showroom-5.jpg'
+  ];
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var index = Math.max(0, numbers.findIndex(function (n) { return n.classList.contains('accent'); }));
   var leaving = null;   // Bild, das gerade hinausgleitet
+
+  // übrige Bilder nach dem Laden der Seite vorladen, damit sie beim Wechsel schon da sind
+  function preload() {
+    SLIDES.forEach(function (src, k) { if (k !== index) new Image().src = src; });
+  }
+  if (document.readyState === 'complete') preload();
+  else window.addEventListener('load', preload, { once: true });
 
   // laufenden Wechsel sofort abschließen (bei schnellem Mehrfachklicken)
   function settle() {
@@ -294,7 +308,11 @@
   function show(i, dir) {
     settle();
     index = (i + numbers.length) % numbers.length;
-    numbers.forEach(function (n, k) { n.classList.toggle('accent', k === index); });
+    numbers.forEach(function (n, k) {
+      n.classList.toggle('accent', k === index);
+      if (k === index) n.setAttribute('aria-current', 'true');
+      else n.removeAttribute('aria-current');
+    });
 
     var incoming = current.cloneNode(false);
     incoming.setAttribute('src', SLIDES[index]);
@@ -326,6 +344,11 @@
 
   prev.addEventListener('click', function () { show(index - 1, -1); });
   next.addEventListener('click', function () { show(index + 1, 1); });
+  numbers.forEach(function (n, k) {
+    n.addEventListener('click', function () {
+      if (k !== index) show(k, k > index ? 1 : -1);
+    });
+  });
 })();
 
 /* ---------- Fliegende Hover-Linie (obere Navigation) ----------

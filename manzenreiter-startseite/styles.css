@@ -365,6 +365,14 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   line-height: 1.1667;
   margin-bottom: calc(9 * var(--u));
 }
+/* Nummern sind klickbar: springen direkt zum jeweiligen Bild */
+.slider__pager button {
+  line-height: inherit;
+  transition: color .3s ease;
+}
+@media (hover: hover) {
+  .slider__pager button:hover { color: var(--green); }
+}
 .slider__stage {
   position: relative;
   aspect-ratio: 1530 / 829;
@@ -784,7 +792,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* =========================================================
    Preloader
    "is-loading" wird per Inline-Script im <head> gesetzt – ohne JS bleibt der Loader aus.
-   Ablauf: M zeichnen → mind. 1,7 s + window "load" → 150 ms → Curtain.
+   Ablauf: schwarzer Vorhang, darauf zeichnet sich das weiße M → mind. 1,7 s + window
+   "load" → 150 ms → Vorhang fällt samt M nach unten weg (0,8 s).
    ========================================================= */
 
 :root {
@@ -793,8 +802,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   --loader-curtain-ease: cubic-bezier(.77, 0, .18, 1);
 }
 
-.preloader,
-.preloader-curtain { display: none; }
+.preloader { display: none; }
 
 /* Scrollen während des Preloaders sperren (zusätzlich blockiert das Inline-Script
    im <head> Mausrad, Touch-Wischen und Scroll-Tasten) */
@@ -804,22 +812,22 @@ html.is-loading body {
   overscroll-behavior: none;
 }
 
+/* Der Loader ist selbst der Vorhang: schwarz vom ersten Paint an */
 html.is-loading .preloader {
   position: fixed;
   inset: 0;
-  z-index: 9998;
+  z-index: 9999;
   display: grid;
   place-items: center;
-  background: #fff;
+  background: var(--black);
 }
-html.is-loading .preloader.is-hidden { visibility: hidden; }
 
 .preloader__m {
   display: block;
   width: clamp(64px, 8vw, 104px);
   height: auto;
   overflow: visible;
-  color: var(--black);
+  color: #fff;
   animation: loader-slide 1.6s var(--loader-slide-ease) .15s both;
 }
 
@@ -858,25 +866,14 @@ html.is-loading .preloader.is-hidden { visibility: hidden; }
   to { opacity: 0; }
 }
 
-html.is-loading .preloader-curtain {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: block;
-  background: #000;
-  transform: scaleY(0);
-  transform-origin: center top;
-  pointer-events: none;
-}
-html.is-revealing .preloader-curtain {
-  animation: loader-curtain 1.5s var(--loader-curtain-ease) both;
+/* Vorhang fällt samt M nach unten weg und gibt die Seite von oben frei */
+html.is-revealing .preloader {
+  animation: loader-fall .8s var(--loader-curtain-ease) both;
 }
 
-@keyframes loader-curtain {
-  0%   { transform: scaleY(0); transform-origin: center top; }
-  45%  { transform: scaleY(1); transform-origin: center top; }
-  55%  { transform: scaleY(1); transform-origin: center bottom; }
-  100% { transform: scaleY(0); transform-origin: center bottom; }
+@keyframes loader-fall {
+  from { transform: none; }
+  to   { transform: translateY(100%); }
 }
 
 /* =========================================================
