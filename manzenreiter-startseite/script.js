@@ -15,37 +15,37 @@
      negativen Werten (werden wie 0 behandelt); außerhalb der Bereiche wirkt es aber
      gehetzt oder zäh. Gesamtdauer bis die Seite frei ist (bei schnellem Laden):
      M_DELAY + M_DRAW + M_FADE × 0,75 + PAUSE + CURTAIN_IN + CURTAIN_BLACK + CURTAIN_OUT
-     → mit den Werten unten 100 + 900 + 300 + 150 + 560 + 130 + 560 = 2700 ms */
+     → mit den Werten unten 120 + 700 + 188 + 300 + 430 + 50 + 430 ≈ 2220 ms */
   var TIMING = {
     // Weiße Fläche ohne M, bevor das Zeichnen beginnt. (0–300)
     // Mehr wirkt wie ein Hänger.
-    M_DELAY: 100,
+    M_DELAY: 120,
 
     // So lange zeichnet sich die Kontur des M. (500–1600)
     // Darunter „ploppt“ das M eher auf, als dass man das Zeichnen sieht.
-    M_DRAW: 900,
+    M_DRAW: 700,
 
     // Überblendung Kontur → gefülltes M. (200–600)
     // Beginnt schon kurz vor Ende des Zeichnens (um ein Viertel dieser Zeit), damit
     // es fließend wirkt. Unter 200 springt die Fläche hart herein.
-    M_FADE: 400,
+    M_FADE: 250,
 
     // Das fertige M steht still, bevor der Curtain kommt. (0–400)
     // Bei 0 setzt der Curtain im selben Moment an, ab ca. 400 wirkt es wie ein Hänger.
     // Lädt die Seite langsamer, wartet der Loader ohnehin länger.
-    PAUSE: 150,
+    PAUSE: 300,
 
     // Schwarze Fläche fällt von oben über den Loader. (400–900)
     // Unter 400 wirkt es abgehackt („ratz fatz“).
-    CURTAIN_IN: 560,
+    CURTAIN_IN: 430,
 
     // So lange ist alles schwarz, bevor es aufgeht. (0–300)
     // 0 ist erlaubt: der Loader verschwindet genau dann, wenn der Curtain voll deckt.
-    CURTAIN_BLACK: 130,
+    CURTAIN_BLACK: 50,
 
     // Fläche zieht nach unten ab, die Seite erscheint. (400–900)
     // Gleich lang wie CURTAIN_IN wirkt am ruhigsten.
-    CURTAIN_OUT: 560,
+    CURTAIN_OUT: 430,
 
     // Kurve für beide Curtain-Bewegungen (kein Wert in ms).
     //   weich (aktuell):  'cubic-bezier(.65, 0, .35, 1)'

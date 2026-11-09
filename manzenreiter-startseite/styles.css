@@ -360,13 +360,21 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   padding-inline: var(--gutter);
 }
 .slider__pager {
-  text-align: right;
+  display: flex;
+  justify-content: flex-end;
   font-size: max(20px, calc(30 * var(--u)));
   line-height: 1.1667;
   margin-bottom: calc(9 * var(--u));
+  margin-right: -.14em;        /* gleicht das Padding der letzten Nummer aus → bündig wie zuvor */
 }
-/* Nummern sind klickbar: springen direkt zum jeweiligen Bild */
+/* Nummern sind klickbar: springen direkt zum jeweiligen Bild.
+   Als Block mit Padding rundherum, damit die Klickfläche größer ist als die Ziffern.
+   Seitlich je .14em ≈ ein Leerzeichen zwischen zwei Nummern (wie vorher im Fließtext),
+   oben/unten per negativem Margin ausgeglichen, damit sich nichts verschiebt. */
 .slider__pager button {
+  display: block;
+  padding: .3em .14em;
+  margin-block: -.3em;
   line-height: inherit;
   transition: color .3s ease;
 }
