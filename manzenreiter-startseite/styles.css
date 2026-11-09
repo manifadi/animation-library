@@ -792,13 +792,13 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* =========================================================
    Preloader
    "is-loading" wird per Inline-Script im <head> gesetzt – ohne JS bleibt der Loader aus.
-   Ablauf: M zeichnen → mind. 1,05 s + window "load" → 50 ms → Curtain (1 s).
+   Ablauf: M zeichnen → mind. 1,35 s + window "load" → 100 ms → Curtain (1,25 s).
    ========================================================= */
 
 :root {
   --loader-draw-ease: cubic-bezier(.65, 0, .35, 1);
   --loader-slide-ease: cubic-bezier(.16, 1, .3, 1);
-  --loader-curtain-ease: cubic-bezier(.77, 0, .18, 1);
+  --loader-curtain-ease: cubic-bezier(.65, 0, .35, 1);   /* weiches Ease-in-out, kein harter Ruck in der Mitte */
 }
 
 .preloader,
@@ -828,14 +828,14 @@ html.is-loading .preloader.is-hidden { visibility: hidden; }
   height: auto;
   overflow: visible;
   color: var(--black);
-  animation: loader-slide 1s var(--loader-slide-ease) .1s both;
+  animation: loader-slide 1.3s var(--loader-slide-ease) .1s both;
 }
 
-/* Fläche erst nach dem Zeichnen einblenden */
+/* Fläche gegen Ende des Zeichnens weich einblenden (überlappt mit dem Ausblenden der Kontur) */
 .preloader__fill {
   fill: currentColor;
   opacity: 0;
-  animation: loader-fade-in .25s ease .8s forwards;
+  animation: loader-fade-in .4s ease-in-out .9s forwards;
 }
 
 /* Kontur in einem Zug zeichnen, danach ausblenden */
@@ -848,8 +848,8 @@ html.is-loading .preloader.is-hidden { visibility: hidden; }
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
   animation:
-    loader-draw .7s var(--loader-draw-ease) .1s forwards,
-    loader-fade-out .25s ease .8s forwards;
+    loader-draw .9s var(--loader-draw-ease) .1s forwards,
+    loader-fade-out .4s ease-in-out .9s forwards;
 }
 
 @keyframes loader-slide {
@@ -877,7 +877,7 @@ html.is-loading .preloader-curtain {
   pointer-events: none;
 }
 html.is-revealing .preloader-curtain {
-  animation: loader-curtain 1s var(--loader-curtain-ease) both;
+  animation: loader-curtain 1.25s var(--loader-curtain-ease) both;
 }
 
 @keyframes loader-curtain {

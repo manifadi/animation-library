@@ -1,8 +1,8 @@
 // Manzenreiter – Startseite
 
 /* ---------- Preloader ----------
-   Wartet, bis das M mindestens 1,05 s stand UND window "load" gefeuert hat,
-   dann 50 ms Pause und Curtain (1 s). Bei 50 % – Fläche deckt alles ab –
+   Wartet, bis das M mindestens 1,35 s stand UND window "load" gefeuert hat,
+   dann 100 ms Pause und Curtain (1,25 s). Bei 50 % – Fläche deckt alles ab –
    verschwindet der weiße Loader, danach werden beide Layer entfernt. */
 (function () {
   var root = document.documentElement;
@@ -16,9 +16,9 @@
   // script.js läuft erst nach geladenem CSS, also ab Start der M-Animation
   var start = performance.now();
 
-  var MIN_VISIBLE = 1050;
-  var PAUSE = 50;
-  var CURTAIN = 1000;
+  var MIN_VISIBLE = 1350;
+  var PAUSE = 100;
+  var CURTAIN = 1250;
 
   var minTime = new Promise(function (resolve) {
     setTimeout(resolve, Math.max(0, MIN_VISIBLE - (performance.now() - start)));

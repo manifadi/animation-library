@@ -92,7 +92,7 @@
         <h3 class="sidepanel__sub">So funktioniert es</h3>
         <div class="sidepanel__text">
           <p>Das M liegt als Inline-SVG im Layout. Die Kontur wird über <code>stroke-dasharray</code>/<code>stroke-dashoffset</code> gezeichnet. Mit <code>pathLength="1"</code> läuft der Offset einfach von 1 auf 0. Danach blendet die Füllung ein.</p>
-          <p>Der Loader bleibt mindestens 1,05 s stehen und wartet zusätzlich auf das <code>load</code>-Event. Dann läuft der schwarze Curtain. Bei voller Deckung wird der Loader entfernt. Solange er sichtbar ist, lässt sich nicht scrollen. Das sperren <code>overflow: hidden</code> auf <code>html</code>/<code>body</code> und das Inline-Script, das Mausrad, Touch-Wischen und Scroll-Tasten blockiert.</p>
+          <p>Der Loader bleibt mindestens 1,35 s stehen und wartet zusätzlich auf das <code>load</code>-Event. Dann läuft der schwarze Curtain. Bei voller Deckung wird der Loader entfernt. Solange er sichtbar ist, lässt sich nicht scrollen. Das sperren <code>overflow: hidden</code> auf <code>html</code>/<code>body</code> und das Inline-Script, das Mausrad, Touch-Wischen und Scroll-Tasten blockiert.</p>
         </div>
         <h3 class="sidepanel__sub">Einbau in Pimcore</h3>
         <div class="sidepanel__text">
@@ -127,12 +127,12 @@
   stroke: currentColor;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: draw .7s cubic-bezier(.65, 0, .35, 1) .1s forwards;
+  animation: draw .9s cubic-bezier(.65, 0, .35, 1) .1s forwards;
 }
 @keyframes draw { to { stroke-dashoffset: 0; } }
 
 .is-revealing .preloader-curtain {
-  animation: curtain 1s cubic-bezier(.77, 0, .18, 1) both;
+  animation: curtain 1.25s cubic-bezier(.65, 0, .35, 1) both;
 }
 @keyframes curtain {
   0%   { transform: scaleY(0); transform-origin: center top; }
@@ -143,15 +143,15 @@
         </figure>
         <figure class="sidepanel__code">
           <figcaption>JS</figcaption>
-          <pre><code>const minTime = new Promise(r =&gt; setTimeout(r, 1050));
+          <pre><code>const minTime = new Promise(r =&gt; setTimeout(r, 1350));
 const loaded  = new Promise(r =&gt; addEventListener('load', r, { once: true }));
 
 Promise.all([minTime, loaded]).then(() =&gt; {
   setTimeout(() =&gt; {
     root.classList.add('is-revealing');
-    setTimeout(() =&gt; loader.classList.add('is-hidden'), 500);   // bei voller Deckung
+    setTimeout(() =&gt; loader.classList.add('is-hidden'), 625);   // bei voller Deckung
     curtain.addEventListener('animationend', finish, { once: true });
-  }, 50);
+  }, 100);
 });</code></pre>
         </figure>
       </article>
