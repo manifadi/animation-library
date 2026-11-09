@@ -92,7 +92,8 @@
         <h3 class="sidepanel__sub">So funktioniert es</h3>
         <div class="sidepanel__text">
           <p>Das M liegt als Inline-SVG im Layout. Die Kontur wird über <code>stroke-dasharray</code>/<code>stroke-dashoffset</code> gezeichnet. Mit <code>pathLength="1"</code> läuft der Offset einfach von 1 auf 0. Danach blendet die Füllung ein.</p>
-          <p>Der Loader bleibt mindestens 1,35 s stehen und wartet zusätzlich auf das <code>load</code>-Event. Dann läuft der schwarze Curtain. Bei voller Deckung wird der Loader entfernt. Solange er sichtbar ist, lässt sich nicht scrollen. Das sperren <code>overflow: hidden</code> auf <code>html</code>/<code>body</code> und das Inline-Script, das Mausrad, Touch-Wischen und Scroll-Tasten blockiert.</p>
+          <p>Der Loader bleibt stehen, bis das M fertig ist, und wartet zusätzlich auf das <code>load</code>-Event. Dann läuft der schwarze Curtain in zwei Bewegungen: zudecken, kurz schwarz, aufdecken. Bei voller Deckung wird der Loader entfernt. Solange er sichtbar ist, lässt sich nicht scrollen. Das sperren <code>overflow: hidden</code> auf <code>html</code>/<code>body</code> und das Inline-Script, das Mausrad, Touch-Wischen und Scroll-Tasten blockiert.</p>
+          <p>Alle Zeiten stehen gesammelt in einem <code>TIMING</code>-Objekt am Anfang von <code>script.js</code>, mit Kommentaren zum sinnvollen Bereich je Wert. Das Script setzt sie als CSS-Variablen auf <code>&lt;html&gt;</code> und startet die Animation erst danach. Im CSS stehen deshalb keine festen Zeiten.</p>
         </div>
         <h3 class="sidepanel__sub">Einbau in Pimcore</h3>
         <div class="sidepanel__text">
@@ -127,31 +128,36 @@
   stroke: currentColor;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: draw .9s cubic-bezier(.65, 0, .35, 1) .1s forwards;
+}
+.preloader.is-playing .preloader__stroke {
+  animation: draw var(--loader-draw) cubic-bezier(.65, 0, .35, 1) var(--loader-delay) forwards;
 }
 @keyframes draw { to { stroke-dashoffset: 0; } }
 
 .is-revealing .preloader-curtain {
-  animation: curtain 1.25s cubic-bezier(.65, 0, .35, 1) both;
+  animation:
+    curtain-in  var(--loader-curtain-in)  var(--loader-curtain-ease) forwards,
+    curtain-out var(--loader-curtain-out) var(--loader-curtain-ease) var(--loader-curtain-out-delay) forwards;
 }
-@keyframes curtain {
-  0%   { transform: scaleY(0); transform-origin: center top; }
-  45%  { transform: scaleY(1); transform-origin: center top; }
-  55%  { transform: scaleY(1); transform-origin: center bottom; }
-  100% { transform: scaleY(0); transform-origin: center bottom; }
-}</code></pre>
+@keyframes curtain-in  { from { transform: scaleY(0) } to { transform: scaleY(1) } }   /* Ursprung oben */
+@keyframes curtain-out { from { transform: scaleY(1) } to { transform: scaleY(0) } }   /* Ursprung unten */</code></pre>
         </figure>
         <figure class="sidepanel__code">
           <figcaption>JS</figcaption>
-          <pre><code>const minTime = new Promise(r =&gt; setTimeout(r, 1350));
-const loaded  = new Promise(r =&gt; addEventListener('load', r, { once: true }));
+          <pre><code>const TIMING = { M_DELAY: 100, M_DRAW: 900, M_FADE: 400, PAUSE: 150,
+                 CURTAIN_IN: 560, CURTAIN_BLACK: 130, CURTAIN_OUT: 560 };
+
+root.style.setProperty('--loader-draw', TIMING.M_DRAW + 'ms');   // … usw.
+loader.classList.add('is-playing');                             // erst jetzt startet das M
 
 Promise.all([minTime, loaded]).then(() =&gt; {
   setTimeout(() =&gt; {
     root.classList.add('is-revealing');
-    setTimeout(() =&gt; loader.classList.add('is-hidden'), 625);   // bei voller Deckung
-    curtain.addEventListener('animationend', finish, { once: true });
-  }, 100);
+    curtain.addEventListener('animationend', e =&gt; {
+      if (e.animationName === 'curtain-in')  loader.classList.add('is-hidden');   // voll gedeckt
+      if (e.animationName === 'curtain-out') finish();
+    });
+  }, TIMING.PAUSE);
 });</code></pre>
         </figure>
       </article>

@@ -1,28 +1,95 @@
 // Manzenreiter – Startseite
 
 /* ---------- Preloader ----------
-   Wartet, bis das M mindestens 1,35 s stand UND window "load" gefeuert hat,
-   dann 100 ms Pause und Curtain (1,25 s). Bei 50 % – Fläche deckt alles ab –
-   verschwindet der weiße Loader, danach werden beide Layer entfernt. */
+   Ablauf: M zeichnen → Kontur/Fläche überblenden → window "load" abwarten → Pause →
+   Curtain deckt zu → kurz schwarz → Curtain deckt auf → Seite.
+   Alle Zeiten stehen in TIMING. Das Script rechnet daraus die Zeitpunkte, gibt sie
+   als CSS-Variablen an styles.css weiter und startet erst dann die Animation –
+   Zeiten also nur hier ändern, nicht im CSS. */
 (function () {
   var root = document.documentElement;
   if (!root.classList.contains('is-loading')) return;
+
+  /* ===== ZUM AUSPROBIEREN: alle Zeiten in Millisekunden =====
+     In Klammern der Bereich, in dem es sauber aussieht. Kaputt geht erst etwas bei
+     negativen Werten (werden wie 0 behandelt); außerhalb der Bereiche wirkt es aber
+     gehetzt oder zäh. Gesamtdauer bis die Seite frei ist (bei schnellem Laden):
+     M_DELAY + M_DRAW + M_FADE × 0,75 + PAUSE + CURTAIN_IN + CURTAIN_BLACK + CURTAIN_OUT
+     → mit den Werten unten 100 + 900 + 300 + 150 + 560 + 130 + 560 = 2700 ms */
+  var TIMING = {
+    // Weiße Fläche ohne M, bevor das Zeichnen beginnt. (0–300)
+    // Mehr wirkt wie ein Hänger.
+    M_DELAY: 100,
+
+    // So lange zeichnet sich die Kontur des M. (500–1600)
+    // Darunter „ploppt“ das M eher auf, als dass man das Zeichnen sieht.
+    M_DRAW: 900,
+
+    // Überblendung Kontur → gefülltes M. (200–600)
+    // Beginnt schon kurz vor Ende des Zeichnens (um ein Viertel dieser Zeit), damit
+    // es fließend wirkt. Unter 200 springt die Fläche hart herein.
+    M_FADE: 400,
+
+    // Das fertige M steht still, bevor der Curtain kommt. (0–400)
+    // Bei 0 setzt der Curtain im selben Moment an, ab ca. 400 wirkt es wie ein Hänger.
+    // Lädt die Seite langsamer, wartet der Loader ohnehin länger.
+    PAUSE: 150,
+
+    // Schwarze Fläche fällt von oben über den Loader. (400–900)
+    // Unter 400 wirkt es abgehackt („ratz fatz“).
+    CURTAIN_IN: 560,
+
+    // So lange ist alles schwarz, bevor es aufgeht. (0–300)
+    // 0 ist erlaubt: der Loader verschwindet genau dann, wenn der Curtain voll deckt.
+    CURTAIN_BLACK: 130,
+
+    // Fläche zieht nach unten ab, die Seite erscheint. (400–900)
+    // Gleich lang wie CURTAIN_IN wirkt am ruhigsten.
+    CURTAIN_OUT: 560,
+
+    // Kurve für beide Curtain-Bewegungen (kein Wert in ms).
+    //   weich (aktuell):  'cubic-bezier(.65, 0, .35, 1)'
+    //   sehr sanft:       'cubic-bezier(.45, 0, .55, 1)'
+    //   knackig:          'cubic-bezier(.77, 0, .18, 1)'
+    CURTAIN_EASE: 'cubic-bezier(.65, 0, .35, 1)'
+  };
+  /* ===== Ende der Einstellungen ===== */
 
   var loader = document.querySelector('.preloader');
   var curtain = document.querySelector('.preloader-curtain');
 
   // Seite beginnt immer oben beim Hero-Video (außer ein Anker wie #… ist gewünscht)
   if (!location.hash) window.scrollTo(0, 0);
-  // script.js läuft erst nach geladenem CSS, also ab Start der M-Animation
-  var start = performance.now();
 
-  var MIN_VISIBLE = 1350;
-  var PAUSE = 100;
-  var CURTAIN = 1250;
+  // Zeitpunkte aus TIMING ableiten
+  function ms(v) { return Math.max(0, Number(v) || 0); }
+  var delay = ms(TIMING.M_DELAY);
+  var draw = ms(TIMING.M_DRAW);
+  var fade = ms(TIMING.M_FADE);
+  var pause = ms(TIMING.PAUSE);
+  var curtainIn = ms(TIMING.CURTAIN_IN);
+  var black = ms(TIMING.CURTAIN_BLACK);
+  var curtainOut = ms(TIMING.CURTAIN_OUT);
+  var fadeStart = delay + Math.max(0, draw - fade / 4);   // Überblendung beginnt kurz vor Ende des Zeichnens
+  var mDone = fadeStart + fade;                            // ab hier steht das fertige M
 
-  var minTime = new Promise(function (resolve) {
-    setTimeout(resolve, Math.max(0, MIN_VISIBLE - (performance.now() - start)));
-  });
+  var vars = {
+    '--loader-delay': delay + 'ms',
+    '--loader-draw': draw + 'ms',
+    '--loader-slide': (mDone - delay) + 'ms',              // M kommt zur Ruhe, wenn es fertig ist
+    '--loader-fade': fade + 'ms',
+    '--loader-fade-start': fadeStart + 'ms',
+    '--loader-curtain-in': curtainIn + 'ms',
+    '--loader-curtain-out': curtainOut + 'ms',
+    '--loader-curtain-out-delay': (curtainIn + black) + 'ms',
+    '--loader-curtain-ease': TIMING.CURTAIN_EASE
+  };
+  Object.keys(vars).forEach(function (k) { root.style.setProperty(k, vars[k]); });
+
+  // Zeiten stehen → M-Animation starten
+  if (loader) loader.classList.add('is-playing');
+
+  var minTime = new Promise(function (resolve) { setTimeout(resolve, mDone); });
   var loaded = new Promise(function (resolve) {
     if (document.readyState === 'complete') resolve();
     else window.addEventListener('load', resolve, { once: true });
@@ -51,10 +118,20 @@
     if (window.VFMotion) waiting.forEach(function (el) { window.VFMotion.init(el); });
   }
 
+  // Curtain deckt voll → weißen Loader unsichtbar schalten
+  var covered = false;
+  function onCovered() {
+    if (covered) return;
+    covered = true;
+    if (loader) loader.classList.add('is-hidden');
+    armReveals();
+  }
+
   var done = false;
   function finish() {
     if (done) return;
     done = true;
+    onCovered();
     root.classList.remove('is-loading', 'is-revealing');
     if (loader) loader.remove();
     if (curtain) curtain.remove();
@@ -67,13 +144,14 @@
       // solange der Loader die Seite noch verdeckt
       if (!location.hash && window.scrollY !== 0) window.scrollTo(0, 0);
       root.classList.add('is-revealing');
-      setTimeout(function () {
-        if (loader) loader.classList.add('is-hidden');
-        armReveals();
-      }, CURTAIN / 2);
-      if (curtain) curtain.addEventListener('animationend', finish, { once: true });
-      setTimeout(finish, CURTAIN + 100);   // Absicherung, falls animationend ausbleibt
-    }, PAUSE);
+      if (curtain) curtain.addEventListener('animationend', function (e) {
+        if (e.animationName === 'loader-curtain-in') onCovered();
+        else if (e.animationName === 'loader-curtain-out') finish();
+      });
+      // Absicherung, falls animationend ausbleibt
+      setTimeout(onCovered, curtainIn + black / 2 + 50);
+      setTimeout(finish, curtainIn + black + curtainOut + 100);
+    }, pause);
   });
 })();
 

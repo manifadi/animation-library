@@ -792,13 +792,16 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* =========================================================
    Preloader
    "is-loading" wird per Inline-Script im <head> gesetzt – ohne JS bleibt der Loader aus.
-   Ablauf: M zeichnen → mind. 1,35 s + window "load" → 100 ms → Curtain (1,25 s).
+   Ablauf: M zeichnen → Kontur/Fläche überblenden → window "load" abwarten → Pause →
+   Curtain deckt zu → kurz schwarz → Curtain deckt auf.
+   ALLE ZEITEN stehen in TIMING ganz oben in script.js. Das Script setzt sie als
+   CSS-Variablen (--loader-…) auf <html> und startet dann die Animation (.is-playing).
+   Hier also keine Zeiten eintragen.
    ========================================================= */
 
 :root {
   --loader-draw-ease: cubic-bezier(.65, 0, .35, 1);
   --loader-slide-ease: cubic-bezier(.16, 1, .3, 1);
-  --loader-curtain-ease: cubic-bezier(.65, 0, .35, 1);   /* weiches Ease-in-out, kein harter Ruck in der Mitte */
 }
 
 .preloader,
@@ -828,17 +831,13 @@ html.is-loading .preloader.is-hidden { visibility: hidden; }
   height: auto;
   overflow: visible;
   color: var(--black);
-  animation: loader-slide 1.3s var(--loader-slide-ease) .1s both;
 }
 
-/* Fläche gegen Ende des Zeichnens weich einblenden (überlappt mit dem Ausblenden der Kontur) */
 .preloader__fill {
   fill: currentColor;
   opacity: 0;
-  animation: loader-fade-in .4s ease-in-out .9s forwards;
 }
 
-/* Kontur in einem Zug zeichnen, danach ausblenden */
 .preloader__stroke {
   fill: none;
   stroke: currentColor;
@@ -847,9 +846,21 @@ html.is-loading .preloader.is-hidden { visibility: hidden; }
   stroke-linecap: round;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
+}
+
+/* M gleitet leicht nach oben, während es entsteht */
+.preloader.is-playing .preloader__m {
+  animation: loader-slide var(--loader-slide) var(--loader-slide-ease) var(--loader-delay) both;
+}
+/* Fläche gegen Ende des Zeichnens weich einblenden (überlappt mit dem Ausblenden der Kontur) */
+.preloader.is-playing .preloader__fill {
+  animation: loader-fade-in var(--loader-fade) ease-in-out var(--loader-fade-start) forwards;
+}
+/* Kontur in einem Zug zeichnen, danach ausblenden */
+.preloader.is-playing .preloader__stroke {
   animation:
-    loader-draw .9s var(--loader-draw-ease) .1s forwards,
-    loader-fade-out .4s ease-in-out .9s forwards;
+    loader-draw var(--loader-draw) var(--loader-draw-ease) var(--loader-delay) forwards,
+    loader-fade-out var(--loader-fade) ease-in-out var(--loader-fade-start) forwards;
 }
 
 @keyframes loader-slide {
@@ -876,15 +887,21 @@ html.is-loading .preloader-curtain {
   transform-origin: center top;
   pointer-events: none;
 }
+/* Zwei Bewegungen: zudecken (von oben) und – nach der Schwarz-Phase – aufdecken (nach unten).
+   Während der Wartezeit hält "forwards" die erste Bewegung bei voller Deckung. */
 html.is-revealing .preloader-curtain {
-  animation: loader-curtain 1.25s var(--loader-curtain-ease) both;
+  animation:
+    loader-curtain-in var(--loader-curtain-in) var(--loader-curtain-ease) forwards,
+    loader-curtain-out var(--loader-curtain-out) var(--loader-curtain-ease) var(--loader-curtain-out-delay) forwards;
 }
 
-@keyframes loader-curtain {
-  0%   { transform: scaleY(0); transform-origin: center top; }
-  45%  { transform: scaleY(1); transform-origin: center top; }
-  55%  { transform: scaleY(1); transform-origin: center bottom; }
-  100% { transform: scaleY(0); transform-origin: center bottom; }
+@keyframes loader-curtain-in {
+  from { transform: scaleY(0); transform-origin: center top; }
+  to   { transform: scaleY(1); transform-origin: center top; }
+}
+@keyframes loader-curtain-out {
+  from { transform: scaleY(1); transform-origin: center bottom; }
+  to   { transform: scaleY(0); transform-origin: center bottom; }
 }
 
 /* =========================================================
