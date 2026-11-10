@@ -62,27 +62,21 @@
   <div class="l-container p-home-hero__inner">
     <div class="p-home-hero__content">
       <h1 class="c-brand c-brand--display"><span class="c-brand__first">Helmut</span> <span class="c-brand__last">Schmidinger</span></h1>
-      <p class="c-roles">Komponist<span>|</span>Musiker<span>|</span>Professor</p>
-      <hr class="c-rule">
-      <blockquote class="c-quote">
-        <p class="c-quote__text">„Auf meinem Rade tummle ich mich lustig herum – es ist der einzige Sport (außer componiren) den ich hier treibe!“</p>
-        <cite class="c-quote__author">Gustav Mahler</cite>
-      </blockquote>
+      <!-- FACETTEN  (WP: Inhaltstyp „Facette“ – Titel, Text, Links · Daten + Logik: assets/js/klaviatur.js)
+           Ersetzt die frühere Zeile „Komponist | Musiker | Professor“ und das Notenlinien-Ornament -->
+      <div class="p-home-facets">
+        <div class="p-home-facets__tags" data-kv-tags role="group" aria-label="Facetten"></div>
+        <hr class="c-rule">
+        <div class="p-home-facets__panel" data-kv-panel data-kv-stable></div>
+        <div class="kv p-home-facets__keys" data-kv data-octaves="3" data-octaves-mobile="2" data-black-width="0.58" data-white></div>
+      </div>
     </div>
   </div>
-  <svg class="c-staff" viewBox="0 0 560 130" fill="none" aria-hidden="true">
-  <g class="c-staff__lines" stroke-width="1"><path d="M0 52h560M0 62h560M0 72h560M0 82h560M0 92h560"/></g>
-  <g class="c-staff__stem" stroke-width="1.2">
-    <path d="M175 50v46M210 66v62M282 60v38M308 44v40M338 40v62M352 36v70M378 26v62M396 32v52M444 2v82M466 24v42"/>
-  </g>
-  <circle class="c-staff__note c-staff__note--ink" cx="192" cy="78" r="3.5"/>
-  <circle class="c-staff__note" cx="210" cy="66" r="5.5"/>
-  <circle class="c-staff__note" cx="336" cy="48" r="4.5"/>
-  <circle class="c-staff__note c-staff__note--ink" cx="353" cy="36" r="4.5"/>
-  <circle class="c-staff__note" cx="396" cy="32" r="5.5"/>
-  <rect class="c-staff__note c-staff__note--ink" x="441.5" y="0" width="5" height="12"/>
-  <circle class="c-staff__note" cx="501" cy="70" r="3"/>
-</svg>
+  <!-- Zitat (ACF: zitat, zitat_autor) – am Desktop als Karte im Foto, mobil unter der Klaviatur -->
+  <blockquote class="c-quote c-quote--small c-quote--boxed p-home-hero__quote">
+    <p class="c-quote__text">„Auf meinem Rade tummle ich mich lustig herum – es ist der einzige Sport (außer componiren) den ich hier treibe!“</p>
+    <cite class="c-quote__author">Gustav Mahler</cite>
+  </blockquote>
 </section>
 
 <!-- NÄCHSTE AUFFÜHRUNGEN  (automatisch: CPT auffuehrung, Datum >= heute, max. 3) -->

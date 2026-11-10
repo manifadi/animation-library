@@ -42,9 +42,10 @@ Nach dem Kundenmeeting: Klaviatur vom Briefpapier als Facetten-Navigation, „Le
 | `start-b.html` | B · Bühne | The Encore | Newsreader + Geist |
 | `start-c.html` | C · Plakat | Northtime | Archivo Condensed + Geist Mono + Herr Von Muellerhoff |
 | `start-d.html` | D · Kombination (Favorit) | A + C | Inter Tight |
-| `index.html` + Unterseiten | Original | – | jetzt Instrument Serif + Geist (vorher Playfair Display + Jost) |
+| `index.html` + Unterseiten | Original (Hero mit Facetten + Klaviatur, Stil des Originals) | – | jetzt Instrument Serif + Geist (vorher Playfair Display + Jost) |
 
-- `assets/js/klaviatur.js`: Tasten, Facetten-Panel, Facetten-Liste und Wortwolke. Die Facetten-Daten stehen oben in der Datei.
+- `assets/js/klaviatur.js`: Tasten, Facetten-Panel, Facetten-Liste und Wortwolke. Die Facetten-Daten stehen oben in der Datei. `data-kv-stable` am Panel hält es so hoch wie die längste Facette (nichts darunter springt).
+- Original (`index.html`): Facetten-Styles am Ende von `assets/css/main.css` (`.p-home-facets*`, `.p-home-hero__quote`).
 - `assets/css/klaviatur.css`: Basis der Klaviatur und Umschalter. Jede Version hat ihr eigenes `assets/css/v-*.css`.
 - `assets/css/fonts.css` + `assets/fonts/`: alle Schriften lokal (OFL, gratis), keine Google-Server mehr.
 

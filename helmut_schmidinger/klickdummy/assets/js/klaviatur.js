@@ -150,22 +150,47 @@
   }
 
   /* ---------- Detail-Panel ---------- */
+  function panelHtml(i) {
+    var f = FACETTEN[i];
+    return '<p class="kv-panel__meta"><span class="kv-panel__num">(' + pad(i + 1) + ')</span><span class="kv-panel__of">/ ' + pad(FACETTEN.length) + '</span></p>' +
+      '<h2 class="kv-panel__title">' + f.titel + '</h2>' +
+      '<p class="kv-panel__text' + (f.platzhalter ? ' is-placeholder' : '') + '">' + f.text + '</p>' +
+      linksHtml(f, 'kv-panel__links');
+  }
+
   function buildPanel(panel) {
     panel.id = panel.id || 'kv-panel';
     panel.setAttribute('aria-live', 'polite');
     function render(i) {
-      var f = FACETTEN[i];
       panel.classList.remove('is-in');
-      panel.innerHTML =
-        '<p class="kv-panel__meta"><span class="kv-panel__num">(' + pad(i + 1) + ')</span><span class="kv-panel__of">/ ' + pad(FACETTEN.length) + '</span></p>' +
-        '<h2 class="kv-panel__title">' + f.titel + '</h2>' +
-        '<p class="kv-panel__text' + (f.platzhalter ? ' is-placeholder' : '') + '">' + f.text + '</p>' +
-        linksHtml(f, 'kv-panel__links');
+      panel.innerHTML = panelHtml(i);
       void panel.offsetWidth;
       panel.classList.add('is-in');
     }
     listeners.push(render);
     render(active);
+    if (panel.hasAttribute('data-kv-stable')) { stabilize(panel); }
+  }
+
+  /* data-kv-stable: Panel so hoch wie die längste Facette → was darunter steht
+     (z. B. die Tasten) springt beim Wechseln nicht. Gemessen mit unsichtbarer Kopie. */
+  function stabilize(panel) {
+    function measure() {
+      var probe = panel.cloneNode(false);
+      probe.removeAttribute('id');
+      probe.removeAttribute('data-kv-panel');
+      probe.setAttribute('aria-hidden', 'true');
+      probe.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none;left:0;top:0;min-height:0;width:' + panel.offsetWidth + 'px';
+      panel.parentNode.appendChild(probe);
+      var max = 0;
+      FACETTEN.forEach(function (f, i) { probe.innerHTML = panelHtml(i); max = Math.max(max, probe.offsetHeight); });
+      probe.remove();
+      panel.style.minHeight = max + 'px';
+    }
+    measure();
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(measure); }
+    var t;
+    window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(measure, 150); });
   }
 
   /* ---------- Liste ---------- */
@@ -217,7 +242,9 @@
       });
       listeners.push(function (i) {
         wrap.querySelectorAll('[data-tag]').forEach(function (b) {
-          b.classList.toggle('is-active', parseInt(b.getAttribute('data-tag'), 10) === i);
+          var on = parseInt(b.getAttribute('data-tag'), 10) === i;
+          b.classList.toggle('is-active', on);
+          b.setAttribute('aria-pressed', on ? 'true' : 'false');
         });
       });
     });
