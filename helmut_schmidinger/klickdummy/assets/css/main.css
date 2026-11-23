@@ -783,7 +783,7 @@ a.c-teaser:hover .c-link-arrow svg { transform: translateX(5px); }
 .p-home-facets__tags .kv-tag.is-active { color: var(--c-olive); font-weight: 500; }
 .p-home-facets__tags .kv-tag.is-active::before { transform: scaleX(1); }
 
-.p-home-facets .c-rule { margin-block: var(--s-2) var(--s-3); }
+.p-home-facets .c-rule { margin-block: var(--s-2) var(--s-3); background: transparent; }
 .p-home-facets__panel .kv-panel__meta { display: none; }   /* Nummer steht schon unter der Taste */
 .p-home-facets__panel .kv-panel__title { margin: 0 0 .3em; font-size: var(--fs-h3); }
 .p-home-facets__panel .kv-panel__text { max-width: 640px; margin-bottom: var(--s-2); font-size: var(--fs-small); line-height: 1.55; color: var(--c-ink-80); }
