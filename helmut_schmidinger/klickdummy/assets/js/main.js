@@ -3,7 +3,7 @@
    Module:
    1. Mobile-Menü
    2. Suche (Overlay)
-   3. Aufführungs-Filter (Aktuelles)     → WP: per GET-Parameter / AJAX
+   3. Termine-Filter (termine)     → WP: per GET-Parameter / AJAX
    4. Werkliste: Filter "für Schulen" + Sortierung
    5. Kontexte-Chips
    6. Akkordeon
@@ -64,7 +64,7 @@
         h.hidden = !any;
       });
       if (empty) empty.hidden = visible > 0;
-      if (count) count.textContent = visible + (visible === 1 ? ' Aufführung' : ' Aufführungen');
+      if (count) count.textContent = visible + (visible === 1 ? ' Termin' : ' Termine');
     };
     selects.forEach(function (s) { s.addEventListener('change', applyEvents); });
     var reset = $('[data-filter-reset]', evFilter.parentNode);

@@ -89,3 +89,4 @@
 /* Beschriftung der äußeren Tasten nicht über den Rand hinaus */
 .kv__key--facet[data-facet="0"] .kv__num, .kv__key--facet[data-facet="0"] .kv__name { left: 0; transform: none; }
 .kv__key--facet[data-facet="5"] .kv__num, .kv__key--facet[data-facet="5"] .kv__name { left: auto; right: 0; transform: none; }
+.v-switch[hidden] { display: none; }

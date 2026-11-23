@@ -445,6 +445,7 @@ a.c-teaser:hover .c-link-arrow svg { transform: translateX(5px); }
 .c-event__time { display: block; font-weight: 400; color: var(--c-muted); }
 .c-event__place { font-family: var(--f-serif); font-size: 1.15rem; line-height: 1.3; color: var(--c-ink); border-left: 1px solid var(--c-line); padding-left: var(--s-3); }
 .c-event__work { border-left: 1px solid var(--c-line); padding-left: var(--s-3); min-width: 0; }
+.c-event__type { display: block; margin-bottom: .3rem; font-size: .6875rem; font-weight: 500; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--c-olive); }
 .c-event__title { display: block; margin-bottom: .25rem; font-family: var(--f-serif); font-size: 1.2rem; line-height: 1.3; color: var(--c-ink); }
 .c-event__performers { margin: 0 0 .5rem; font-size: var(--fs-small); line-height: 1.5; color: var(--c-text); }
 .c-event__arrow { align-self: center; justify-self: end; color: var(--c-ink); transition: transform var(--dur) var(--ease), color var(--dur) var(--ease); }

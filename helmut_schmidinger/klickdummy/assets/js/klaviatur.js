@@ -21,7 +21,7 @@
       text: '„Komponist sein ist für mich weniger eine Berufsbezeichnung als viel mehr eine Wertehaltung, die, der Übersetzung des Wortes compositio folgend, das Verbindende über das Trennende stellt.“',
       links: [
         { label: 'Zum Werk', url: 'werk.html' },
-        { label: 'Aufführungen', url: 'aktuelles.html' }
+        { label: 'Termine', url: 'aktuelles.html' }
       ]
     },
     {
