@@ -841,22 +841,21 @@ a.c-teaser:hover .c-link-arrow svg { transform: translateX(5px); }
   .c-form__actions--split { flex-direction: column; }
 }
 
-/* Gattung Kammermusik: Untermenü Besetzung */
-.c-sidenav__sub { list-style: none; margin: 0; padding: .4rem 0 .6rem .9rem; border-bottom: 1px solid var(--c-line); border-left: 1px solid var(--c-olive); }
-.c-sidenav__sublink { display: flex; justify-content: space-between; gap: var(--s-2); width: 100%; padding: .32rem 0; border: 0; background: none; font: inherit; font-size: var(--fs-small); color: var(--c-muted); text-align: left; cursor: pointer; transition: color var(--dur) var(--ease); }
-.c-sidenav__sublink span { font-size: var(--fs-label); }
-.c-sidenav__sublink:hover { color: var(--c-olive); }
-.c-sidenav__sublink { position: relative; }
+/* Gattung Kammermusik: Untermenü Besetzung – gleiche Zeilen wie .c-sidenav__link, nur eingerückt */
+.c-sidenav__list .c-sidenav__sub { list-style: none; margin: 0; padding: 0; }
+.c-sidenav__sublink { position: relative; display: flex; justify-content: space-between; gap: var(--s-2); width: 100%; padding: .65rem 0 .65rem 1.25rem; border: 0; border-bottom: 1px solid var(--c-line); background: none; font: inherit; font-size: var(--fs-small); line-height: inherit; color: var(--c-text); text-align: left; cursor: pointer; transition: color var(--dur) var(--ease), padding var(--dur) var(--ease); }
+.c-sidenav__sublink::before { content: ""; position: absolute; left: 0; top: 50%; width: .6rem; height: 1px; background: var(--c-line-strong, #c9c6bb); }
+.c-sidenav__sublink span { color: var(--c-muted); font-size: var(--fs-label); }
+.c-sidenav__sublink:hover:not(:disabled) { color: var(--c-olive); padding-left: 1.65rem; }
 .c-sidenav__sublink[aria-pressed="true"] { color: var(--c-olive); font-weight: 500; }
-.c-sidenav__sublink[aria-pressed="true"]::before { content: ""; position: absolute; left: calc(-.9rem - 2px); top: .3rem; bottom: .3rem; width: 3px; background: var(--c-olive); }
-.c-sidenav__sublink:disabled { opacity: .45; cursor: default; }
-.c-sidenav__sublink:disabled:hover { color: var(--c-muted); }
+.c-sidenav__sublink[aria-pressed="true"]::before { background: var(--c-olive); }
+.c-sidenav__sublink:disabled { cursor: default; }
 @media (max-width: 1023px) {
-  .c-sidenav__list > li.has-sub { display: contents; }
-  .c-sidenav__sub { display: contents; }
+  .c-sidenav__list > li.has-sub, .c-sidenav__list .c-sidenav__sub, .c-sidenav__list .c-sidenav__sub > li { display: contents; }
   .c-sidenav__sublink { width: auto; white-space: nowrap; border: 1px solid var(--c-line); padding: .45rem .9rem; background: var(--c-white); }
-  .c-sidenav__sublink span { display: none; }
-  .c-sidenav__sublink[aria-pressed="true"] { border-color: var(--c-olive); }
+  .c-sidenav__sublink::before, .c-sidenav__sublink span { display: none; }
+  .c-sidenav__sublink:hover:not(:disabled) { padding-left: .9rem; }
+  .c-sidenav__sublink[aria-pressed="true"] { background: var(--c-ink); color: var(--c-white); border-color: var(--c-ink); }
   .c-sidenav__sublink:disabled { display: none; }
 }
 

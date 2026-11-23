@@ -11,6 +11,7 @@ Statischer HTML/CSS/JS-Klickdummy für den WordPress-Relaunch. Start: `index.htm
 | werk.html | page.php | Gattungs-Kacheln, Downloads |
 | gattung-*.html | taxonomy-gattung.php | Werkliste je Gattung (+ „für Schulen“) |
 | werk-*.html | single-werk.php | CPT **werk**: Fakten (ACF), Aufführungen (automatisch), Anfrageformular |
+| termin-*.html | single-termin.php | CPT **termin** (Art Workshop/Vortrag): Fakten, Beschreibung, Anmeldung, weitere Termine – Aufführungen verlinken auf die Werkseite |
 | diskographie.html | page-diskographie.php | automatisch aus ACF-Feld „diskographie“ |
 | bibliographie.html | page.php | Gutenberg |
 | kontexte.html | taxonomy-kontext.php | Taxonomie **kontext** |
