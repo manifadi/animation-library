@@ -83,7 +83,9 @@
     var wempty = $('[data-work-empty]');
     var applyWorks = function () {
       var rows = $$('.c-work-row', wlist), vis = 0;
-      rows.forEach(function (r) { var ok = !schoolToggle.checked || r.dataset.school === '1'; r.classList.toggle('is-hidden', !ok); if (ok) vis++; });
+      var bes = besNav && $('[aria-pressed="true"]', besNav);
+      bes = bes ? bes.dataset.besetzung : '';
+      rows.forEach(function (r) { var ok = (!schoolToggle.checked || r.dataset.school === '1') && (!bes || r.dataset.besetzung === bes); r.classList.toggle('is-hidden', !ok); if (ok) vis++; });
       rows.sort(function (a, b) {
         if (sort.value === 'titel') return a.dataset.title.localeCompare(b.dataset.title, 'de');
         if (sort.value === 'alt') return (+a.dataset.year) - (+b.dataset.year);
@@ -92,6 +94,27 @@
       if (wcount) wcount.textContent = vis + (vis === 1 ? ' Werk' : ' Werke');
       if (wempty) wempty.hidden = vis > 0;
     };
+    // Kammermusik: Untermenü Besetzung (Duo, Trio, …) – nochmal klicken = alle
+    var besNav = $('[data-besetzung-nav]');
+    if (besNav) {
+      $$('[data-besetzung]', besNav).forEach(function (b) {
+        var n = $$('.c-work-row[data-besetzung="' + b.dataset.besetzung + '"]', wlist).length;
+        $('span', b).textContent = n;
+        b.disabled = n === 0;
+        b.addEventListener('click', function () {
+          var on = b.getAttribute('aria-pressed') !== 'true';
+          $$('[data-besetzung]', besNav).forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+          b.setAttribute('aria-pressed', on ? 'true' : 'false');
+          applyWorks();
+        });
+      });
+      var besReset = $('[data-besetzung-reset]');
+      besReset && besReset.addEventListener('click', function (e) {
+        e.preventDefault();
+        $$('[data-besetzung]', besNav).forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+        applyWorks();
+      });
+    }
     schoolToggle.addEventListener('change', applyWorks);
     sort.addEventListener('change', applyWorks);
     applyWorks();

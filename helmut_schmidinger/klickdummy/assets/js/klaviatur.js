@@ -40,7 +40,7 @@
       links: [
         { label: 'Young Science – Profil', url: 'https://youngscience.oead.at/de/wissenschaftsvermittlung/wissenschaftsbotschafter-innen/botschafter-profile/855', extern: true },
         { label: 'Forschung an der KUG', url: 'https://institut1.kug.ac.at/studienrichtungen/kompositionspaedagogik/forschung', extern: true },
-        { label: 'Publikationen (PDF)', url: '#', pdf: true }
+        { label: 'Publikationen', url: '#', pdf: true }
       ]
     },
     {

@@ -14,7 +14,7 @@ Statischer HTML/CSS/JS-Klickdummy für den WordPress-Relaunch. Start: `index.htm
 | diskographie.html | page-diskographie.php | automatisch aus ACF-Feld „diskographie“ |
 | bibliographie.html | page.php | Gutenberg |
 | kontexte.html | taxonomy-kontext.php | Taxonomie **kontext** |
-| lehre*.html | page.php | Gutenberg (Akkordeon = Block „Details“) |
+| lehre*.html | page.php | nicht mehr im Menü (Kundenwunsch 11/2026), Seiten nur noch als Vorlage |
 | kontakt.html | page-kontakt.php | Theme-Optionen + Contact Form 7 |
 | impressum.html, datenschutz.html, suche.html | page.php / search.php | |
 

@@ -826,3 +826,39 @@ a.c-teaser:hover .c-link-arrow svg { transform: translateX(5px); }
   .p-home-facets__tags .kv-tag { margin-right: 0; }
   .p-home-facets__tags .kv-tag::after { display: none; }
 }
+
+/* Kontakt: Anschrift als Zeile, Formular als Karte (Kundenwunsch 11/2026) */
+.c-contact--row { grid-template-columns: repeat(3, auto); justify-content: start; gap: var(--s-3) var(--s-6); padding: var(--s-4) var(--s-5); }
+@media (max-width: 860px) { .c-contact--row { grid-template-columns: 1fr; padding: var(--s-4); } }
+.p-contact-form { margin-top: var(--s-5); padding: var(--s-5); background: var(--c-white); max-width: calc(760px + 2 * var(--s-5)); }
+.p-contact-form h2 { margin-bottom: var(--s-4); }
+.p-contact-form .c-form { max-width: none; }
+.c-form__actions--split { justify-content: space-between; align-items: flex-start; flex-wrap: nowrap; gap: var(--s-4); padding-top: var(--s-3); border-top: 1px solid var(--c-line); }
+.c-form__actions--split .c-field { max-width: 440px; }
+.c-form__actions--split .c-btn { flex: none; }
+@media (max-width: 640px) {
+  .p-contact-form { padding: var(--s-4) var(--s-3); margin-inline: calc(-1 * var(--s-2)); }
+  .c-form__actions--split { flex-direction: column; }
+}
+
+/* Gattung Kammermusik: Untermenü Besetzung */
+.c-sidenav__sub { list-style: none; margin: 0; padding: .4rem 0 .6rem .9rem; border-bottom: 1px solid var(--c-line); border-left: 1px solid var(--c-olive); }
+.c-sidenav__sublink { display: flex; justify-content: space-between; gap: var(--s-2); width: 100%; padding: .32rem 0; border: 0; background: none; font: inherit; font-size: var(--fs-small); color: var(--c-muted); text-align: left; cursor: pointer; transition: color var(--dur) var(--ease); }
+.c-sidenav__sublink span { font-size: var(--fs-label); }
+.c-sidenav__sublink:hover { color: var(--c-olive); }
+.c-sidenav__sublink { position: relative; }
+.c-sidenav__sublink[aria-pressed="true"] { color: var(--c-olive); font-weight: 500; }
+.c-sidenav__sublink[aria-pressed="true"]::before { content: ""; position: absolute; left: calc(-.9rem - 2px); top: .3rem; bottom: .3rem; width: 3px; background: var(--c-olive); }
+.c-sidenav__sublink:disabled { opacity: .45; cursor: default; }
+.c-sidenav__sublink:disabled:hover { color: var(--c-muted); }
+@media (max-width: 1023px) {
+  .c-sidenav__list > li.has-sub { display: contents; }
+  .c-sidenav__sub { display: contents; }
+  .c-sidenav__sublink { width: auto; white-space: nowrap; border: 1px solid var(--c-line); padding: .45rem .9rem; background: var(--c-white); }
+  .c-sidenav__sublink span { display: none; }
+  .c-sidenav__sublink[aria-pressed="true"] { border-color: var(--c-olive); }
+  .c-sidenav__sublink:disabled { display: none; }
+}
+
+/* Overline ohne Wort (nur Strich), z.B. „Nächste Termine“ auf der Startseite */
+.c-eyebrow:empty { min-height: 1.2em; }
