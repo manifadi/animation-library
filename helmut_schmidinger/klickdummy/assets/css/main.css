@@ -786,7 +786,7 @@ a.c-teaser:hover .c-link-arrow svg { transform: translateX(5px); }
 .p-home-facets .c-rule { margin-block: var(--s-2) var(--s-3); }
 .p-home-facets__panel .kv-panel__meta { display: none; }   /* Nummer steht schon unter der Taste */
 .p-home-facets__panel .kv-panel__title { margin: 0 0 .3em; font-size: var(--fs-h3); }
-.p-home-facets__panel .kv-panel__text { max-width: 520px; margin-bottom: var(--s-2); color: var(--c-ink-80); }
+.p-home-facets__panel .kv-panel__text { max-width: 640px; margin-bottom: var(--s-2); font-size: var(--fs-small); line-height: 1.55; color: var(--c-ink-80); }
 .p-home-facets__panel .kv-panel__links { gap: .5rem var(--s-4); }
 .p-home-facets__panel .kv-panel__links a { gap: .7rem; padding-block: .25rem; font-size: var(--fs-label); font-weight: 500; letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--c-olive); transition: color var(--dur) var(--ease); }
 .p-home-facets__panel .kv-panel__links a svg { transition: transform var(--dur) var(--ease); }

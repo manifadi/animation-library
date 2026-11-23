@@ -15,13 +15,32 @@
 (function () {
   'use strict';
 
+  /* Texte: „2026 Sätze je Bereich.docx“ von Helmut Schmidinger (vorläufig), Reihenfolge wie im Dokument */
   var FACETTEN = [
     {
       titel: 'Komponist',
-      text: '„Komponist sein ist für mich weniger eine Berufsbezeichnung als viel mehr eine Wertehaltung, die, der Übersetzung des Wortes compositio folgend, das Verbindende über das Trennende stellt.“',
+      text: 'Komponist sein ist für mich weniger eine Berufsbezeichnung als vielmehr eine Haltung, die – der Übersetzung des Wortes „compositio“ folgend – das Verbindende über das Trennende stellt, was sich u. a. auch in meinen vielfältigen Tätigkeiten zeigt, die mit dem Komponieren aufs Ursprünglichste verbunden sind.',
       links: [
         { label: 'Zum Werk', url: 'werk.html' },
         { label: 'Termine', url: 'aktuelles.html' }
+      ]
+    },
+    {
+      titel: 'Pädagoge',
+      text: 'Als Pädagoge ist es mir ein Anliegen, einerseits vorwiegend junge Menschen beim Komponieren zu begleiten und Rahmenbedingungen zu schaffen, in denen sie ihre eigene Sprache finden und entwickeln können, und andererseits Studierende im Rahmen des Studiums der Kompositionspädagogik an der KUG auf diese Aufgabe des Initiierens und Begleitens von Kompositionsprozessen vorzubereiten. In meiner Dissertation habe ich eine theoretische Grundlegung der Kompositionspädagogik als Fachrichtung der Musikpädagogik vorgelegt.',
+      links: [
+        { label: 'Komponierwerkstatt', url: 'https://schoenberg.at/de/vermittlung/komponierwerkstatt', extern: true },
+        { label: 'KUG – Personenprofil', url: 'https://www.kug.ac.at/personen/magart-drphil-helmut-schmidinger', extern: true },
+        { label: 'Kompositionspädagogik', url: 'https://institut1.kug.ac.at/studienrichtungen/kompositionspaedagogik', extern: true }
+      ]
+    },
+    {
+      titel: 'Forscher',
+      text: 'Was immer ich mache, ist von der Neugierde des Forschens in Form mehr oder weniger strukturierten Suchens erfüllt, indem ich Fragen stelle und in jeder gefundenen Antwort neue Fragen entdecke.',
+      links: [
+        { label: 'Young Science – Profil', url: 'https://youngscience.oead.at/de/wissenschaftsvermittlung/wissenschaftsbotschafter-innen/botschafter-profile/855', extern: true },
+        { label: 'Forschung an der KUG', url: 'https://institut1.kug.ac.at/studienrichtungen/kompositionspaedagogik/forschung', extern: true },
+        { label: 'Publikationen (PDF)', url: '#', pdf: true }
       ]
     },
     {
@@ -33,28 +52,8 @@
       ]
     },
     {
-      titel: 'Pädagoge',
-      text: 'Platzhalter – Text folgt. Hier stehen zwei, drei Zeilen dazu, wie das Unterrichten mit dem Komponieren zusammenhängt.',
-      platzhalter: true,
-      links: [
-        { label: 'KUG – Personenprofil', url: 'https://www.kug.ac.at/personen/magart-drphil-helmut-schmidinger', extern: true },
-        { label: 'Kompositionspädagogik', url: 'https://institut1.kug.ac.at/studienrichtungen/kompositionspaedagogik', extern: true }
-      ]
-    },
-    {
-      titel: 'Forscher',
-      text: 'Platzhalter – Text folgt. Zwei, drei Zeilen zur Forschung und ihrer Beziehung zum Komponieren.',
-      platzhalter: true,
-      links: [
-        { label: 'Young Science – Profil', url: 'https://youngscience.oead.at/de/wissenschaftsvermittlung/wissenschaftsbotschafter-innen/botschafter-profile/855', extern: true },
-        { label: 'Forschung an der KUG', url: 'https://institut1.kug.ac.at/studienrichtungen/kompositionspaedagogik/forschung', extern: true },
-        { label: 'Publikationen (PDF)', url: '#', pdf: true }
-      ]
-    },
-    {
       titel: 'Musikvermittler',
-      text: 'Platzhalter – Text folgt. Zwei, drei Zeilen zur Musikvermittlung.',
-      platzhalter: true,
+      text: 'Als Musikvermittler sehe ich mich als „Brückenbauer“ zu meinen Werken und den Werken anderer Komponist:innen für all jene Menschen, die gerne über Brücken wandeln.',
       links: [
         { label: 'Universal Edition – Listening Lab', url: 'https://www.universaledition.com/listeninglab', extern: true }
       ]
