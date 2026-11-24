@@ -869,3 +869,6 @@ a.c-teaser:hover .c-link-arrow svg { transform: translateX(5px); }
 .v-ab a[aria-current] { background: #a9c23f; color: #111; }
 .v-ab a:not([aria-current]):hover { background: rgba(255,255,255,.15); }
 @media print { .v-ab { display: none; } }
+/* Klickdummy: Markup nur für Design-Version C (data-only-c) bzw. in C ausgeblendet (data-not-c) */
+html:not([data-version="c"]) [data-only-c] { display: none !important; }
+html[data-version="c"] [data-not-c] { display: none !important; }

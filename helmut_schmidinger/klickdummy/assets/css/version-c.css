@@ -1,0 +1,93 @@
+/* ==========================================================================
+   Version C – einfachere Wege (lädt nach version-b.css, nur bei ?v=c)
+   Erklärung der Änderungen: assets/js/version-c.js
+   ========================================================================== */
+
+/* ---------- Gattungsseiten: Gattungen als Leiste statt Seitenspalte ------- */
+body[class*="page-gattung"] .c-breadcrumb { display: none; }
+.l-with-sidebar { grid-template-columns: 1fr; gap: var(--s-4); }
+.c-sidenav { position: static; }
+.c-sidenav__title { display: none; }
+.c-sidenav__list { display: flex !important; flex-wrap: wrap !important; overflow: visible !important; gap: .5rem; padding: 0; }
+.c-sidenav__list > li.is-empty { display: none; }
+.c-sidenav__list > li.has-sub { display: contents; }
+.c-sidenav__link,
+.c-sidenav__link:hover {
+  display: inline-flex; align-items: baseline; gap: .5rem; padding: .5rem .875rem;
+  border: 1px solid var(--c-hairline); background: var(--c-white); white-space: nowrap;
+  font-size: .9375rem; color: var(--c-ink);
+}
+.c-sidenav__link:hover { border-color: var(--c-ink); }
+.c-sidenav__link span { display: inline !important; color: var(--c-muted); }
+.c-sidenav__link.is-active { background: var(--c-ink); border-color: var(--c-ink); color: var(--c-white); font-weight: 500; }
+.c-sidenav__link.is-active span { color: rgba(255, 255, 255, .6); }
+/* Kammermusik: Besetzungen als zweite Zeile */
+.c-sidenav__list .c-sidenav__sub { order: 99; flex-basis: 100%; display: flex !important; flex-wrap: wrap; align-items: center; gap: .5rem; margin-top: .25rem; padding: 0; border: 0; }
+.c-sidenav__list .c-sidenav__sub::before { content: "Besetzung"; margin-right: .25rem; font-size: var(--fs-meta); color: var(--c-muted); }
+.c-sidenav__list .c-sidenav__sub > li { display: block; }
+.c-sidenav__sublink,
+.c-sidenav__sublink:hover:not(:disabled) {
+  width: auto; padding: .375rem .75rem; border: 1px solid var(--c-hairline); background: transparent;
+  font-size: var(--fs-meta); color: var(--c-ink); white-space: nowrap;
+}
+.c-sidenav__sublink:hover:not(:disabled) { border-color: var(--c-ink); }
+.c-sidenav__sublink::before { display: none; }
+.c-sidenav__sublink span { display: inline !important; margin-left: .375rem; }
+.c-sidenav__sublink[aria-pressed="true"] { border-color: var(--c-olive); background: var(--c-olive-tint); color: var(--c-olive-dark); }
+.c-sidenav__sublink:disabled { display: none; }
+
+/* ---------- Sechs Facetten (eigene Seite) --------------------------------- */
+.c-facets { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--c-ink); counter-reset: none; }
+.c-facets .fl__item { display: grid; grid-template-columns: 64px minmax(0, 1fr); column-gap: var(--s-3); padding: var(--s-4) 0; border-bottom: 1px solid var(--c-hairline); }
+.c-facets .fl__item > * { grid-column: 2; }
+.c-facets .fl__item > .fl__num { grid-column: 1; grid-row: 1 / span 3; padding-top: .5rem; font-size: var(--fs-meta); color: var(--c-muted); font-variant-numeric: tabular-nums; }
+/* kleine Taste (Signatur) unter der Nummer */
+.c-facets .fl__num::after { content: ""; display: block; width: 14px; height: 36px; margin-top: .75rem; background: var(--c-ink); box-shadow: inset 0 -6px 0 var(--c-olive); }
+.c-facets .fl__title { margin: 0 0 .5rem; font-size: var(--fs-h3); }
+.c-facets .fl__text { max-width: 640px; margin: 0 0 var(--s-2); }
+.c-facets .fl__links { gap: .5rem var(--s-4); }
+.c-facets .fl__links a { font-size: .9375rem; font-weight: 500; color: var(--c-olive); }
+.c-facets .fl__links a:hover { color: var(--c-olive-dark); }
+@media (max-width: 640px) {
+  .c-facets .fl__item { grid-template-columns: 1fr; }
+  .c-facets .fl__item > * , .c-facets .fl__item > .fl__num { grid-column: 1; grid-row: auto; }
+  .c-facets .fl__num::after { display: none; }
+}
+.page-biographie .c-video { margin-bottom: var(--s-5); }
+.p-home-facets__all { margin: var(--s-2) 0 0; }
+.p-home-facets__all .c-link-arrow { font-size: var(--fs-meta); color: var(--c-muted); }
+.p-home-facets__all .c-link-arrow:hover { color: var(--c-ink); }
+
+/* ---------- Termine / Werkseite -------------------------------------------- */
+.c-event.is-static { cursor: default; }
+.c-event.is-static:hover { background: transparent; }
+.c-event.is-static .c-event__arrow { display: none; }
+.c-event.is-static:hover .c-event__title { color: var(--c-ink); }
+.c-event.is-target, .c-event.is-target:hover { background: var(--c-olive-tint); box-shadow: inset 3px 0 0 var(--c-olive); }
+.c-event { scroll-margin-top: var(--s-6); }
+.c-block__note { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem var(--s-2); margin: var(--s-3) 0 0; font-size: var(--fs-small); color: var(--c-muted); }
+
+/* ---------- Kontakt: Anliegen als Auswahl ---------------------------------- */
+.c-choice { margin: 0; padding: 0; border: 0; min-width: 0; }
+.c-choice legend { padding: 0; margin-bottom: .4rem; }
+.c-choice__row { display: flex; flex-wrap: wrap; gap: .5rem; }
+.c-choice__item { position: relative; cursor: pointer; }
+.c-choice__item input { position: absolute; opacity: 0; pointer-events: none; }
+.c-choice__item span { display: inline-flex; align-items: center; min-height: 44px; padding: .5rem 1rem; border: 1px solid var(--c-line); background: var(--c-white); font-size: .9375rem; color: var(--c-ink); transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease), color var(--dur) var(--ease); }
+.c-choice__item:hover span { border-color: var(--c-ink); }
+.c-choice__item input:checked + span { background: var(--c-ink); border-color: var(--c-ink); color: var(--c-white); }
+.c-choice__item input:focus-visible + span { outline: 2px solid var(--c-olive); outline-offset: 3px; }
+
+/* ---------- Kopf: EN erst, wenn es eine englische Version gibt ------------- */
+.c-lang { visibility: hidden; }
+
+/* ---------- Mobil: Inhalt zuerst, Zitat/Bild-Panel danach ------------------ */
+@media (max-width: 1023px) {
+  .l-split { display: flex; flex-direction: column; }
+  .l-split__aside { order: 2; }
+  .c-aside { border-bottom: 0; border-top: 1px solid var(--c-hairline); }
+}
+.c-sidenav__sublink, .c-sidenav__sublink:hover:not(:disabled) { justify-content: flex-start; }
+@media (max-width: 640px) {
+  .c-sidenav__link, .c-sidenav__link:hover { padding: .375rem .75rem; font-size: .875rem; }
+}

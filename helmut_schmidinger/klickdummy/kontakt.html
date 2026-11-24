@@ -92,7 +92,15 @@
     <div class="c-field"><label class="c-field__label" for="f-mail">E-Mail <abbr title="Pflichtfeld">*</abbr></label><input class="c-input" id="f-mail" name="email" type="email" autocomplete="email" required placeholder="name@beispiel.at"><span class="c-field__error">Bitte geben Sie eine gültige E-Mail-Adresse an.</span></div>
     <div class="c-field"><label class="c-field__label" for="f-tel">Telefon</label><input class="c-input" id="f-tel" name="telefon" type="tel" autocomplete="tel"></div>
   </div>
-  <div class="c-field"><label class="c-field__label" for="f-anliegen">Anliegen</label>
+  <!-- Version C: Anliegen als Auswahl-Buttons, vorbelegbar per kontakt.html?anliegen=material|auffuehrung|allgemein -->
+  <fieldset class="c-field c-choice" data-only-c data-anliegen><legend class="c-field__label">Worum geht es?</legend>
+    <div class="c-choice__row">
+      <label class="c-choice__item"><input type="radio" name="anliegen_c" value="allgemein" checked><span>Allgemeine Anfrage</span></label>
+      <label class="c-choice__item"><input type="radio" name="anliegen_c" value="material"><span>Noten &amp; Aufführungsmaterial</span></label>
+      <label class="c-choice__item"><input type="radio" name="anliegen_c" value="auffuehrung"><span>Aufführung melden</span></label>
+    </div>
+  </fieldset>
+  <div class="c-field" data-not-c><label class="c-field__label" for="f-anliegen">Anliegen</label>
     <select class="c-select c-select--wide" id="f-anliegen" name="anliegen"><option>Aufführungsmaterial / Noten</option><option>Aufführung melden</option><option>Allgemeine Anfrage</option></select></div>
   <div class="c-field"><label class="c-field__label" for="f-nachricht">Nachricht <abbr title="Pflichtfeld">*</abbr></label><textarea rows="6" class="c-textarea" id="f-nachricht" name="nachricht" required placeholder="Ihre Nachricht …"></textarea><span class="c-field__error">Bitte schreiben Sie eine kurze Nachricht.</span></div>
   <div class="c-alert c-alert--error" data-form-error hidden role="alert">Bitte füllen Sie alle markierten Pflichtfelder aus.</div>
