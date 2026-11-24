@@ -829,15 +829,15 @@ a.c-teaser:hover .c-link-arrow svg { transform: translateX(5px); }
 
 /* Kontakt: Anschrift als Zeile, Formular als Karte (Kundenwunsch 11/2026) */
 .c-contact--row { grid-template-columns: repeat(3, auto); justify-content: start; gap: var(--s-3) var(--s-6); padding: var(--s-4) var(--s-5); }
-@media (max-width: 860px) { .c-contact--row { grid-template-columns: 1fr; padding: var(--s-4); } }
-.p-contact-form { margin-top: var(--s-5); padding: var(--s-5); background: var(--c-white); max-width: calc(760px + 2 * var(--s-5)); }
+@media (max-width: 860px) { .c-contact--row { grid-template-columns: 1fr; padding: var(--s-4) var(--s-3); } }
+.p-contact-form { margin-top: var(--s-5); padding: var(--s-5); background: var(--c-white); }   /* gleiche Breite wie die Anschrift-Box darüber */
 .p-contact-form h2 { margin-bottom: var(--s-4); }
 .p-contact-form .c-form { max-width: none; }
 .c-form__actions--split { justify-content: space-between; align-items: flex-start; flex-wrap: nowrap; gap: var(--s-4); padding-top: var(--s-3); border-top: 1px solid var(--c-line); }
 .c-form__actions--split .c-field { max-width: 440px; }
 .c-form__actions--split .c-btn { flex: none; }
 @media (max-width: 640px) {
-  .p-contact-form { padding: var(--s-4) var(--s-3); margin-inline: calc(-1 * var(--s-2)); }
+  .p-contact-form { padding: var(--s-4) var(--s-3); }
   .c-form__actions--split { flex-direction: column; }
 }
 
