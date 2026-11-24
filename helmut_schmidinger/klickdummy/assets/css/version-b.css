@@ -1,0 +1,160 @@
+/* ==========================================================================
+   Version B – Unslop-Durchgang (Polish-Modus)
+   Methode: „unslop“ von Damir Sokolovsky (@heydamir), CC BY 4.0
+   https://github.com/heydamir/unslop
+
+   Wird nur geladen, wenn Version B aktiv ist (assets/js/version.js).
+   Überschreibt main.css / klaviatur.css – Farben, Schriften, Inhalte und
+   Reihenfolge bleiben gleich, es wird nur vereinheitlicht.
+
+   Richtung
+   - Produkt:   Website des Komponisten Helmut Schmidinger – Werke, Termine,
+                Person – für Veranstalter, Musiker:innen und Lehrende
+   - Charakter: still, genau, mit Augenzwinkern
+   - Welt:      Notenpapier, Bleistift, Programmheft
+   - Momente:   Porträt + Klaviatur auf der Startseite, Bild im Marken-Panel
+   - Signatur:  der kurze olivgrüne Strich (wie eine Taste) – nur für
+                Überschriften-Marken und „aktiv“, sonst nirgends
+   ========================================================================== */
+
+:root {
+  --ease: cubic-bezier(.22, 1, .36, 1);   /* eine Kurve für alles */
+  --dur: .16s;                            /* Hover, Toggles */
+  --c-hairline: rgba(20, 26, 51, .1);     /* Linien aus der Textfarbe */
+  --shadow-2: 0 8px 24px rgba(20, 26, 51, .08);
+  --fs-meta: .8125rem;                    /* 13px – Meta, Labels */
+}
+
+/* ---------- 1. Spacing: gleiche Dinge, gleiche Abstände ------------------ */
+.c-page-head { margin-bottom: var(--s-5); }
+.c-block { margin-top: var(--s-6); }
+.c-block__head { margin-bottom: var(--s-3); }
+.c-facts dt, .c-facts dd { padding: 1rem 0; }
+.c-sidenav__link, .c-sidenav__sublink { padding-block: .75rem; }
+.c-subnav { margin-bottom: var(--s-5); }
+
+/* ---------- 2. Farbe: ruhige Flächen, ein Akzent ------------------------ */
+/* Termine: kein Zebra, keine olivgrünen Monatsbalken */
+.c-event:nth-of-type(even) { background: transparent; }
+.c-event { padding: var(--s-3) var(--s-2); border-bottom-color: var(--c-hairline); }
+.c-event:hover { background: var(--c-white); }
+.c-events__month {
+  margin: var(--s-5) 0 0; padding: 0 var(--s-2) .75rem;
+  background: none; border-bottom: 1px solid var(--c-ink);
+  font-family: var(--f-serif); font-size: 1.6rem; font-weight: 400; letter-spacing: 0; line-height: 1.2;
+}
+.c-events__month:first-child { margin-top: 0; }
+.c-event__place, .c-event__work { border-left: 0; padding-left: 0; }
+
+/* Badges: leise, ein Stil; Uraufführung als einziger Akzent */
+.c-badge, .c-badge--olive, .c-badge--soft, .c-badge--outline {
+  padding: .125rem .5rem; background: transparent; color: var(--c-ink-80);
+  box-shadow: inset 0 0 0 1px var(--c-hairline);
+  font-size: .75rem; font-weight: 500; letter-spacing: 0; text-transform: none;
+}
+.c-badge--olive { color: var(--c-olive-dark); box-shadow: inset 0 0 0 1px var(--c-olive); }
+.c-badge svg { color: var(--c-muted); }
+
+/* Karten: eine Karte für alles – weiß, Haarlinie, keine olivgrüne Oberkante */
+.c-cat-card, .c-teaser, .c-quote--boxed, .c-download, .c-contact, .p-request, .p-contact-form {
+  border: 1px solid var(--c-hairline); border-top-color: var(--c-hairline);
+}
+.c-cat-card { border-top: 1px solid var(--c-hairline); min-height: 168px; padding: var(--s-3); }
+.c-cat-card:hover { background: var(--c-white); border-color: var(--c-ink); }
+.c-cat-card:hover .c-cat-card__title { color: var(--c-ink); }
+.c-cat-card:hover .c-cat-card__count { color: var(--c-muted); }
+.c-cat-card:hover .c-cat-card__foot { color: var(--c-olive); }
+.c-teaser--dark { border-color: var(--c-ink); }
+.c-teaser--plain { border: 0; }
+a.c-teaser:hover, .c-teaser.is-linked:hover { transform: none; box-shadow: none; border-color: var(--c-ink); }
+.c-teaser--dark:hover { border-color: var(--c-ink); }
+.c-download__icon { background: var(--c-surface); color: var(--c-ink); }
+.c-download:hover .c-download__icon { background: var(--c-ink); color: var(--c-white); }
+
+/* Linien: Haarlinien statt vieler Grautöne */
+.c-sidenav__link, .c-sidenav__sublink, .c-facts dt, .c-facts dd, .c-work-row, .c-entry, .c-accordion__item { border-bottom-color: var(--c-hairline); }
+.c-subnav, .c-tabs__list { border-bottom-color: var(--c-hairline); }
+.c-aside { border-right-color: var(--c-hairline); }
+
+/* ---------- 4. Copy-nahe Typografie: Satzschreibung statt Versalien ------ */
+.c-nav__link, .c-lang, .c-btn, .c-link-arrow, .c-eyebrow, .c-breadcrumb,
+.c-subnav__link, .c-tabs__tab, .c-filter__reset, .c-event__type, .c-facts dt,
+.c-field__label, .c-contact__label, .c-cat-card__count, .c-download__meta,
+.c-work-row__meta small, .site-footer__title, .c-placeholder, .p-sg-label,
+.p-home-facets__tags .kv-tag, .p-home-facets__keys .kv__name,
+.p-home-facets__panel .kv-panel__links a, .c-motto {
+  text-transform: none; letter-spacing: 0;
+}
+/* Hauptnavigation */
+.c-nav__link { font-size: .9375rem; font-weight: 500; }
+.c-lang { font-size: var(--fs-meta); }
+/* Buttons und Textlinks */
+.c-btn { font-size: .9375rem; min-height: 48px; padding: .75rem 1.25rem; gap: .625rem; }
+.c-btn--small { min-height: 40px; font-size: var(--fs-meta); }
+.c-link-arrow, .p-home-facets__panel .kv-panel__links a { font-size: .9375rem; }
+/* Meta-Labels: 13px, gedämpft */
+.c-eyebrow { font-size: var(--fs-meta); color: var(--c-muted); }
+.c-eyebrow--light { color: rgba(255, 255, 255, .7); }
+.c-breadcrumb, .c-subnav__link, .c-tabs__tab, .c-filter__reset, .c-facts dt,
+.c-contact__label, .c-cat-card__count, .c-download__meta, .c-work-row__meta small { font-size: var(--fs-meta); }
+.c-subnav__link { font-size: .9375rem; }
+.c-facts dt { font-weight: 400; padding-top: 1rem; }
+.c-field__label { font-size: .875rem; font-weight: 500; }
+.c-event__type { font-size: var(--fs-meta); font-weight: 500; }
+.site-footer__title { font-size: var(--fs-meta); color: rgba(255, 255, 255, .55); font-weight: 400; }
+.c-sidenav__link span, .c-sidenav__sublink span { font-size: var(--fs-meta); }
+
+/* ---------- 5. Type: Serif nur für Überschriften, kein Kursiv ------------ */
+.c-quote__text { font-style: normal; }
+.c-quote__author { font-family: var(--f-sans); font-size: var(--fs-meta); font-weight: 400; color: var(--c-muted); }
+.c-quote--small .c-quote__author { font-size: var(--fs-meta); }
+.p-work-head__sub { font-family: var(--f-sans); font-style: normal; font-size: var(--fs-lead); color: var(--c-muted); }
+.c-media__caption { font-family: var(--f-sans); font-style: normal; font-size: var(--fs-meta); }
+.c-select { font-family: var(--f-sans); font-size: .9375rem; border-radius: 0; }
+.c-input, .c-textarea { border-radius: 0; }
+.c-event__place { font-family: var(--f-sans); font-size: var(--fs-small); line-height: 1.5; color: var(--c-ink-80); }
+.c-event__date { font-variant-numeric: tabular-nums; letter-spacing: 0; }
+.c-work-row__meta, .c-facts dd, .c-entry__date { font-variant-numeric: tabular-nums; }
+.c-contact__value { font-family: var(--f-sans); font-size: 1.0625rem; font-weight: 500; }
+.c-empty__title { font-size: 1.6rem; }
+.lead { color: var(--c-text); }
+
+/* Motto rechts oben: als Zitat in der Überschrift-Schrift, ohne Strich */
+.c-motto { width: 8.5em; font-family: var(--f-serif); font-size: 1.15rem; line-height: 1.3; color: var(--c-ink-80); }
+.c-motto::after { display: none; }
+
+/* ---------- 6. Layout: Termine-Zeile klarer -------------------------------- */
+.c-event { grid-template-columns: 128px minmax(140px, 200px) minmax(0, 1fr) 32px; }
+.c-events--compact .c-event { grid-template-columns: 128px 1fr 32px; }
+@media (max-width: 860px) {
+  .c-event, .c-events--compact .c-event { grid-template-columns: 1fr 32px; padding: var(--s-3) 0; }
+}
+
+/* ---------- 7. Details ---------------------------------------------------- */
+/* Signatur: der kurze Strich nur noch an Überschriften-Marken und für „aktiv“ */
+.c-subnav__link::after, .c-tabs__tab::after { height: 2px; }
+.c-nav__link::after { height: 2px; bottom: -2px; }
+.c-lang__link.is-active::after { background: var(--c-olive); }
+.c-quote--boxed { border-top: 1px solid var(--c-hairline); }
+
+/* Hover ohne Layout-Sprung */
+.c-work-row:hover { padding-inline: 0; background: transparent; }
+.c-sidenav__link:hover { padding-left: 0; }
+.c-sidenav__sublink:hover:not(:disabled) { padding-left: 1.25rem; }
+
+/* Startseite */
+.p-home-facets__tags .kv-tag { font-size: .9375rem; margin-right: 1.4em; }
+.p-home-facets__tags .kv-tag:not(:last-child)::after { right: -.95em; color: var(--c-line); }
+.p-home-facets__keys .kv__num { letter-spacing: 0; }
+.p-home-facets__keys .kv__name { font-size: var(--fs-meta); }
+.p-home-hero__quote { box-shadow: var(--shadow-2); }
+.p-home-hero__quote .c-quote__text { font-size: 1.3rem; }
+
+/* ---------- 9. Motion: kurz, eine Kurve ---------------------------------- */
+.js .u-reveal { transform: translateY(8px); transition: opacity .4s var(--ease), transform .4s var(--ease); }
+.c-video:hover .c-video__btn { transform: none; }
+.c-teaser--image:hover img { transform: none; }
+.c-chip { transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease), color var(--dur) var(--ease); }
+
+/* Quelltexte, die bisher auf Versalien gebaut haben („bis zu 9 Instrumente“) – erster Buchstabe groß */
+.c-cat-card__count::first-letter, .c-download__meta::first-letter, .c-work-row__meta small::first-letter { text-transform: uppercase; }

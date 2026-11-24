@@ -861,3 +861,11 @@ a.c-teaser:hover .c-link-arrow svg { transform: translateX(5px); }
 
 /* Overline ohne Wort (nur Strich), z.B. „Nächste Termine“ auf der Startseite */
 .c-eyebrow:empty { min-height: 1.2em; }
+
+/* Klickdummy: Umschalter Design-Version A/B (assets/js/version.js) – nicht ins Theme übernehmen */
+.v-ab { position: fixed; z-index: 99; left: 1rem; bottom: 1rem; display: flex; align-items: center; gap: .25rem; padding: .25rem; background: rgba(20,26,51,.9); color: rgba(255,255,255,.6); font: 500 .75rem/1 "Geist", system-ui, sans-serif; box-shadow: 0 6px 24px rgba(0,0,0,.18); }
+.v-ab span { padding: 0 .5rem 0 .4rem; }
+.v-ab a { min-width: 2rem; padding: .5rem .6rem; text-align: center; color: #fff; }
+.v-ab a[aria-current] { background: #a9c23f; color: #111; }
+.v-ab a:not([aria-current]):hover { background: rgba(255,255,255,.15); }
+@media print { .v-ab { display: none; } }

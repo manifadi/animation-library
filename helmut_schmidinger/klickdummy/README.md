@@ -50,3 +50,9 @@ Nach dem Kundenmeeting: Klaviatur vom Briefpapier als Facetten-Navigation, „Le
 - `assets/css/fonts.css` + `assets/fonts/`: alle Schriften lokal (OFL, gratis), keine Google-Server mehr.
 
 Die frühere Version C (Mosaik) wurde verworfen, die Buchstaben sind nachgerückt. Startseiten zeigen unter dem Hero nur noch: Nächste Aufführungen + Wortwolke Kontexte.
+
+## Design-Version B (Unslop-Durchgang)
+
+`?v=b` an eine beliebige Seiten-URL hängen (oder unten links „Design A | B“) – die Wahl bleibt beim Weiterklicken erhalten.
+Version B = `assets/css/version-b.css` (lädt `assets/js/version.js` nur bei B) – Methode „unslop“ von Damir Sokolovsky (@heydamir), CC BY 4.0.
+Inhalte und Struktur sind identisch, B vereinheitlicht nur Typografie, Labels, Karten, Badges und die Termine-Liste.
