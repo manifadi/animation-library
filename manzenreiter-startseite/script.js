@@ -632,7 +632,30 @@
     setTimeout(finish, 1100);          // Absicherung, falls transitionend ausbleibt
   }
 
+  /* Curtain- und Lift-Reveals (vf-motion) beim Ankommen zurückhalten, bis der Vorhang
+     aufgeht – sonst laufen sie unsichtbar dahinter ab. Wie beim Preloader: Attribut jetzt
+     entfernen (vf-motion lädt per defer und sieht die Elemente beim Init nicht), beim
+     Aufdecken wieder setzen und gezielt starten. */
+  var held = [];
+  if (root.classList.contains('is-arriving')) {
+    held = Array.prototype.slice.call(document.querySelectorAll('[data-motion~="curtain"], [data-motion~="lift"]'));
+    held.forEach(function (el) {
+      el.setAttribute('data-motion-wait', el.getAttribute('data-motion'));
+      el.removeAttribute('data-motion');
+    });
+  }
+  function releaseHeld() {
+    if (!held.length) return;
+    held.forEach(function (el) {
+      el.setAttribute('data-motion', el.getAttribute('data-motion-wait'));
+      el.removeAttribute('data-motion-wait');
+    });
+    if (window.VFMotion) held.forEach(function (el) { window.VFMotion.init(el); });
+    held = [];
+  }
+
   function reveal() {
+    releaseHeld();                     // Vorhang deckt noch voll ab → Startzustand setzen, dann aufdecken
     curtain.classList.add('is-revealing');
     curtain.classList.remove('is-covering');
     root.classList.remove('is-arriving');

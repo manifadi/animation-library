@@ -131,6 +131,13 @@ html.page-sale body { background: var(--green); }
   font-size: max(24px, calc(35 * var(--u)));
   line-height: 1;
 }
+/* Curtain (vf-motion): SOLD erscheint zusammen mit dem Bild, nicht vorher auf der leeren Fläche */
+.vfm-js .sale-card__media[data-motion~="curtain"] > .sale-card__sold { opacity: 0; }
+.vfm-js .sale-card__media[data-motion~="curtain"].vfm-in > .sale-card__sold {
+  opacity: 1;
+  transition: opacity 0s calc(var(--vfm-curtain-duration) * .45);
+}
+
 .sale-card__title {
   margin-top: max(14px, calc(20 * var(--u)));
   font-size: max(16px, calc(18 * var(--u)));
@@ -303,7 +310,7 @@ html.page-sale body { background: var(--green); }
 
 .detail-hero {
   aspect-ratio: 16 / 8.5;
-  background: var(--img-gray) url("https://bolduae.com/media/1751900567.webp") center/cover no-repeat;
+  background: var(--placeholder);
   margin-bottom: 32px;
 }
 
@@ -340,7 +347,14 @@ html.page-sale body { background: var(--green); }
 
 .gallery-item .img {
   aspect-ratio: 16 / 9;
-  background: var(--img-gray) url("https://bolduae.com/media/1751900567.webp") center/cover no-repeat;
+  background: var(--placeholder);
+}
+.detail-hero img,
+.gallery-item .img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .gallery-item .caption {

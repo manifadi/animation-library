@@ -545,7 +545,7 @@ addEventListener('scroll', () =&gt; requestAnimationFrame(update), { passive: tr
 <main class="sale-main">
   <div class="wrap">
     <div class="detail-title-row">
-      <h1>Sofa + Hocker TORII LOW - Minotti</h1>
+      <h1 data-motion="lift">Sofa + Hocker TORII LOW - Minotti</h1>
       <div class="price-block">
         <span class="price">€ 3.099</span>
         <span class="price-old">statt 5.189</span>
@@ -553,23 +553,23 @@ addEventListener('scroll', () =&gt; requestAnimationFrame(update), { passive: tr
     </div>
 
     <div class="sale-claim">
-      <p class="sale-claim__left"><span>Das ist Innenarchitektur</span><span>Pur</span></p>
-      <p>seit 1947</p>
+      <p class="sale-claim__left" data-motion="lift"><span>Das ist Innenarchitektur</span><span>Pur</span></p>
+      <p data-motion="lift">seit 1947</p>
     </div>
 
-    <div class="detail-hero"></div>
+    <div class="detail-hero" data-motion="curtain"><img src="assets/produkt-05.jpg" alt="" width="986" height="554" /></div>
 
     <div class="detail-meta">
       <div>
-        <p class="title">Sofa + Hocker TORII LOW - Minotti</p>
+        <p class="title" data-motion="lift">Sofa + Hocker TORII LOW - Minotti</p>
         <div class="price-row">
           <span class="price">€ 3.099</span>
           <span class="price-old">statt 5.189</span>
         </div>
       </div>
       <div class="specs">
-        <p>B/T/H: 247/125/87 cm<br />Hocker: B/T 100/60 cm</p>
-        <p class="contact">
+        <p data-motion="lift">B/T/H: 247/125/87 cm<br />Hocker: B/T 100/60 cm</p>
+        <p class="contact" data-motion="lift">
           Bei Interesse, bitte melden Sie sich bei Innenarchitektin<br />
           Fr. Maria Musterfrau<br />
           <a href="mailto:m.musterfrau@manzenreiter.at">m.musterfrau@manzenreiter.at</a>
@@ -579,12 +579,12 @@ addEventListener('scroll', () =&gt; requestAnimationFrame(update), { passive: tr
     </div>
 
     <div class="gallery-item">
-      <div class="img"></div>
-      <div class="caption">Badezimmer</div>
+      <div class="img" data-motion="curtain"><img src="assets/produkt-06.jpg" alt="" width="986" height="554" loading="lazy" /></div>
+      <div class="caption" data-motion="lift">Badezimmer</div>
     </div>
     <div class="gallery-item">
-      <div class="img"></div>
-      <div class="caption">Badezimmer</div>
+      <div class="img" data-motion="curtain"><img src="assets/produkt-11.jpg" alt="" width="986" height="554" loading="lazy" /></div>
+      <div class="caption" data-motion="lift">Badezimmer</div>
     </div>
   </div>
 
@@ -607,8 +607,8 @@ addEventListener('scroll', () =&gt; requestAnimationFrame(update), { passive: tr
 
   <div class="wrap">
     <div class="sale-cta">
-      <h2 class="sale-cta__title">The Big Oxmox advised her not to do so, because there were thousands.</h2>
-      <p class="sale-cta__text">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+      <h2 class="sale-cta__title" data-motion="lift">The Big Oxmox advised her not to do so, because there were thousands.</h2>
+      <p class="sale-cta__text" data-motion="lift">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
       <a class="sale-link" href="#">Call to Action <img src="assets/arrow.svg" alt="" width="32" height="30" /></a>
     </div>
 
@@ -697,7 +697,7 @@ addEventListener('scroll', () =&gt; requestAnimationFrame(update), { passive: tr
   </div>
 </footer>
 
+<script src="sale.js"></script>   <!-- vor script.js: Karten müssen stehen, bevor die Reveals sie suchen -->
 <script src="../script.js"></script>
-<script src="sale.js"></script>
 </body>
 </html>

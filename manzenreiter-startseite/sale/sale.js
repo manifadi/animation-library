@@ -21,10 +21,10 @@ function buildProjectCards(container, count) {
     const sold = SOLD.includes(i) ? '<span class="sale-card__sold">SOLD</span>' : "";
     html += `
       <a class="sale-card" href="detail.html">
-        <div class="sale-card__media">
+        <div class="sale-card__media" data-motion="curtain">
           <img src="${img}" alt="" width="986" height="554" loading="lazy" />${sold}
         </div>
-        <p class="sale-card__title">${title}</p>
+        <p class="sale-card__title" data-motion="lift">${title}</p>
         <p class="sale-card__price">
           <img class="sale-card__arrow" src="assets/arrow.svg" alt="" width="32" height="30" />
           <span class="sale-card__now">€ 3.099</span>
