@@ -552,10 +552,9 @@ addEventListener('scroll', () =&gt; requestAnimationFrame(update), { passive: tr
       </div>
     </div>
 
-    <div class="subheader-row">
-      <span>Das ist Innenarchitektur</span>
-      <span class="sale-accent">Pur</span>
-      <span>seit 1947</span>
+    <div class="sale-claim">
+      <p class="sale-claim__left"><span>Das ist Innenarchitektur</span><span>Pur</span></p>
+      <p>seit 1947</p>
     </div>
 
     <div class="detail-hero"></div>
@@ -576,7 +575,7 @@ addEventListener('scroll', () =&gt; requestAnimationFrame(update), { passive: tr
           <a href="mailto:m.musterfrau@manzenreiter.at">m.musterfrau@manzenreiter.at</a>
         </p>
       </div>
-      <a class="cta-link" href="#">Call to Action <span class="arrow-circle">→</span></a>
+      <a class="sale-link" href="#">Call to Action <img src="assets/arrow.svg" alt="" width="32" height="30" /></a>
     </div>
 
     <div class="gallery-item">
@@ -589,7 +588,9 @@ addEventListener('scroll', () =&gt; requestAnimationFrame(update), { passive: tr
     </div>
   </div>
 
-  <section class="marquee-section">
+  <div class="sale-marquee">
+
+    <section class="marquee-section">
     <div class="marquee-line" data-dir="left">
       <span>SALESALESALESALESALESALESALESALESALESALESALESALESALESALESALESALE</span>
       <span aria-hidden="true">SALESALESALESALESALESALESALESALESALESALESALESALESALESALESALESALE</span>
@@ -602,14 +603,16 @@ addEventListener('scroll', () =&gt; requestAnimationFrame(update), { passive: tr
     </div>
   </section>
 
+  </div>
+
   <div class="wrap">
-    <div class="cta-section">
-      <h2>The Big Oxmox advised her not to do so, because there were thousands.</h2>
-      <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-      <a class="cta-link" href="#">Call to Action <span class="arrow-circle">→</span></a>
+    <div class="sale-cta">
+      <h2 class="sale-cta__title">The Big Oxmox advised her not to do so, because there were thousands.</h2>
+      <p class="sale-cta__text">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+      <a class="sale-link" href="#">Call to Action <img src="assets/arrow.svg" alt="" width="32" height="30" /></a>
     </div>
 
-    <div class="related-grid" id="related-grid"></div>
+    <div class="sale-grid sale-grid--related" id="related-grid"></div>
   </div>
 </main>
 

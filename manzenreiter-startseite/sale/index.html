@@ -542,66 +542,58 @@ addEventListener('scroll', () =&gt; requestAnimationFrame(update), { passive: tr
   </button>
 </header>
 
-<main class="sale-main">
-  <section class="sale-hero wrap">
-    <h1>Pures Design. Jetzt besonders attraktiv</h1>
+<main class="sale-main sale-overview">
+  <section class="sale-intro">
+    <h1 class="sale-title">Pures Design. Jetzt besonders attraktiv</h1>
+    <div class="sale-claim">
+      <p class="sale-claim__left"><span>Das ist Innenarchitektur</span><span>Pur</span></p>
+      <p>seit 1947</p>
+    </div>
+    <nav class="sale-filter" aria-label="Kategorien">
+      <a href="#" class="is-active" aria-current="true">Alle</a>
+      <a href="#">Beleuchtung</a>
+      <a href="#">Betten</a>
+      <a href="#">Couchtisch</a>
+      <a href="#">Couchtisch</a>
+      <a href="#">Sessel</a>
+      <a href="#">Gartenmöbel</a>
+      <a href="#">Filter</a>
+      <a href="#">Filter</a>
+    </nav>
   </section>
 
-  <div class="wrap">
-    <div class="subheader-row">
-      <span>Das ist Innenarchitektur</span>
-      <span class="sale-accent">Pur</span>
-      <span>seit 1947</span>
-    </div>
+  <div class="sale-grid" id="project-grid"></div>
 
-    <div class="filter-row">
-      <div class="filter-tabs">
-        <a href="#" class="active">Alle</a>
-        <a href="#">Beleuchtung</a>
-        <a href="#">Betten</a>
-        <a href="#">Couchtisch</a>
-        <a href="#">Couchtisch</a>
-        <a href="#">Sessel</a>
-        <a href="#">Gartenmöbel</a>
+  <div class="sale-more"><a href="#">mehr laden</a></div>
+
+  <div class="sale-marquee">
+    <section class="marquee-section">
+      <div class="marquee-line" data-dir="left">
+        <span>SALESALESALESALESALESALESALESALESALESALESALESALESALESALESALESALE</span>
+        <span aria-hidden="true">SALESALESALESALESALESALESALESALESALESALESALESALESALESALESALESALE</span>
       </div>
-      <div class="filter-actions">
-        <a href="#">Filter</a>
-        <a href="#">Filter</a>
+    </section>
+    <section class="marquee-section">
+      <div class="marquee-line" data-dir="right">
+        <span>SALESALESALESALESALESALESALESALESALESALESALESALESALESALESALESALE</span>
+        <span aria-hidden="true">SALESALESALESALESALESALESALESALESALESALESALESALESALESALESALESALE</span>
       </div>
-    </div>
-
-    <div class="project-grid" id="project-grid"></div>
-
-    <div class="load-more">
-      <a href="#">mehr laden</a>
-    </div>
+    </section>
   </div>
 
-  <section class="marquee-section">
-    <div class="marquee-line" data-dir="left">
-      <span>SALESALESALESALESALESALESALESALESALESALESALESALESALESALESALESALE</span>
-      <span aria-hidden="true">SALESALESALESALESALESALESALESALESALESALESALESALESALESALESALESALE</span>
-    </div>
-  </section>
-  <section class="marquee-section">
-    <div class="marquee-line" data-dir="right">
-      <span>SALESALESALESALESALESALESALESALESALESALESALESALESALESALESALESALE</span>
-      <span aria-hidden="true">SALESALESALESALESALESALESALESALESALESALESALESALESALESALESALESALE</span>
-    </div>
+  <section class="sale-cta">
+    <h2 class="sale-cta__title">The Big Oxmox advised her not to do so, because there were thousands.</h2>
+    <p class="sale-cta__text">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+    <a class="sale-link" href="#">Call to Action <img src="assets/arrow.svg" alt="" width="32" height="30" /></a>
   </section>
 
-  <div class="wrap">
-    <div class="cta-section">
-      <h2>The Big Oxmox advised her not to do so, because there were thousands.</h2>
-      <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-      <a class="cta-link" href="#">Call to Action <span class="arrow-circle">→</span></a>
+  <figure class="sale-feature">
+    <div class="sale-feature__media">
+      <img class="sale-feature__img" src="assets/feature.jpg" alt="" width="2434" height="1370" loading="lazy" />
+      <img class="sale-feature__strokes" src="assets/feature-strokes.svg" alt="" width="422" height="188" />
     </div>
-  </div>
-
-  <div class="wrap feature-block">
-    <div class="feature-image"></div>
-    <p class="feature-caption">More than an object, this piece represents a quiet philosophy of living — where form follows intention, materials age with dignity, and every detail exists for a reason.</p>
-  </div>
+    <figcaption class="sale-feature__caption">More than an object, this piece represents a quiet philosophy of living — where form follows intention, materials age with dignity, and every detail exists for a reason.</figcaption>
+  </figure>
 </main>
 
 <footer class="site-footer">

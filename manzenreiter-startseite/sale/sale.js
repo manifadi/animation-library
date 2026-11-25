@@ -1,28 +1,35 @@
 // Manzenreiter – Sale-Seiten: Platzhalter-Karten und Laufschrift
 
 // ------------------------------------------------------------------
-// Project grid (Sale overview) — each card links to the detail page.
+// Produkt-Raster (Sale-Übersicht, Figma "09 Sale Übersicht") – jede Karte
+// führt zur Detailseite. Bilder und SOLD-Markierungen wie im Design.
 // ------------------------------------------------------------------
 const PLACEHOLDER_TITLES = [
   "Behind the word mountains",
   "The Big Oxmox advised",
   "Semantics a large language ocean",
 ];
+const PRODUCT_IMAGES = 12;          // assets/produkt-01.jpg … produkt-12.jpg
+const SOLD = [3, 11];               // Karte 4 und 12 (Index ab 0)
 
 function buildProjectCards(container, count) {
   if (!container) return;
   let html = "";
   for (let i = 0; i < count; i++) {
     const title = PLACEHOLDER_TITLES[i % PLACEHOLDER_TITLES.length];
+    const img = `assets/produkt-${String((i % PRODUCT_IMAGES) + 1).padStart(2, "0")}.jpg`;
+    const sold = SOLD.includes(i) ? '<span class="sale-card__sold">SOLD</span>' : "";
     html += `
-      <a class="project-card" href="detail.html">
-        <div class="thumb"></div>
-        <div class="title">${title}</div>
-        <div class="price-row">
-          <span class="arrow">→</span>
-          <span class="price">€ 3.099</span>
-          <span class="price-old">statt 5.189</span>
+      <a class="sale-card" href="detail.html">
+        <div class="sale-card__media">
+          <img src="${img}" alt="" width="986" height="554" loading="lazy" />${sold}
         </div>
+        <p class="sale-card__title">${title}</p>
+        <p class="sale-card__price">
+          <img class="sale-card__arrow" src="assets/arrow.svg" alt="" width="32" height="30" />
+          <span class="sale-card__now">€ 3.099</span>
+          <span class="sale-card__old">statt 5.189</span>
+        </p>
       </a>`;
   }
   container.innerHTML = html;
