@@ -872,3 +872,71 @@ a.c-teaser:hover .c-link-arrow svg { transform: translateX(5px); }
 /* Klickdummy: Markup nur für Design-Version C (data-only-c) bzw. in C ausgeblendet (data-not-c) */
 html:not([data-version="c"]) [data-only-c] { display: none !important; }
 html[data-version="c"] [data-not-c] { display: none !important; }
+
+/* ---------- Werkseite: Musterwerke (alle Felder) ------------------------- */
+.c-demo-note { margin: 0 0 var(--s-4); padding: .75rem 1rem; border-left: 3px solid var(--c-olive); background: var(--c-olive-tint); font-size: var(--fs-small); color: var(--c-ink-80); }
+.c-demo-note a { color: var(--c-olive-dark); text-decoration: underline; }
+.c-demo-note code { font-size: .875em; }
+.p-work-intro { display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: var(--s-4); align-items: start; }
+.p-work-intro__score { margin: 0; }
+.p-work-intro__score img { display: block; width: 100%; height: auto; border: 1px solid var(--c-line); background: var(--c-white); }
+.p-work-intro__score a:hover img { border-color: var(--c-ink); }
+@media (max-width: 860px) { .p-work-intro { grid-template-columns: 1fr; } .p-work-intro__score { max-width: 320px; } }
+.c-block__sub { margin: var(--s-4) 0 var(--s-1); font-family: var(--f-sans); font-size: var(--fs-small); font-weight: 500; color: var(--c-muted); }
+.c-block__head + .c-block__sub { margin-top: 0; }
+.c-event.is-static { cursor: default; }
+.c-event.is-static:hover { background: transparent; }
+.c-event__extra { margin: .25rem 0 .5rem; font-size: var(--fs-small); color: var(--c-muted); }
+/* Sätze / Lieder / Bilder */
+.c-movements { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--c-ink); }
+.c-movements__item { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr) auto; gap: var(--s-2); align-items: baseline; padding: .875rem 0; border-bottom: 1px solid var(--c-line); }
+.c-movements__num { font-size: var(--fs-small); color: var(--c-muted); font-variant-numeric: tabular-nums; }
+.c-movements__title { font-size: 1.0625rem; color: var(--c-ink); }
+.c-movements__text { display: block; margin-top: .125rem; font-size: var(--fs-small); color: var(--c-muted); }
+.c-movements__dur { font-size: var(--fs-small); color: var(--c-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* Audio & Video */
+.c-recordings { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--c-ink); }
+.c-recording { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr) minmax(0, 300px); gap: var(--s-1) var(--s-2); align-items: center; padding: var(--s-2) 0; border-bottom: 1px solid var(--c-line); }
+.c-recording__type { align-self: start; padding-top: .2rem; font-size: var(--fs-small); color: var(--c-muted); }
+.c-recording__label { margin: 0; font-weight: 500; color: var(--c-ink); }
+.c-recording__label a { color: var(--c-olive); font-weight: 400; }
+.c-recording__performers { margin: .125rem 0 0; font-size: var(--fs-small); color: var(--c-muted); }
+.c-recording__player { width: 100%; height: 40px; }
+.c-recording__video { grid-column: 2 / -1; max-width: 560px; }
+.c-recording__request { justify-self: end; display: inline-flex; align-items: center; gap: .5rem; font-size: var(--fs-small); font-weight: 500; color: var(--c-olive); }
+.c-recording__request svg { width: 22px; }
+.c-recording__request:hover { color: var(--c-olive-dark); }
+@media (max-width: 640px) {
+  .c-recording { grid-template-columns: 1fr; }
+  .c-recording__video { grid-column: auto; }
+  .c-recording__request { justify-self: start; }
+}
+.c-press { display: grid; gap: var(--s-2); }
+.c-quote__author a { color: var(--c-olive); text-decoration: underline; }
+.c-checks { margin: 0; padding: 0; border: 0; min-width: 0; }
+.c-checks__row { display: flex; flex-wrap: wrap; gap: .5rem var(--s-4); }
+.p-request--publisher .p-work-actions { margin-top: var(--s-3); }
+
+/* ---------- Werkseite als PDF / Druck: nur die Werkinfos ----------------- */
+@media print {
+  @page { margin: 18mm 16mm; }
+  body { background: #fff; color: #000; font-size: 10.5pt; }
+  .skip-link, .site-header, .c-mobile-nav, .c-search, .l-split__aside, .c-motto, .c-subnav, .c-breadcrumb,
+  .c-demo-note, .p-work-actions, .p-request, .c-pager, .site-footer, .c-video, audio, .c-recording__request,
+  .c-block__head .c-link-arrow, .c-block__note, .c-event__arrow { display: none !important; }
+  .l-split, .l-split__main, .l-split__main-inner { display: block; padding: 0; margin: 0; max-width: none; }
+  .c-page-head { margin-bottom: 6mm; }
+  .c-page-head__title { font-size: 26pt; }
+  .page-werk-muster .l-split__main-inner::after { content: "Helmut Schmidinger · Werkinformation"; display: block; margin-top: 8mm; font-size: 8pt; color: #666; }
+  .p-work-intro { grid-template-columns: 1fr 45mm; }
+  .c-block { margin-top: 8mm; break-inside: auto; }
+  .c-block__head { break-after: avoid; }
+  .c-movements__item, .c-recording, .c-event, .c-quote { break-inside: avoid; }
+  .c-quote--boxed { padding: 3mm 0; border: 0; border-bottom: 1px solid #ccc; }
+  .c-chip { border: 1px solid #999; padding: 1mm 2mm; min-height: 0; }
+  a { color: inherit; text-decoration: none; }
+  .u-reveal { opacity: 1 !important; transform: none !important; }
+}
+/* Aufführungen auf der Werkseite: Werktitel nicht in jeder Zeile wiederholen */
+#auffuehrungen .c-event.is-static .c-event__title { display: none; }
+.c-facts dd a { color: var(--c-olive); text-decoration: underline; }

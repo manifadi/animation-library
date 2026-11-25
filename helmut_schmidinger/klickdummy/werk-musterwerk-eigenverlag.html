@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Nur Klickdummy: nicht ins WordPress-Theme übernehmen -->
+<meta name="robots" content="noindex, nofollow">
+<title>Sieben Wege über den Fluss (Musterwerk) | Helmut Schmidinger</title>
+<meta name="description" content="Sieben Wege über den Fluss – Liederzyklus für mittlere Stimme und Klavier (2018/2019)">
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/main.css">
+<script src="assets/js/version.js"></script>
+</head>
+<!-- WP-Template: single-werk.php -->
+<body class="page-werk-musterwerk-eigenverlag page-werk-muster">
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+<!-- ============ HEADER  (WP: header.php · Menü: wp_nav_menu "hauptmenue") ============ -->
+<header class="site-header">
+  <nav class="c-lang" aria-label="Sprache"><a class="c-lang__link is-active" href="index.html" aria-current="true" lang="de">DE</a><span class="c-lang__sep" aria-hidden="true">|</span><a class="c-lang__link is-disabled" href="#" lang="en" title="Englische Version – optional, später via Polylang">EN</a></nav>
+  <a class="site-header__brand" href="index.html" aria-label="Startseite">Helmut <span>Schmidinger</span></a>
+  <div class="site-header__right">
+    <nav class="c-nav" aria-label="Hauptnavigation">
+      <ul class="c-nav__list"><li><a class="c-nav__link" href="aktuelles.html">Termine</a></li><li><a class="c-nav__link" href="zur-person.html">Zur Person</a></li><li><a class="c-nav__link is-active" href="werk.html" aria-current="page">Zum Werk</a></li><li><a class="c-nav__link" href="kontakt.html">Kontakt</a></li></ul>
+    </nav>
+    <button class="c-icon-btn" type="button" data-search-open aria-label="Suche öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg></button>
+    <button class="c-icon-btn c-burger" type="button" data-menu-open aria-expanded="false" aria-controls="mobile-nav" aria-label="Menü öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
+  </div>
+</header>
+
+<!-- Mobile-Menü (Overlay) -->
+<div class="c-mobile-nav" id="mobile-nav" data-mobile-nav role="dialog" aria-modal="true" aria-label="Menü">
+  <div class="c-mobile-nav__top">
+    <nav class="c-lang" aria-label="Sprache"><a class="c-lang__link is-active" href="index.html" aria-current="true" lang="de">DE</a><span class="c-lang__sep" aria-hidden="true">|</span><a class="c-lang__link is-disabled" href="#" lang="en" title="Englische Version – optional, später via Polylang">EN</a></nav>
+    <button class="c-icon-btn" type="button" data-menu-close aria-label="Menü schließen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg></button>
+  </div>
+  <ul class="c-mobile-nav__list"><li><a class="c-mobile-nav__link" href="aktuelles.html">Termine<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li><li><a class="c-mobile-nav__link" href="zur-person.html">Zur Person<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li><li><a class="c-mobile-nav__link is-active" href="werk.html">Zum Werk<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li><li><a class="c-mobile-nav__link" href="kontakt.html">Kontakt<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li></ul>
+  <div class="c-mobile-nav__meta">
+    <p><a href="mailto:schmidinger@litmus.at">schmidinger@litmus.at</a><br>+43 7242 910 771</p>
+    <button class="c-btn c-btn--light c-btn--small" type="button" data-search-open>Suche <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg></button>
+  </div>
+</div>
+
+<!-- Suche (Overlay)  WP: searchform.php → search.php -->
+<div class="c-search" data-search role="dialog" aria-modal="true" aria-label="Suche">
+  <button class="c-icon-btn c-search__close" type="button" data-search-close aria-label="Suche schließen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg></button>
+  <form class="c-search__form" action="suche.html" role="search">
+    <label class="c-eyebrow c-search__label" for="s">Suche</label>
+    <div class="c-search__row">
+      <input class="c-search__input" id="s" name="s" type="search" placeholder="Werk, Ort, Thema …" autocomplete="off">
+      <button class="c-icon-btn" type="submit" aria-label="Suchen"><svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></button>
+    </div>
+    <p class="c-search__hint">Durchsucht Werke, Termine und Seiten.</p>
+  </form>
+</div>
+
+<div class="l-split">
+  <!-- Marken-Panel  (WP: template-parts/aside.php · Motto = ACF "seitenmotto", Bild = Beitragsbild) -->
+  <aside class="l-split__aside c-aside">
+    <div class="c-aside__brand">
+      <a href="index.html" aria-label="Startseite"><p class="c-brand c-brand--aside"><span class="c-brand__first">Helmut</span> <span class="c-brand__last">Schmidinger</span></p></a>
+      <hr class="c-rule">
+    </div>
+    <blockquote class="c-quote c-aside__quote">
+      <p class="c-quote__text">„Jeder Weg ist ein Lied.“</p>
+      
+    </blockquote>
+    <div class="c-aside__image"><img src="assets/img/placeholder-score.jpg" alt="" width="720" height="480"></div>
+  </aside>
+
+  <main id="main" class="l-split__main">
+    <p class="c-motto" aria-hidden="true">… was uns anrührt, dich und mich …</p>
+    <div class="l-split__main-inner">
+<nav class="c-subnav" aria-label="Unterbereiche"><a class="c-subnav__link is-active" href="werk.html" aria-current="page">Werke</a><a class="c-subnav__link" href="diskographie.html">Diskographie</a><a class="c-subnav__link" href="kontexte.html">Kontexte</a></nav>
+<ol class="c-breadcrumb"><li><a href="werk.html">Zum Werk</a></li><li><a href="gattung-vokalwerke.html">Vokalwerke</a></li><li>Werk</li></ol>
+<div class="c-demo-note" role="note"><strong>Musterwerk · Eigenverlag</strong> – zeigt alle Felder, die ein Werk haben kann. Eigenverlag: Anfrageformular für Noten, Audio und Video. Aufnahmen teils öffentlich, teils auf Anfrage. Feldliste: <code>WERK-FELDER.md</code>. Zum Vergleich: <a href="werk-musterwerk-fremdverlag.html">Musterwerk Fremdverlag</a></div>
+<!-- ACF-Feldgruppe "Werk" (siehe WERK-FELDER.md) – leere Felder werden im Template automatisch ausgeblendet -->
+<header class="c-page-head">
+  <h1 class="c-page-head__title" data-acf="post_title">„Sieben Wege über den Fluss“</h1>
+  <p class="p-work-head__sub" data-acf="untertitel">Liederzyklus für mittlere Stimme und Klavier (2018/2019)</p>
+  <div class="p-work-head__badges"><span class="c-badge c-badge--outline" data-acf="gattung">Vokalwerke</span><a class="c-badge c-badge--soft" href="gattung-schulen.html" data-acf="schulen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/></svg> Für Schulen geeignet</a></div>
+</header>
+<div class="p-work-intro">
+<dl class="c-facts"><dt>Entstehung</dt><dd data-acf="entstehungsjahr">2018/2019</dd><dt>Dauer</dt><dd data-acf="dauer">ca. 24’</dd><dt>Besetzung</dt><dd data-acf="besetzung">Mezzosopran (oder Bariton) und Klavier</dd><dt>Uraufführung</dt><dd data-acf="urauffuehrung">12.05.2019, Wels (A) – Stadttheater Greif<br>Anna Muster, Mezzosopran | Peter Beispiel, Klavier<br><span class="u-muted">Im Rahmen des Musiksommers Wels</span></dd><dt>Deutsche Erstaufführung</dt><dd data-acf="erstauffuehrungen">04.03.2020, Stuttgart (D) – Musikschule<br>Lena Liedner, Mezzosopran | Jonas Flügel, Klavier</dd><dt>Schweizer Erstaufführung</dt><dd data-acf="erstauffuehrungen">02.10.2021, Zürich (CH) – Tonhalle, Kleiner Saal<br>Ensemble Uferlos</dd><dt>Widmung</dt><dd data-acf="widmung">Für Anna Muster und Peter Beispiel</dd><dt>Auftraggeber</dt><dd data-acf="auftraggeber">Kulturverein Muster­stadt, mit Unterstützung des Landes Oberösterreich</dd><dt>Verlag</dt><dd data-acf="verlag">Eigenverlag Helmut Schmidinger</dd></dl>
+<figure class="p-work-intro__score" data-acf="bild"><a href="assets/img/placeholder-score.jpg" target="_blank" rel="noopener"><img src="assets/img/placeholder-score.jpg" alt="Erste Partiturseite von Sieben Wege über den Fluss" width="720" height="480"></a><figcaption class="c-media__caption">1. Partiturseite</figcaption></figure>
+</div>
+<div class="p-work-actions">
+  <a class="c-btn c-btn--primary" href="#anfrage">Noten, Audio oder Video anfragen <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a>
+  <!-- PDF: Browser-Druckdialog → „Als PDF sichern“. Druck-Layout in main.css (@media print) zeigt nur die Werkinfos. -->
+  <button class="c-btn c-btn--outline" type="button" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9V3h12v6M6 18H3v-8h18v8h-3M6 14h12v7H6z"/></svg> Als PDF speichern</button>
+</div>
+<section class="c-block">
+  <div class="c-block__head"><h2>Zum Werk</h2></div>
+  <div class="c-prose" data-acf="einfuehrungstext"><p>[Einführungstext – normaler WP-Editor.] Sieben Gedichte über das Gehen, das Warten und das Übersetzen von einem Ufer zum anderen. Jedes Lied beginnt dort, wo das vorige aufgehört hat; das Klavier trägt die Wege von Lied zu Lied weiter.</p><p>[Weitere Absätze, ggf. mit Notenbeispiel als Bild.]</p></div>
+</section>
+<section class="c-block">
+  <div class="c-block__head"><h2>Lieder</h2></div>
+  <!-- ACF-Repeater "saetze": nummer (optional), titel, dauer, textautor (optional, z. B. je Lied) -->
+  <ol class="c-movements" data-acf="saetze"><li class="c-movements__item"><span class="c-movements__num">I</span><span class="c-movements__title">Am Ufer<span class="c-movements__text">Text: Rainer Maria Rilke</span></span><span class="c-movements__dur">3’10</span></li><li class="c-movements__item"><span class="c-movements__num">II</span><span class="c-movements__title">Fährmann<span class="c-movements__text">Text: Christian Morgenstern</span></span><span class="c-movements__dur">2’40</span></li><li class="c-movements__item"><span class="c-movements__num">III</span><span class="c-movements__title">Nebel<span class="c-movements__text">Text: Georg Trakl</span></span><span class="c-movements__dur">4’05</span></li><li class="c-movements__item"><span class="c-movements__num">IV</span><span class="c-movements__title">Brücke (Interludium)</span><span class="c-movements__dur">1’50</span></li><li class="c-movements__item"><span class="c-movements__num">V</span><span class="c-movements__title">Die Steine zählen<span class="c-movements__text">Text: Annette von Droste-Hülshoff</span></span><span class="c-movements__dur">3’30</span></li><li class="c-movements__item"><span class="c-movements__num">VI</span><span class="c-movements__title">Gegenwind<span class="c-movements__text">Text: Christian Morgenstern</span></span><span class="c-movements__dur">4’20</span></li><li class="c-movements__item"><span class="c-movements__num">VII</span><span class="c-movements__title">Am anderen Ufer<span class="c-movements__text">Text: Friedrich Hölderlin</span></span><span class="c-movements__dur">4’25</span></li></ol>
+</section>
+<section class="c-block">
+  <div class="c-block__head"><h2>Audio &amp; Video</h2></div>
+  <!-- ACF-Repeater "aufnahmen": typ (Audio/Video), interpreten, label, zugang (öffentlich / auf Anfrage),
+       datei (MP3) bzw. youtube_link, optional Beziehung zu einer CD aus der Diskographie -->
+  <ul class="c-recordings"><li class="c-recording c-recording--oeffentlich">
+  <span class="c-recording__type">Audio</span>
+  <div class="c-recording__body"><p class="c-recording__label">Rundfunkmitschnitt der Uraufführung (Ö1)</p><p class="c-recording__performers">Anna Muster, Mezzosopran | Peter Beispiel, Klavier</p></div>
+  <audio class="c-recording__player" controls preload="none" src="assets/audio/muster.wav"></audio>
+</li><li class="c-recording c-recording--anfrage">
+  <span class="c-recording__type">Audio</span>
+  <div class="c-recording__body"><p class="c-recording__label">Probenmitschnitt, Fassung für Bariton</p><p class="c-recording__performers">Max Probe, Bariton | Eva Taste, Klavier</p></div>
+  <a class="c-recording__request" href="#anfrage" data-anfrage="audio">Auf Anfrage <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a>
+</li><li class="c-recording c-recording--oeffentlich">
+  <span class="c-recording__type">Video</span>
+  <div class="c-recording__body"><p class="c-recording__label">YouTube – Konzertmitschnitt Stuttgart</p><p class="c-recording__performers">Lena Liedner, Mezzosopran | Jonas Flügel, Klavier</p></div>
+  <div class="c-video c-recording__video" data-video="5fchG7ET9gk" role="button" tabindex="0" aria-label="Video abspielen">
+  <img src="assets/img/placeholder-watch.jpg" alt="" width="720" height="480">
+  <div class="c-video__play"><span class="c-video__btn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4l14 8-14 8z"/></svg></span><span class="c-video__note">Mit dem Abspielen wird eine Verbindung zu YouTube hergestellt.</span></div>
+</div>
+</li><li class="c-recording c-recording--anfrage">
+  <span class="c-recording__type">Video</span>
+  <div class="c-recording__body"><p class="c-recording__label">DVD-Mitschnitt der Schweizer Erstaufführung</p><p class="c-recording__performers">Ensemble Uferlos</p></div>
+  <a class="c-recording__request" href="#anfrage" data-anfrage="video">Auf Anfrage <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a>
+</li></ul>
+</section>
+<section class="c-block">
+  <div class="c-block__head"><h2>Pressestimmen</h2></div>
+  <!-- ACF-Repeater "presse": zitat, medium, datum, autor (optional), link (optional) -->
+  <div class="c-press"><blockquote class="c-quote c-quote--boxed"><p class="c-quote__text">„Sieben Lieder, die nie stillstehen – man hört ihnen beim Gehen zu.“</p><cite class="c-quote__author">Oberösterreichische Nachrichten, 14.05.2019 · M. Kritik · <a href="#" target="_blank" rel="noopener">Zum Artikel</a></cite></blockquote><blockquote class="c-quote c-quote--boxed"><p class="c-quote__text">„[Zweites Zitat aus einer Rezension]“</p><cite class="c-quote__author">Wiener Zeitung, 02.06.2019</cite></blockquote><blockquote class="c-quote c-quote--boxed"><p class="c-quote__text">„[Drittes Zitat]“</p><cite class="c-quote__author">Stuttgarter Zeitung, 06.03.2020 · [Autor:in]</cite></blockquote></div>
+</section>
+<section class="c-block">
+  <div class="c-block__head"><h2>Kontexte</h2><a class="c-link-arrow" href="kontexte.html">Alle Kontexte <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></div>
+  <!-- Taxonomie "kontext" (frei vergebbare Schlagworte) – speist die Kontextwolke auf „Kontexte“ -->
+  <div class="c-chips" data-acf="kontext"><a class="c-chip" href="kontexte.html#orte">Orte</a><a class="c-chip" href="kontexte.html#persoenlichkeiten">Persönlichkeiten</a></div>
+</section>
+<section class="c-block" id="auffuehrungen">
+  <div class="c-block__head"><h2>Aufführungen</h2><a class="c-link-arrow" href="aktuelles.html">Alle Termine <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></div>
+  <!-- automatisch: Uraufführung + Erstaufführungen aus dem Werk und alle Termine (CPT „termin“) mit Beziehungsfeld werk = dieses Werk.
+       Ein Termin mit Hinweis „Uraufführung“ befüllt das UA-Feld des Werks, falls es noch leer ist. -->
+  <h3 class="c-block__sub">Demnächst</h3><div class="c-events c-events--compact"><article class="c-event is-static" id="termin-2027-03-14">
+  <p class="c-event__date u-mb-0" data-acf="datum">2027-03-14</p>
+  <p class="c-event__place u-mb-0" data-acf="ort">Salzburg (A) – Solitär, Universität Mozarteum</p>
+  <div class="c-event__work">
+    <span class="c-event__title">„Sieben Wege über den Fluss“</span>
+    <span class="c-event__venue">Salzburg (A) – Solitär, Universität Mozarteum</span>
+    <p class="c-event__performers" data-acf="interpreten">Max Probe, Bariton | Eva Taste, Klavier</p>
+    
+  </div>
+</article></div><h3 class="c-block__sub">Bisher</h3><div class="c-events c-events--compact"><article class="c-event is-static" id="termin-2025-06-08">
+  <p class="c-event__date u-mb-0" data-acf="datum">2025-06-08</p>
+  <p class="c-event__place u-mb-0" data-acf="ort">Linz (A) – Brucknerhaus</p>
+  <div class="c-event__work">
+    <span class="c-event__title">„Sieben Wege über den Fluss“</span>
+    <span class="c-event__venue">Linz (A) – Brucknerhaus</span>
+    <p class="c-event__performers" data-acf="interpreten">Studierende der Anton Bruckner Privatuniversität</p>
+    
+  </div>
+</article><article class="c-event is-static" id="termin-2021-10-02">
+  <p class="c-event__date u-mb-0" data-acf="datum">2021-10-02</p>
+  <p class="c-event__place u-mb-0" data-acf="ort">Zürich (CH) – Tonhalle, Kleiner Saal</p>
+  <div class="c-event__work">
+    <span class="c-event__title">„Sieben Wege über den Fluss“</span>
+    <span class="c-event__venue">Zürich (CH) – Tonhalle, Kleiner Saal</span>
+    <p class="c-event__performers" data-acf="interpreten">Ensemble Uferlos</p>
+    <span class="c-badge" data-acf="ea_land">Schweizer Erstaufführung</span>
+  </div>
+</article><article class="c-event is-static" id="termin-2020-03-04">
+  <p class="c-event__date u-mb-0" data-acf="datum">2020-03-04</p>
+  <p class="c-event__place u-mb-0" data-acf="ort">Stuttgart (D) – Musikschule</p>
+  <div class="c-event__work">
+    <span class="c-event__title">„Sieben Wege über den Fluss“</span>
+    <span class="c-event__venue">Stuttgart (D) – Musikschule</span>
+    <p class="c-event__performers" data-acf="interpreten">Lena Liedner, Mezzosopran | Jonas Flügel, Klavier</p>
+    <span class="c-badge" data-acf="ea_land">Deutsche Erstaufführung</span>
+  </div>
+</article><article class="c-event is-static" id="termin-2019-05-12">
+  <p class="c-event__date u-mb-0" data-acf="datum">2019-05-12</p>
+  <p class="c-event__place u-mb-0" data-acf="ort">Wels (A) – Stadttheater Greif</p>
+  <div class="c-event__work">
+    <span class="c-event__title">„Sieben Wege über den Fluss“</span>
+    <span class="c-event__venue">Wels (A) – Stadttheater Greif</span>
+    <p class="c-event__performers" data-acf="interpreten">Anna Muster, Mezzosopran | Peter Beispiel, Klavier</p>
+    <p class="c-event__extra">Im Rahmen des Musiksommers Wels</p><span class="c-badge c-badge--olive" data-acf="hinweis">Uraufführung</span>
+  </div>
+</article></div>
+</section>
+<section class="p-request" id="anfrage">
+  <p class="c-eyebrow">Anfrage</p>
+  <h2>Noten, Audio oder Video anfragen</h2>
+  <p class="u-muted">Dieses Werk ist im Eigenverlag erschienen. Der Werktitel wird automatisch übernommen.</p>
+  <form class="c-form" data-validate action="#" method="post">
+  <!-- WP: Formular nur bei Verlag = Eigenverlag. Feld "werk" wird mit dem Werktitel befüllt.
+       Audio/Video erscheinen nur, wenn es beim Werk Aufnahmen gibt. -->
+  <div class="c-field"><label class="c-field__label" for="f-werk">Werk</label><input class="c-input" id="f-werk" name="werk" type="text" value="Sieben Wege über den Fluss" readonly></div>
+  <fieldset class="c-field c-checks"><legend class="c-field__label">Ich interessiere mich für</legend>
+    <div class="c-checks__row">
+      <label class="c-check"><input type="checkbox" name="wunsch[]" value="noten" checked> <span>Noten</span></label>
+      <label class="c-check"><input type="checkbox" name="wunsch[]" value="audio"> <span>Audio</span></label>
+      <label class="c-check"><input type="checkbox" name="wunsch[]" value="video"> <span>Video</span></label>
+    </div>
+  </fieldset>
+  <div class="c-form__row">
+    <div class="c-field"><label class="c-field__label" for="f-name">Name <abbr title="Pflichtfeld">*</abbr></label><input class="c-input" id="f-name" name="name" type="text" autocomplete="name" required><span class="c-field__error">Bitte geben Sie Ihren Namen an.</span></div>
+    <div class="c-field"><label class="c-field__label" for="f-mail">E-Mail <abbr title="Pflichtfeld">*</abbr></label><input class="c-input" id="f-mail" name="email" type="email" autocomplete="email" required placeholder="name@beispiel.at"><span class="c-field__error">Bitte geben Sie eine gültige E-Mail-Adresse an.</span></div>
+  </div>
+  <div class="c-field"><label class="c-field__label" for="f-nachricht">Nachricht</label><textarea class="c-textarea" id="f-nachricht" name="nachricht" rows="4" placeholder="z. B. geplanter Aufführungstermin, Besetzung, Anzahl der Stimmen …"></textarea></div>
+  <div class="c-alert c-alert--error" data-form-error hidden role="alert">Bitte füllen Sie alle markierten Pflichtfelder aus.</div>
+  <div class="c-alert" data-form-success hidden role="status">Vielen Dank! Ihre Anfrage wurde gesendet – Sie erhalten in Kürze eine Antwort.</div>
+  <div class="c-form__actions c-form__actions--split">
+    <label class="c-check"><input type="checkbox" name="dsgvo" required> <span>Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zu.</span></label>
+    <button class="c-btn c-btn--primary" type="submit">Anfrage senden <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></button>
+  </div>
+</form>
+</section>
+
+<nav class="c-pager" aria-label="Musterwerke">
+  <a class="c-pager__link" href="werk.html"><span class="c-link-arrow c-link-arrow--back"><svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg> Alle Werke</span><span class="c-pager__title">Zum Werk</span></a>
+  <a class="c-pager__link c-pager__link--next" href="werk-musterwerk-fremdverlag.html"><span class="c-link-arrow">Musterwerk Fremdverlag <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></span><span class="c-pager__title">„Der Hut des Herrn Haydn“</span></a>
+</nav>
+    </div>
+  </main>
+</div>
+
+<!-- ============ FOOTER  (WP: footer.php · Daten aus Theme-Optionen) ============ -->
+<footer class="site-footer">
+  <div class="l-container site-footer__top">
+    <div>
+      <p class="site-footer__brand">Helmut <span>Schmidinger</span></p>
+      <p>Komponist · Musiker · Professor</p>
+    </div>
+    <div>
+      <p class="site-footer__title">Kontakt</p>
+      <address>Lannerstraße 27<br>4600 Wels, Österreich<br>
+      <a href="tel:+437242910771">+43 7242 910 771</a><br>
+      <a href="mailto:schmidinger@litmus.at">schmidinger@litmus.at</a></address>
+    </div>
+    <div>
+      <p class="site-footer__title">Navigation</p>
+      <ul class="site-footer__list"><li><a href="aktuelles.html">Termine</a></li><li><a href="zur-person.html">Zur Person</a></li><li><a href="werk.html">Zum Werk</a></li><li><a href="kontakt.html">Kontakt</a></li></ul>
+    </div>
+    <div>
+      <p class="site-footer__title">Downloads</p>
+      <ul class="site-footer__list">
+        <li><a href="#">Werkverzeichnis (PDF)</a></li>
+        <li><a href="#">Druckfehler (PDF)</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="l-container site-footer__bottom">
+    <p class="u-mb-0">© 2026 Helmut Schmidinger</p>
+    <nav class="site-footer__legal" aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="styleguide.html">Styleguide</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

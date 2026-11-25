@@ -134,7 +134,18 @@
         if (ctitle) ctitle.textContent = chip.dataset.label;
       });
     });
+    // kontexte.html#genuss → Kontext vorwählen (Link von der Werkseite)
+    var pre = location.hash && chips.querySelector('[data-context="' + location.hash.slice(1) + '"]');
+    if (pre) pre.click();
   }
+
+  /* 5b. Werkseite: „Auf Anfrage“ bei Audio/Video hakt die Option im Formular an */
+  $$('[data-anfrage]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      var box = document.querySelector('#anfrage input[value="' + a.dataset.anfrage + '"]');
+      if (box) box.checked = true;
+    });
+  });
 
   /* 6. Akkordeon -------------------------------------------------------- */
   $$('[data-accordion] .c-accordion__trigger').forEach(function (btn) {

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Nur Klickdummy: nicht ins WordPress-Theme übernehmen -->
+<meta name="robots" content="noindex, nofollow">
+<title>Der Hut des Herrn Haydn (Musterwerk) | Helmut Schmidinger</title>
+<meta name="description" content="Der Hut des Herrn Haydn – Kammeroper in fünf Bildern für Kinder ab 6 (2021–2023)">
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/main.css">
+<script src="assets/js/version.js"></script>
+</head>
+<!-- WP-Template: single-werk.php -->
+<body class="page-werk-musterwerk-fremdverlag page-werk-muster">
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+<!-- ============ HEADER  (WP: header.php · Menü: wp_nav_menu "hauptmenue") ============ -->
+<header class="site-header">
+  <nav class="c-lang" aria-label="Sprache"><a class="c-lang__link is-active" href="index.html" aria-current="true" lang="de">DE</a><span class="c-lang__sep" aria-hidden="true">|</span><a class="c-lang__link is-disabled" href="#" lang="en" title="Englische Version – optional, später via Polylang">EN</a></nav>
+  <a class="site-header__brand" href="index.html" aria-label="Startseite">Helmut <span>Schmidinger</span></a>
+  <div class="site-header__right">
+    <nav class="c-nav" aria-label="Hauptnavigation">
+      <ul class="c-nav__list"><li><a class="c-nav__link" href="aktuelles.html">Termine</a></li><li><a class="c-nav__link" href="zur-person.html">Zur Person</a></li><li><a class="c-nav__link is-active" href="werk.html" aria-current="page">Zum Werk</a></li><li><a class="c-nav__link" href="kontakt.html">Kontakt</a></li></ul>
+    </nav>
+    <button class="c-icon-btn" type="button" data-search-open aria-label="Suche öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg></button>
+    <button class="c-icon-btn c-burger" type="button" data-menu-open aria-expanded="false" aria-controls="mobile-nav" aria-label="Menü öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
+  </div>
+</header>
+
+<!-- Mobile-Menü (Overlay) -->
+<div class="c-mobile-nav" id="mobile-nav" data-mobile-nav role="dialog" aria-modal="true" aria-label="Menü">
+  <div class="c-mobile-nav__top">
+    <nav class="c-lang" aria-label="Sprache"><a class="c-lang__link is-active" href="index.html" aria-current="true" lang="de">DE</a><span class="c-lang__sep" aria-hidden="true">|</span><a class="c-lang__link is-disabled" href="#" lang="en" title="Englische Version – optional, später via Polylang">EN</a></nav>
+    <button class="c-icon-btn" type="button" data-menu-close aria-label="Menü schließen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg></button>
+  </div>
+  <ul class="c-mobile-nav__list"><li><a class="c-mobile-nav__link" href="aktuelles.html">Termine<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li><li><a class="c-mobile-nav__link" href="zur-person.html">Zur Person<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li><li><a class="c-mobile-nav__link is-active" href="werk.html">Zum Werk<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li><li><a class="c-mobile-nav__link" href="kontakt.html">Kontakt<svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></li></ul>
+  <div class="c-mobile-nav__meta">
+    <p><a href="mailto:schmidinger@litmus.at">schmidinger@litmus.at</a><br>+43 7242 910 771</p>
+    <button class="c-btn c-btn--light c-btn--small" type="button" data-search-open>Suche <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg></button>
+  </div>
+</div>
+
+<!-- Suche (Overlay)  WP: searchform.php → search.php -->
+<div class="c-search" data-search role="dialog" aria-modal="true" aria-label="Suche">
+  <button class="c-icon-btn c-search__close" type="button" data-search-close aria-label="Suche schließen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg></button>
+  <form class="c-search__form" action="suche.html" role="search">
+    <label class="c-eyebrow c-search__label" for="s">Suche</label>
+    <div class="c-search__row">
+      <input class="c-search__input" id="s" name="s" type="search" placeholder="Werk, Ort, Thema …" autocomplete="off">
+      <button class="c-icon-btn" type="submit" aria-label="Suchen"><svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></button>
+    </div>
+    <p class="c-search__hint">Durchsucht Werke, Termine und Seiten.</p>
+  </form>
+</div>
+
+<div class="l-split">
+  <!-- Marken-Panel  (WP: template-parts/aside.php · Motto = ACF "seitenmotto", Bild = Beitragsbild) -->
+  <aside class="l-split__aside c-aside">
+    <div class="c-aside__brand">
+      <a href="index.html" aria-label="Startseite"><p class="c-brand c-brand--aside"><span class="c-brand__first">Helmut</span> <span class="c-brand__last">Schmidinger</span></p></a>
+      <hr class="c-rule">
+    </div>
+    <blockquote class="c-quote c-aside__quote">
+      <p class="c-quote__text">„Ohne Hut keine Melodie.“</p>
+      
+    </blockquote>
+    <div class="c-aside__image"><img src="assets/img/placeholder-score.jpg" alt="" width="720" height="480"></div>
+  </aside>
+
+  <main id="main" class="l-split__main">
+    <p class="c-motto" aria-hidden="true">… was uns anrührt, dich und mich …</p>
+    <div class="l-split__main-inner">
+<nav class="c-subnav" aria-label="Unterbereiche"><a class="c-subnav__link is-active" href="werk.html" aria-current="page">Werke</a><a class="c-subnav__link" href="diskographie.html">Diskographie</a><a class="c-subnav__link" href="kontexte.html">Kontexte</a></nav>
+<ol class="c-breadcrumb"><li><a href="werk.html">Zum Werk</a></li><li><a href="gattung-musiktheater.html">Musiktheater</a></li><li>Werk</li></ol>
+<div class="c-demo-note" role="note"><strong>Musterwerk · Fremdverlag</strong> – zeigt alle Felder, die ein Werk haben kann. Fremdverlag: kein Formular, stattdessen Bestelllink und Verlagsseite. Ohne Häkchen „Für Schulen“. Feldliste: <code>WERK-FELDER.md</code>. Zum Vergleich: <a href="werk-musterwerk-eigenverlag.html">Musterwerk Eigenverlag</a></div>
+<!-- ACF-Feldgruppe "Werk" (siehe WERK-FELDER.md) – leere Felder werden im Template automatisch ausgeblendet -->
+<header class="c-page-head">
+  <h1 class="c-page-head__title" data-acf="post_title">„Der Hut des Herrn Haydn“</h1>
+  <p class="p-work-head__sub" data-acf="untertitel">Kammeroper in fünf Bildern für Kinder ab 6 (2021–2023)</p>
+  <div class="p-work-head__badges"><span class="c-badge c-badge--outline" data-acf="gattung">Musiktheater</span></div>
+</header>
+<div class="p-work-intro">
+<dl class="c-facts"><dt>Entstehung</dt><dd data-acf="entstehungsjahr">2021–2023</dd><dt>Dauer</dt><dd data-acf="dauer">ca. 55’</dd><dt>Besetzung</dt><dd data-acf="besetzung">Sopran, Tenor, Bariton, Sprecher:in; Flöte, Klarinette, Fagott, Horn, Schlagwerk, Violine, Violoncello</dd><dt>Libretto</dt><dd data-acf="textautoren">Anna Beispiel, Paul Muster</dd><dt>Uraufführung</dt><dd data-acf="urauffuehrung">16.04.2023, Musterstadt (A) – Junge Bühne<br>Ensemble der Jungen Bühne | Clara Takt, Leitung | Regie: Rita Raum<br><span class="u-muted">Im Rahmen der Musterstädter Kindertage</span></dd><dt>Deutsche Erstaufführung</dt><dd data-acf="erstauffuehrungen">10.02.2024, München (D) – Schauburg<br>Schauburg-Ensemble | Leitung: Tom Tutti</dd><dt>Widmung</dt><dd data-acf="widmung">Für alle, die Hüte verlieren</dd><dt>Auftraggeber</dt><dd data-acf="auftraggeber">Musiktheater Musterstadt, Junge Bühne</dd><dt>Verlag</dt><dd data-acf="verlag"><a href="https://www.example.com" target="_blank" rel="noopener">Musterverlag Wien</a></dd></dl>
+<figure class="p-work-intro__score" data-acf="bild"><a href="assets/img/placeholder-score.jpg" target="_blank" rel="noopener"><img src="assets/img/placeholder-score.jpg" alt="Erste Partiturseite von Der Hut des Herrn Haydn" width="720" height="480"></a><figcaption class="c-media__caption">1. Partiturseite</figcaption></figure>
+</div>
+<div class="p-work-actions">
+  <a class="c-btn c-btn--primary" href="https://www.example.com/shop/der-hut-des-herrn-haydn" target="_blank" rel="noopener">Beim Verlag bestellen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a>
+  <!-- PDF: Browser-Druckdialog → „Als PDF sichern“. Druck-Layout in main.css (@media print) zeigt nur die Werkinfos. -->
+  <button class="c-btn c-btn--outline" type="button" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9V3h12v6M6 18H3v-8h18v8h-3M6 14h12v7H6z"/></svg> Als PDF speichern</button>
+</div>
+<section class="c-block">
+  <div class="c-block__head"><h2>Zum Werk</h2></div>
+  <div class="c-prose" data-acf="einfuehrungstext"><p>[Einführungstext – normaler WP-Editor.] Joseph Haydn hat seinen Hut verloren – und ohne Hut fällt ihm keine Melodie mehr ein. Zwei Kinder machen sich auf die Suche quer durch Esterháza.</p><p>[Weitere Absätze.]</p></div>
+</section>
+<section class="c-block">
+  <div class="c-block__head"><h2>Bilder</h2></div>
+  <!-- ACF-Repeater "saetze": nummer (optional), titel, dauer, textautor (optional, z. B. je Lied) -->
+  <ol class="c-movements" data-acf="saetze"><li class="c-movements__item"><span class="c-movements__num">1. Bild</span><span class="c-movements__title">Der Morgen ohne Hut</span><span class="c-movements__dur">9’</span></li><li class="c-movements__item"><span class="c-movements__num">2. Bild</span><span class="c-movements__title">In der Hutmacherei</span><span class="c-movements__dur">12’</span></li><li class="c-movements__item"><span class="c-movements__num">3. Bild</span><span class="c-movements__title">Das Gewitter (Symphonie mit dem Paukenschlag)</span><span class="c-movements__dur">11’</span></li><li class="c-movements__item"><span class="c-movements__num">4. Bild</span><span class="c-movements__title">Der Fürst wartet</span><span class="c-movements__dur">10’</span></li><li class="c-movements__item"><span class="c-movements__num">5. Bild</span><span class="c-movements__title">Finale: Ein Hut für alle</span><span class="c-movements__dur">13’</span></li></ol>
+</section>
+<section class="c-block">
+  <div class="c-block__head"><h2>Audio &amp; Video</h2></div>
+  <!-- ACF-Repeater "aufnahmen": typ (Audio/Video), interpreten, label, zugang (öffentlich / auf Anfrage),
+       datei (MP3) bzw. youtube_link, optional Beziehung zu einer CD aus der Diskographie -->
+  <ul class="c-recordings"><li class="c-recording c-recording--oeffentlich">
+  <span class="c-recording__type">Audio</span>
+  <div class="c-recording__body"><p class="c-recording__label">CD-Produktion „Musik für junge Ohren“ (Musterlabel, 2024) · <a href="diskographie.html">in der Diskographie</a></p><p class="c-recording__performers">Ensemble der Jungen Bühne | Clara Takt, Leitung</p></div>
+  <audio class="c-recording__player" controls preload="none" src="assets/audio/muster.wav"></audio>
+</li><li class="c-recording c-recording--oeffentlich">
+  <span class="c-recording__type">Video</span>
+  <div class="c-recording__body"><p class="c-recording__label">YouTube – Trailer der Uraufführungsproduktion</p><p class="c-recording__performers">Musiktheater Musterstadt</p></div>
+  <div class="c-video c-recording__video" data-video="5fchG7ET9gk" role="button" tabindex="0" aria-label="Video abspielen">
+  <img src="assets/img/placeholder-watch.jpg" alt="" width="720" height="480">
+  <div class="c-video__play"><span class="c-video__btn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4l14 8-14 8z"/></svg></span><span class="c-video__note">Mit dem Abspielen wird eine Verbindung zu YouTube hergestellt.</span></div>
+</div>
+</li></ul>
+</section>
+<section class="c-block">
+  <div class="c-block__head"><h2>Pressestimmen</h2></div>
+  <!-- ACF-Repeater "presse": zitat, medium, datum, autor (optional), link (optional) -->
+  <div class="c-press"><blockquote class="c-quote c-quote--boxed"><p class="c-quote__text">„Eine Kinderoper, bei der auch die Erwachsenen den Hut ziehen.“</p><cite class="c-quote__author">Der Standard, 18.04.2023 · [Autor:in] · <a href="#" target="_blank" rel="noopener">Zum Artikel</a></cite></blockquote><blockquote class="c-quote c-quote--boxed"><p class="c-quote__text">„[Zweites Zitat aus einer Rezension]“</p><cite class="c-quote__author">Salzburger Nachrichten, 20.04.2023</cite></blockquote></div>
+</section>
+<section class="c-block">
+  <div class="c-block__head"><h2>Kontexte</h2><a class="c-link-arrow" href="kontexte.html">Alle Kontexte <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></div>
+  <!-- Taxonomie "kontext" (frei vergebbare Schlagworte) – speist die Kontextwolke auf „Kontexte“ -->
+  <div class="c-chips" data-acf="kontext"><a class="c-chip" href="kontexte.html#komponisten">Komponisten und einzelne Werke</a><a class="c-chip" href="kontexte.html#persoenlichkeiten">Persönlichkeiten</a></div>
+</section>
+<section class="c-block" id="auffuehrungen">
+  <div class="c-block__head"><h2>Aufführungen</h2><a class="c-link-arrow" href="aktuelles.html">Alle Termine <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></a></div>
+  <!-- automatisch: Uraufführung + Erstaufführungen aus dem Werk und alle Termine (CPT „termin“) mit Beziehungsfeld werk = dieses Werk.
+       Ein Termin mit Hinweis „Uraufführung“ befüllt das UA-Feld des Werks, falls es noch leer ist. -->
+  <h3 class="c-block__sub">Demnächst</h3><div class="c-events c-events--compact"><article class="c-event is-static" id="termin-2027-01-24">
+  <p class="c-event__date u-mb-0" data-acf="datum">2027-01-24</p>
+  <p class="c-event__place u-mb-0" data-acf="ort">Eisenstadt (A) – Schloss Esterházy</p>
+  <div class="c-event__work">
+    <span class="c-event__title">„Der Hut des Herrn Haydn“</span>
+    <span class="c-event__venue">Eisenstadt (A) – Schloss Esterházy</span>
+    <p class="c-event__performers" data-acf="interpreten">Ensemble der Jungen Bühne | Clara Takt, Leitung</p>
+    
+  </div>
+</article></div><h3 class="c-block__sub">Bisher</h3><div class="c-events c-events--compact"><article class="c-event is-static" id="termin-2024-02-10">
+  <p class="c-event__date u-mb-0" data-acf="datum">2024-02-10</p>
+  <p class="c-event__place u-mb-0" data-acf="ort">München (D) – Schauburg</p>
+  <div class="c-event__work">
+    <span class="c-event__title">„Der Hut des Herrn Haydn“</span>
+    <span class="c-event__venue">München (D) – Schauburg</span>
+    <p class="c-event__performers" data-acf="interpreten">Schauburg-Ensemble | Leitung: Tom Tutti</p>
+    <span class="c-badge" data-acf="ea_land">Deutsche Erstaufführung</span>
+  </div>
+</article><article class="c-event is-static" id="termin-2023-04-16">
+  <p class="c-event__date u-mb-0" data-acf="datum">2023-04-16</p>
+  <p class="c-event__place u-mb-0" data-acf="ort">Musterstadt (A) – Junge Bühne</p>
+  <div class="c-event__work">
+    <span class="c-event__title">„Der Hut des Herrn Haydn“</span>
+    <span class="c-event__venue">Musterstadt (A) – Junge Bühne</span>
+    <p class="c-event__performers" data-acf="interpreten">Ensemble der Jungen Bühne | Clara Takt, Leitung | Regie: Rita Raum</p>
+    <p class="c-event__extra">Im Rahmen der Musterstädter Kindertage</p><span class="c-badge c-badge--olive" data-acf="hinweis">Uraufführung</span>
+  </div>
+</article></div>
+</section>
+<section class="p-request p-request--publisher" id="bezug">
+  <p class="c-eyebrow">Noten &amp; Aufführungsmaterial</p>
+  <h2>Erhältlich bei Musterverlag Wien</h2>
+  <p class="u-muted">Dieses Werk ist bei Musterverlag Wien erschienen. Noten und Aufführungsmaterial erhalten Sie direkt beim Verlag.</p>
+  <!-- WP: bei Fremdverlag kein Formular. Verlag = Auswahl aus der Verlagsliste (Name, Website), Bestelllink je Werk -->
+  <div class="p-work-actions">
+    <a class="c-btn c-btn--primary" href="https://www.example.com/shop/der-hut-des-herrn-haydn" target="_blank" rel="noopener">Zur Bestellseite <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a>
+    <a class="c-btn c-btn--outline" href="https://www.example.com" target="_blank" rel="noopener">Website des Verlags <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></svg></a>
+  </div>
+</section>
+
+<nav class="c-pager" aria-label="Musterwerke">
+  <a class="c-pager__link" href="werk.html"><span class="c-link-arrow c-link-arrow--back"><svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg> Alle Werke</span><span class="c-pager__title">Zum Werk</span></a>
+  <a class="c-pager__link c-pager__link--next" href="werk-musterwerk-eigenverlag.html"><span class="c-link-arrow">Musterwerk Eigenverlag <svg viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 7h26M20 1l6 6-6 6"/></svg></span><span class="c-pager__title">„Sieben Wege über den Fluss“</span></a>
+</nav>
+    </div>
+  </main>
+</div>
+
+<!-- ============ FOOTER  (WP: footer.php · Daten aus Theme-Optionen) ============ -->
+<footer class="site-footer">
+  <div class="l-container site-footer__top">
+    <div>
+      <p class="site-footer__brand">Helmut <span>Schmidinger</span></p>
+      <p>Komponist · Musiker · Professor</p>
+    </div>
+    <div>
+      <p class="site-footer__title">Kontakt</p>
+      <address>Lannerstraße 27<br>4600 Wels, Österreich<br>
+      <a href="tel:+437242910771">+43 7242 910 771</a><br>
+      <a href="mailto:schmidinger@litmus.at">schmidinger@litmus.at</a></address>
+    </div>
+    <div>
+      <p class="site-footer__title">Navigation</p>
+      <ul class="site-footer__list"><li><a href="aktuelles.html">Termine</a></li><li><a href="zur-person.html">Zur Person</a></li><li><a href="werk.html">Zum Werk</a></li><li><a href="kontakt.html">Kontakt</a></li></ul>
+    </div>
+    <div>
+      <p class="site-footer__title">Downloads</p>
+      <ul class="site-footer__list">
+        <li><a href="#">Werkverzeichnis (PDF)</a></li>
+        <li><a href="#">Druckfehler (PDF)</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="l-container site-footer__bottom">
+    <p class="u-mb-0">© 2026 Helmut Schmidinger</p>
+    <nav class="site-footer__legal" aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="styleguide.html">Styleguide</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
