@@ -1,142 +1,47 @@
 /* ==========================================================================
-   Manzenreiter Sale – Layout Template
-   Free font stack (Helvetica Neue / Arial fallback) – no external font files
+   Manzenreiter – Sale-Seiten (Übersicht + Detail) mit Laufschrift
+   Basis, Header, Menü, Sidepanel und Footer kommen aus ../styles.css (Startseite).
+   Hier nur das Sale-Layout und die Header-Variante für die grüne Seite.
    ========================================================================== */
 
-:root {
-  --green: #c6fa46;
-  --black: #0d0d0d;
-  --white: #ffffff;
+.page-sale {
   --img-gray: #d6d6d6;
-  --text-dim: rgba(13, 13, 13, 0.55);
-  --footer-dim: rgba(255, 255, 255, 0.55);
-  --footer-line: rgba(255, 255, 255, 0.12);
-  --container: 1440px;
-  --gutter: clamp(20px, 4vw, 56px);
-  --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --text-dim: rgba(0, 0, 0, 0.55);
+  --font: var(--font-sans);
+}
+html.page-sale body { background: var(--green); }
+
+/* ---------- Header auf Grün ----------
+   Ganz oben transparent mit schwarzem Logo und schwarzer Schrift (kein Hero-Video);
+   kommt er beim Hochscrollen zurück (.is-solid), bekommt er das Grün der Seite.
+   Sale ist der aktive Punkt: schwarz mit weißer Schrift, Hover-Welle in Weiß. */
+.page-sale .site-header { color: var(--black); }
+.page-sale .site-header .site-header__logo img { filter: brightness(0); }
+.page-sale .site-header.is-solid { background-color: var(--green); }
+.page-sale .site-nav .site-nav__sale {
+  background: var(--black);
+  color: var(--white);
+}
+.page-sale .site-nav .site-nav__sale.wave-swap {
+  --swap-bg: var(--white);
+  --swap-fg: var(--black);
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  font-family: var(--font);
-  background: var(--green);
-  color: var(--black);
-  -webkit-font-smoothing: antialiased;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-button {
-  font-family: inherit;
-  cursor: pointer;
-}
-
-img {
-  max-width: 100%;
-  display: block;
-}
+/* Platz für den fixen Header */
+.sale-main { padding-top: max(80px, calc(122 * var(--u))); }
 
 .wrap {
-  max-width: var(--container);
-  margin: 0 auto;
   padding-left: var(--gutter);
   padding-right: var(--gutter);
 }
 
-/* ---------------------------------- Header ---------------------------------- */
-
-.site-header {
-  padding: 24px 0 12px;
-}
-
-.site-header .wrap {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-}
-
-.logo img {
-  height: 48px;
-  width: auto;
-  filter: invert(1); /* source svg is solid white; invert to black */
-}
-
-.main-nav ul {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  font-size: 14px;
-}
-
-.main-nav a {
-  white-space: nowrap;
-  transition: opacity 0.2s ease;
-}
-
-.main-nav a:hover {
-  opacity: 0.6;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.btn-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--black);
-  color: var(--green);
-  border: none;
-  border-radius: 999px;
-  padding: 10px 26px;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.hamburger {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  background: none;
-  border: none;
-  padding: 6px 2px;
-}
-
-.hamburger span {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--black);
-}
-
 /* ------------------------------- Hero / Title ------------------------------- */
 
-.hero {
+.sale-hero {
   padding: 40px 0 32px;
 }
 
-.hero h1 {
+.sale-hero h1 {
   margin: 0;
   max-width: 620px;
   font-size: clamp(2.2rem, 4.4vw, 3.4rem);
@@ -192,7 +97,7 @@ img {
   margin-bottom: 28px;
 }
 
-.subheader-row .accent {
+.subheader-row .sale-accent {
   font-weight: 600;
 }
 
@@ -304,7 +209,7 @@ img {
   width: max-content;
   white-space: nowrap;
   font-size: clamp(3.5rem, 11vw, 9rem);
-  font-weight: 700;
+  font-weight: 500;          /* Inter ist nur in 400/500 geladen */
   line-height: 0.86;
   letter-spacing: -0.02em;
 }
@@ -313,7 +218,7 @@ img {
   display: inline-block;
 }
 
-/* Position is driven purely by scroll (see script.js) — no time-based
+/* Position is driven purely by scroll (see sale.js) — no time-based
    animation. Scrolling down moves the "left" line left and the "right"
    line right; scrolling up inverts both. */
 .marquee-line {
@@ -443,160 +348,9 @@ img {
   padding-bottom: 20px;
 }
 
-/* ---------------------------------- Footer ---------------------------------- */
-
-.site-footer {
-  background: var(--black);
-  color: var(--white);
-  position: relative;
-  overflow: hidden;
-  padding-top: 70px;
-}
-
-.footer-logo {
-  text-align: center;
-  padding-bottom: 60px;
-}
-
-.footer-logo img {
-  height: 46px;
-  margin: 0 auto;
-  /* source svg is already solid white — no filter needed on the black footer */
-}
-
-.footer-top {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1.4fr;
-  gap: 32px;
-  padding-bottom: 60px;
-  position: relative;
-  z-index: 1;
-}
-
-.footer-col h4 {
-  margin: 0 0 18px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--footer-dim);
-}
-
-.footer-col address,
-.footer-col p {
-  font-style: normal;
-  font-size: 14px;
-  line-height: 1.6;
-  margin: 0 0 24px;
-}
-
-.footer-col ul {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  font-size: 14px;
-}
-
-.social-icons {
-  display: flex;
-  gap: 10px;
-  margin-top: 8px;
-}
-
-.social-icons a {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 1px solid var(--footer-line);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-}
-
-.newsletter-form {
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid var(--footer-line);
-  padding-bottom: 10px;
-  margin-top: 4px;
-}
-
-.newsletter-form input {
-  flex: 1;
-  background: none;
-  border: none;
-  color: var(--white);
-  font-size: 14px;
-  font-family: inherit;
-  padding: 6px 0;
-}
-
-.newsletter-form input::placeholder {
-  color: var(--footer-dim);
-}
-
-.newsletter-form button {
-  background: none;
-  border: none;
-  color: var(--white);
-  font-size: 16px;
-}
-
-.newsletter-note {
-  font-size: 11px;
-  line-height: 1.6;
-  color: var(--footer-dim);
-  margin-top: 14px;
-}
-
-.footer-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid var(--footer-line);
-  padding: 20px 0 26px;
-  font-size: 13px;
-  color: var(--footer-dim);
-  position: relative;
-  z-index: 1;
-}
-
-.back-to-top {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--white);
-}
-
-.footer-pattern {
-  position: absolute;
-  right: -80px;
-  bottom: -80px;
-  width: 520px;
-  height: 420px;
-  background-image: repeating-linear-gradient(
-      55deg,
-      rgba(255, 255, 255, 0.08) 0px,
-      rgba(255, 255, 255, 0.08) 1px,
-      transparent 1px,
-      transparent 46px
-    ),
-    repeating-linear-gradient(
-      -35deg,
-      rgba(255, 255, 255, 0.06) 0px,
-      rgba(255, 255, 255, 0.06) 1px,
-      transparent 1px,
-      transparent 46px
-    );
-  pointer-events: none;
-}
-
 /* ---------------------------------- Responsive ---------------------------------- */
 
 @media (max-width: 900px) {
-  .main-nav {
-    display: none;
-  }
-
   .project-grid,
   .related-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -605,10 +359,6 @@ img {
   .cta-section,
   .detail-meta {
     grid-template-columns: 1fr;
-  }
-
-  .footer-top {
-    grid-template-columns: 1fr 1fr;
   }
 
   .feature-image,
@@ -621,10 +371,6 @@ img {
 @media (max-width: 560px) {
   .project-grid,
   .related-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .footer-top {
     grid-template-columns: 1fr;
   }
 

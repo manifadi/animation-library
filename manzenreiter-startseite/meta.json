@@ -1,7 +1,13 @@
 {
   "title": "Manzenreiter Startseite",
-  "description": "1:1-Nachbau der Manzenreiter-Startseite aus Figma mit Preloader, Scroll-Reveals, Wave-Buttons, Galerie-Pfeilen, Sticky-Header, Hintergrund-Videos und Animationserklärungen für Entwickler.",
-  "tags": ["figma", "animation", "scroll", "video"],
+  "description": "1:1-Nachbau der Manzenreiter-Startseite aus Figma mit Preloader, Scroll-Reveals, Wave-Buttons, Galerie-Pfeilen, Sticky-Header, Hintergrund-Videos und Animationserklärungen für Entwickler. Über „Sale“ erreichbar: Sale-Übersicht und -Detail mit scroll-gesteuerter Laufschrift.",
+  "tags": [
+    "animation",
+    "figma",
+    "marquee",
+    "scroll",
+    "video"
+  ],
   "date": "2026-10-01",
   "thumbnail": "assets/hero.png"
 }

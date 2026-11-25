@@ -1,3 +1,5 @@
+// Manzenreiter – Sale-Seiten: Platzhalter-Karten und Laufschrift
+
 // ------------------------------------------------------------------
 // Project grid (Sale overview) — each card links to the detail page.
 // ------------------------------------------------------------------
@@ -56,6 +58,8 @@ function mod(n, m) {
 function initMarquee() {
   const lines = document.querySelectorAll(".marquee-line[data-dir]");
   if (!lines.length) return;
+  // "Bewegung reduzieren": Laufschrift bleibt stehen
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
   const items = Array.from(lines).map((el) => ({
     el,
@@ -83,12 +87,15 @@ function initMarquee() {
   }
 
   window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", () => {
+  function measure() {
     items.forEach((item) => {
       item.half = item.el.scrollWidth / 2;
     });
     update();
-  });
+  }
+  window.addEventListener("resize", measure);
+  // Inter kommt als Webfont nach: danach neu messen, sonst stimmt die Breite nicht
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
 
   update();
 }

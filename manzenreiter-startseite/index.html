@@ -67,6 +67,7 @@
       <li><a href="#anim-curtain" data-panel-open="curtain" aria-controls="sidepanel">Curtain-Image-Reveal</a></li>
       <li><a href="#anim-wave" data-panel-open="wave" aria-controls="sidepanel">Wave-Button-Hover</a></li>
       <li><a href="#anim-gallery" data-panel-open="gallery" aria-controls="sidepanel">Gallery-Arrows</a></li>
+      <li><a href="#anim-laufschrift" data-panel-open="laufschrift" aria-controls="sidepanel">Laufschrift</a></li>
       <li><a href="#hinweise" data-panel-open="notes" aria-controls="sidepanel">Hinweise</a></li>
     </ul>
   </nav>
@@ -396,6 +397,51 @@ document.querySelectorAll('[data-motion~="curtain"]').forEach(el =&gt; io.observ
 stage.addEventListener('click', () =&gt; zone &amp;&amp; original[zone].click());</code></pre>
         </figure>
       </article>
+      <article class="sidepanel__article" data-panel="laufschrift" hidden>
+        <h2 class="sidepanel__title">Laufschrift</h2>
+        <div class="sidepanel__text">
+          <p>Auf den Sale-Seiten laufen zwei Zeilen „SALE“ in großer Schrift gegeneinander: die obere nach links, die untere nach rechts. Die Bewegung hängt am Scrollen, nicht an der Zeit. Wer stehen bleibt, sieht eine stehende Schrift, beim Hochscrollen läuft alles zurück.</p>
+        </div>
+        <h3 class="sidepanel__sub">So funktioniert es</h3>
+        <div class="sidepanel__text">
+          <p>Jede Zeile enthält ihren Text zweimal direkt hintereinander, ist also genau doppelt so breit wie ein Durchlauf. Die Verschiebung wird bei jedem Scroll-Frame aus der absoluten Scrollposition neu berechnet: <code>scrollY × Tempo</code>, modulo der halben Breite. Dadurch springt die Zeile nahtlos zurück, sobald die zweite Kopie genau dort steht, wo die erste begonnen hat. Es gibt kein Ende und keine Lücke, in keiner Richtung.</p>
+          <p>Bewegt wird nur <code>transform</code>, gebündelt über <code>requestAnimationFrame</code>. Das Tempo stellt <code>MARQUEE_SPEED</code> ein (0,8 px Laufschrift pro px Scrollweg). Bei „Bewegung reduzieren“ steht die Schrift still.</p>
+        </div>
+        <h3 class="sidepanel__sub">Einbau in Pimcore</h3>
+        <div class="sidepanel__text">
+          <p>Als eigener Areabrick „Laufschrift“ mit einem Input-Editable für das Wort (z. B. „SALE“). Das Template wiederholt das Wort so oft, dass eine Kopie breiter als der Bildschirm ist, und gibt die Kopie zweimal aus. Richtung pro Zeile über <code>data-dir</code>. Im Editmode stört die Laufschrift nicht, das Script kann trotzdem dort aus bleiben.</p>
+        </div>
+        <figure class="sidepanel__code">
+          <figcaption>Twig · Areabrick view.html.twig</figcaption>
+          <pre><code>{% set word = pimcore_input('word').getData()|default('SALE') %}
+{% set line = word|repeat(16) %}   {# eigener Filter oder Schleife #}
+
+{% for dir in ['left', 'right'] %}
+  &lt;section class="marquee-section"&gt;
+    &lt;div class="marquee-line" data-dir="{{ dir }}"&gt;
+      &lt;span&gt;{{ line }}&lt;/span&gt;&lt;span aria-hidden="true"&gt;{{ line }}&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+{% endfor %}</code></pre>
+        </figure>
+        <figure class="sidepanel__code">
+          <figcaption>JS</figcaption>
+          <pre><code>const SPEED = 0.8;   // px Laufschrift pro px Scrollweg
+const mod = (n, m) =&gt; ((n % m) + m) % m;
+
+const lines = [...document.querySelectorAll('.marquee-line')].map(el =&gt; ({
+  el, dir: el.dataset.dir === 'left' ? -1 : 1, half: el.scrollWidth / 2
+}));
+
+function update() {
+  lines.forEach(l =&gt; {
+    const x = mod(l.dir * scrollY * SPEED, l.half) - l.half;
+    l.el.style.transform = `translateX(${x}px)`;
+  });
+}
+addEventListener('scroll', () =&gt; requestAnimationFrame(update), { passive: true });</code></pre>
+        </figure>
+      </article>
       <article class="sidepanel__article" data-panel="notes" hidden>
         <h2 class="sidepanel__title">Hinweise</h2>
         <div class="sidepanel__text">
@@ -403,7 +449,7 @@ stage.addEventListener('click', () =&gt; zone &amp;&amp; original[zone].click())
         </div>
         <h3 class="sidepanel__sub">Was diese Seite ist</h3>
         <div class="sidepanel__text">
-          <p>Ein statischer Prototyp (HTML, CSS, JS, ohne Build-Step) für GitHub Pages. Er zeigt Look und Bewegung. In Pimcore wird daraus ein Layout-Template plus einzelne Areabricks pro Section (Hero, Intro, Kacheln, Werkstatt, Slider, Zitat, Marken). Redakteure können die Sections dann frei auf Seiten platzieren.</p>
+          <p>Ein statischer Prototyp (HTML, CSS, JS, ohne Build-Step) für GitHub Pages. Er zeigt Look und Bewegung. In Pimcore wird daraus ein Layout-Template plus einzelne Areabricks pro Section (Hero, Intro, Kacheln, Werkstatt, Slider, Zitat, Marken). Dazu kommen die Sale-Seiten (Übersicht und Detail) mit der Laufschrift unter <code>sale/</code>. Redakteure können die Sections dann frei auf Seiten platzieren.</p>
         </div>
         <h3 class="sidepanel__sub">Dateien im Pimcore-Projekt</h3>
         <div class="sidepanel__text">
@@ -509,7 +555,7 @@ stage.addEventListener('click', () =&gt; zone &amp;&amp; original[zone].click())
     <a href="#">Manzenreiter</a>
     <a href="#">Projekte</a>
     <a href="#">Marken</a>
-    <a class="site-nav__sale wave-swap" href="#" data-label="Sale">Sale</a>
+    <a class="site-nav__sale wave-swap" href="sale/index.html" data-label="Sale">Sale</a>
   </nav>
   <button class="burger" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menu" data-menu-open>
     <span></span><span></span><span></span>
