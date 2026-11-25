@@ -8,6 +8,8 @@
    - Umschalter unten links auf jeder Seite
    ========================================================================== */
 (function () {
+  // Online-Stand: fest auf eine Version, ohne Umschalter. Leer lassen ('') = Umschalter A/B/C wieder aktiv.
+  var FIXED = 'b';
   var KEY = 'hs-design-version';
   var m = location.search.match(/[?&]v=(a|b|c)\b/i);
   var v = m ? m[1].toLowerCase() : null;
@@ -15,6 +17,7 @@
     if (v) localStorage.setItem(KEY, v);
     else v = localStorage.getItem(KEY);
   } catch (e) {}
+  if (FIXED) v = FIXED;
   if (v !== 'b' && v !== 'c') v = 'a';
   document.documentElement.setAttribute('data-version', v);
   if (v !== 'a') document.write('<link rel="stylesheet" href="assets/css/version-b.css">');
@@ -33,7 +36,8 @@
       // B und C: Datum einheitlich „10. Nov. 2026“ statt „2026-11-10“
       if (v !== 'a') t.nodeValue = (+d[3]) + '. ' + MONTHS[+d[2] - 1] + ' ' + d[1];
     });
-    // Umschalter
+    // Umschalter (nicht im Online-Stand)
+    if (FIXED) return;
     var url = function (x) {
       var p = new URLSearchParams(location.search); p.set('v', x);
       return location.pathname + '?' + p.toString() + location.hash;
