@@ -1,6 +1,7 @@
 #!/bin/bash
 # Doppelklick-Server für „MHK: Die Koje“.
-# Startet einen lokalen Webserver im Repo-Root und öffnet die Versionsübersicht.
+# Startet einen lokalen Webserver im Repo-Root und öffnet die Landing Page
+# (frühere Versionen unter /mhk-die-koje/archiv/).
 # Beenden: Terminal-Fenster schließen oder Ctrl+C.
 cd "$(dirname "$0")/.." || exit 1
 PORT=8080

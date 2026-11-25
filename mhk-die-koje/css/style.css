@@ -1,0 +1,759 @@
+/* Die Koje · Video-Scrollytelling v2
+   Ablauf: Hero → Feature-Video (nach 1000px Scroll: 35 % Overlay + Text) → Jubel (35 % Overlay)
+   → … → Finale mit allen Features (10_jubel_ende) → rote Fläche. */
+
+:root {
+  /* Farben aus dem neuen Logo */
+  --red: #e2181d;
+  --red-dark: #b81217;
+  --graphite: #3c3c3b;
+  --graphite-dark: #2c2c2b;
+  --white: #ffffff;
+  --ink-soft: rgba(255, 255, 255, .72);
+  --line: rgba(255, 255, 255, .22);
+
+  --sans: "Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Dashiell Bright", "Fraunces", Georgia, serif;   /* Headlines: Serif, fett, kursiv */
+  --gutter: clamp(16px, 4vw, 56px);
+  --rail: 0px;
+  --bottom-ui: clamp(110px, 15vh, 150px);   /* Platz unten für Scroller + Thumbnail */
+  --header: 72px;
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --fs-h1: clamp(56px, 9vw, 132px);
+  --fs-h2: clamp(44px, 6.6vw, 108px);      /* Feature-Headline, immer zweizeilig */
+  --veil: .5;                               /* Overlay-Stärke (#000 bei 50 %) */
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: #111;
+  color: var(--white);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img, video { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+
+.headline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 800;
+  font-variation-settings: "opsz" 144, "SOFT" 0, "WONK" 0;
+  letter-spacing: -0.01em;
+  line-height: 1.02;
+}
+.accent { color: var(--red); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 10px 28px;
+  background: var(--red);
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  transition: background-color .25s ease, color .25s ease, box-shadow .25s ease;
+}
+.btn:hover { background: var(--red-dark); }
+
+/* Roter Button: weiße Fläche füllt sich von links nach rechts, Text wird rot;
+   beim Verlassen läuft die Fläche nach rechts wieder hinaus. */
+.btn--fill {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+}
+.btn--fill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #fff;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform .45s var(--ease-out);
+}
+.btn--fill:hover { color: var(--red); transition: color .3s ease; }
+.btn--fill.btn--dark:hover { background: var(--graphite); }
+.btn--fill:hover::before { transform: scaleX(1); transform-origin: left center; }
+.btn--small { min-height: 40px; padding: 8px 18px; font-size: 14px; }
+.btn--dark { background: var(--graphite); }
+.btn--dark:hover { background: var(--graphite-dark); }
+.btn--ghost { background: transparent; box-shadow: inset 0 0 0 2px #fff; }
+.btn--ghost:hover { background: #fff; color: var(--red); }
+
+/* ---------- Header (sticky): Logo mittig, CTA rechts ---------- */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  height: 0;
+}
+.logo {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: clamp(130px, 13vw, 210px);
+  transform: translateX(-50%);
+}
+.logo img { width: 100%; height: auto; }
+.header-cta {
+  position: absolute;
+  top: clamp(16px, 3.2vh, 29px);
+  right: var(--gutter);
+  min-height: 42px;
+  padding: 8px 28px;
+  font-size: 15px;
+  letter-spacing: .01em;
+}
+
+/* ---------- Video-Ebene ---------- */
+.backdrop { position: fixed; inset: 0; z-index: 0; overflow: hidden; background: #111; }
+.bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: none;                /* harter Schnitt zwischen den Videos */
+}
+.bg-video.is-active { opacity: 1; }
+.bg-video.is-front { z-index: 1; }
+.bg-warm { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.backdrop-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: #000;
+  opacity: 0;                    /* wird per JS auf 0 bzw. 0.35 gesetzt */
+  transition: opacity .8s var(--ease);
+}
+
+/* ---------- Scroll-Indikator unten links (sticky) ---------- */
+.scroller {
+  position: fixed;
+  left: var(--gutter);
+  bottom: clamp(28px, 4.6vh, 42px);
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  pointer-events: none;
+  transition: opacity .4s ease;
+}
+.scroller-line {
+  position: relative;
+  width: 2px;
+  height: 46px;
+  background: #fff;
+  overflow: hidden;
+}
+.scroller-line i {                       /* rotes Segment läuft nach unten */
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 60%;
+  background: var(--red);
+  animation: scrollhint 1.8s var(--ease) infinite;
+}
+@keyframes scrollhint {
+  0%   { transform: translateY(-100%); }
+  60%  { transform: translateY(250%); }
+  100% { transform: translateY(250%); }
+}
+.scroller-label {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+body.player-open .scroller,
+body.player-open .thumb { opacity: 0; pointer-events: none; }
+
+/* ---------- Kapitel oben links (sticky) ---------- */
+.chapter {
+  position: fixed;
+  top: clamp(24px, 4vh, 36px);
+  left: var(--gutter);
+  z-index: 25;
+  margin: 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 800;
+  font-size: clamp(16px, 1.2vw, 19px);
+  line-height: 1.2;
+  opacity: 0;
+  transition: opacity .35s ease;
+  pointer-events: none;
+}
+.chapter.is-visible { opacity: 1; }
+.chapter.is-swapping { opacity: 0; }
+.chapter-num { color: var(--red); }
+
+/* ---------- Pagination rechts (sticky): Linien 2 × 20 px, Abstand 10 px ----------
+   Die rote Linie (.dots-indicator) wandert stufenlos mit dem Scroll (js/main.js). */
+.dots {
+  position: fixed;
+  right: var(--gutter);
+  top: 50%;
+  z-index: 25;
+  transform: translateY(-50%);
+  transition: opacity .4s ease;
+}
+.dots ol { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.dots a {
+  position: relative;
+  display: block;
+  width: 2px;
+  height: 20px;
+  background: #fff;
+}
+.dots a::before {                /* Hover: Name der Section links neben der Linie */
+  content: attr(data-label);
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .12s linear;          /* schnelles Ausblenden */
+}
+.dots a:hover::before,
+.dots a:focus-visible::before { opacity: 1; transition: opacity .18s linear; }  /* schnelles Einblenden, ohne Bewegung */
+.dots a::after {                 /* größere Klickfläche */
+  content: "";
+  position: absolute;
+  inset: -5px -12px;
+}
+.dots-indicator {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 20px;
+  background: var(--red);
+  pointer-events: none;
+  will-change: transform;
+}
+body.on-hero .dots, body.on-red .dots, body.player-open .dots { opacity: 0; pointer-events: none; }
+
+/* ---------- Video-Thumbnail unten rechts (sticky) ---------- */
+.thumb {
+  position: fixed;
+  right: var(--gutter);
+  bottom: clamp(28px, 4.6vh, 42px);
+  z-index: 25;
+  width: clamp(140px, 12vw, 190px);
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  border: 2px solid #fff;
+  background: #000;
+  cursor: pointer;
+  overflow: hidden;
+  transition: opacity .4s ease, transform .4s var(--ease-out);
+}
+.thumb img { width: 100%; height: 100%; object-fit: cover; transition: opacity .35s ease, transform .6s var(--ease-out); }
+.thumb.is-swapping img { opacity: 0; }
+.thumb-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.thumb.is-hover .thumb-video { opacity: 1; }
+.thumb:hover img { transform: scale(1.06); }
+.thumb-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 50px;
+  height: 50px;
+  margin: -25px 0 0 -25px;
+  border: 2px solid var(--red);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, .35);
+  transition: transform .3s var(--ease-out), background-color .3s ease;
+}
+.thumb-play::after {
+  content: "";
+  position: absolute;
+  left: 19px;
+  top: 15px;
+  border-left: 14px solid #fff;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+}
+.thumb:hover .thumb-play { transform: scale(1.1); background: var(--red); }
+
+/* ---------- Abschnitte ---------- */
+main { position: relative; z-index: 1; }
+
+/* Hero */
+.hero {
+  display: flex;
+  align-items: flex-end;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 160px var(--gutter) var(--bottom-ui) var(--gutter);
+}
+.hero h1 { margin: 0; font-size: clamp(44px, 6.4vw, 96px); }
+.hero .lede { margin: 18px 0 0; max-width: 62ch; font-size: clamp(16px, 1.4vw, 21px); line-height: 1.45; }
+.eyebrow {
+  display: inline-block;
+  margin: 0 0 18px;
+  padding: 6px 12px;
+  background: var(--red);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.lede { margin: 16px 0 28px; max-width: 38ch; font-size: clamp(17px, 1.5vw, 21px); }
+
+
+/* Snap-Scroll: jeder Abschnitt ist genau einen Bildschirm hoch */
+.feature { position: relative; height: 100vh; height: 100svh; }
+.feature-stage {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: clamp(24px, 4vw, 64px);
+  height: 100vh;
+  height: 100svh;
+  padding: 160px var(--gutter) var(--bottom-ui) var(--gutter);
+}
+
+/* Textblock direkt auf dem abgedunkelten Video (Design): rote Pills, große Serif-Headline, Fließtext */
+.card {
+  position: relative;
+  width: min(100%, 1100px);
+}
+/* zwei Zeilen: Umbruch kommt aus dem <br> im HTML, innerhalb einer Zeile wird nicht umbrochen */
+.card h3 { margin: 0 0 clamp(5px, 1vh, 28px); font-size: var(--fs-h2); line-height: 1.03; white-space: nowrap; }
+.card p { margin: 0; max-width: 31em; font-size: clamp(17px, 1.42vw, 23px); line-height: 1.45; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 clamp(12px, 2vh, 20px); padding: 0; list-style: none; }
+.tags li {
+  padding: 6px 20px 7px 20px;
+  border-radius: 999px;
+  background: var(--red);
+  font-size: clamp(13px, .9vw, 15px);
+  font-weight: 700;
+  line-height: 1.4;
+}
+.placeholder { margin-top: 10px !important; font-size: 14px !important; font-style: italic; opacity: .8; }
+
+/* Feature-Text blendet schon ein, während noch das Jubel-Video läuft (Klasse is-text, js/main.js) */
+.card {
+  opacity: 0;
+  transition: opacity .6s var(--ease);
+  pointer-events: none;
+}
+.feature.is-text .card { opacity: 1; pointer-events: auto; }
+
+/* Jubel: reine Video-Strecke mit Overlay */
+.jubel { position: relative; height: 150vh; height: 150svh; }   /* freie Scroll-Strecke */
+/* Parallax-Bilder in den Jubel-Szenen (Bilder in assets/bilder/ austauschen) */
+.parallax { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.px {
+  position: absolute;
+  z-index: 0;
+  overflow: hidden;              /* Maske */
+  will-change: transform;
+}
+.px img,
+.px video {                      /* Bild/Video bewegt sich zusätzlich innerhalb der Maske (leicht nach oben) */
+  position: absolute;
+  left: 0;
+  top: -12%;
+  width: 100%;
+  height: 124%;
+  object-fit: cover;
+  will-change: transform;
+}
+/* das Bild ganz links liegt immer über dem Text */
+.px--1 { z-index: 2; }
+.px--1 { width: clamp(150px, 27.5vw, 400px); aspect-ratio: 1 / 1;     top: 28%; left: 9%; }
+.px--2 { width: clamp(170px, 30vw, 440px);   aspect-ratio: 720 / 430; top: 22%; right: 12%; }
+.px--3 { width: clamp(120px, 12vw, 200px);   aspect-ratio: 440 / 560; top: 62%; left: 52%; }
+/* jede zweite Szene gespiegelt, damit es nicht immer gleich aussieht */
+.jubel:nth-of-type(4n+2) .px--1 { left: auto; right: 10%; top: 24%; z-index: 0; }
+.jubel:nth-of-type(4n+2) .px--2 { right: auto; left: 8%; top: 30%; z-index: 2; }
+.jubel:nth-of-type(4n+2) .px--3 { left: 30%; top: 64%; }
+
+/* Jubel-Titel scrollt ganz normal mit seinem Abschnitt (kein Fade) */
+.jubel-title {
+  position: absolute;
+  z-index: 3;                    /* immer über den Parallax-Bildern */
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0 var(--gutter) 0 calc(var(--gutter) + var(--rail));
+  font-size: clamp(48px, 10vw, 168px);
+  text-align: center;
+}
+
+/* Rote Schlussfläche: Fullscreen-Bleed inkl. Footer, ohne Overlays */
+.cta { position: relative; z-index: 3; height: 100vh; height: 100svh; }
+.cta-layer {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  background: var(--red);
+  text-align: center;
+}
+.cta-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 130px var(--gutter) 40px;
+}
+.cta h2 { margin: 0 0 clamp(16px, 3vh, 32px); font-size: clamp(54px, 8.4vw, 136px); line-height: .95; }
+.cta p { margin: 0; font-size: clamp(16px, 1.35vw, 21px); line-height: 1.45; }
+.cta .cta-kicker { margin: clamp(20px, 4vh, 40px) 0 clamp(18px, 3.4vh, 32px); font-weight: 700; }
+.btn--large { min-height: 62px; padding: 14px 64px 18px 64px; font-size: 19px; }
+.cta-again {
+  margin-top: clamp(32px, 7vh, 72px);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.cta-again:hover { text-decoration: underline; }
+
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding: 32px var(--gutter) 36px;
+  background: #f8f8f8;
+  color: #4a4a4a;
+  font-size: 13px;
+  text-align: left;
+}
+.site-footer a { text-decoration: none; }
+.site-footer a:hover { color: var(--red); }
+
+/* ---------- Video-Overlay ----------
+   Schwarzes Overlay, Video mittig im 16:9-Fenster. Steuerung (Play/Pause, roter Fortschritt, Zeit)
+   unten im Video, X oben rechts. Steuerung + X blenden nach 5 s ohne Mausbewegung aus. */
+.player {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 6vh, 64px) clamp(16px, 6vw, 110px);
+  background: #000;
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+.player[hidden] { display: none; }
+.player.is-open { opacity: 1; }
+.player-frame {
+  position: relative;
+  width: min(100%, (100vh - 2 * clamp(16px, 6vh, 64px)) * 16 / 9);
+  aspect-ratio: 16 / 9;
+  background: #111;
+}
+.player video { display: block; width: 100%; height: 100%; object-fit: contain; cursor: pointer; }
+.player.is-idle, .player.is-idle video { cursor: none; }
+.player-close,
+.player-bar { transition: opacity .4s ease; }
+.player.is-idle .player-close,
+.player.is-idle .player-bar { opacity: 0; pointer-events: none; }
+.player-close {
+  position: absolute;
+  top: clamp(12px, 2.4vw, 24px);
+  right: clamp(12px, 1.2vw, 16px);
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: 0;
+  background: rgba(30, 6, 8, .85);
+  cursor: pointer;
+  transition: background-color .25s ease, opacity .4s ease;
+}
+.player-close:hover { background: var(--red); }
+.player-close::before,
+.player-close::after {           /* X */
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 28px;
+  height: 3px;
+  margin: -1.5px 0 0 -14px;
+  background: #fff;
+  transform: rotate(45deg);
+}
+.player-close::after { transform: rotate(-45deg); }
+.player-bar {
+  position: absolute;
+  left: clamp(12px, 1.2vw, 18px);
+  right: clamp(12px, 1.2vw, 18px);
+  bottom: clamp(12px, 1.6vw, 22px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 26px;
+  padding: 0 10px;
+  background: rgba(0, 0, 0, .85);
+}
+.player-toggle {
+  position: relative;
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+/* Pause-Symbol (zwei Balken) */
+.player-toggle::before,
+.player-toggle::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  width: 3px;
+  height: 10px;
+  background: #fff;
+  transition: background-color .2s ease;
+}
+.player-toggle::before { left: 3px; }
+.player-toggle::after { left: 8px; }
+/* Play-Symbol (Dreieck) */
+.player.is-paused .player-toggle::before {
+  left: 3px;
+  top: 1px;
+  width: 0;
+  height: 0;
+  background: none;
+  border-left: 10px solid #fff;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+}
+.player.is-paused .player-toggle::after { display: none; }
+.player-toggle:hover::before,
+.player-toggle:hover::after { background: var(--red); }
+.player.is-paused .player-toggle:hover::before { background: none; border-left-color: var(--red); }
+.player-progress {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, .3);
+  cursor: pointer;
+}
+.player-progress::before {       /* größere Klickfläche */
+  content: "";
+  position: absolute;
+  inset: -10px 0;
+}
+.player-progress:hover { height: 4px; }
+.player-buffer,
+.player-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+}
+.player-buffer { background: rgba(255, 255, 255, .35); }
+.player-fill { background: var(--red); }
+.player-time {
+  flex: 0 0 auto;
+  min-width: 64px;
+  font-size: 10px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+body.player-open { overflow: hidden; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1000px) {
+  .card { width: 100%; }
+}
+@media (max-width: 640px) {
+  :root { --bottom-ui: 120px; }
+  .chapter { top: 76px; }
+  .dots { display: none; }
+  .tags li { padding: 4px 14px; font-size: 12px; }
+  .logo { width: 110px; left: var(--gutter); transform: none; }
+  .header-cta { min-height: 36px; padding: 6px 14px; font-size: 13px; }
+  .thumb { width: 128px; }
+  .thumb-play { width: 40px; height: 40px; margin: -20px 0 0 -20px; }
+  .thumb-play::after { left: 15px; top: 11px; border-left-width: 11px; border-top-width: 7px; border-bottom-width: 7px; }
+  .card p:not(.num) { font-size: 16px; }
+  .card h3 { font-size: clamp(36px, 10.5vw, 48px); }
+  .btn--large { padding: 12px 40px; }
+  .site-footer { padding: 18px var(--gutter); font-size: 11px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+html, body { overscroll-behavior: none; }
+.header-cta, .chapter { transition: opacity .3s ease, transform .4s var(--ease-out); }
+
+.dots a:focus { outline: none; }
+.dots a:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+
+/* ---------- Fixe Text-Ebenen ----------
+   Hero und Feature-Texte liegen fix im Viewport und blenden an Ort und Stelle ein und aus.
+   Jubel-Titel, Feature-Liste und rote Fläche scrollen ganz normal. */
+.hero-copy,
+.feature-stage {
+  position: fixed;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .5s var(--ease), visibility 0s linear .5s;
+}
+.hero-copy { left: var(--gutter); right: var(--gutter); bottom: var(--bottom-ui); }
+.hero.is-active .hero-copy,
+.feature.is-text .feature-stage {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .5s var(--ease), visibility 0s;
+}
+.hero { display: block; padding: 0; }
+
+/* ---------- Rote Fläche schiebt alles nach oben ----------
+   --push = wie weit die rote Fläche schon ins Bild gefahren ist (setzt js/main.js).
+   Alle fixen Ebenen wandern um diesen Wert mit nach oben – wie echtes Scrollen.
+   Nur das Logo bleibt stehen. */
+.backdrop,
+.feature-stage,
+.chapter,
+.dots,
+.header-cta,
+.scroller,
+.thumb {
+  translate: 0 calc(var(--push, 0px) * -1);
+}
+
+@media (max-width: 640px) {
+  .px--1 { left: 4%; }
+  .px--2 { right: 4%; }
+}
+
+/* ---------- Headline-Reveal: jedes Wort kommt aus einer Maske nach oben ----------
+   Die Wörter werden per js/main.js in <span class="w"><span>…</span></span> verpackt.
+   Auslösen: Klasse .is-revealed am Element (bzw. .is-text am Feature). */
+.reveal .w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0 .1em .14em;          /* Platz für Kursiv-Überhang und Unterlängen */
+  margin: 0 -.1em -.14em;
+}
+.reveal .w > span {
+  display: inline-block;
+  transform: translateY(140%);
+  transition: transform .9s cubic-bezier(.19, 1, .22, 1);
+  transition-delay: calc(var(--wi, 0) * 70ms);
+}
+.reveal.is-revealed .w > span { transform: none; }
+/* zurücksetzen ohne Animation, damit der Reveal beim nächsten Mal wieder abläuft */
+.reveal:not(.is-revealed) .w > span { transition: transform .01s; }
+/* Feature-Headlines: gesteuert über .is-text am Feature-Abschnitt */
+.feature.is-text .card .reveal .w > span {
+  transform: none;
+  transition: transform .9s cubic-bezier(.19, 1, .22, 1);
+  transition-delay: calc(var(--wi, 0) * 70ms + .1s);
+}
+.feature:not(.is-text) .card .reveal .w > span { transform: translateY(140%); transition: transform .01s .5s; }
+
+/* ---------- Scroll-Hinweis: „SCROLL“ verschwindet nach dem ersten Scrollen (ganz oben wieder da), die Linie bleibt ---------- */
+.scroller-label { transition: opacity .4s ease; }
+body.is-scrolled .scroller-label { opacity: 0; }
+
+/* ---------- Intro ----------
+   Ablauf: schwarzes Overlay → nach 0,5 s wächst die weiße Linie aus der Mitte auf 200 px
+   → der rote Fortschritt wächst aus der Mitte (echter Ladefortschritt) → fertig: Linie zieht sich
+   zur Mitte auf 0 zusammen → Overlay fährt nach unten weg
+   (Höhe 100vh → 0) → Video läuft → nach 1,5 s Pill + Headline-Reveal, Copy-Fade, Thumbnail-Fade. */
+.intro {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 200;
+  height: 100vh;
+  height: 100lvh;
+  background: #000;
+  transition: height .85s cubic-bezier(.77, 0, .18, 1);
+}
+.intro.is-leaving { height: 0; }
+.intro-loader {
+  position: absolute;
+  left: 50%;
+  top: 50vh;
+  width: 200px;
+  height: 3px;
+  margin: -1px 0 0 -100px;       /* ganze Pixel → scharfe 3-px-Linie */
+  background: #fff;
+  transform: scaleX(0);                    /* 1. weiße Linie: 0 → 200 px aus der Mitte */
+  transition: transform .55s cubic-bezier(.77, 0, .18, 1);
+}
+.intro.show-loader .intro-loader { transform: scaleX(1); }
+.intro-loader span {                       /* 2. roter Fortschritt aus der Mitte (scaleX per JS) */
+  position: absolute;
+  inset: 0;
+  background: var(--red);
+  transform: scaleX(0);
+  transform-origin: center;
+}
+.intro.is-collapse .intro-loader {         /* 3. fertig: zur Mitte auf 0 zusammenziehen */
+  transform: scaleX(0);
+  transition: transform .45s cubic-bezier(.77, 0, .18, 1);
+}
+
+/* Startzustand der Hero-Elemente bis zur Intro-Sequenz */
+.hero .tags { margin-bottom: clamp(12px, 2.4vh, 24px); opacity: 0; transition: opacity .6s var(--ease); }  /* Pill: Fade wie bei den Feature-Pills */
+body.intro-pill .hero .tags { opacity: 1; }
+.hero .lede { opacity: 0; transition: opacity .9s var(--ease); }
+body.intro-copy .hero .lede { opacity: 1; }
+.thumb { opacity: 0; visibility: hidden; transition: opacity .8s var(--ease), visibility 0s .8s, transform .4s var(--ease-out); }
+body.intro-thumb .thumb { opacity: 1; visibility: visible; transition: opacity .8s var(--ease), visibility 0s, transform .4s var(--ease-out); }
+body.is-intro .scroller,
+body.is-intro .dots,
+body.is-intro .chapter { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal .w > span { transform: none !important; }
+  .intro { display: none; }
+  .hero .lede, .hero .tags, .thumb { opacity: 1; visibility: visible; }
+}
