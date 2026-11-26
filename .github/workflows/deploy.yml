@@ -38,8 +38,9 @@ jobs:
             --exclude '.gitignore' \
             ./ _site/
 
-      - name: Generate project manifest
-        run: node scripts/generate-manifest.mjs _site
+      # Keine Projektliste veröffentlichen: Projekte sind nur über ihren direkten Link erreichbar.
+      - name: Remove local manifest
+        run: rm -f _site/projects.json
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

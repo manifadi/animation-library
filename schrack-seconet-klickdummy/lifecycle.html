@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Life Cycle – Schrack Seconet (Klickdummy)</title>
+<meta name="description" content="Klickdummy Life Cycle – Layout nach Martins Screen „Life Cycle“, Inhalte aus dem Wireframe „30 Life Cycle“.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="img/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+</head>
+<body>
+
+<a class="skip" href="#main">Zum Inhalt springen</a>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="topbar">
+    <div class="topbar__inner">
+      <div class="topbar__group">
+        <a class="topbar__item" href="#"><img src="img/icons/pin.svg" width="11" height="14" alt="">AT</a>
+        <a class="topbar__item" href="#"><img src="img/icons/globe.svg" width="14" height="14" alt="">DE</a>
+      </div>
+      <div class="topbar__group topbar__group--right">
+        <a class="topbar__item topbar__item--hide-sm" href="ansprechpartner.html">Ansprechpartner und Standorte</a>
+        <a class="topbar__item topbar__item--hide-sm" href="newsletter.html">Newsletter abonnieren</a>
+        <a class="topbar__login" href="https://serviceportal.schrack-seconet.com/de/fename-de/" target="_blank" rel="noopener">Login<img src="img/icons/external.svg" width="14" height="14" alt=""><span class="visually-hidden"> (öffnet in neuem Fenster)</span></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="navbar">
+    <div class="navbar__inner">
+      <a class="logo" href="index.html" aria-label="Schrack Seconet – Startseite"><img src="img/icons/logo.svg" width="166" height="48" alt="Schrack Seconet"></a>
+      <nav class="mainnav" aria-label="Hauptnavigation">
+        <a href="bereiche.html">Bereiche</a>
+        <a href="anwendungen.html">Anwendungen</a>
+        <a href="lifecycle.html" class="is-active" aria-current="page">Life Cycle</a>
+        <a class="extlink" href="https://careers.schrack-seconet.com/de/offene-stellen" target="_blank" rel="noopener">Karriere <img class="ext" src="img/icons/external.svg" width="12" height="12" alt=""><span class="visually-hidden"> (öffnet in neuem Fenster)</span></a>
+      </nav>
+      <div class="navbar__actions">
+        <button class="icon-btn" type="button" aria-label="Suche"><img src="img/icons/search.svg" width="22" height="22" alt=""></button>
+        <button class="burger" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="megamenu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Burger-Menü: fährt unter dem Header heraus (Layout: Martins Frame „50 Burgermenu“ · Inhalte: Wireframe „Menü-Overlay (Burger)“) -->
+  <div class="megamenu" id="megamenu" aria-label="Menü" hidden>
+    <div class="megamenu__panel">
+      <nav class="megamenu__inner" aria-label="Gesamtmenü">
+        <a class="megamenu__teaser" href="https://solutions.schrack-seconet.com/de" target="_blank" rel="noopener" style="--i:0">
+          <span class="megamenu__teaser-img ph ph--dark" role="img" aria-label="Platzhalterbild"></span>
+          <span class="megamenu__teaser-logo">WEcare</span>
+          <span class="megamenu__teaser-h">We care for<br>the future of care.</span>
+          <span class="megamenu__teaser-btn">The solution that matters. <img src="img/icons/external.svg" width="14" height="14" alt=""></span>
+          <span class="visually-hidden"> (öffnet in neuem Fenster)</span>
+        </a>
+        <div class="megamenu__col" style="--i:1">
+          <div class="megamenu__group">
+            <h2 class="megamenu__h">Wissenswertes</h2>
+            <ul>
+              <li><a href="ueber-uns.html">Über die Schrack Seconet AG</a></li>
+              <li><a href="daten-und-fakten.html">Daten und Fakten</a></li>
+              <li><a href="ansprechpartner.html">Ansprechpartner und Standorte</a></li>
+              <li><a href="messen.html">Messen &amp; Veranstaltungen</a></li>
+              <li><a href="kundenmagazin.html">Kundenmagazin Fire &amp; Care</a></li>
+              <li><a href="blog.html">Blog</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="megamenu__col" style="--i:2">
+          <div class="megamenu__group">
+            <h2 class="megamenu__h">Referenzen</h2>
+            <ul>
+              <li><a href="referenzen.html">Referenzen</a></li>
+              <li><a href="customer-stories.html">Customer Stories</a></li>
+            </ul>
+          </div>
+          <div class="megamenu__group">
+            <h2 class="megamenu__h">Karriere</h2>
+            <ul>
+              <li><a href="https://careers.schrack-seconet.com/de/" target="_blank" rel="noopener">Ihre Karriere bei uns <img class="ext" src="img/icons/external.svg" width="12" height="12" alt=""><span class="visually-hidden"> (öffnet in neuem Fenster)</span></a></li>
+              <li><a href="https://careers.schrack-seconet.com/de/offene-stellen" target="_blank" rel="noopener">Offene Stellen <img class="ext" src="img/icons/external.svg" width="12" height="12" alt=""><span class="visually-hidden"> (öffnet in neuem Fenster)</span></a></li>
+              <li><a href="https://careers.schrack-seconet.com/de/employee-stories" target="_blank" rel="noopener">Employee Stories <img class="ext" src="img/icons/external.svg" width="12" height="12" alt=""><span class="visually-hidden"> (öffnet in neuem Fenster)</span></a></li>
+              <li><a href="https://wesion.schrack-seconet.com/de/" target="_blank" rel="noopener">Unser Leitbild <img class="ext" src="img/icons/external.svg" width="12" height="12" alt=""><span class="visually-hidden"> (öffnet in neuem Fenster)</span></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="megamenu__col" style="--i:3">
+          <div class="megamenu__group">
+            <h2 class="megamenu__h">Services</h2>
+            <ul>
+              <li><a href="kundendienst-oesterreich.html">Kundendienst Österreich</a></li>
+              <li><a href="kundendienst-international.html">Kundendienst International</a></li>
+              <li><a href="downloads.html">Downloads</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="herstellererklaerungen.html">Herstellererklärungen</a></li>
+              <li><a href="serviceportal.html">Serviceportal</a></li>
+            </ul>
+          </div>
+          <div class="megamenu__group">
+            <h2 class="megamenu__h">Kontakt</h2>
+            <ul>
+              <li><a href="kontakt.html">Kontakt</a></li>
+              <li><a href="newsletter.html">Newsletter-Anmeldung</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+<div class="menu-backdrop" hidden></div>
+
+<main id="main">
+
+  <!-- ============ HERO (Life Cycle) ============ -->
+  <section class="ahero ahero--lc" aria-labelledby="lc-title">
+    <svg class="hero__watermark" viewBox="0 0 83 75" aria-hidden="true" focusable="false">
+      <path vector-effect="non-scaling-stroke" d="M51.9922 28.9916V28.9977H31.4999V28.9916C28.189 28.9916 25.4948 26.3204 25.4948 23.034C25.4948 19.7488 28.189 17.0764 31.4999 17.0764V17.0764H74.9601L83 0H31.517L31.4999 0.0352592V0C18.6945 0 8.2768 10.3334 8.2768 23.034C8.2768 35.7358 18.6945 46.068 31.4999 46.068V46.0364L31.517 46.0741H52.024V46.0716C55.3032 46.0887 57.9657 48.7355 57.9657 51.9952C57.9657 55.2573 55.2971 57.909 52.013 57.9212H8.00689L0 74.9976H51.9922V75C64.7781 75 75.1812 64.6812 75.1812 51.9952C75.1812 39.3092 64.7781 28.9916 51.9922 28.9916"/>
+    </svg>
+    <div class="ahero__text">
+      <span class="pill pill--red">Life Cycle</span>
+      <h1 id="lc-title" class="phero__title">Ihre Gesamt&shy;lösung</h1>
+      <span class="rule rule--hero" aria-hidden="true"></span>
+      <p class="phero__sub">Als Hersteller begleiten wir Ihre Projekte persönlich – von der ersten Beratung bis zum Betrieb über Jahrzehnte.</p>
+      <a class="btn phero__btn" href="kontakt.html">Kontakt aufnehmen</a>
+    </div>
+    <!-- Platzhalter für die interaktive Life-Cycle-Grafik -->
+    <span class="lcvisual ph ph--dark" role="img" aria-label="Platzhalter: interaktive Life-Cycle-Grafik"></span>
+  </section>
+
+  <!-- ============ WEISSES CONTENT-PANEL ============ -->
+  <div class="panel panel--page">
+    <div class="panel__inner">
+
+      <!-- Tab-Modul Life Cycle -->
+      <section class="ptabs ptabs--lc" data-tabs aria-label="Leistungsbausteine im Life Cycle">
+        <div class="ptabs__nav" role="tablist" aria-label="Leistungsbausteine">
+          <button class="ptabs__tab is-active" type="button" role="tab" id="tab-ueberblick" aria-controls="panel-ueberblick" aria-selected="true">Überblick</button>
+          <button class="ptabs__tab" type="button" role="tab" id="tab-beratung" aria-controls="panel-beratung" aria-selected="false" tabindex="-1">Beratung &amp; Konzept</button>
+          <button class="ptabs__tab" type="button" role="tab" id="tab-ausfuehrung" aria-controls="panel-ausfuehrung" aria-selected="false" tabindex="-1">Ausführung</button>
+          <button class="ptabs__tab" type="button" role="tab" id="tab-inbetriebnahme" aria-controls="panel-inbetriebnahme" aria-selected="false" tabindex="-1">Inbetriebnahme &amp; Übergabe</button>
+          <button class="ptabs__tab" type="button" role="tab" id="tab-service" aria-controls="panel-service" aria-selected="false" tabindex="-1">Service &amp; Instandhaltung</button>
+        </div>
+        <div class="ptabs__panel" role="tabpanel" id="panel-ueberblick" aria-labelledby="tab-ueberblick">
+          <div class="ptabs__text">
+            <h2 class="ptabs__h">Wir sind da, wann immer Sie uns brauchen</h2>
+            <p>Gesamtbetreuung und persönliche Zusammenarbeit in vier Leistungsbausteinen – vom Konzept bis zum Dauerbetrieb über Jahrzehnte. Abgestimmt auf die Phasen Planung, Installation, Inbetriebnahme, Betrieb, Instandhaltung, Modernisierung und Erweiterung.</p>
+            <ul class="lcfacts">
+              <li><strong>44 Jahre</strong> längste Kundenbeziehung</li>
+              <li><strong>5 Generationen</strong> rückwärtskompatibler Systeme</li>
+              <li><strong>100&nbsp;%</strong> Betreuung für konstante Funktion</li>
+            </ul>
+            <blockquote class="lcquote"><p>„Zitat Herbert Hübl, Head of International Operations“</p></blockquote>
+            <a class="btn" href="#" target="_blank" rel="noopener">Digitale Services auf Solutions <img src="img/icons/external.svg" width="14" height="14" alt="" class="btn__ext"></a>
+          </div>
+          <span class="ptabs__img ph" role="img" aria-label="Platzhalterbild"></span>
+        </div>
+        <div class="ptabs__panel" role="tabpanel" id="panel-beratung" aria-labelledby="tab-beratung" hidden>
+          <div class="ptabs__text">
+            <h2 class="ptabs__h">Headline: Beratung &amp; Konzept</h2>
+            <p>Platzhalter-Fließtext zum Leistungsbaustein „Beratung &amp; Konzept“: Was Schrack Seconet in dieser Phase übernimmt und welchen Nutzen Betreiber, Planer und Errichter davon haben. Inhalte werden im Workshop festgelegt.</p>
+            <a class="btn" href="kontakt.html">Kontakt aufnehmen</a>
+          </div>
+          <span class="ptabs__img ph" role="img" aria-label="Platzhalterbild"></span>
+        </div>
+        <div class="ptabs__panel" role="tabpanel" id="panel-ausfuehrung" aria-labelledby="tab-ausfuehrung" hidden>
+          <div class="ptabs__text">
+            <h2 class="ptabs__h">Headline: Ausführung</h2>
+            <p>Platzhalter-Fließtext zum Leistungsbaustein „Ausführung“: Was Schrack Seconet in dieser Phase übernimmt und welchen Nutzen Betreiber, Planer und Errichter davon haben. Inhalte werden im Workshop festgelegt.</p>
+            <a class="btn" href="kontakt.html">Kontakt aufnehmen</a>
+          </div>
+          <span class="ptabs__img ph" role="img" aria-label="Platzhalterbild"></span>
+        </div>
+        <div class="ptabs__panel" role="tabpanel" id="panel-inbetriebnahme" aria-labelledby="tab-inbetriebnahme" hidden>
+          <div class="ptabs__text">
+            <h2 class="ptabs__h">Headline: Inbetriebnahme &amp; Übergabe</h2>
+            <p>Platzhalter-Fließtext zum Leistungsbaustein „Inbetriebnahme &amp; Übergabe“: Was Schrack Seconet in dieser Phase übernimmt und welchen Nutzen Betreiber, Planer und Errichter davon haben. Inhalte werden im Workshop festgelegt.</p>
+            <a class="btn" href="kontakt.html">Kontakt aufnehmen</a>
+          </div>
+          <span class="ptabs__img ph" role="img" aria-label="Platzhalterbild"></span>
+        </div>
+        <div class="ptabs__panel" role="tabpanel" id="panel-service" aria-labelledby="tab-service" hidden>
+          <div class="ptabs__text">
+            <h2 class="ptabs__h">Headline: Service &amp; Instandhaltung</h2>
+            <p>Platzhalter-Fließtext zum Leistungsbaustein „Service &amp; Instandhaltung“: Was Schrack Seconet in dieser Phase übernimmt und welchen Nutzen Betreiber, Planer und Errichter davon haben. Inhalte werden im Workshop festgelegt.</p>
+            <a class="btn" href="kontakt.html">Kontakt aufnehmen</a>
+          </div>
+          <span class="ptabs__img ph" role="img" aria-label="Platzhalterbild"></span>
+        </div>
+      </section>
+
+      <hr class="divider">
+
+      <!-- Referenzen -->
+      <section aria-labelledby="ref-title">
+        <div class="blog__head">
+          <h2 id="ref-title" class="h3 h3--navy">Wer bereits auf uns vertraut</h2>
+          <div class="blog__nav">
+            <a class="textlink textlink--plain" href="referenzen.html">Alle Referenzen</a>
+            <button class="navbtn" type="button" aria-label="Vorherige Referenzen"><img src="img/icons/nav-left.svg" width="40" height="40" alt=""></button>
+            <button class="navbtn" type="button" aria-label="Nächste Referenzen"><img src="img/icons/nav-right.svg" width="40" height="40" alt=""></button>
+          </div>
+        </div>
+        <div class="blog__grid">
+          <a class="post story" href="customer-story.html">
+            <span class="post__img ph" role="img" aria-label="Platzhalterbild"></span>
+            <h3 class="post__title story__title">Titel der Customer Story</h3>
+            <p class="post__text story__text">Kunde, Ort und eingesetztes System in zwei Zeilen Teaser-Text&nbsp;…</p>
+            <span class="textlink">Zur Customer Story <img src="img/icons/arrow-red.svg" width="16" height="12" alt=""></span>
+          </a>
+          <a class="post story" href="customer-story.html">
+            <span class="post__img ph" role="img" aria-label="Platzhalterbild"></span>
+            <h3 class="post__title story__title">Titel der Customer Story</h3>
+            <p class="post__text story__text">Kunde, Ort und eingesetztes System in zwei Zeilen Teaser-Text&nbsp;…</p>
+            <span class="textlink">Zur Customer Story <img src="img/icons/arrow-red.svg" width="16" height="12" alt=""></span>
+          </a>
+          <a class="post story" href="customer-story.html">
+            <span class="post__img ph" role="img" aria-label="Platzhalterbild"></span>
+            <h3 class="post__title story__title">Titel der Customer Story</h3>
+            <p class="post__text story__text">Kunde, Ort und eingesetztes System in zwei Zeilen Teaser-Text&nbsp;…</p>
+            <span class="textlink">Zur Customer Story <img src="img/icons/arrow-red.svg" width="16" height="12" alt=""></span>
+          </a>
+          <a class="post story" href="customer-story.html">
+            <span class="post__img ph" role="img" aria-label="Platzhalterbild"></span>
+            <h3 class="post__title story__title">Titel der Customer Story</h3>
+            <p class="post__text story__text">Kunde, Ort und eingesetztes System in zwei Zeilen Teaser-Text&nbsp;…</p>
+            <span class="textlink">Zur Customer Story <img src="img/icons/arrow-red.svg" width="16" height="12" alt=""></span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Teaser: Ansprechpartner / Downloads / FAQ -->
+      <section class="teasers teasers--service" aria-label="Service">
+        <a class="teaser-big" href="ansprechpartner.html">
+          <span class="teaser-big__img ph ph--dark" role="img" aria-label="Platzhalterbild"></span>
+          <span class="pill pill--red teaser-big__pill">Ansprechpartner</span>
+          <div class="teaser-big__body">
+            <h2 class="h3">Wir sind für Sie da</h2>
+            <span class="rule rule--teaser rule--wide" aria-hidden="true"></span>
+            <span class="teaser-big__cta">Ansprechpartner &amp; Standorte <span class="circle circle--red"><img src="img/icons/arrow-white.svg" width="16" height="12" alt=""></span></span>
+          </div>
+        </a>
+        <div class="teaser-stack">
+          <a class="teaser-sm" href="downloads.html">
+            <span class="pill pill--outline">Downloads</span>
+            <div class="teaser-sm__body">
+              <div>
+                <h3 class="teaser-sm__title">Ressourcen &amp; Dokumentation</h3>
+                <p>Technische Datenblätter, Bedienungsanleitungen und Zertifikate zum Download.</p>
+              </div>
+              <span class="circle circle--red"><img src="img/icons/arrow-white.svg" width="16" height="12" alt=""></span>
+            </div>
+          </a>
+          <a class="teaser-sm" href="faq.html">
+            <span class="pill pill--outline">FAQ</span>
+            <div class="teaser-sm__body">
+              <div>
+                <h3 class="teaser-sm__title">Wissen &amp; Antworten</h3>
+                <p>Die häufigsten Fragen und Antworten zu unseren Systemen auf einen Blick.</p>
+              </div>
+              <span class="circle circle--red"><img src="img/icons/arrow-white.svg" width="16" height="12" alt=""></span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__top">
+      <a class="footer__domain" href="index.html">schrack-seconet.com</a>
+      <img class="footer__social" src="img/icons/social.svg" width="119" height="22" alt="Instagram, Facebook, LinkedIn">
+    </div>
+    <div class="footer__main">
+      <div class="footer__brand">
+        <img src="img/icons/s-logo.svg" width="83" height="75" alt="">
+        <p class="footer__hashtag">#SchrackSeconet</p>
+        <p class="footer__claim">Langjährige Partnerschaften mit Handschlagqualität, weltweite Erfahrung und innovative Lösungen in Fire Safety, Health Care und Security von Menschen zum Schutz für Menschen und Werte.</p>
+        <a class="btn" href="ueber-uns.html">Über Schrack Seconet</a>
+      </div>
+      <div class="footer__col">
+        <h2 class="footer__h">Schrack Seconet AG</h2>
+        <p class="footer__list">Eibesbrunnergasse 18<br>1120 Wien | Österreich<br>Telefon +43 1 81157<br><a href="#">office@schrack-seconet.com</a></p>
+      </div>
+      <div class="footer__col">
+        <h2 class="footer__h">Quicklinks</h2>
+        <ul class="footer__list">
+          <li><a href="lifecycle.html">Life Cycle</a></li>
+          <li><a href="ansprechpartner.html">Ansprechpartner</a></li>
+          <li><a href="#">Initiativbewerbung</a></li>
+          <li><a href="referenzen.html">Referenzen</a></li>
+          <li><a href="downloads.html">Media Center</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h2 class="footer__h">Quicklinks</h2>
+        <ul class="footer__list">
+          <li><a href="https://careers.schrack-seconet.com/de/offene-stellen" target="_blank" rel="noopener">Karriere <img class="ext" src="img/icons/external.svg" width="12" height="12" alt=""><span class="visually-hidden"> (öffnet in neuem Fenster)</span></a></li>
+          <li><a href="anwendungen.html">Anwendungen</a></li>
+          <li><a href="bereiche.html">Bereiche</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__copy">© Schrack Seconet AG. Alle Rechte vorbehalten.</p>
+      <nav class="footer__legal" aria-label="Rechtliches">
+        <a href="#">Nutzungsbedingungen</a>
+        <a href="#">Impressum</a>
+        <a href="#">Datenschutzerklärung</a>
+        <a href="#">Cookie-Einstellungen</a>
+      </nav>
+      <a class="totop" href="#" aria-label="Nach oben"><img src="img/icons/to-top.svg" width="46" height="46" alt=""></a>
+    </div>
+  </div>
+</footer>
+
+<!-- News-Leiste + Chatbot (Design „01b Home“): News wechseln automatisch alle 7 Sekunden -->
+<aside class="chatbot-bar" aria-label="Aktuelles und Chatbot">
+  <div class="newsbar" data-newsbar data-interval="7000" aria-roledescription="Karussell" aria-label="Aktuelles">
+    <button class="newsbar__nav newsbar__nav--prev" type="button" aria-label="Vorherige News"><svg width="9" height="14" viewBox="0 0 9 14" aria-hidden="true"><path d="M7 1 2 7l5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <div class="newsbar__viewport" aria-live="polite">
+      <a class="newsbar__item is-current" href="https://solutions.schrack-seconet.com/de" target="_blank" rel="noopener" role="group" aria-roledescription="News" aria-label="1 von 4">
+        <span class="newsbar__img ph" role="img" aria-label="Platzhalterbild"></span>
+        <span class="newsbar__text"><strong>Carechamp:</strong> Pflegekräfte durch digitale Lösungen entlasten.</span>
+        <span class="newsbar__btn">mehr<img class="ext" src="img/icons/external.svg" width="11" height="11" alt=""></span><span class="visually-hidden"> (öffnet in neuem Fenster)</span>
+      </a>
+      <a class="newsbar__item" href="kundenmagazin-ausgabe.html" inert role="group" aria-roledescription="News" aria-label="2 von 4">
+        <span class="newsbar__img ph" role="img" aria-label="Platzhalterbild"></span>
+        <span class="newsbar__text"><strong>fire&amp;care 01/2026:</strong> Visocall Mobile – klare Abläufe, mehr Zeit für das Wesentliche.</span>
+        <span class="newsbar__btn">mehr</span>
+      </a>
+      <a class="newsbar__item" href="blogbeitrag.html" inert role="group" aria-roledescription="News" aria-label="3 von 4">
+        <span class="newsbar__img ph" role="img" aria-label="Platzhalterbild"></span>
+        <span class="newsbar__text"><strong>Modernisierung:</strong> Rufanlagen sicher und im laufenden Betrieb erneuern.</span>
+        <span class="newsbar__btn">mehr</span>
+      </a>
+      <a class="newsbar__item" href="messe.html" inert role="group" aria-roledescription="News" aria-label="4 von 4">
+        <span class="newsbar__img ph" role="img" aria-label="Platzhalterbild"></span>
+        <span class="newsbar__text"><strong>Exposanità 2027:</strong> Besuchen Sie uns vom 14. bis 16. April in Bologna.</span>
+        <span class="newsbar__btn">mehr</span>
+      </a>
+    </div>
+    <button class="newsbar__nav newsbar__nav--next" type="button" aria-label="Nächste News"><svg width="9" height="14" viewBox="0 0 9 14" aria-hidden="true"><path d="M7 1 2 7l5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+  <a class="chatbot" href="#">
+    <span class="chatbot__avatar ph ph--round ph--sm" aria-hidden="true"></span>
+    <span class="chatbot__text"><strong>Chatbot</strong><span>Wie kann ich helfen?</span><img src="img/icons/arrow-red-chat.svg" width="16" height="12" alt=""></span>
+  </a>
+</aside>
+<div class="chatbot-spacer" aria-hidden="true"></div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

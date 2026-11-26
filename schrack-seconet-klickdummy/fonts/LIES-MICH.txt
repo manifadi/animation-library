@@ -1,0 +1,6 @@
+Hier die lizenzierten Webfonts von Univers Next Pro ablegen (Webfont-Lizenz nötig):
+  UniversNextPro-Regular.woff2  (400)
+  UniversNextPro-Medium.woff2   (500)
+  UniversNextPro-Bold.woff2     (700)
+Ohne diese Dateien nutzt die Seite eine lokal installierte Univers Next Pro,
+sonst Helvetica Neue / Arial als Fallback.

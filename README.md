@@ -1,6 +1,8 @@
 # Animation Tryouts
 
-Sammlung von Animations- und Website-Experimenten. Jeder Ordner im Repo-Root ist ein eigenständiges Projekt; die Startseite listet sie automatisch als Gallery.
+Sammlung von Animations- und Website-Experimenten. Jeder Ordner im Repo-Root ist ein eigenständiges Projekt.
+
+**Seit 26.11.2026 ohne öffentliche Übersicht:** Die Startseite listet keine Projekte mehr, beim Deploy wird keine `projects.json` veröffentlicht, und `robots.txt` sperrt Suchmaschinen. Projekte sind nur über ihren direkten Link erreichbar: `https://manifadi.github.io/animation-library/<ordner>/`. Lokal kann die Übersicht weiterhin mit `node scripts/generate-manifest.mjs` erzeugt werden (z. B. für `assets/gallery.js`).
 
 ## Neues Projekt hinzufügen
 
