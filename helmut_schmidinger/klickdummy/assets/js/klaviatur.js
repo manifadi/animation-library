@@ -175,6 +175,8 @@
      (z. B. die Tasten) springt beim Wechseln nicht. Gemessen mit unsichtbarer Kopie. */
   function stabilize(panel) {
     function measure() {
+      // Mobil/Tablet: Panel so hoch wie der Text – die Tasten rücken je nach Textmenge nach oben/unten
+      if (window.matchMedia('(max-width: 1023px)').matches) { panel.style.minHeight = ''; return; }
       var probe = panel.cloneNode(false);
       probe.removeAttribute('id');
       probe.removeAttribute('data-kv-panel');
